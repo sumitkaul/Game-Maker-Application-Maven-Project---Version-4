@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 24, 2012 1:37:04 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+ <class name="model.Resource" table="Resources" catalog="a9team3">
+  <id name="name" type="java.lang.String">
+   <column name="resource_name"/>
+   <generator class="assigned"/>
+  </id>
+  
+  <property generated="never" lazy="false" name="type" column="resource_type" type="java.lang.String"></property>
+  <property generated="never" lazy="false" name="username" column="username" type="java.lang.String"></property>
+  <property generated="never" lazy="false" name="data" type="binary" column="resource"></property>
+  
+  
+  
+<!--  <composite-id name=”purchasedTestId”>
+	<key-property name=”name” column=”resource_name” />
+	<key-property name=”number” column=”CUSTOMER_ID” />
+  </composite-id>
+-->
+ </class>
+</hibernate-mapping>

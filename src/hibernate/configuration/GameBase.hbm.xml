@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+								   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 24, 2012 1:37:04 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+ <class name="model.GameBase" table="GameBase" catalog="a9team3">
+  <id name="gameName" type="java.lang.String">
+   <column name="game_name"/>
+  </id>
+ <id name="authorName" type="java.lang.String">
+   <column name="game_author"/>
+  </id>
+  <id name="gameData" type="java.lang.String">
+   <column name="game_data"/>
+  </id>
+ </class>
+</hibernate-mapping>

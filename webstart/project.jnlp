@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0+" codebase="http://fluency.knownspace.org/student-files/fall2012/a9/team3/" href="project.jnlp">
+  <information>
+    <title>Game Maker Team 3</title>
+    <vendor>P532</vendor>
+    <homepage href="http://fluency.knownspace.org/confluence" />
+    <description></description>   
+    <description kind="short">Team 3's A9 Game Maker</description>
+    <icon href="kslogo.gif" />
+  </information>
+  <offline-allowed />
+  <security>
+      <all-permissions />
+  </security>
+  <resources>
+    <j2se version="1.6+" />
+    <jar href="team3.jar" />
+  </resources>
+  <application-desc main-class="gameMaker.gameMaker" />
+</jnlp>
