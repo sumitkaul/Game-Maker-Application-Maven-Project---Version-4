@@ -6,14 +6,14 @@
             <posY>221.0</posY>
             <speedX>1.0</speedX>
             <speedY>1.0</speedY>
-            <width>170.0</width>
-            <height>170.0</height>
+            <width>120.0</width>
+            <height>60.0</height>
             <previousX>142.0</previousX>
             <previousY>222.0</previousY>
             <visible>true</visible>
             <id>Untitled 0</id>
             <groupId>Default Group 0</groupId>
-            <imageUrlString>34</imageUrlString>
+            <imageUrlString>images/paddle.png</imageUrlString>
             <heading>0.0</heading>
             <eventListenerList></eventListenerList>
             <stringToEventMap></stringToEventMap>
