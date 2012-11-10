@@ -1,32 +1,122 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" ?>
 <game>
-    <spriteList>
-        <gameObject>
-            <posX>141.0</posX>
-            <posY>221.0</posY>
-            <speedX>1.0</speedX>
-            <speedY>1.0</speedY>
-            <width>120.0</width>
-            <height>60.0</height>
-            <previousX>142.0</previousX>
-            <previousY>222.0</previousY>
-            <visible>true</visible>
-            <id>Untitled 0</id>
-            <groupId>Default Group 0</groupId>
-            <imageUrlString>images/paddle.png</imageUrlString>
-            <heading>0.0</heading>
-            <eventListenerList></eventListenerList>
-            <stringToEventMap></stringToEventMap>
-            <layer>Layer 1</layer>
-            <scoreModificationValue>0</scoreModificationValue>
-            <imageId>34</imageId>
-        </gameObject>
-    </spriteList>
-    <eventsForGameController></eventsForGameController>
-    <eventsForKeyController></eventsForKeyController>
-    <layers>
-        <string>All Layers</string>
-        <string>Layer 1</string>
-    </layers>
-    <isClockDisplayable>false</isClockDisplayable>
+	<spritelist>
+		<gameobject>
+			<posx>
+				240.0
+			</posx>
+			<posy>
+				240.0
+			</posy>
+			<speedx>
+				5.0
+			</speedx>
+			<speedy>
+				5.0
+			</speedy>
+			<width>
+				30.0
+			</width>
+			<height>
+				30.0
+			</height>
+			<previousx>
+				235.0
+			</previousx>
+			<previousy>
+				235.0
+			</previousy>
+			<visible>
+				true
+			</visible>
+			<id>
+				Untitled 0
+			</id>
+			<groupid>
+				Default Group 0
+			</groupid>
+			<imageurlstring>
+				13
+			</imageurlstring>
+			<heading>
+				0.0
+			</heading>
+			<eventlistenerlist>
+				<eventlistener.outofboundaryeventlistener>
+					<registeredobjectid>
+						Untitled 0
+					</registeredobjectid>
+					<registeredgroupid>
+						Default Group 0
+					</registeredgroupid>
+					<action class="action.ActionStartOver">
+						<startx>
+							0.0
+						</startx>
+						<starty>
+							0.0
+						</starty>
+					</action>
+				</eventlistener.outofboundaryeventlistener>
+				<eventlistener.newframeeventlistener>
+					<registeredobjectid>
+						Untitled 0
+					</registeredobjectid>
+					<registeredgroupid>
+						Default Group 0
+					</registeredgroupid>
+					<action class="action.ActionMove">
+					</action>
+				</eventlistener.newframeeventlistener>
+			</eventlistenerlist>
+			<stringtoeventmap>
+				<entry>
+					<string>
+						Out of Boundary+Start Over
+					</string>
+					<int>
+						1299242924
+					</int>
+				</entry>
+				<entry>
+					<string>
+						New Frame+Move
+					</string>
+					<int>
+						79606791
+					</int>
+				</entry>
+			</stringtoeventmap>
+			<layer>
+				Layer 1
+			</layer>
+			<scoremodificationvalue>
+				1
+			</scoremodificationvalue>
+			<imageid>
+				13
+			</imageid>
+		</gameobject>
+	</spritelist>
+	<eventsforgamecontroller>
+		<eventlistener.outofboundaryeventlistener
+			reference="../../spriteList/gameObject/eventListenerList/eventlistener.OutOfBoundaryEventListener">
+		</eventlistener.outofboundaryeventlistener>
+		<eventlistener.newframeeventlistener
+			reference="../../spriteList/gameObject/eventListenerList/eventlistener.NewFrameEventListener">
+		</eventlistener.newframeeventlistener>
+	</eventsforgamecontroller>
+	<eventsforkeycontroller>
+	</eventsforkeycontroller>
+	<layers>
+		<string>
+			All Layers
+		</string>
+		<string>
+			Layer 1
+		</string>
+	</layers>
+	<isclockdisplayable>
+		false
+	</isclockdisplayable>
 </game>
