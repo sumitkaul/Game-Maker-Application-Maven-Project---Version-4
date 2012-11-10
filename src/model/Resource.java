@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.sql.SQLException;
 
 import org.hibernate.Hibernate;
-import hibernate.configuration.HibernateUtil;
+
 
 //import com.mysql.jdbc.Blob;
 import java.sql.Blob;

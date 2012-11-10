@@ -1,8 +1,5 @@
 package view;
 
-import hibernate.configuration.HibernateUtil;
-import hibernate.configuration.LoadResources;
-import hibernate.configuration.SaveResource;
 
 import java.awt.Button;
 import java.awt.Color;
