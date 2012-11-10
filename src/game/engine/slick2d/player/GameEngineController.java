@@ -1,10 +1,12 @@
 package game.engine.slick2d.player;
 
+import java.io.ByteArrayInputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import loader.GameDataPackageIO;
 import loader.GamePackage;
+import model.Resources;
 import model.SpriteModel;
 import org.apache.log4j.Logger;
 import org.newdawn.slick.BasicGame;
@@ -12,6 +14,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import view.communication.ClientHandler;
 
 import utility.SpriteList;
 
@@ -36,8 +39,20 @@ public class GameEngineController extends BasicGame {
         tempImagesForTesting = new HashMap<Integer, Image>(5);
 
         for (SpriteModel s : allSpriteModels) {
+
         	SpriteList.getInstance().addSprite(s);
-            Image image = new Image(s.getImageUrlString());
+
+            String rid = s.getImageUrlString();
+            Resources r = ClientHandler.loadResource(rid, "tintin.cs.indiana.edu:8096", "/GameMakerServer/loadResource", new Exception[1]);
+            byte[] imageData = r.getResource();
+            Image image = null;
+            try {
+                image = new Image(new ByteArrayInputStream(imageData), r.getResourceName(), false);
+            } catch (Exception ex) {
+                LOG.error(ex);
+                continue;
+            }
+
             tempImagesForTesting.put(s.hashCode(), image);
         }
         
