@@ -50,7 +50,7 @@
 	<property name="mig" value="miglayout15-swing.jar" />
 	<property name="slick-util" value="slick-util.jar" />
 	<property name="slick" value="slick.jar" />
-	<property name="jinput" value="jinput" />
+	<property name="jinput" value="jinput.jar" />
 	<property name="lwjgl_util" value="lwjgl_util.jar" />
 	<property name="lwjgl" value="lwjgl.jar" />
 	
