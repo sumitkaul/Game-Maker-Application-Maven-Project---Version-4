@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+    <spriteList>
+        <gameObject>
+            <posX>141.0</posX>
+            <posY>221.0</posY>
+            <speedX>1.0</speedX>
+            <speedY>1.0</speedY>
+            <width>170.0</width>
+            <height>170.0</height>
+            <previousX>142.0</previousX>
+            <previousY>222.0</previousY>
+            <visible>true</visible>
+            <id>Untitled 0</id>
+            <groupId>Default Group 0</groupId>
+            <imageUrlString>34</imageUrlString>
+            <heading>0.0</heading>
+            <eventListenerList></eventListenerList>
+            <stringToEventMap></stringToEventMap>
+            <layer>Layer 1</layer>
+            <scoreModificationValue>0</scoreModificationValue>
+            <imageId>34</imageId>
+        </gameObject>
+    </spriteList>
+    <eventsForGameController></eventsForGameController>
+    <eventsForKeyController></eventsForKeyController>
+    <layers>
+        <string>All Layers</string>
+        <string>Layer 1</string>
+    </layers>
+    <isClockDisplayable>false</isClockDisplayable>
+</game>

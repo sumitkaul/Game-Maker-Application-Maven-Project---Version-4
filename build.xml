@@ -48,6 +48,11 @@
 	<property name="jboss-transaction-api_1.1_spec-1.0.0.Final" value="jboss-transaction-api_1.1_spec-1.0.0.Final.jar" />
 	<property name="jta-1.1" value="jta-1.1.jar" />
 	<property name="mig" value="miglayout15-swing.jar" />
+	<property name="slick-util" value="slick-util.jar" />
+	<property name="slick" value="slick.jar" />
+	<property name="jinput" value="jinput" />
+	<property name="lwjgl_util" value="lwjgl_util.jar" />
+	<property name="lwjgl" value="lwjgl.jar" />
 	
 
 
@@ -244,6 +249,11 @@
 		<unzip src="${lib}/${jboss-transaction-api_1.1_spec-1.0.0.Final}" dest="${project.build.home}" />
 		<unzip src="${lib}/${jta-1.1}" dest="${project.build.home}" />
 		<unzip src="${lib}/${mig}" dest="${project.build.home}" />
+		<unzip src="${lib}/${slick-util}" dest="${project.build.home}" />
+		<unzip src="${lib}/${slick}" dest="${project.build.home}" />
+		<unzip src="${lib}/${jinput}" dest="${project.build.home}" />
+		<unzip src="${lib}/${lwjgl_util}" dest="${project.build.home}" />
+		<unzip src="${lib}/${lwjgl}" dest="${project.build.home}" />
 
 		<copy todir="${project.build.home}" flatten="false">
 			<fileset dir="${src}">
