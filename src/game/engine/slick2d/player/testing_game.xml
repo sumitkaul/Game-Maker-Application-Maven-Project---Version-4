@@ -1,122 +1,58 @@
 <?xml version="1.0" ?>
 <game>
-	<spritelist>
-		<gameobject>
-			<posx>
-				240.0
-			</posx>
-			<posy>
-				240.0
-			</posy>
-			<speedx>
-				5.0
-			</speedx>
-			<speedy>
-				5.0
-			</speedy>
-			<width>
-				30.0
-			</width>
-			<height>
-				30.0
-			</height>
-			<previousx>
-				235.0
-			</previousx>
-			<previousy>
-				235.0
-			</previousy>
-			<visible>
-				true
-			</visible>
-			<id>
-				Untitled 0
-			</id>
-			<groupid>
-				Default Group 0
-			</groupid>
-			<imageurlstring>
-				13
-			</imageurlstring>
-			<heading>
-				0.0
-			</heading>
-			<eventlistenerlist>
-				<eventlistener.outofboundaryeventlistener>
-					<registeredobjectid>
-						Untitled 0
-					</registeredobjectid>
-					<registeredgroupid>
-						Default Group 0
-					</registeredgroupid>
-					<action class="action.ActionStartOver">
-						<startx>
-							0.0
-						</startx>
-						<starty>
-							0.0
-						</starty>
-					</action>
-				</eventlistener.outofboundaryeventlistener>
-				<eventlistener.newframeeventlistener>
-					<registeredobjectid>
-						Untitled 0
-					</registeredobjectid>
-					<registeredgroupid>
-						Default Group 0
-					</registeredgroupid>
-					<action class="action.ActionMove">
-					</action>
-				</eventlistener.newframeeventlistener>
-			</eventlistenerlist>
-			<stringtoeventmap>
-				<entry>
-					<string>
-						Out of Boundary+Start Over
-					</string>
-					<int>
-						1299242924
-					</int>
-				</entry>
-				<entry>
-					<string>
-						New Frame+Move
-					</string>
-					<int>
-						79606791
-					</int>
-				</entry>
-			</stringtoeventmap>
-			<layer>
-				Layer 1
-			</layer>
-			<scoremodificationvalue>
-				1
-			</scoremodificationvalue>
-			<imageid>
-				13
-			</imageid>
-		</gameobject>
-	</spritelist>
-	<eventsforgamecontroller>
-		<eventlistener.outofboundaryeventlistener
-			reference="../../spriteList/gameObject/eventListenerList/eventlistener.OutOfBoundaryEventListener">
-		</eventlistener.outofboundaryeventlistener>
-		<eventlistener.newframeeventlistener
-			reference="../../spriteList/gameObject/eventListenerList/eventlistener.NewFrameEventListener">
-		</eventlistener.newframeeventlistener>
-	</eventsforgamecontroller>
-	<eventsforkeycontroller>
-	</eventsforkeycontroller>
-	<layers>
-		<string>
-			All Layers
-		</string>
-		<string>
-			Layer 1
-		</string>
-	</layers>
-	<isclockdisplayable>
-		false
-	</isclockdisplayable>
+    <spriteList>
+        <gameObject>
+            <posX>240.0</posX>
+            <posY>240.0</posY>
+            <speedX>5.0</speedX>
+            <speedY>5.0</speedY>
+            <width>30.0</width>
+            <height>30.0</height>
+            <previousX>235.0</previousX>
+            <previousY>235.0</previousY>
+            <visible>true</visible>
+            <id>Untitled 0</id>
+            <groupId>Default Group 0</groupId>
+            <imageUrlString>13</imageUrlString>
+            <heading>0.0</heading>
+            <eventListenerList>
+                <eventlistener.OutOfBoundaryEventListener>
+                    <registeredObjectId>Untitled 0</registeredObjectId>
+                    <registeredGroupId>Default Group 0</registeredGroupId>
+                    <action class="action.ActionStartOver">
+                        <startX>0.0</startX>
+                        <startY>0.0</startY>
+                    </action>
+                </eventlistener.OutOfBoundaryEventListener>
+                <eventlistener.NewFrameEventListener>
+                    <registeredObjectId>Untitled 0</registeredObjectId>
+                    <registeredGroupId>Default Group 0</registeredGroupId>
+                    <action class="action.ActionMove"></action>
+                </eventlistener.NewFrameEventListener>
+            </eventListenerList>
+            <stringToEventMap>
+                <entry>
+                    <string>Out of Boundary+Start Over</string>
+                    <int>1299242924</int>
+                </entry>
+                <entry>
+                    <string>New Frame+Move</string>
+                    <int>79606791</int>
+                </entry>
+            </stringToEventMap>
+            <layer>Layer 1</layer>
+            <scoreModificationValue>1</scoreModificationValue>
+            <imageId>13</imageId>
+        </gameObject>
+    </spriteList>
+    <eventsForGameController>
+        <eventlistener.OutOfBoundaryEventListener reference="../../spriteList/gameObject/eventListenerList/eventlistener.OutOfBoundaryEventListener"></eventlistener.OutOfBoundaryEventListener>
+        <eventlistener.NewFrameEventListener reference="../../spriteList/gameObject/eventListenerList/eventlistener.NewFrameEventListener"></eventlistener.NewFrameEventListener>
+    </eventsForGameController>
+    <eventsForKeyController></eventsForKeyController>
+    <layers>
+        <string>All Layers</string>
+        <string>Layer 1</string>
+    </layers>
+    <isClockDisplayable>false</isClockDisplayable>
 </game>
