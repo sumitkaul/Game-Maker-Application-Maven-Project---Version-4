@@ -14,7 +14,8 @@ public class ResizeHelper {
 	}
 	
 	protected ResizeHelper(){
-
+		this.setxFactor(1.0);
+		this.setyFactor(1.0);
 	}
 
 	public double getxFactor() {
