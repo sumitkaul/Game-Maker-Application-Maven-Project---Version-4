@@ -2,13 +2,7 @@ package action;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.EventListener;
-
 import model.SpriteModel;
-
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -19,7 +13,6 @@ import eventlistener.CollisionEventListener;
 
 public class ActionBounceTest {
 
-	private ArrayList<EventListener> events;
 	private static SpriteModel selectedSpriteModel;
     private static SpriteModel secondarySpriteModel;
     private static CollisionEventListener collisionListener;

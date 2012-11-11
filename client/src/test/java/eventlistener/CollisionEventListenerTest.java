@@ -2,9 +2,6 @@ package eventlistener;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import model.SpriteModel;
 
@@ -18,10 +15,8 @@ import utility.SpriteList;
 
 import action.ActionChangeSpeed;
 import action.GameAction;
-import controller.GameController;
 
 public class CollisionEventListenerTest {
-	private ArrayList<EventListener> events;
 	private static SpriteModel selectedSpriteModel;
     private static SpriteModel secondarySpriteModel;
     private static CollisionEventListener collisionListener;
