@@ -239,10 +239,9 @@ public class GamePanel extends JPanel implements KeyListener{
 	
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		if(arg0.getKeyChar() == 'd'){
-
+		if(arg0.getKeyChar() == KeyEvent.VK_DELETE){
 			Design.getInstance().removeSpriteModelFromList(SpriteList.getInstance().getSelectedSpriteModel());
-			SpriteList.getInstance().removeSprite(SpriteList.getInstance().getSelectedSpriteModel());
+		SpriteList.getInstance().removeSprite(SpriteList.getInstance().getSelectedSpriteModel());
 			Design.getInstance().getGamePanel().repaint();
 
 		}
