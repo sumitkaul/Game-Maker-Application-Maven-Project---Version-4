@@ -202,25 +202,26 @@ public class GamePanel extends JPanel implements KeyListener{
 	        if (e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) 
 	        {
 	        	List<SpriteModel> gameObjects = SpriteList.getInstance().getSpriteList();
-	    		for(SpriteModel gameObject:gameObjects)
-	    		{		
-	 
-	    			if (gameObject.getBoundingBox().contains(x, y)) 
-	    			{
-	    				float amount = e.getWheelRotation() * 5f;
-	    				tempwidth = gameObject.getWidth();
-	    				tempwidth += amount;
-	    				gameObject.setWidth(tempwidth);
-	    				
-	    				tempheight = gameObject.getHeight();
-	    				tempheight += amount;
-	    				gameObject.setHeight(tempheight);
-	    				
-	    				repaint();
-	    			
-	    				Design.getInstance().updateProperties();
-	    				
+	        	SpriteModel topSpriteModel = null;
+	    		for(SpriteModel gameObject:gameObjects){
+	    			if (gameObject.getBoundingBox().contains(x, y)) {
+	    				topSpriteModel = gameObject;
 	    			}
+	    		}
+	    		
+	    		if(topSpriteModel != null){
+	    			float amount = e.getWheelRotation() * 5f;
+					tempwidth = topSpriteModel.getWidth();
+					tempwidth += amount;
+					topSpriteModel.setWidth(tempwidth);
+					
+					tempheight = topSpriteModel.getHeight();
+					tempheight += amount;
+					topSpriteModel.setHeight(tempheight);
+					
+					repaint();
+				
+					Design.getInstance().updateProperties();
 	    		}
 	        }
 	    }

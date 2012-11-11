@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import eventlistener.EventListener;
+import utility.ResizeHelper;
 import utility.SpriteList;
 import utility.enums.ImageSource;
 
@@ -101,10 +102,10 @@ public class SpriteModel  {
 
     
     public Rectangle getBoundingBox() {
-        return new Rectangle((int) (posX),
-                (int) (posY ),
-                (int) (width ),
-                (int) (height));
+        return new Rectangle((int) (posX*ResizeHelper.getInstance().getxFactor()),
+                (int) (posY*ResizeHelper.getInstance().getyFactor()),
+                (int) (width*ResizeHelper.getInstance().getxFactor()),
+                (int) (height*ResizeHelper.getInstance().getyFactor()));
     }
 
     public boolean intersects(Rectangle rect) {
