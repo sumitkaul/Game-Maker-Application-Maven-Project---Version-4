@@ -1,11 +1,13 @@
 package game.engine.slick2d.player;
 
+import java.io.IOException;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
 public class TestEngine {
 
-    public static void main(String[] args) throws SlickException {
+    public static void main(String[] args) throws SlickException, IOException {
         GameEngineController game = new GameEngineController("test");
 
 
