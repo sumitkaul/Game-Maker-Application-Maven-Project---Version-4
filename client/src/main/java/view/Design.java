@@ -37,6 +37,7 @@ import view.imagePanel.ImageProperties;
 public class Design implements Resizable, ActionListener {
 
 
+
 /********/	
 
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(Design.class);
@@ -278,6 +279,8 @@ public class Design implements Resizable, ActionListener {
 				warn();
 			}
 
+
+
 			public void removeUpdate(DocumentEvent e) {
 				warn();
 			}
@@ -287,6 +290,7 @@ public class Design implements Resizable, ActionListener {
 			}
 
 			public void warn() {
+
 				LOG.debug(velocityXTextField.getText());
 				String velocityTextString = velocityXTextField.getText();
 				if (velocityTextString != null && !velocityTextString.equalsIgnoreCase("")) {
@@ -294,6 +298,7 @@ public class Design implements Resizable, ActionListener {
 				}
 			}
 		});
+
 
 		JLabel velocityYLabel = new JLabel("Velocity Y");
 
@@ -376,6 +381,7 @@ public class Design implements Resizable, ActionListener {
 
 			}
 		});
+
 
 		// Score Modificaion:
 		scoreModificationField = new JTextField(10);
@@ -577,6 +583,7 @@ public class Design implements Resizable, ActionListener {
 		ClockDisplay.getInstance().reset();
 		SpriteList.getInstance().getSpriteList().clear();
 
+
 		facade.getGameController().getEvents().clear();
 		facade.getKeyListenerController().getKeyEvents().clear();
 
@@ -676,6 +683,7 @@ public class Design implements Resizable, ActionListener {
 				LOG.debug("got size values for customObject x:" + sizeX + " y:" + sizeY);
 
 
+
 			} catch (Exception exception) {
 				LOG.error("did not read in size values ... using defaults");
 				sizeX = 30;
@@ -760,6 +768,7 @@ public class Design implements Resizable, ActionListener {
 	public void setVelocityXTextField(JTextField velocityXTextField) {
 		this.velocityXTextField = velocityXTextField;
 	}
+
 
 	public JTextField getVelocityYTextField() {
 		return velocityYTextField;
@@ -877,3 +886,4 @@ public class Design implements Resizable, ActionListener {
 		this.shouldDisplayScore = shouldDisplayScore;
 	}
 }
+
