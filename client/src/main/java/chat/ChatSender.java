@@ -6,6 +6,7 @@ import javax.jms.Destination;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
+import javax.jms.Topic;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
@@ -29,10 +30,11 @@ public class ChatSender implements Runnable {
 			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
 			// Create the destination (Topic or Queue)
-			Destination destination = session.createQueue("CHAT");
+			//Destination destination = session.createQueue("CHAT");
+			Topic topic= session.createTopic("CHAT");
 
 			// Create a MessageProducer from the Session to the Topic or Queue
-			producer = session.createProducer(destination);
+			producer = session.createProducer(topic);
 			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 		} catch (Exception e) {
 
