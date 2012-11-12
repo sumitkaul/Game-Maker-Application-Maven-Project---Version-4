@@ -105,91 +105,40 @@ public class ButtonPanel {
             }
         });
 
-        JButton save = new JButton("Save GameBase");
-        save.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), design.getFacade().getGameController().getEvents(), design.getFacade().getKeyListenerController().getKeyEvents(), Layers.getInstance().getLayers(), ClockDisplay.getInstance().isVisible());
-                String gameData = GameDataPackageIO.convertGamePackageToString(game);
-                GameBaseSavePanel p = new GameBaseSavePanel(design.getControlPanel());
-                p.saveGameToRemoteServer(gameData);
-                
-                //Hibernate
-//                LOG.debug("Maven + Hibernate + MySQL");
-//                LOG.debug(gameData);
-//		        Session session = HibernateUtil.getSessionFactory().openSession();
-//		 
-//		        session.beginTransaction();
-//		        GameBase gameBase= new GameBase();
-//		        gameBase.setAuthorName("pranab");
-//		        gameBase.setGameName(" game ");
-//		        gameBase.setGameData(gameData);
-//		        session.save(gameBase);
-//		        session.getTransaction().commit();
-            }
-        });
-
-        JButton load = new JButton("Load GameBase");
-        load.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                design.reset();
-                GameBaseLoadPanel p = new GameBaseLoadPanel(design.getControlPanel());
-
-                String gameData = p.readGameDataFromRemoteList();
-                if (gameData == null) {
-                    return;
-                }
-
-                GamePackage game = GameDataPackageIO.loadGamePackageFromFile(gameData);
-
-                LOG.debug("load done");
-
-                List<SpriteModel> allSpriteModels = game.getSpriteList();
-                List<String> layers = game.getLayers();
-                ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
-                // SpriteList.getInstance().setSpriteList(allSpriteModels);
-                SpriteList.getInstance().setSelectedSpriteModel(allSpriteModels.get(0));
-                design.getLayerBox().removeAllItems();
-                for (String layer : layers) {
-                	design.getLayerBox().addItem(layer);
-                }
-
-                design.getFacade().getGameController().setEvents(game.getEventsForGameController());
-                design.getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
-
-                design.getFacade().createViewsForModels(game.getSpriteList());
-                actionEventPanel = design.getActionEventPanel();
-                for (SpriteModel model : allSpriteModels) {
-                    SpriteList.getInstance().addSprite(model);
-                    SpriteList.getInstance().setSelectedSpriteModel(model);
-                             
-                    actionEventPanel.getSpriteListIndividualModel().addElement(model.getId());
-                    if (!actionEventPanel.getSpriteListGroupModel().contains(model.getGroupId())) {
-                    	actionEventPanel.getSpriteListGroupModel().addElement(model.getGroupId());
-                    }
-                    if (actionEventPanel.getSpriteListIndividualModel().size() > 0) {
-                    	actionEventPanel.getSpriteList().setModel(actionEventPanel.getSpriteListIndividualModel());
-                    }
-                    // if(spriteListGroupModel.size() >0 )
-                    // groupSpriteList.setModel(spriteListGroupModel);
-                }
-
-                design.updateProperties();
-            }
-        });
-
-//        Button loadSavedGameButton = new Button("Load In-Progress Game");
-//        loadSavedGameButton.addActionListener(new ActionListener() {
+//        JButton save = new JButton("Save GameBase");
+//        save.addActionListener(new ActionListener() {
 //
 //            @Override
 //            public void actionPerformed(ActionEvent e) {
-//                GameProgressLoadPanel p = new GameProgressLoadPanel(design.getControlPanel());
+//                GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), design.getFacade().getGameController().getEvents(), design.getFacade().getKeyListenerController().getKeyEvents(), Layers.getInstance().getLayers(), ClockDisplay.getInstance().isVisible());
+//                String gameData = GameDataPackageIO.convertGamePackageToString(game);
+//                GameBaseSavePanel p = new GameBaseSavePanel(design.getControlPanel());
+//                p.saveGameToRemoteServer(gameData);
+//                
+//                //Hibernate
+////                LOG.debug("Maven + Hibernate + MySQL");
+////                LOG.debug(gameData);
+////		        Session session = HibernateUtil.getSessionFactory().openSession();
+////		 
+////		        session.beginTransaction();
+////		        GameBase gameBase= new GameBase();
+////		        gameBase.setAuthorName("pranab");
+////		        gameBase.setGameName(" game ");
+////		        gameBase.setGameData(gameData);
+////		        session.save(gameBase);
+////		        session.getTransaction().commit();
+//            }
+//        });
+//
+//        JButton load = new JButton("Load GameBase");
+//        load.addActionListener(new ActionListener() {
+//
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                design.reset();
+//                GameBaseLoadPanel p = new GameBaseLoadPanel(design.getControlPanel());
 //
 //                String gameData = p.readGameDataFromRemoteList();
-//
 //                if (gameData == null) {
 //                    return;
 //                }
@@ -212,11 +161,11 @@ public class ButtonPanel {
 //                design.getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
 //
 //                design.getFacade().createViewsForModels(game.getSpriteList());
-//
+//                actionEventPanel = design.getActionEventPanel();
 //                for (SpriteModel model : allSpriteModels) {
 //                    SpriteList.getInstance().addSprite(model);
 //                    SpriteList.getInstance().setSelectedSpriteModel(model);
-//
+//                             
 //                    actionEventPanel.getSpriteListIndividualModel().addElement(model.getId());
 //                    if (!actionEventPanel.getSpriteListGroupModel().contains(model.getGroupId())) {
 //                    	actionEventPanel.getSpriteListGroupModel().addElement(model.getGroupId());
@@ -232,20 +181,71 @@ public class ButtonPanel {
 //            }
 //        });
 //
-//        Button saveGameButton = new Button("Save Game Progress");
-//        saveGameButton.addActionListener(new ActionListener() {
-//
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//
-//                GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), design.getFacade().getGameController().getEvents(), design.getFacade().getKeyListenerController().getKeyEvents(), Layers.getInstance().getLayers(), ClockDisplay.getInstance().isVisible());
-//                String gameData = GameDataPackageIO.convertGamePackageToString(game);
-//                GameProgressSavePanel p = new GameProgressSavePanel(design.getControlPanel());
-//
-//                p.saveGameToRemoteServer(gameData);
-//
-//            }
-//        });
+////        Button loadSavedGameButton = new Button("Load In-Progress Game");
+////        loadSavedGameButton.addActionListener(new ActionListener() {
+////
+////            @Override
+////            public void actionPerformed(ActionEvent e) {
+////                GameProgressLoadPanel p = new GameProgressLoadPanel(design.getControlPanel());
+////
+////                String gameData = p.readGameDataFromRemoteList();
+////
+////                if (gameData == null) {
+////                    return;
+////                }
+////
+////                GamePackage game = GameDataPackageIO.loadGamePackageFromFile(gameData);
+////
+////                LOG.debug("load done");
+////
+////                List<SpriteModel> allSpriteModels = game.getSpriteList();
+////                List<String> layers = game.getLayers();
+////                ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
+////                // SpriteList.getInstance().setSpriteList(allSpriteModels);
+////                SpriteList.getInstance().setSelectedSpriteModel(allSpriteModels.get(0));
+////                design.getLayerBox().removeAllItems();
+////                for (String layer : layers) {
+////                	design.getLayerBox().addItem(layer);
+////                }
+////
+////                design.getFacade().getGameController().setEvents(game.getEventsForGameController());
+////                design.getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
+////
+////                design.getFacade().createViewsForModels(game.getSpriteList());
+////
+////                for (SpriteModel model : allSpriteModels) {
+////                    SpriteList.getInstance().addSprite(model);
+////                    SpriteList.getInstance().setSelectedSpriteModel(model);
+////
+////                    actionEventPanel.getSpriteListIndividualModel().addElement(model.getId());
+////                    if (!actionEventPanel.getSpriteListGroupModel().contains(model.getGroupId())) {
+////                    	actionEventPanel.getSpriteListGroupModel().addElement(model.getGroupId());
+////                    }
+////                    if (actionEventPanel.getSpriteListIndividualModel().size() > 0) {
+////                    	actionEventPanel.getSpriteList().setModel(actionEventPanel.getSpriteListIndividualModel());
+////                    }
+////                    // if(spriteListGroupModel.size() >0 )
+////                    // groupSpriteList.setModel(spriteListGroupModel);
+////                }
+////
+////                design.updateProperties();
+////            }
+////        });
+////
+////        Button saveGameButton = new Button("Save Game Progress");
+////        saveGameButton.addActionListener(new ActionListener() {
+////
+////            @Override
+////            public void actionPerformed(ActionEvent e) {
+////
+////                GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), design.getFacade().getGameController().getEvents(), design.getFacade().getKeyListenerController().getKeyEvents(), Layers.getInstance().getLayers(), ClockDisplay.getInstance().isVisible());
+////                String gameData = GameDataPackageIO.convertGamePackageToString(game);
+////                GameProgressSavePanel p = new GameProgressSavePanel(design.getControlPanel());
+////
+////                p.saveGameToRemoteServer(gameData);
+////
+////            }
+////        });
        
         userName= new JLabel();
         
@@ -255,9 +255,9 @@ public class ButtonPanel {
         buttonPanel.add(register);
         //buttonPanel.add(loadGameBaseButton);
         // buttonPanel.add(loadSavedGameButton);
-        buttonPanel.add(load);
-        buttonPanel.add(save);
-        
+//        buttonPanel.add(load);
+//        buttonPanel.add(save);
+//        
         // buttonPanel.add(saveGameButton);
         buttonPanel.add(newGame);
         buttonPanel.add(userName);
