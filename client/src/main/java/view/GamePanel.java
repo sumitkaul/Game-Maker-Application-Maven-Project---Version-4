@@ -19,7 +19,6 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import newui.GamePlayerWindow;
 
 //import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 
@@ -234,7 +233,6 @@ public class GamePanel extends JPanel implements KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 	
