@@ -16,7 +16,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.jboss.logging.Logger;
 
-@WebServlet(name = "LoginUser", urlPatterns = {"/loginUser"})
+@WebServlet(name = "LoginUser", urlPatterns = {"/loginUse"})
 public class LoginUser extends HttpServlet {
 
     private static Logger log = Logger.getLogger(LoginUser.class);
@@ -110,3 +110,4 @@ public class LoginUser extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 }
+
