@@ -4,7 +4,7 @@ import team3.a9.imagewizard.ImageData;
 import team3.a9.imagewizard.Wizard;
 import team3.a9.lookandfeel.ThemeHandler;
 import view.Design;
-import newui.*;
+import view.OptionsFrame;
 
 public class gameMaker {
 
