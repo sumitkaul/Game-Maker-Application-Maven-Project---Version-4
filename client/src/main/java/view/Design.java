@@ -73,6 +73,9 @@ public class Design implements Resizable, ActionListener {
     private JPanel playerButtonPanel;
     private JButton startButton, pauseButton, saveButton, loadButton, newButton, topscoreButton;
     private JTextField heightTextField;
+    private JButton send;
+    private JTextField textSend;
+    private JLabel textLabel;
 
     // Score Modificaion:
     private JTextField scoreModificationField;
@@ -87,6 +90,8 @@ public class Design implements Resizable, ActionListener {
     private ActionEventPanel actionEventPanel;
     private ImagePanel extendedImagePanel;
     private boolean shouldDisplayScore = false;
+    private JTextArea textArea;
+    private JScrollPane textScrollPane;
 
     /**
      * @return the shouldDisplayScore
@@ -456,17 +461,30 @@ public class Design implements Resizable, ActionListener {
 		new RegisterFrame();
 	    }
 	});
+	
+	textArea = new JTextArea();
+	textArea.setEditable(false);
+	textScrollPane = new JScrollPane(textArea);
+	
+	textLabel = new JLabel("Enter Your Text Here:");
+	
+	textSend = new JTextField();
+	send = new JButton("Send");
+	send.addActionListener(this);
 
 	playerButtonPanel = new JPanel(new MigLayout("center,center"));
-	playerButtonPanel.add(loginButton, "wrap, wmin 200, hmin 50");
-	playerButtonPanel.add(registerButton, "wrap, wmin 200, hmin 50");
-	playerButtonPanel.add(newButton, "wrap, wmin 200, hmin 50");
-	playerButtonPanel.add(loadButton, "wrap,wmin 200, hmin 50");
-	playerButtonPanel.add(saveButton, "wrap,wmin 200, hmin 50");
-	playerButtonPanel.add(startButton, "wrap,wmin 200, hmin 50");
-	playerButtonPanel.add(pauseButton, "wrap,wmin 200, hmin 50");
-	playerButtonPanel.add(topscoreButton, "wrap,wmin 200, hmin 50");
-
+	playerButtonPanel.add(loginButton, "wrap, wmin 200, hmin 30");
+	playerButtonPanel.add(registerButton, "wrap, wmin 200, hmin 30");
+	playerButtonPanel.add(newButton, "wrap, wmin 200, hmin 30");
+	playerButtonPanel.add(loadButton, "wrap,wmin 200, hmin 30");
+	playerButtonPanel.add(saveButton, "wrap,wmin 200, hmin 30");
+	playerButtonPanel.add(startButton, "wrap,wmin 200, hmin 30");
+	playerButtonPanel.add(pauseButton, "wrap,wmin 200, hmin 30");
+	playerButtonPanel.add(topscoreButton, "wrap,wmin 200, hmin 30");
+	playerButtonPanel.add(textScrollPane, "wrap,wmin 500, hmin 150");
+	playerButtonPanel.add(textLabel,"wrap,wmin 100, hmin 10");
+	playerButtonPanel.add(textSend,"wrap,wmin 500, hmin 50");
+	playerButtonPanel.add(send,"wrap,wmin 200, hmin 30");
 	facade = new Facade(gamePanel);
 
 	// This is the panel where all the controls are placed. The left side of
