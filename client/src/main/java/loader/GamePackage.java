@@ -1,10 +1,12 @@
 package loader;
 
 import eventlistener.EventListener;
+
+import java.io.Serializable;
 import java.util.List;
 import model.SpriteModel;
 
-public class GamePackage {
+public class GamePackage implements Serializable {
 
     private List<SpriteModel> spriteList;
     private List<EventListener> eventsForGameController;
