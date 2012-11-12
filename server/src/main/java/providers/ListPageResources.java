@@ -16,7 +16,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.jboss.logging.Logger;
 
-@WebServlet(name = "ListPageImages", urlPatterns = {"/listPageResources"})
+@WebServlet(name = "ListPageImages", urlPatterns = {"/listPageResour"})
 public class ListPageResources extends HttpServlet {
 
     private static Logger log = Logger.getLogger(ListPageResources.class);

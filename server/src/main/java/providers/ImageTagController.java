@@ -3,12 +3,15 @@ package providers;
 import java.util.List;
 
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 
 
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import db.DatabaseHandler;
+import db.Resources;
 
 
 @Controller
@@ -46,6 +50,43 @@ public class ImageTagController {
 		return query.list().get(0).toString();
 	}
 	
+	@RequestMapping(value = "/listPageResources", method = RequestMethod.GET)
+	@ResponseBody
+	public String fetchImagesForAPage(HttpEntity<byte[]> requestEntity) {
+		
+		  Gson gson = new Gson();
+		  String json= null	;
+		  HttpHeaders requestHeaders= requestEntity.getHeaders();
+		  
+		  String pageNumbers = requestHeaders.get("page_number").get(0);				  
+          String pageLengths = requestHeaders.get("page_length").get(0);
+        		  
+          String resourceName =requestHeaders.get("resource_name").get(0);  
+        		  
+
+          if (pageNumbers != null && pageLengths != null) {
+              Session session = DatabaseHandler.getDatabaseHandlerInstance().getHibernateSession();
+              int pageNumber = Integer.parseInt(pageNumbers);
+              int pageLength = Integer.parseInt(pageLengths);
+
+              Criteria criteria = session.createCriteria(Resources.class);
+
+              if (resourceName != null) {
+                  criteria.add(Restrictions.eq("resourceName", resourceName));
+              }
+
+              criteria.setFirstResult((pageNumber - 1) * pageLength);
+              criteria.setMaxResults(pageLength);
+
+              @SuppressWarnings("unchecked")
+              List<Resources> resourcesList = criteria.list();
+              json=gson.toJson(resourcesList);
+              session.close();
+          }
+              
+		return json;
+	}
+	
 	@RequestMapping(value = "/getAllTags", method = RequestMethod.GET)
 	@ResponseBody
 	public String getAllTagNames(HttpEntity<byte[]> requestEntity) {
@@ -61,5 +102,6 @@ public class ImageTagController {
 	        session.close();
 		 return json;
 	}
-
+	
+	
 }
