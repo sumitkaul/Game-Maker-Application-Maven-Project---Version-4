@@ -12,7 +12,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.jboss.logging.Logger;
 
-@WebServlet(name = "CountTag", urlPatterns = {"/countTag"})
+@WebServlet(name = "CountTag", urlPatterns = {"/countTa"})
 public class CountTag extends HttpServlet {
 
     private static Logger log = Logger.getLogger(CountTag.class);
