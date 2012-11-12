@@ -25,9 +25,7 @@ import utility.*;
 import view.communication.ClientHandler;
 import view.companels.GameBaseLoadPanel;
 import view.companels.GameBaseSavePanel;
-import view.companels.GameProgressLoadPanel;
-import view.companels.GameProgressSavePanel;
-import view.companels.TopScoresPanel;
+
 
 import view.imagePanel.CollapsiblePanel;
 import view.imagePanel.ImagePanel;
@@ -38,7 +36,7 @@ public class Design implements Resizable, ActionListener {
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(Design.class);
 	private static Design sharedDesign = null;
 	private GamePanel gamePanel; // Right view in game maker
-	private JPanel gameMakerPanel; //
+	private JPanel gameMakerPanel;//
 	private JPanel switchPanel;//
 	private String userName = "";
 	private OptionsFrame optionFrame;
@@ -51,7 +49,6 @@ public class Design implements Resizable, ActionListener {
 	private JTextField velocityYTextField;
 	private JTextField widthTextField;
 	private JPanel playerButtonPanel;
-	private JButton startButton, pauseButton, saveButton, loadButton, newButton, topscoreButton;
 	private JTextField heightTextField;
 	private JButton send;
 	private JTextField textSend;
@@ -83,7 +80,7 @@ public class Design implements Resizable, ActionListener {
 				baseFrame.setVisible(false);
 			}
 		});
-		
+		// eventActionListModel = new DefaultListModel();
 		baseFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		baseFrame.setTitle("Game Maker");
 		baseFrame.setSize(frameWidth, frameHeight);
@@ -212,163 +209,7 @@ public class Design implements Resizable, ActionListener {
 		menuGame.add(itemGame1);
 		menuGame.add(itemGame2);
 
-		startButton = new JButton("Start");
-		startButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				facade.startGame();
-				gamePanel.requestFocusInWindow();
-			}
-		});
-		pauseButton = new JButton("Pause");
-		pauseButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				facade.stopGame();
-				// ScoreDialog.showScoreDialog();
-				JOptionPane.showMessageDialog(baseFrame, "Your Score is " + Score.getInstance().getScore());
-			}
-		});
-
-		newButton = new JButton("New");
-		newButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Design.getInstance().reset();
-				GameBaseLoadPanel p = new GameBaseLoadPanel(gamePanel);
-
-				String gameData = p.readGameDataFromRemoteList();
-				if (gameData == null) {
-					return;
-				}
-
-				GamePackage game = GameDataPackageIO.loadGamePackageFromFile(gameData);
-
-				LOG.debug("load done");
-
-				List<SpriteModel> allSpriteModels = game.getSpriteList();
-				List<String> layers = game.getLayers();
-				ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
-				// SpriteList.getInstance().setSpriteList(allSpriteModels);
-				SpriteList.getInstance().setSelectedSpriteModel(allSpriteModels.get(0));
-
-				facade.getGameController().setEvents(game.getEventsForGameController());
-				facade.getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
-
-				facade.createViewsForModels(game.getSpriteList());
-
-				for (SpriteModel model : allSpriteModels) {
-					SpriteList.getInstance().addSprite(model);
-					SpriteList.getInstance().setSelectedSpriteModel(model);
-				}
-			}
-		});
-
-		loadButton = new JButton("Load");
-		loadButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				GameProgressLoadPanel p = new GameProgressLoadPanel(gamePanel);
-
-				String gameData = p.readGameDataFromRemoteList();
-
-				if (gameData == null) {
-					return;
-				}
-
-				GamePackage game = GameDataPackageIO.loadGamePackageFromFile(gameData);
-
-				LOG.debug("load done");
-
-				List<SpriteModel> allSpriteModels = game.getSpriteList();
-				List<String> layers = game.getLayers();
-				ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
-				// SpriteList.getInstance().setSpriteList(allSpriteModels);
-				SpriteList.getInstance().setSelectedSpriteModel(allSpriteModels.get(0));
-
-				facade.getGameController().setEvents(game.getEventsForGameController());
-				facade.getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
-
-				facade.createViewsForModels(game.getSpriteList());
-
-				for (SpriteModel model : allSpriteModels) {
-					SpriteList.getInstance().addSprite(model);
-					SpriteList.getInstance().setSelectedSpriteModel(model);
-				}
-			}
-		});
-		saveButton = new JButton("Save");
-		saveButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), facade.getGameController().getEvents(), facade.getKeyListenerController().getKeyEvents(), Layers.getInstance().getLayers(), ClockDisplay.getInstance().isVisible());
-				String gameData = GameDataPackageIO.convertGamePackageToString(game);
-				GameProgressSavePanel p = new GameProgressSavePanel(gamePanel);
-
-				p.saveGameToRemoteServer(gameData);
-
-			}
-		});
-
-		topscoreButton = new JButton("Top Scores");
-		topscoreButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				TopScoresPanel p = new TopScoresPanel(gamePanel);
-				p.readGameScoresFromRemoteList();
-			}
-		});
-		JButton loginButton = new JButton("Login");
-		loginButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				new LoginFrame();
-
-			}
-		});
-
-		JButton registerButton = new JButton("Register");
-		registerButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				new RegisterFrame();
-			}
-		});
-
-		textArea = new JTextArea();
-		textArea.setEditable(false);
-		textScrollPane = new JScrollPane(textArea);
-
-		textLabel = new JLabel("Enter Your Text Here:");
-
-		textSend = new JTextField();
-		send = new JButton("Send");
-		send.addActionListener(this);
-
-		playerButtonPanel = new JPanel(new MigLayout("center,center"));
-		playerButtonPanel.add(loginButton, "wrap, wmin 200, hmin 30");
-		playerButtonPanel.add(registerButton, "wrap, wmin 200, hmin 30");
-		playerButtonPanel.add(newButton, "wrap, wmin 200, hmin 30");
-		playerButtonPanel.add(loadButton, "wrap,wmin 200, hmin 30");
-		playerButtonPanel.add(saveButton, "wrap,wmin 200, hmin 30");
-		playerButtonPanel.add(startButton, "wrap,wmin 200, hmin 30");
-		playerButtonPanel.add(pauseButton, "wrap,wmin 200, hmin 30");
-		playerButtonPanel.add(topscoreButton, "wrap,wmin 200, hmin 30");
-		playerButtonPanel.add(textScrollPane, "wrap,wmin 500, hmin 150");
-		playerButtonPanel.add(textLabel,"wrap,wmin 100, hmin 10");
-		playerButtonPanel.add(textSend,"wrap,wmin 500, hmin 50");
-		playerButtonPanel.add(send,"wrap,wmin 200, hmin 30");
+		playerButtonPanel = new PlayerButtonPanel(this).getPlayerButtonPanel();
 		facade = new Facade(gamePanel);
 
 		// This is the panel where all the controls are placed. The left side of
@@ -754,9 +595,7 @@ public class Design implements Resizable, ActionListener {
 		if (actionEventPanel.getSpriteListIndividualModel().size() > 0) {
 			actionEventPanel.getSpriteList().setModel(actionEventPanel.getSpriteListIndividualModel());
 		}
-		// if(spriteListGroupModel.size() >0 )
-		// groupSpriteList.setModel(spriteListGroupModel);
-
+		
 	}
 
 	public void updateProperties() {
@@ -1117,7 +956,4 @@ public class Design implements Resizable, ActionListener {
 	public void setShouldDisplayScore(boolean shouldDisplayScore) {
 		this.shouldDisplayScore = shouldDisplayScore;
 	}
-
-
-
 }
