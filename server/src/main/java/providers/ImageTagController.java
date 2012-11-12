@@ -1,14 +1,16 @@
 package providers;
 
-import org.hibernate.Criteria;
+import java.util.List;
+
+
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
+
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import db.DatabaseHandler;
-import db.User;
+
 
 @Controller
 public class ImageTagController {
@@ -42,6 +44,22 @@ public class ImageTagController {
 		session.close();
 
 		return query.list().get(0).toString();
+	}
+	
+	@RequestMapping(value = "/getAllTags", method = RequestMethod.GET)
+	@ResponseBody
+	public String getAllTagNames(HttpEntity<byte[]> requestEntity) {
+		
+		  Session session = DatabaseHandler.getDatabaseHandlerInstance().getHibernateSession();
+	        Query query;
+
+	        query = session.createSQLQuery("SELECT resource_name FROM Resources");
+	        @SuppressWarnings("unchecked")
+	        List<String> list = query.list();
+	        Gson gson = new Gson();
+	        String json = gson.toJson(list);
+	        session.close();
+		 return json;
 	}
 
 }

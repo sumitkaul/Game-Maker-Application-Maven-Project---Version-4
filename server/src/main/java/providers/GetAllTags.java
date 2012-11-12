@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-@WebServlet(name = "GetAllTags", urlPatterns = {"/getAllTags"})
+@WebServlet(name = "GetAllTags", urlPatterns = {"/getAllTa"})
 public class GetAllTags extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
