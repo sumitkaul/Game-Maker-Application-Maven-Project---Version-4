@@ -14,7 +14,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.jboss.logging.Logger;
 
-@WebServlet(name = "RegisterUser", urlPatterns = {"/registerUser"})
+@WebServlet(name = "RegisterUser", urlPatterns = {"/registerUse"})
 public class RegisterUser extends HttpServlet {
 
     private static Logger log = Logger.getLogger(RegisterUser.class);
