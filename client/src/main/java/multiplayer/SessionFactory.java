@@ -33,8 +33,8 @@ public final class SessionFactory {
 		return instance;
 	}
 	
-	private SessionFactory()
-	{
+
+	public void createConnection(){
 		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://129.29.247.5:61616");
 
         // Create a Connection
@@ -48,6 +48,8 @@ public final class SessionFactory {
 			e1.printStackTrace();
 		}
         
+		
 	}
-
+	
+	
 }

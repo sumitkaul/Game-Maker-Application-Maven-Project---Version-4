@@ -6,13 +6,14 @@ import javax.jms.Destination;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
+import javax.jms.Topic;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 public class ChatSender implements Runnable {
 
 	private MessageProducer producer;
-	private static boolean messagePresent = true;
+	private static boolean messagePresent = false;
 	private static String message;
 	private Session session;
 
@@ -29,10 +30,11 @@ public class ChatSender implements Runnable {
 			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
 			// Create the destination (Topic or Queue)
-			Destination destination = session.createQueue("CHAT");
+			//Destination destination = session.createQueue("CHAT");
+			Topic topic= session.createTopic("CHAT");
 
 			// Create a MessageProducer from the Session to the Topic or Queue
-			producer = session.createProducer(destination);
+			producer = session.createProducer(topic);
 			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 		} catch (Exception e) {
 
@@ -44,15 +46,12 @@ public class ChatSender implements Runnable {
 		while (true) {
 			try {
 				if (messagePresent) {
-					message = "Hello";
-
-					TextMessage textMessage = session
-							.createTextMessage(message);
+					TextMessage textMessage = session.createTextMessage(message);
 					producer.send(textMessage);
-					//messagePresent = false;
+					messagePresent = false;
 
 				}
-				Thread.currentThread().sleep(1000);
+				Thread.currentThread().sleep(100);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

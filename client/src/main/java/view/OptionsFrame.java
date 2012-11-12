@@ -1,4 +1,4 @@
-package newui;
+package view;
 
 
 import javax.swing.JButton;
@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 
 import team3.a9.lookandfeel.AnimationHandler;
 import utility.ClockDisplay;
-import view.Design;
 
 import net.miginfocom.swing.MigLayout;
 
