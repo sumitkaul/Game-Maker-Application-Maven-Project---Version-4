@@ -12,7 +12,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 public class ChatSender implements Runnable {
 
 	private MessageProducer producer;
-	private static boolean messagePresent = true;
+	private static boolean messagePresent = false;
 	private static String message;
 	private Session session;
 
@@ -44,15 +44,12 @@ public class ChatSender implements Runnable {
 		while (true) {
 			try {
 				if (messagePresent) {
-					message = "Hello";
-
-					TextMessage textMessage = session
-							.createTextMessage(message);
+					TextMessage textMessage = session.createTextMessage(message);
 					producer.send(textMessage);
-					//messagePresent = false;
+					messagePresent = false;
 
 				}
-				Thread.currentThread().sleep(1000);
+				Thread.currentThread().sleep(100);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

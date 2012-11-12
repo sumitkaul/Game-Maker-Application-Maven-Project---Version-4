@@ -16,6 +16,9 @@ import java.util.zip.ZipInputStream;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
+import chat.ChatReceiver;
+import chat.ChatSender;
 import loader.GameDataPackageIO;
 import loader.GamePackage;
 import model.Resources;
@@ -70,8 +73,16 @@ public class Design implements Resizable, ActionListener {
 	private JTextArea textArea;
 	private JScrollPane textScrollPane;
 
+	
+	
 	protected Design(int frameWidth, int frameHeight) {
 		// Create a baseframe for the game maker
+		ChatReceiver chatReceiver=new ChatReceiver();
+    	ChatSender chatSender=new ChatSender();
+    	Thread chatSenderThread=new Thread(chatSender);
+    	Thread chatReceiverThread=new Thread(chatReceiver);
+    	chatReceiverThread.start();
+    	chatSenderThread.start();
 		baseFrame = new JFrame();
 		baseFrame.addWindowListener(new WindowAdapter() {
 			@Override

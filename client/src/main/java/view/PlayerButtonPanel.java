@@ -15,12 +15,15 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import chat.ChatSender;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -54,6 +57,14 @@ public class PlayerButtonPanel implements ActionListener{
 	private JButton saveButton;
 	private JButton topscoreButton;
 	private JButton send;
+	private JTextField textSend;
+	private static JTextArea textArea;
+	private static JScrollPane textScrollPane;
+	
+	public static void updateChatWindow(String msg) {
+    	textArea.setText(textArea.getText()+"\n"+msg);
+    	textScrollPane.getVerticalScrollBar().setValue(200);
+    }
 	
 	public PlayerButtonPanel(Design designArg) {
 		this.design = designArg;
@@ -191,14 +202,31 @@ public class PlayerButtonPanel implements ActionListener{
 			}
 		});
 
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		textArea.setEditable(false);
 		JScrollPane textScrollPane = new JScrollPane(textArea);
 
 		JLabel textLabel = new JLabel("Enter Your Text Here:");
 
-		JTextField textSend = new JTextField();
+		textSend = new JTextField();
 		send = new JButton("Send");
+		send.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				if(Player.getInstance().getUsername()!=null)
+				{
+					ChatSender.sendMessage(Player.getInstance().getUsername()+": "+textSend.getText());
+				}
+				else
+				{
+					JFrame frame=new JFrame();
+					JOptionPane.showMessageDialog(frame,"Please login");
+				}
+				textSend.setText("");			
+			}
+		});
 		send.addActionListener(this);
 
 		

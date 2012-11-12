@@ -9,6 +9,9 @@ import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
+import view.Design;
+import view.PlayerButtonPanel;
+
 public class ChatReceiver implements Runnable {
 
 	private MessageConsumer consumer;
@@ -23,6 +26,7 @@ public class ChatReceiver implements Runnable {
 			// Create a Connection
 			Connection connection = connectionFactory.createConnection();
 			connection.start();
+			
 
 			// connection.setExceptionListener((ExceptionListener) this);
 
@@ -47,13 +51,15 @@ public class ChatReceiver implements Runnable {
 			try {
 				// Wait for a message
 				Message message = consumer.receive();
-
 				if (message instanceof TextMessage) {
 					TextMessage textMessage = (TextMessage) message;
 					String text = textMessage.getText();
-					System.out.println("Received: " + text);
+					PlayerButtonPanel.updateChatWindow(text);
+					//System.out.println("r"+ text);
+					//Design.getInstance().updateChatWindow(text);
+					
 				} else {
-					System.out.println("Received: " + message);
+					PlayerButtonPanel.updateChatWindow(message.toString());
 				}
 			} catch (Exception e) {
 
