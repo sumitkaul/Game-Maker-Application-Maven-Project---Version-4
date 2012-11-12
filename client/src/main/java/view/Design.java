@@ -1,53 +1,35 @@
 package view;
 
-import action.ActionStartOver;
-import action.GameAction;
-import controller.GameController;
-import eventlistener.EventListener;
-import eventlistener.KeyPressedEventListener;
-import eventlistener.OutOfBoundaryEventListener;
+
 import facade.Facade;
-import gameMaker.gameMaker;
 import interfaces.Resizable;
-import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import loader.GameDataPackageIO;
 import loader.GamePackage;
 import model.Resources;
 import model.SpriteModel;
 import net.miginfocom.swing.MigLayout;
-import team3.a9.lookandfeel.AnimationHandler;
 import utility.*;
 import view.communication.ClientHandler;
 import view.companels.GameBaseLoadPanel;
 import view.companels.GameBaseSavePanel;
 import view.companels.GameProgressLoadPanel;
 import view.companels.GameProgressSavePanel;
-import view.companels.ScoreDialog;
 import view.companels.TopScoresPanel;
 
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.lang3.StringUtils;
-import view.companels.*;
 import view.imagePanel.CollapsiblePanel;
-import view.imagePanel.ImageActionListener;
 import view.imagePanel.ImagePanel;
 import view.imagePanel.ImageProperties;
 
@@ -56,7 +38,7 @@ public class Design implements Resizable, ActionListener {
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(Design.class);
 	private static Design sharedDesign = null;
 	private GamePanel gamePanel; // Right view in game maker
-	private JPanel gameMakerPanel;//
+	private JPanel gameMakerPanel; //
 	private JPanel switchPanel;//
 	private String userName = "";
 	private OptionsFrame optionFrame;
@@ -101,7 +83,7 @@ public class Design implements Resizable, ActionListener {
 				baseFrame.setVisible(false);
 			}
 		});
-		// eventActionListModel = new DefaultListModel();
+		
 		baseFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		baseFrame.setTitle("Game Maker");
 		baseFrame.setSize(frameWidth, frameHeight);
