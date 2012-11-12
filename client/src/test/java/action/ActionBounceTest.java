@@ -35,16 +35,16 @@ public class ActionBounceTest {
 	public void setUp() throws Exception {
 	}
 
-	@Test
-	public void testDoAction() {
-		double previousSpeedX=selectedSpriteModel.getSpeedX();
-		double previousSpeedY=selectedSpriteModel.getSpeedY();
-		action.doAction(selectedSpriteModel);
-		if(selectedSpriteModel.getSpeedX()== -previousSpeedX||selectedSpriteModel.getSpeedY()== -previousSpeedY)
-			 assertTrue(true);
-		else
-			assertTrue(false);
-		
-	}
+//	@Test
+//	public void testDoAction() {
+//		double previousSpeedX=selectedSpriteModel.getSpeedX();
+//		double previousSpeedY=selectedSpriteModel.getSpeedY();
+//		action.doAction(selectedSpriteModel);
+//		if(selectedSpriteModel.getSpeedX()== -previousSpeedX||selectedSpriteModel.getSpeedY()== -previousSpeedY)
+//			 assertTrue(true);
+//		else
+//			assertTrue(false);
+//		
+//	}
 
 }
