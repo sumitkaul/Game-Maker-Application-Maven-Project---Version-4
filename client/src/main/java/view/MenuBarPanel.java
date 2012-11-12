@@ -109,6 +109,22 @@ public class MenuBarPanel {
 		});
 		menuGame.add(itemGame1);
 		menuGame.add(itemGame2);
+		
+		Menu menuMultiPlayer = new Menu("MultiPlayer");
+		MenuItem startMultiPlayer = new MenuItem("Start"); 
+		menuMultiPlayer.add(startMultiPlayer);
+		menuBar.add(menuMultiPlayer);
+		
+		startMultiPlayer.addActionListener(new ActionListener() {
+
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+			MultiPlayerOption p = new MultiPlayerOption(Design.getInstance().getGamePanel());
+			LOG.info("in start action listener");
+			p.selectOption();
+		    }
+		});
+
 	}
 		/********* Getters and Setters *************/
 

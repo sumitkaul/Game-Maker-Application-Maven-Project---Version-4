@@ -129,7 +129,7 @@ public class Design implements Resizable, ActionListener {
 		gamePanel = new GamePanel(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT);
 
 		MenuBarPanel menuBar = new MenuBarPanel();
-		this.baseFrame.setMenuBar(menuBar.getMenuBar());
+		this.baseFrame.setMenuBar(menuBar.getMenuBar());		
 		playerButtonPanel = new PlayerButtonPanel(this).getPlayerButtonPanel();
 		facade = new Facade(gamePanel);
 
