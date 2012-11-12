@@ -33,7 +33,6 @@ import loader.GamePackage;
 import model.Resources;
 import model.SpriteModel;
 import net.miginfocom.swing.MigLayout;
-import newui.GamePlayerWindow;
 import newui.OptionsFrame;
 import team3.a9.lookandfeel.AnimationHandler;
 import utility.*;
