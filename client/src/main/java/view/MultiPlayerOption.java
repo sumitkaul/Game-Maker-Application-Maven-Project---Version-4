@@ -1,10 +1,21 @@
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import utility.ClockDisplay;
+import utility.SpriteList;
+import view.companels.GameBaseLoadPanel;
+
+import loader.GameDataPackageIO;
+import loader.GamePackage;
+import model.SpriteModel;
 import net.miginfocom.swing.MigLayout;
 
 
@@ -33,12 +44,29 @@ public class MultiPlayerOption {
 		options.add(hostButton,"wmin 50, hmin 50");
 		options.add(joinButton,"wmin 50, hmin 50");
 		
+		hostButton.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+				
+		});
+		
+		joinButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+				
+		});
 		
 		options.setSize(200, 200);
 		options.setLocationRelativeTo(rootComp);
 		options.setVisible(true);
 		
-		
-	}
+		}
+
+	
 }

@@ -59,29 +59,29 @@ public class ButtonPanel {
             }
         });
 
-        JButton login= new JButton("Login");
-        login.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				LoginFrame f = new LoginFrame();
-                                AnimationHandler.RotateIn(f.getLogin(), f.getLoginPanel(), 1000, 360, f.getLogin().getWidth()/2, f.getLogin().getHeight()/2);
-				
-			}
-		});
-        
-        JButton register = new JButton("Register");
-        register.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				RegisterFrame f = new RegisterFrame();
-                                AnimationHandler.RotateIn(f.getLogin(), f.getLoginPanel(), 1000, -360, f.getLogin().getWidth()/2, f.getLogin().getHeight()/2);
-			}
-		});
-        
+//        JButton login= new JButton("Login");
+//        login.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				// TODO Auto-generated method stub
+//				LoginFrame f = new LoginFrame();
+//                                AnimationHandler.RotateIn(f.getLogin(), f.getLoginPanel(), 1000, 360, f.getLogin().getWidth()/2, f.getLogin().getHeight()/2);
+//				
+//			}
+//		});
+//        
+//        JButton register = new JButton("Register");
+//        register.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) {
+//				// TODO Auto-generated method stub
+//				RegisterFrame f = new RegisterFrame();
+//                                AnimationHandler.RotateIn(f.getLogin(), f.getLoginPanel(), 1000, -360, f.getLogin().getWidth()/2, f.getLogin().getHeight()/2);
+//			}
+//		});
+//        
         JButton start = new JButton("Start");
         start.addActionListener(new ActionListener() {
 
@@ -253,14 +253,14 @@ public class ButtonPanel {
         
         buttonPanel.add(start);
         buttonPanel.add(stop);
-        buttonPanel.add(login);
-        buttonPanel.add(register);
-        //buttonPanel.add(loadGameBaseButton);
-        // buttonPanel.add(loadSavedGameButton);
-//        buttonPanel.add(load);
-//        buttonPanel.add(save);
+//      buttonPanel.add(login);
+//      buttonPanel.add(register);
+//	    buttonPanel.add(loadGameBaseButton);
+//	    buttonPanel.add(loadSavedGameButton);
+//      buttonPanel.add(load);
+//      buttonPanel.add(save);
 //        
-        // buttonPanel.add(saveGameButton);
+// 		buttonPanel.add(saveGameButton);
         buttonPanel.add(newGame);
         buttonPanel.add(userName);
         

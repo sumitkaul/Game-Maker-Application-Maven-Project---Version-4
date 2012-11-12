@@ -181,26 +181,26 @@ public class PlayerButtonPanel implements ActionListener{
 				p.readGameScoresFromRemoteList();
 			}
 		});
-		JButton loginButton = new JButton("Login");
-		loginButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				new LoginFrame();
-
-			}
-		});
-
-		JButton registerButton = new JButton("Register");
-		registerButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				new RegisterFrame();
-			}
-		});
+//		JButton loginButton = new JButton("Login");
+//		loginButton.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				// TODO Auto-generated method stub
+//				new LoginFrame();
+//
+//			}
+//		});
+//
+//		JButton registerButton = new JButton("Register");
+//		registerButton.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) {
+//				// TODO Auto-generated method stub
+//				new RegisterFrame();
+//			}
+//		});
 
 		textArea = new JTextArea();
 		textArea.setEditable(false);
@@ -231,8 +231,8 @@ public class PlayerButtonPanel implements ActionListener{
 
 		
 		playerButtonPanel = new JPanel(new MigLayout("center,center"));
-		playerButtonPanel.add(loginButton, "wrap, wmin 200, hmin 30");
-		playerButtonPanel.add(registerButton, "wrap, wmin 200, hmin 30");
+//		playerButtonPanel.add(loginButton, "wrap, wmin 200, hmin 30");
+//		playerButtonPanel.add(registerButton, "wrap, wmin 200, hmin 30");
 		playerButtonPanel.add(newButton, "wrap, wmin 200, hmin 30");
 		playerButtonPanel.add(loadButton, "wrap,wmin 200, hmin 30");
 		playerButtonPanel.add(saveButton, "wrap,wmin 200, hmin 30");

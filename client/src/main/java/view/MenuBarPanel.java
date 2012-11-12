@@ -13,6 +13,7 @@ import java.util.List;
 import loader.GameDataPackageIO;
 import loader.GamePackage;
 import model.SpriteModel;
+import team3.a9.lookandfeel.AnimationHandler;
 import utility.ClockDisplay;
 import utility.Layers;
 import utility.SpriteList;
@@ -40,7 +41,36 @@ public class MenuBarPanel {
 			}
 		});
 		menu.add(item);
-
+		
+		Menu user = new Menu("User");
+		menuBar.add(user);
+		
+		MenuItem login = new MenuItem("Login");
+		MenuItem register = new MenuItem("Register");
+		
+		login.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				LoginFrame f = new LoginFrame();
+				AnimationHandler.RotateIn(f.getLogin(), f.getLoginPanel(), 1000, 360, f.getLogin().getWidth()/2, f.getLogin().getHeight()/2);
+				
+			}
+		});
+		
+		register.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				RegisterFrame f = new RegisterFrame();
+				AnimationHandler.RotateIn(f.getLogin(), f.getLoginPanel(), 1000, -360, f.getLogin().getWidth()/2, f.getLogin().getHeight()/2);
+				
+			}
+		});
+		
+		user.add(login);
+		user.add(register);
+		
 		Menu menuGame = new Menu("Game");
 		menuBar.add(menuGame);
 
