@@ -5,6 +5,8 @@ import java.awt.Button;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
@@ -70,7 +72,20 @@ public class PlayerButtonPanel implements ActionListener{
     	textPane.setText("<html>"+textPane.getText().substring(chatStart+"<body>".length(), chatEnd)+"<br/><b style=\"color:blue\">"+msg.substring(0, colonIndex+1)+"</b>"+msg.substring(colonIndex+1, msg.length())+"</html>");
     	textScrollPane.getVerticalScrollBar().setValue(200);
     }
-	
+	public void sendChatMessage() {
+		
+		if(Player.getInstance().getUsername()!=null)
+		{
+			ChatSender.sendMessage(Player.getInstance().getUsername()+": "+textSend.getText());
+		}
+		else
+		{
+			JFrame frame=new JFrame();
+			JOptionPane.showMessageDialog(frame,"Please login");
+		}
+		textSend.setText("");			
+		
+	}
 	public PlayerButtonPanel(Design designArg) {
 		this.design = designArg;
 		startButton = new JButton("Start");
@@ -215,22 +230,32 @@ public class PlayerButtonPanel implements ActionListener{
 		JLabel textLabel = new JLabel("Enter Your Text Here:");
 
 		textSend = new JTextField();
+		textSend.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				int key = e.getKeyCode();
+			     if (key == KeyEvent.VK_ENTER) {
+			    	 sendChatMessage();
+			     }
+				
+			}
+		});
 		send = new JButton("Send");
 		send.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
-				if(Player.getInstance().getUsername()!=null)
-				{
-					ChatSender.sendMessage(Player.getInstance().getUsername()+": "+textSend.getText());
-				}
-				else
-				{
-					JFrame frame=new JFrame();
-					JOptionPane.showMessageDialog(frame,"Please login");
-				}
-				textSend.setText("");			
+				sendChatMessage();
 			}
 		});
 		send.addActionListener(this);
