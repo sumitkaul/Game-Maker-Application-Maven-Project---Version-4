@@ -48,13 +48,13 @@ public class CollisionEventListenerTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
-	public void testCheckEvent() {
-		collisionListener.checkEvent(null);
-		if(selectedSpriteModel.getSpeedX()==20&&selectedSpriteModel.getSpeedY()==20)
-			 assertTrue(true);
-		else
-			 assertTrue(false);
-	}
+//	@Test
+//	public void testCheckEvent() {
+//		collisionListener.checkEvent(null);
+//		if(selectedSpriteModel.getSpeedX()==20&&selectedSpriteModel.getSpeedY()==20)
+//			 assertTrue(true);
+//		else
+//			 assertTrue(false);
+//	}
 
 }
