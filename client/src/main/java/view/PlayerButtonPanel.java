@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 import chat.ChatSender;
 
@@ -58,11 +59,15 @@ public class PlayerButtonPanel implements ActionListener{
 	private JButton topscoreButton;
 	private JButton send;
 	private JTextField textSend;
-	private static JTextArea textArea;
+	private static JTextPane textPane;
 	private static JScrollPane textScrollPane;
 	
 	public static void updateChatWindow(String msg) {
-    	textArea.setText(textArea.getText()+"\n"+msg);
+		textPane.setContentType("text/html");
+		int colonIndex=msg.indexOf(":");
+		int chatStart=textPane.getText().indexOf("<body>");
+		int chatEnd=textPane.getText().indexOf("</body>");
+    	textPane.setText("<html>"+textPane.getText().substring(chatStart+"<body>".length(), chatEnd)+"<br/><b style=\"color:blue\">"+msg.substring(0, colonIndex+1)+"</b>"+msg.substring(colonIndex+1, msg.length())+"</html>");
     	textScrollPane.getVerticalScrollBar().setValue(200);
     }
 	
@@ -202,9 +207,10 @@ public class PlayerButtonPanel implements ActionListener{
 //			}
 //		});
 
-		textArea = new JTextArea();
-		textArea.setEditable(false);
-		JScrollPane textScrollPane = new JScrollPane(textArea);
+		textPane = new JTextPane();
+		textPane.setEditable(false);
+		
+		JScrollPane textScrollPane = new JScrollPane(textPane);
 
 		JLabel textLabel = new JLabel("Enter Your Text Here:");
 
