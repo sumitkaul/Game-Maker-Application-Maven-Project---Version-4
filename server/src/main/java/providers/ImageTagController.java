@@ -33,10 +33,10 @@ public class ImageTagController {
 
 		if (tag == null) {
 			query = session
-					.createSQLQuery("SELECT COUNT(*) FROM a9team3.Resources");
+					.createSQLQuery("SELECT COUNT(*) FROM Resources");
 		} else {
 			query = session
-					.createSQLQuery("SELECT COUNT(*) FROM a9team3.Resources WHERE resource_name='"
+					.createSQLQuery("SELECT COUNT(*) FROM Resources WHERE resource_name='"
 							+ tag + "'");
 		}
 		session.close();

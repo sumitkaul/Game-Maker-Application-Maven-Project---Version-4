@@ -21,7 +21,7 @@ public class GetAllTags extends HttpServlet {
         Session session = DatabaseHandler.getDatabaseHandlerInstance().getHibernateSession();
         Query query;
 
-        query = session.createSQLQuery("SELECT resource_name FROM a9team3.Resources");
+        query = session.createSQLQuery("SELECT resource_name FROM Resources");
         @SuppressWarnings("unchecked")
         List<String> list = query.list();
         Gson gson = new Gson();

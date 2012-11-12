@@ -23,9 +23,9 @@ public class CountTag extends HttpServlet {
         Query query;
         String tag = request.getParameter("tag");
         if (tag == null) {
-            query = session.createSQLQuery("SELECT COUNT(*) FROM a9team3.Resources");
+            query = session.createSQLQuery("SELECT COUNT(*) FROM Resources");
         } else {
-            query = session.createSQLQuery("SELECT COUNT(*) FROM a9team3.Resources WHERE resource_name='" + tag + "'");
+            query = session.createSQLQuery("SELECT COUNT(*) FROM Resources WHERE resource_name='" + tag + "'");
         }
         out.print(query.list().get(0));
         session.close();
