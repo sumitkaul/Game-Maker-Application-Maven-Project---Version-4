@@ -25,6 +25,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import chat.ChatSender;
 
@@ -84,7 +86,8 @@ public class PlayerButtonPanel implements ActionListener{
 			JFrame frame=new JFrame();
 			JOptionPane.showMessageDialog(frame,"Please login");
 		}
-		textSend.setText("");			
+		textSend.setText("");	
+		send.setEnabled(false);
 		
 	}
 	public PlayerButtonPanel(Design designArg) {
@@ -231,6 +234,24 @@ public class PlayerButtonPanel implements ActionListener{
 		JLabel textLabel = new JLabel("Enter Your Text Here:");
 
 		textSend = new JTextField();
+		textSend.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				if(textSend.getText().length()==0)
+					send.setEnabled(false);
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				if(textSend.getText().length()>0)
+					send.setEnabled(true);
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {				
+			}
+		});
 		textSend.addKeyListener(new KeyListener() {
 			
 			@Override
@@ -246,17 +267,19 @@ public class PlayerButtonPanel implements ActionListener{
 			public void keyPressed(KeyEvent e) {
 				int key = e.getKeyCode();
 			     if (key == KeyEvent.VK_ENTER) {
-			    	 sendChatMessage();
-			     }
-				
+			    	 if(textSend.getText().length()>0)
+							sendChatMessage();
+					}
 			}
 		});
 		send = new JButton("Send");
+		send.setEnabled(false);
 		send.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				sendChatMessage();
+				if(textSend.getText().length()>0)
+					sendChatMessage();
 			}
 		});
 		send.addActionListener(this);
