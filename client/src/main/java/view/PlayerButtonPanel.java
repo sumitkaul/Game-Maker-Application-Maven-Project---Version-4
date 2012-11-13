@@ -70,7 +70,8 @@ public class PlayerButtonPanel implements ActionListener{
 		int chatStart=textPane.getText().indexOf("<body>");
 		int chatEnd=textPane.getText().indexOf("</body>");
     	textPane.setText("<html>"+textPane.getText().substring(chatStart+"<body>".length(), chatEnd)+"<br/><b style=\"color:blue\">"+msg.substring(0, colonIndex+1)+"</b>"+msg.substring(colonIndex+1, msg.length())+"</html>");
-    	textScrollPane.getVerticalScrollBar().setValue(200);
+    	textPane.setCaretPosition(textPane.getDocument().getLength());
+    	textScrollPane.getVerticalScrollBar().setValue(textScrollPane.getVerticalScrollBar().getMaximum());
     }
 	public void sendChatMessage() {
 		
