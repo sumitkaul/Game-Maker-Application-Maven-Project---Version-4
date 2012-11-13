@@ -133,11 +133,13 @@ public class GamePanel extends JPanel implements KeyListener{
 
 	    	boolean foundObject = false;
 	    	List<SpriteModel> spriteModels = SpriteList.getInstance().getSpriteList();
+	    	List<SpriteModel> selectedSpriteModels = new ArrayList<SpriteModel>();
 	    	SpriteModel selectedSpriteModel = null;
 
 	    	for(SpriteModel model:spriteModels){
 	    		if (model.getBoundingBox().contains(x, y)){
 	    			selectedSpriteModel = model;
+	    			selectedSpriteModels.add(model);
 	    			foundObject = true;
 	    		}
 	    		else{
@@ -149,8 +151,30 @@ public class GamePanel extends JPanel implements KeyListener{
 	    	
 
 	    	SpriteList.getInstance().setSelectedSpriteModel(selectedSpriteModel);
+	    	SpriteList.getInstance().setSelectedSpriteModels(selectedSpriteModels);
 
 	    	int clickCount = event.getClickCount();
+	    	if(event.getButton() == MouseEvent.BUTTON3)
+	    	{
+	 
+	    		LOG.debug("Click Caught");
+	    		if(selectedSpriteModels.size() == 0 || 
+	    				(selectedSpriteModels.size()==1 && selectedSpriteModels.get(0).getId().equals("background")))
+	    		{
+	    			new PopupMenus(Design.getInstance().getBaseFrame(), event.getX(),event.getY(),PopupMenus.Type.Game);    			
+	    		    
+	    		}	    		
+	    		else
+	    		{
+	    			new PopupMenus(Design.getInstance().getBaseFrame(), event.getX(),event.getY(),PopupMenus.Type.Sprite);
+	    		}
+	    	}  
+	    	else if(clickCount == 2){
+	    		if(foundObject){
+	    			Design.getInstance().createDuplicateSpriteModel(selectedSpriteModel);
+	    		}
+	    			
+	    	}
 	    	if(clickCount == 2){
 	    		if(foundObject){
 	    			Design.getInstance().createDuplicateSpriteModel(selectedSpriteModel);

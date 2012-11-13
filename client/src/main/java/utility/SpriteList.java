@@ -13,7 +13,8 @@ public class SpriteList {
 	private static SpriteList sharedSpriteList = null;
 	private List<SpriteModel> spriteList;
 	private SpriteModel selectedSpriteModel;
-	
+	private List<SpriteModel> selectedSpriteModels;
+
 	private List<SpriteModel> toBeRemovedSpriteModels;
 	
 	public static SpriteList getInstance(){
@@ -26,6 +27,7 @@ public class SpriteList {
     protected SpriteList(){
         this.spriteList = new ArrayList<SpriteModel>();
         this.toBeRemovedSpriteModels = new ArrayList<SpriteModel>();
+        this.selectedSpriteModels = new ArrayList<SpriteModel>();
     }
 
     public void addSprite(SpriteModel sprite){
@@ -50,9 +52,17 @@ public class SpriteList {
 	public SpriteModel getSelectedSpriteModel() {
 		return selectedSpriteModel;
 	}
+	
+	public List<SpriteModel> getSelectedSpriteModels() {
+		return selectedSpriteModels;
+	}
 
 	public void setSelectedSpriteModel(SpriteModel selectedSpriteModel) {
 		this.selectedSpriteModel = selectedSpriteModel;
+	}
+	
+	public void setSelectedSpriteModels(List<SpriteModel> selectedSpriteModels) {
+		this.selectedSpriteModels = selectedSpriteModels;
 	}
 
 	public void setToBeRemovedSpriteModels(List<SpriteModel> toBeRemovedSpriteModels) {

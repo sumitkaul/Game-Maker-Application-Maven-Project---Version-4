@@ -81,6 +81,59 @@ public class MenuBarPanel {
 
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
+		      loadGame();
+		    }
+		    	
+		});
+
+		itemGame2.addActionListener(new ActionListener() {
+
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		    	saveGame();		    	
+		    }
+		});
+		menuGame.add(itemGame1);
+		menuGame.add(itemGame2);
+		
+		Menu menuMultiPlayer = new Menu("MultiPlayer");
+		MenuItem startMultiPlayer = new MenuItem("Start"); 
+		menuMultiPlayer.add(startMultiPlayer);
+		menuBar.add(menuMultiPlayer);
+		
+		startMultiPlayer.addActionListener(new ActionListener() {
+
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+			MultiPlayerOption p = new MultiPlayerOption(Design.getInstance().getGamePanel());
+			LOG.info("in start action listener");
+			p.selectOption();
+		    }
+		});
+
+	}
+		/********* Getters and Setters *************/
+
+		public void setMenuBar(MenuBar menuBar){
+			this.menuBar = menuBar;
+		}
+
+		public MenuBar getMenuBar(){
+			return this.menuBar;
+		}
+		 
+		public static void saveGame()
+		{
+			GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), Design.getInstance().getFacade().getGameController().getEvents(), Design.getInstance().getFacade().getKeyListenerController().getKeyEvents(), Layers.getInstance().getLayers(), ClockDisplay.getInstance().isVisible());
+			String gameData = GameDataPackageIO.convertGamePackageToString(game);
+
+			GameBaseSavePanel p = new GameBaseSavePanel(Design.getInstance().getControlPanel());
+			p.saveGameToRemoteServer(gameData);
+		
+		}
+		
+		public static void loadGame()
+		{
 			GameBaseLoadPanel p = new GameBaseLoadPanel(Design.getInstance().getControlPanel());
 
 			String gameData = p.readGameDataFromRemoteList();
@@ -121,48 +174,9 @@ public class MenuBarPanel {
 			    // if(spriteListGroupModel.size() >0 )
 			    // groupSpriteList.setModel(spriteListGroupModel);
 			}
-
 			Design.getInstance().updateProperties();
-		    }
-		});
-
-		itemGame2.addActionListener(new ActionListener() {
-
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-			GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), Design.getInstance().getFacade().getGameController().getEvents(), Design.getInstance().getFacade().getKeyListenerController().getKeyEvents(), Layers.getInstance().getLayers(), ClockDisplay.getInstance().isVisible());
-			String gameData = GameDataPackageIO.convertGamePackageToString(game);
-
-			GameBaseSavePanel p = new GameBaseSavePanel(Design.getInstance().getControlPanel());
-			p.saveGameToRemoteServer(gameData);
-		    }
-		});
-		menuGame.add(itemGame1);
-		menuGame.add(itemGame2);
-		
-		Menu menuMultiPlayer = new Menu("MultiPlayer");
-		MenuItem startMultiPlayer = new MenuItem("Start"); 
-		menuMultiPlayer.add(startMultiPlayer);
-		menuBar.add(menuMultiPlayer);
-		
-		startMultiPlayer.addActionListener(new ActionListener() {
-
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-			MultiPlayerOption p = new MultiPlayerOption(Design.getInstance().getGamePanel());
-			LOG.info("in start action listener");
-			p.selectOption();
-		    }
-		});
-
-	}
-		/********* Getters and Setters *************/
-
-		public void setMenuBar(MenuBar menuBar){
-			this.menuBar = menuBar;
-		}
-
-		public MenuBar getMenuBar(){
-			return this.menuBar;
 		}
 }
+		
+		
+
