@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class ScoreTest {
 	
-	Score score = Score.getInstance();
+	private Score score = Score.getInstance();
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
