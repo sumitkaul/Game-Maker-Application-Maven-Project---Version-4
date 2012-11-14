@@ -91,4 +91,39 @@ public class SaveController {
         return new ResponseEntity<Gson>(gson, null);
 	}
 	
+	@RequestMapping(value = "/saveGameProgress", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<Gson> saveProgressGame(HttpEntity<byte[]> requestEntity) {
+		
+		HttpHeaders requestHeader = requestEntity.getHeaders();
+		
+		String game_name = requestHeader.get("game_name").get(0);
+        String save_name = requestHeader.get("game_save_name").get(0);
+        String game_data = requestHeader.get("game_data").get(0);
+        String player_name = requestHeader.get("game_player_name").get(0);
+        int game_score = Integer.parseInt(requestHeader.get("game_score").get(0));
+
+        Gson gson = new Gson();
+
+        if (save_name != null && game_data != null && player_name != null && game_name != null) {
+            String sql1 = "select count(*) FROM InProgressGame where game_name='" + game_name + "'and save_name='" + save_name + "' and player_name='" + player_name + "'";
+            String sql2 = "insert into InProgressGame (game_name, player_name, score, game_data, save_name) VALUES ('" + game_name + "', '" + player_name + "'," + game_score + ",'" + game_data + "','" + save_name + "')";
+            String sql3 = "update InProgressGame set game_data = '" + game_data + "',score = " + game_score + " where game_name='" + game_name + "' and save_name='" + save_name + "' and player_name='" + player_name + "'";
+
+            List<BigInteger> count = DatabaseHandler.Query(sql1);
+
+
+            if (count.get(0).intValue() < 1) {
+                DatabaseHandler.ExecuteQuery(sql2);
+            } else {
+                DatabaseHandler.ExecuteQuery(sql3);
+            }
+
+
+           gson.toJson(true);
+        } else {
+            gson.toJson(false);
+        }
+        return new ResponseEntity<Gson>(gson, null);
+	}
 }
