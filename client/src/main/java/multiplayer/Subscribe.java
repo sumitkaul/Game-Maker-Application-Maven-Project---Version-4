@@ -18,6 +18,10 @@ public  final class Subscribe {
 	}
 	
 	
+	private Subscribe()
+	{
+		
+	}
 	public Message setTopicAndReceive(String topic) throws JMSException {
 		// TODO Auto-generated method stub
 		this.topic=topic;
