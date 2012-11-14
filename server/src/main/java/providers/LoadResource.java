@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.jboss.logging.Logger;
 
-@WebServlet(name = "LoadResource", urlPatterns = {"/loadResource"})
+@WebServlet(name = "LoadResource", urlPatterns = {"/loaResource"})
 public class LoadResource extends HttpServlet {
 
     private static Logger log = Logger.getLogger(LoadResource.class);
