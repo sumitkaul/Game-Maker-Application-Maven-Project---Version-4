@@ -3,6 +3,9 @@ package multiplayer;
 import java.awt.Toolkit;
 import java.util.Timer;
 
+import model.SpriteModel;
+import action.GameAction;
+
 public class Sender {
 	
 	Toolkit toolkit;
@@ -12,9 +15,8 @@ public class Sender {
 		
 		
 		SessionFactory.getInstanceOf().createConnection();
-		Publish publishState=new Publish();
-		publishState.setTopic(topic);
-		publishState.setGameState(text);
+		Publish.getInstanceOf().setTopic(topic);
+		Publish.getInstanceOf().setGameState(text);
 		
 //		Timer timer=new Timer();
 //		timer.schedule(publishState,10);
@@ -23,8 +25,15 @@ public class Sender {
 //		    timer.schedule(publishState, 10);
 
 
-		publishState.sendState();
+		Publish.getInstanceOf().sendState();
 		
+	}
+	
+	public void sendAsClient(GameAction action, SpriteModel spriteModel)
+	{
+		SessionFactory.getInstanceOf().createConnection();
+		Publish.getInstanceOf().sendGameAction(action, spriteModel);
+	
 	}
 
 }

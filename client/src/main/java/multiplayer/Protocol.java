@@ -1,10 +1,15 @@
 package multiplayer;
 
+import java.util.HashMap;
+
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
 
+import action.GameAction;
+
 import loader.GameDataPackageIO;
 import loader.GamePackage;
+import model.SpriteModel;
 import utility.ClockDisplay;
 import utility.Layers;
 import utility.SpriteList;
@@ -32,9 +37,21 @@ public class Protocol {
 		return msg;
 		
 	}
-	public void createData()
+	public ObjectMessage createData(GameAction action, SpriteModel model)
 	{
+		HashMap<GameAction,SpriteModel> map = new HashMap<GameAction,SpriteModel>();
+		map.put(action, model);
 		
+		try{
+			
+			
+			msg = SessionFactory.getInstanceOf().getSession().createObjectMessage();
+			msg.setObject(map );
+				msg.setJMSType("Sending Actions");
+			} catch (JMSException e) {
+				LOG.info("sending Actions");
+			}
+			return msg;
 	}
 
 }

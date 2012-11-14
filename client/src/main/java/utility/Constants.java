@@ -101,5 +101,7 @@ public class Constants
 	public static String NEW_LAYER = "New Layer";
 	public static String ALL_LAYERS = "All Layers";
 	public static String SELECT_LAYER="Please select the layer";
+	
+	public static boolean isMultiplayer = false;
 
 }

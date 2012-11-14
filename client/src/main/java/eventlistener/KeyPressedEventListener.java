@@ -5,9 +5,11 @@ import action.GameAction;
 import java.util.HashMap;
 import java.util.List;
 
+import utility.Constants;
 import utility.SpriteList;
 
 import model.SpriteModel;
+import multiplayer.Sender;
 
 public class KeyPressedEventListener implements EventListener {
 
@@ -34,6 +36,11 @@ public class KeyPressedEventListener implements EventListener {
     					allSpriteModel.get(i).setSpeedY(getySpeed());
     					
     			action.doAction(allSpriteModel.get(i));
+    			if (Constants.isMultiplayer)
+    			{
+    				Sender sender = new Sender();
+    				sender.sendAsClient(action, allSpriteModel.get(i));
+    			}
     		}	
     	}
     }

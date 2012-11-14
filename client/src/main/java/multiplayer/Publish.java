@@ -1,21 +1,44 @@
 package multiplayer;
 
+import java.util.HashMap;
 import java.util.TimerTask;
 
 import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
+import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
 
-public class Publish{
+import model.SpriteModel;
+import action.GameAction;
+
+public final class Publish{
 
 	private MessageProducer producer;
 	private TextMessage message;
 	private boolean done=false;
+	private ObjectMessage objectMessage;
 	private String topic;
 	private String gameState;
+	private final static Publish instance =new Publish();
+	
+	
+	public static Publish getInstanceOf(){
+		return instance;
+	}
+	
+	private Publish()
+	{
+		
+	}
+	public String getTopic() {
+		return topic;
+	}
+
+
+	
 	
 	public void setTopic(String topic) {
 		// TODO Auto-generated method stub
@@ -28,14 +51,12 @@ public class Publish{
 			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 		
 		} catch (JMSException e1) {
-			// TODO Auto-generated catch block
-			//e1.printStackTrace();
+		
 		}
 			
 	}
 	
 	public void sendState() {
-		// TODO Auto-generated method stub
 		String text = "Hello world! From: " + Thread.currentThread().getName() + " : " + this.hashCode();
 		try {
 			message = SessionFactory.getInstanceOf().getSession().createTextMessage(gameState);
@@ -49,9 +70,20 @@ public class Publish{
 	
 
 	public void setGameState(String text) {
-		// TODO Auto-generated method stub
 		this.gameState=text;
 	}
 	
+	public void sendGameAction(GameAction action, SpriteModel spriteModel)
+	{
+		try {
+			Protocol protocol = new Protocol();
+			
+			objectMessage = protocol.createData(action, spriteModel);
+	          producer.send(objectMessage);
+		} catch (JMSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
 	
 }
