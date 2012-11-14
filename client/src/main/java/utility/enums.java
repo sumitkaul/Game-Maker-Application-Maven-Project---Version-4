@@ -20,5 +20,8 @@ public class enums {
 	public enum ImageSource{
 		PRIMARY,SECONDARY
 	}
+	public enum playerModes{
+		SINGLE,MULTI
+	}
 }
 
