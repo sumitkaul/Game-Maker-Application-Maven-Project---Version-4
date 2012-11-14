@@ -62,7 +62,7 @@ public  final class Subscribe {
 
 	private void receiveState() throws JMSException {
 		
-		Receiver.getInstanceOf().receiveAsHost(topic);
+		Receiver.getInstanceOf().receiveFromHost(topic);
 	}
 	
 

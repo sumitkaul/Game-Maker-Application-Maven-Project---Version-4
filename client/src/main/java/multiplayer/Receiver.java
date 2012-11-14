@@ -1,6 +1,7 @@
 package multiplayer;
 
 import java.util.HashMap;
+import java.util.Set;
 
 import javax.jms.Destination;
 import javax.jms.JMSException;
@@ -9,7 +10,11 @@ import javax.jms.MessageConsumer;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
+import model.SpriteModel;
+
 import org.newdawn.slick.tests.xml.GameData;
+
+import action.GameAction;
 
 public class Receiver implements Runnable{
 
@@ -43,7 +48,7 @@ public class Receiver implements Runnable{
 		}
 	}
 	
-	public void receiveAsHost(String topic) throws JMSException{
+	public void receiveFromHost(String topic) throws JMSException{
 		
 		SessionFactory.getInstanceOf().createConnection();
 		Subscribe.getInstanceOf().setTopic(topic);
@@ -70,7 +75,13 @@ public class Receiver implements Runnable{
             Object data = objectMessage.getObject();
             if (data instanceof HashMap)
             {
-            	
+            	HashMap<GameAction, SpriteModel> map = (HashMap<GameAction, SpriteModel>) data;
+            	Set <GameAction> actionSet = map.keySet();
+            	for (GameAction action: actionSet)
+            	{
+            		SpriteModel model = map.get(action);
+            		action.doAction(model);
+            	}
             }
            
         } 
