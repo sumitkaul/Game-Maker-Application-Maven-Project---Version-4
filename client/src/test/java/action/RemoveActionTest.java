@@ -37,17 +37,18 @@ public class RemoveActionTest {
 	@Test
 	public void testDoAction() {
 		/*
+		 * the returned list of to be removed models should contains exactly 2 elements and each element should be the same 
+		 * as that entered by doAction
+		 */
+		actualToBeRemovedSpriteModelsList = SpriteList.getInstance().getToBeRemovedSpriteModels();
+		actualToBeRemovedSpriteModelsList.clear();
+		/*
 		 * doAction for RemoveAction adds the model in its argument to the list models to be removed
 		 * Here 2 models should be added.
 		 */
 		action.doAction(actualModel1);
 		action.doAction(actualModel2);
 		
-		/*
-		 * the returned list of to be removed models should contains exactly 2 elements and each element should be the same 
-		 * as that entered by doAction
-		 */
-		actualToBeRemovedSpriteModelsList = SpriteList.getInstance().getToBeRemovedSpriteModels();
 		
 		int n = actualToBeRemovedSpriteModelsList.size();
 		if(n==2)

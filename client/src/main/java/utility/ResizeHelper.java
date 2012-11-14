@@ -33,4 +33,10 @@ public class ResizeHelper {
 	public void setyFactor(double yFactor) {
 		this.yFactor = yFactor;
 	}
+	
+	public void reset()
+	{
+		this.setxFactor(1.0);
+		this.setyFactor(1.0);
+	}
 }

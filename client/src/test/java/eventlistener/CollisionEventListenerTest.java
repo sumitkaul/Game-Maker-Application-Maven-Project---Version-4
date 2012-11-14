@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import utility.ResizeHelper;
 import utility.SpriteList;
 import view.Design;
 
@@ -26,9 +27,13 @@ public class CollisionEventListenerTest {
 	@Before
 	public void setUp() throws Exception {
 		Design.getInstance().reset();
-		selectedSpriteModel = new SpriteModel(100, 100, 10, 10, 100, 100, "","");
-		secondarySpriteModel= new SpriteModel(190, 190, 10, 10, 100, 100, "","");
-		secondarySpriteModel.setGroupId("Group1");
+		ResizeHelper.getInstance().reset();
+		selectedSpriteModel = new SpriteModel(100, 100, 10, 10, 20, 30, "","");
+		secondarySpriteModel= new SpriteModel(100, 100, 10, 10, 100, 100, "","");
+		
+		selectedSpriteModel.setGroupId("Group1");
+		secondarySpriteModel.setGroupId("Group2");		
+
 		SpriteList.getInstance().addSprite(selectedSpriteModel);
 		SpriteList.getInstance().addSprite(secondarySpriteModel);
 		collisionListener = new CollisionEventListener();

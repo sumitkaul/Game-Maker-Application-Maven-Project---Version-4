@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class ResizeHelperTest {
 
-	private static ResizeHelper rHelper;
+	private  ResizeHelper rHelper;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -17,7 +17,7 @@ public class ResizeHelperTest {
 
 	@After
 	public void tearDown() throws Exception {
-		rHelper = null;
+		rHelper.reset();
 	}
 
 	@Test
