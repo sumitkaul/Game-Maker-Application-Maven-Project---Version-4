@@ -11,11 +11,20 @@ public class Receiver {
 	
 	private MessageConsumer consumer;
 	private static Receiver receiver= new Receiver();
+	private boolean receiveStatus = true;
 	
 
 	public static Receiver getInstanceOf()
 	{
 		return receiver;
+	}
+	
+	public void startListening()
+	{
+		while(receiveStatus)
+		{
+			
+		}
 	}
 	
 	public void receiveAsHost(String topic) throws JMSException{
@@ -34,5 +43,6 @@ public class Receiver {
         }
    
 	}
+	
 	
 }

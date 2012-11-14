@@ -6,10 +6,18 @@ import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.Topic;
 
-public class Subscribe {
+public  final class Subscribe {
 
 	private String topic;
 	private MessageConsumer consumer;
+	private static final Subscribe instance = new Subscribe();
+	
+	public static Subscribe getInstanceOf()
+	{
+		return instance;
+	}
+	
+	
 	public Message setTopicAndReceive(String topic) throws JMSException {
 		// TODO Auto-generated method stub
 		this.topic=topic;
