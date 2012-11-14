@@ -50,6 +50,7 @@ public class MultiPlayerOption {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+
 				String text="Hello world";
 				String topic="TEST";
 				
@@ -59,6 +60,10 @@ public class MultiPlayerOption {
 				
 				
 				
+
+				HostGame p = new HostGame(Design.getInstance().getGamePanel());
+				p.displayHostedGames();
+
 			}
 				
 		});
@@ -68,6 +73,8 @@ public class MultiPlayerOption {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				JoinGame p = new JoinGame(Design.getInstance().getGamePanel());
+				p.displayJoinGames();
 			}
 				
 		});

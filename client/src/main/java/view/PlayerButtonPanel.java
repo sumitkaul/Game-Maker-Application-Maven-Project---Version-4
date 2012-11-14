@@ -77,19 +77,39 @@ public class PlayerButtonPanel implements ActionListener{
     }
 	public void sendChatMessage() {
 		
-		if(Player.getInstance().getUsername()!=null)
+		if(Player.getInstance().getUsername()!=null && checkText(textSend.getText()))
 		{
 			ChatSender.sendMessage(Player.getInstance().getUsername()+": "+textSend.getText());
 		}
 		else
 		{
 			JFrame frame=new JFrame();
-			JOptionPane.showMessageDialog(frame,"Please login");
+			if(Player.getInstance().getUsername()==null)
+				JOptionPane.showMessageDialog(frame,"Please login");
+			if(!checkText(textSend.getText()))
+				JOptionPane.showMessageDialog(frame,"Please enter valid text.");
 		}
 		textSend.setText("");	
 		send.setEnabled(false);
 		
 	}
+	
+	public boolean checkText(String text){
+		
+		String[] temp= text.split(" ");
+		boolean flag=false;
+		
+		for(int i=0;i < temp.length;i++){
+		
+			if(temp[i].matches("^[a-zA-Z0-9_]*$"))
+				flag=true;
+			else
+				flag=false;
+		}
+		
+		return flag;
+	}
+	
 	public PlayerButtonPanel(Design designArg) {
 		this.design = designArg;
 		startButton = new JButton("Start");
