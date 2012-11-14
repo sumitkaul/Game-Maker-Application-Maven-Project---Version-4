@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<jnlp spec="1.0+" codebase="http://fluency.knownspace.org/student-files/fall2012/a9/team3/" href="project.jnlp">
+<jnlp spec="1.0+" codebase="http://fluency.knownspace.org/student-files/fall2012/a10/team-all/" href="project.jnlp">
   <information>
-    <title>Game Maker Team 3</title>
+    <title>Game Maker - Fall 2012 Batch</title>
     <vendor>P532</vendor>
     <homepage href="http://fluency.knownspace.org/confluence" />
     <description></description>   
-    <description kind="short">Team 3's A9 Game Maker</description>
+    <description kind="short">Fall 2012's Game Maker</description>
     <icon href="kslogo.gif" />
   </information>
   <offline-allowed />
@@ -14,7 +14,7 @@
   </security>
   <resources>
     <j2se version="1.6+" />
-    <jar href="team3.jar" />
+    <jar href="team-all-jar-with-dependencies.jar" />
   </resources>
   <application-desc main-class="gameMaker.gameMaker" />
 </jnlp>
