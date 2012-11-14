@@ -79,11 +79,13 @@ public class Receiver implements Runnable{
 	@Override
 	public void run() 
 	{
-		try {
-			receiveData();
-		} catch (JMSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		while (receiveStatus)
+		{
+			try {
+				receiveData();
+			} catch (JMSException e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}
