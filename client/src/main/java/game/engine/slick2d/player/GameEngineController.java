@@ -23,6 +23,8 @@ import view.communication.ClientHandler;
 import utility.SpriteList;
 
 import eventlistener.EventListener;
+import javax.swing.JFrame;
+import view.companels.GameBaseLoadPanel;
 
 public class GameEngineController extends BasicGame {
 
@@ -31,18 +33,22 @@ public class GameEngineController extends BasicGame {
     private Map<Integer, Image> tempImagesForTesting;
     private List<EventListener> eventsForGameController;
     private PhysicsComponent physicsComponent;
+    private String test;
     
     public GameEngineController(String title) throws IOException {
     	
     		
         super(title);
         physicsComponent=new PhysicsComponent();
-        
+        JFrame jf = new JFrame();
+        GameBaseLoadPanel gb = new GameBaseLoadPanel(jf.getRootPane());
+        test = gb.readGameDataFromRemoteList();
     }
 
     @Override
     public void init(GameContainer gc) throws SlickException {
-        GamePackage game = GameDataPackageIO.loadGamePackageFromLocalFile("/game/engine/slick2d/player/testing_game.xml");
+        
+        GamePackage game = GameDataPackageIO.loadGamePackageFromFile(test);//loadGamePackageFromLocalFile("/game/engine/slick2d/player/testing_game.xml");
         allSpriteModels = game.getSpriteList();
         eventsForGameController = game.getEventsForGameController();
         tempImagesForTesting = new HashMap<Integer, Image>(5);

@@ -8,6 +8,9 @@ import org.newdawn.slick.SlickException;
 public class TestEngine {
 
     public static void main(String[] args) throws SlickException, IOException {
+        System.setProperty("org.lwjgl.librarypath",System.getProperty("user.dir") + "/target/natives/");
+        System.setProperty("net.java.games.input.librarypath", System.getProperty("org.lwjgl.librarypath"));
+        
         GameEngineController game = new GameEngineController("test");
 
 
