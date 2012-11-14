@@ -1,4 +1,4 @@
-/*package facade;
+package facade;
 
 import static org.junit.Assert.*;
 
@@ -82,4 +82,3 @@ public class FacadeTest   {
 	}	
 
 }
-*/
