@@ -23,6 +23,8 @@ import view.communication.ClientHandler;
 import utility.SpriteList;
 
 import eventlistener.EventListener;
+import eventlistener.KeyPressedEventListener;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import view.companels.GameBaseLoadPanel;
 
@@ -32,17 +34,25 @@ public class GameEngineController extends BasicGame {
     private List<SpriteModel> allSpriteModels;
     private Map<Integer, Image> tempImagesForTesting;
     private List<EventListener> eventsForGameController;
+    private List<EventListener> keyEvents;
     private PhysicsComponent physicsComponent;
     private String test;
+    private HashMap<Integer,KeyPressedEventListener> keyReg;
+    private HashMap<Integer, Integer> key2key;
     
-    public GameEngineController(String title) throws IOException {
-    	
-    		
+    
+    public GameEngineController(String title) throws IOException {  		
         super(title);
+        keyReg = new HashMap<Integer,KeyPressedEventListener>(10);
+        key2key = new HashMap<Integer, Integer>(10);
         physicsComponent=new PhysicsComponent();
         JFrame jf = new JFrame();
         GameBaseLoadPanel gb = new GameBaseLoadPanel(jf.getRootPane());
         test = gb.readGameDataFromRemoteList();
+        key2key.put(37, 203);
+        key2key.put(39, 205);
+        key2key.put(38, 200);
+        key2key.put(40, 208);
     }
 
     @Override
@@ -71,16 +81,31 @@ public class GameEngineController extends BasicGame {
             tempImagesForTesting.put(s.hashCode(), image);
         }
         
-     
+        
+        keyEvents = game.getEventsForKeyController();
+        for (EventListener keyevent: keyEvents){
+            KeyPressedEventListener key = (KeyPressedEventListener) keyevent;
+            int i = key.getKeyRegistered();
+            keyReg.put(i, key);
+            LOG.debug("read one key: " + key + " " + i);
+        }
         
     }
 
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
-    	for (EventListener event : eventsForGameController) {
-            
+    	for (EventListener event : eventsForGameController) {          
     		event.checkEvent(null);
         }
+        for (Integer keycode : keyReg.keySet()){
+            if(gc.getInput().isKeyDown(key2key.get(keycode.intValue()))){
+                LOG.debug(keycode + " is Pressed");
+                HashMap<String,Object> map = new HashMap<String,Object>();
+        	map.put("keypressed", new Integer(keycode));
+        	keyReg.get(keycode).checkEvent(map);
+            }
+        }
+
     	
     }
 
