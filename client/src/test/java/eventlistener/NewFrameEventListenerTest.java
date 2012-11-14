@@ -14,6 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import utility.SpriteList;
+import view.Design;
 
 import action.ActionBounce;
 import action.ActionMove;
@@ -26,27 +27,11 @@ public class NewFrameEventListenerTest {
 	 * @throws java.lang.Exception
 	 */
 
-    private static SpriteModel selectedSpriteModel;
-    static NewFrameEventListener newFrameListener;
-    private static SpriteModel selectedSpriteModelTest;
+    private  SpriteModel selectedSpriteModel;
+    private  NewFrameEventListener newFrameListener;
+    private  SpriteModel selectedSpriteModelTest;
 
-	static GameAction action;
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		selectedSpriteModel = new SpriteModel(100, 100, 20, 20, 100, 100, "","");
-		selectedSpriteModelTest = new SpriteModel(190, 190, 20, 20, 100, 100, "","");
-
-		SpriteList.getInstance().addSprite(selectedSpriteModel);
-		SpriteList.getInstance().addSprite(selectedSpriteModelTest);
-
-		newFrameListener = new NewFrameEventListener();
-		newFrameListener.setRegisteredGroupId(selectedSpriteModel.getGroupId());
-		newFrameListener.setRegisteredObjectId(selectedSpriteModel.getId()); 
-		GameAction action = new ActionMove();
-		newFrameListener.setAction(action);
-
-		
-	}
+	private  GameAction action;
 
 	/**
 	 * @throws java.lang.Exception
@@ -60,6 +45,19 @@ public class NewFrameEventListenerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
+		Design.getInstance().reset();
+		selectedSpriteModel = new SpriteModel(100, 100, 20, 20, 100, 100, "","");
+		selectedSpriteModelTest = new SpriteModel(190, 190, 20, 20, 100, 100, "","");
+
+		SpriteList.getInstance().addSprite(selectedSpriteModel);
+		SpriteList.getInstance().addSprite(selectedSpriteModelTest);
+
+		newFrameListener = new NewFrameEventListener();
+		newFrameListener.setRegisteredGroupId(selectedSpriteModel.getGroupId());
+		newFrameListener.setRegisteredObjectId(selectedSpriteModel.getId()); 
+		GameAction action = new ActionMove();
+		newFrameListener.setAction(action);
+
 	}
 
 	/**
@@ -67,6 +65,7 @@ public class NewFrameEventListenerTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
+		Design.getInstance().reset();
 	}
 
 	/**

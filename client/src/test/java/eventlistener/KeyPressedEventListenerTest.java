@@ -18,6 +18,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import utility.SpriteList;
+import view.Design;
 
 import action.ActionMove;
 import action.GameAction;
@@ -63,6 +64,7 @@ public class KeyPressedEventListenerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
+		Design.getInstance().reset();
 	}
 
 	/**
@@ -70,6 +72,7 @@ public class KeyPressedEventListenerTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
+		Design.getInstance().reset();
 	}
 
 	/**

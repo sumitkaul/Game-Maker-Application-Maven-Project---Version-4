@@ -20,6 +20,7 @@ import org.junit.Test;
 import eventlistener.EventListener;
 
 import utility.Helper;
+import view.Design;
 
 
 
@@ -32,9 +33,9 @@ public class SpriteModelTest {
 	private SpriteModel model ;
 	private SpriteModel testModel ;
 	private List<SpriteModel> spriteModels;
-	List<EventListener> eventListenerList;
-	HashMap<String,Integer> stringToEventMap;
-	EventListener listener;
+	private List<EventListener> eventListenerList;
+	private HashMap<String,Integer> stringToEventMap;
+	private EventListener listener;
 	
 
 	
@@ -56,6 +57,7 @@ public class SpriteModelTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
+		Design.getInstance().reset();
 		double xSpeed = 10;
 		double ySpeed = 10;
 		double initialPosX = 100;
@@ -84,6 +86,7 @@ public class SpriteModelTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
+		Design.getInstance().reset();
 	}
 
 	/**
