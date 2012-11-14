@@ -1,7 +1,11 @@
 package providers;
 
+import java.math.BigInteger;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.jboss.logging.Logger;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +22,11 @@ import db.Resources;
 @Controller
 public class SaveController {
 
+	private static Logger log = Logger.getLogger(SaveController.class);
+	
 	@RequestMapping(value = "/saveResource", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Gson> saveGame(HttpEntity<byte[]> requestEntity) {
+	public ResponseEntity<Gson> saveResourc(HttpEntity<byte[]> requestEntity) {
 		Gson gson = new Gson();
         try {
             //log.info("request /saveResource from: " + request.getRemoteHost() + " " + request.getRemoteAddr());
@@ -47,4 +53,42 @@ public class SaveController {
 		
 		return new ResponseEntity<Gson>(gson, null);
 	}
+	
+	@RequestMapping(value = "/saveGameBase", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<Gson> saveGame(HttpEntity<byte[]> requestEntity) {
+		
+		HttpHeaders requestHeader = requestEntity.getHeaders();
+		
+		String game_name = requestHeader.get("game_name").get(0);
+        String game_data = requestHeader.get("game_data").get(0);
+        String game_author = requestHeader.get("game_author").get(0);
+
+        Gson gson = new Gson();
+
+        if (game_name != null && game_data != null && game_author != null) {
+
+            String sql = "select count(*) FROM GameBase where game_name='" + game_name + "'";
+            String sql2 = "insert into GameBase (game_name, game_author, game_data) VALUES ('" + game_name + "', '" + game_author + "', '" + game_data + "')";
+            String sql3 = "update GameBase set game_author = '" + game_author + "', game_data = '" + game_data + "' where game_name='" + game_name + "'";
+
+            List<BigInteger> count = DatabaseHandler.Query(sql);
+            log.info(count);
+
+            if (count.get(0).intValue() < 1) {
+                DatabaseHandler.ExecuteQuery(sql2);
+            } else {
+                DatabaseHandler.ExecuteQuery(sql3);
+            }
+
+            log.info("added game: " + game_name);
+
+            gson.toJson(true);
+        } else {
+            gson.toJson(false);
+        }
+        
+        return new ResponseEntity<Gson>(gson, null);
+	}
+	
 }

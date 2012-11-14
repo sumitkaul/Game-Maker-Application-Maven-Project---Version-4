@@ -17,7 +17,7 @@ import org.jboss.logging.Logger;
  *
  * @author han
  */
-@WebServlet(name = "SaveGameBase", urlPatterns = {"/saveGameBase"})
+@WebServlet(name = "SaveGameBas", urlPatterns = {"/saveGameBas"})
 public class SaveGameBase extends HttpServlet {
 
     private static Logger log = Logger.getLogger(SaveGameBase.class);

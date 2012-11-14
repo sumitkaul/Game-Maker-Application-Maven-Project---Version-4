@@ -14,7 +14,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.jboss.logging.Logger;
 
-@WebServlet(name = "SaveResource", urlPatterns = {"/saveResourc"})
+@WebServlet(name = "SaveResourc", urlPatterns = {"/saveResourc"})
 public class SaveResource extends HttpServlet {
 
     private static Logger log = Logger.getLogger(SaveResource.class);
