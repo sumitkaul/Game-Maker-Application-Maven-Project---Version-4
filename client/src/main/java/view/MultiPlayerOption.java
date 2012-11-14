@@ -16,6 +16,7 @@ import view.companels.GameBaseLoadPanel;
 import loader.GameDataPackageIO;
 import loader.GamePackage;
 import model.SpriteModel;
+import multiplayer.Sender;
 import net.miginfocom.swing.MigLayout;
 
 
@@ -49,8 +50,20 @@ public class MultiPlayerOption {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+
+				String text="Hello world";
+				String topic="TEST";
+				
+				Sender sender=new Sender();
+				sender.sendAsHost(text,topic);
+				
+				
+				
+				
+
 				HostGame p = new HostGame(Design.getInstance().getGamePanel());
 				p.displayHostedGames();
+
 			}
 				
 		});

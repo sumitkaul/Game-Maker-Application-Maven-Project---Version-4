@@ -1,53 +1,44 @@
 package multiplayer;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.TimerTask;
 
 import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.TextMessage;
+import javax.jms.Topic;
 
-public class Publish implements ActionListener {
+public class Publish{
 
 	private MessageProducer producer;
 	private TextMessage message;
+	private boolean done=false;
+	private String topic;
+	private String gameState;
 	
-	
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		
-		  try {  
-			sendState(); 
-			receiveState();
-		} catch (JMSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-
-	public void setConnectionSettings() {
+	public void setTopic(String topic) {
 		// TODO Auto-generated method stub
-		
-		Destination destination=(Destination) SessionFactory.getInstanceOf().getSession();
-		
+		this.topic=topic;
+		Destination destination;
+		Topic topic1;
 		try {
-			producer = SessionFactory.getInstanceOf().getSession().createProducer(destination);
+			topic1 = (Topic) SessionFactory.getInstanceOf().getSession().createTopic(topic);
+			producer = SessionFactory.getInstanceOf().getSession().createProducer(topic1);
 			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-		} catch (JMSException e) {
+		
+		} catch (JMSException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e1.printStackTrace();
 		}
-        	
+			
 	}
 	
-	private void sendState() {
+	public void sendState() {
 		// TODO Auto-generated method stub
 		String text = "Hello world! From: " + Thread.currentThread().getName() + " : " + this.hashCode();
 		try {
-			message = SessionFactory.getInstanceOf().getSession().createTextMessage(text);
+			message = SessionFactory.getInstanceOf().getSession().createTextMessage(gameState);
 			  // Tell the producer to send the message
 	          producer.send(message);
 		} catch (JMSException e) {
@@ -57,13 +48,10 @@ public class Publish implements ActionListener {
 	}
 	
 
-	
-
-	private void receiveState() throws JMSException {
-		
-		Receiver.getInstanceOf().receiveAsHost();
+	public void setGameState(String text) {
+		// TODO Auto-generated method stub
+		this.gameState=text;
 	}
-
 	
 	
 }

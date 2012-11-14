@@ -18,12 +18,12 @@ public class Receiver {
 		return receiver;
 	}
 	
-	public void receiveAsHost() throws JMSException{
+	public void receiveAsHost(String topic) throws JMSException{
 		
 		SessionFactory.getInstanceOf().createConnection();
 		
 		Subscribe subscribe=new Subscribe();
-		Message message=subscribe.setTopicAndReceive();
+		Message message=subscribe.setTopicAndReceive(topic);
 		
 		if (message instanceof TextMessage) {
             TextMessage textMessage = (TextMessage) message;
