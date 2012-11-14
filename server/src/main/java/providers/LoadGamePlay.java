@@ -14,7 +14,7 @@ import org.jboss.logging.Logger;
 /**
  * Servlet implementation class LoadGamePlay
  */
-@WebServlet(name = "LoadGamePlay", urlPatterns = {"/loadGamePlay"})
+@WebServlet(name = "LoadGamePlay", urlPatterns = {"/loadGamPlay"})
 public class LoadGamePlay extends HttpServlet {
 
     private static Logger log = Logger.getLogger(LoadGamePlay.class);
