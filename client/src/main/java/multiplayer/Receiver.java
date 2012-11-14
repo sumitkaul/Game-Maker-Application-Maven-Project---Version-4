@@ -1,10 +1,15 @@
 package multiplayer;
 
+import java.util.HashMap;
+
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
+import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
+
+import org.newdawn.slick.tests.xml.GameData;
 
 public class Receiver implements Runnable{
 
@@ -41,27 +46,45 @@ public class Receiver implements Runnable{
 	public void receiveAsHost(String topic) throws JMSException{
 		
 		SessionFactory.getInstanceOf().createConnection();
-		Message message=Subscribe.getInstanceOf().setTopicAndReceive(topic);
+		Subscribe.getInstanceOf().setTopic(topic);
+		Message message= Subscribe.getInstanceOf().receiveData();
 		
 		if (message instanceof TextMessage) {
             TextMessage textMessage = (TextMessage) message;
             String text = textMessage.getText();
            
-        } else {
+        } else 
+        {
            
         }
    
 	}
 	
-	public void receiveData()
+	public void receiveData() throws JMSException
 	{
+		SessionFactory.getInstanceOf().getConnection();
+		Message message= Subscribe.getInstanceOf().receiveData();
 		
+		if (message instanceof ObjectMessage) {
+            ObjectMessage objectMessage = (ObjectMessage) message;
+            Object data = objectMessage.getObject();
+            if (data instanceof HashMap)
+            {
+            	
+            }
+           
+        } 
 	}
 
 	@Override
 	public void run() 
 	{
-		receiveData();
+		try {
+			receiveData();
+		} catch (JMSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
