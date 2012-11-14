@@ -1,24 +1,29 @@
 package multiplayer;
 
-import javax.swing.Timer;
+import java.awt.Toolkit;
+import java.util.Timer;
 
 public class Sender {
 	
-	public void sendAsHost()
+	Toolkit toolkit;
+	
+	public void sendAsHost(String text,String topic)
 	{
-//		Runnable runnable=(Runnable) new Publish();
-//		Thread brokerThread=new Thread(runnable);
-//		brokerThread.setDaemon(false);
-//		brokerThread.start();
 		
 		
 		SessionFactory.getInstanceOf().createConnection();
 		Publish publishState=new Publish();
-		publishState.setConnectionSettings();
+		publishState.setTopic(topic);
+		publishState.setGameState(text);
 		
-		Timer timer=new Timer(10,publishState);
-		timer.start();
-		
+//		Timer timer=new Timer();
+//		timer.schedule(publishState,10);
+//		   toolkit = Toolkit.getDefaultToolkit();
+//		    timer = new Timer();
+//		    timer.schedule(publishState, 10);
+
+
+		publishState.sendState();
 		
 	}
 
