@@ -1,5 +1,8 @@
 package view.imagePanel;
 
+import imagewizard.MyFilter;
+import imagewizard.Wizard;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -35,8 +38,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import team3.a9.imagewizard.Wizard;
-import team3.a9.imagewizard.MyFilter;
 import utility.SpriteList;
 import utility.Util;
 import view.Design;

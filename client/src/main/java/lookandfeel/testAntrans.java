@@ -1,4 +1,4 @@
-package team3.a9.lookandfeel;
+package lookandfeel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

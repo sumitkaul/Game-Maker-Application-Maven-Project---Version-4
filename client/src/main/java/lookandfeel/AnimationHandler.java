@@ -1,6 +1,9 @@
-package team3.a9.lookandfeel;
+package lookandfeel;
 
 import javax.swing.JComponent;
+
+import lookandfeel.ChangeTransition;
+
 import org.apache.log4j.Logger;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.transitions.Effect;
@@ -12,7 +15,6 @@ import org.jdesktop.animation.transitions.effects.FadeOut;
 import org.jdesktop.animation.transitions.effects.Move;
 import org.jdesktop.animation.transitions.effects.Rotate;
 import org.jdesktop.animation.transitions.effects.Scale;
-import team3.a9.lookandfeel.ChangeTransition;
 
 public class AnimationHandler {
 

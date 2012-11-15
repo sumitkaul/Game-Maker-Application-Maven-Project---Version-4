@@ -1,4 +1,4 @@
-package team3.a9.imagewizard;
+package imagewizard;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
