@@ -137,9 +137,9 @@ public class GameEngineController extends BasicGame {
     @Override
     public void render(GameContainer gc, Graphics grphcs) throws SlickException {
 
-        //remove later
-        physicsComponent.inputLogic();
-        physicsComponent.moveLogic();
+        
+        
+        
 
         for (Body body : physicsComponent.bodies) {
             if (body.getType() == BodyType.DYNAMIC) {
