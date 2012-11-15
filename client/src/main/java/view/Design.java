@@ -30,7 +30,6 @@ import view.companels.GameBaseLoadPanel;
 import view.companels.GameBaseSavePanel;
 
 
-import view.imagePanel.CollapsiblePanel;
 import view.imagePanel.ImagePanel;
 import view.imagePanel.ImageProperties;
 
@@ -50,7 +49,6 @@ public class Design implements Resizable, ActionListener {
 	private JPanel controlPanel; // Left view in game maker
 	private ButtonPanel buttonPanel; // Top part of the left view
 	private final JFrame baseFrame;
-	private CollapsiblePanel collapsiblePanel;
 	private Facade facade;
 	private JTextField velocityXTextField;
 	private JTextField velocityYTextField;
@@ -148,26 +146,17 @@ public class Design implements Resizable, ActionListener {
 
 
 		controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
-
-		collapsiblePanel = new CollapsiblePanel(baseFrame);
-		// collapsiblePanel.setPanels(extendedpanels);
-		gameMakerPanel.add(collapsiblePanel.getComponent());
-
 		JScrollPane imagePanel = getImagePanel();
-
 		controlPanel.add(imagePanel);
-
 		controlPanel.add(fieldPanel);
-
-
 
 		actionEventPanel = new ActionEventPanel(this);
 		controlPanel.add(actionEventPanel.getPanel());
 		switchPanel.add(controlPanel, "controlpanel");
-		//?? amruta
+		
 		view.imagePanel.ImageActionListener imageActionListener = new view.imagePanel.ImageActionListener();
 		extendedImagePanel = new ImagePanel(imageActionListener);
-		JPanel[] extendedpanels = new JPanel[] { extendedImagePanel.getImagePanel() };
+		//JPanel[] extendedpanels = new JPanel[] { extendedImagePanel.getImagePanel() };
 		switchPanel.add(extendedImagePanel.getImagePanel(), "imagepanel");
 		// extendedImagePanel.getImagePanel().setVisible(false);
 
@@ -789,14 +778,6 @@ public class Design implements Resizable, ActionListener {
 
 	public void setWidthTextField(JTextField widthTextField) {
 		this.widthTextField = widthTextField;
-	}
-
-	public CollapsiblePanel getCollapsiblePanel() {
-		return this.collapsiblePanel;
-	}
-
-	public void setCollapsiblePanel(CollapsiblePanel collapsiblePanel) {
-		this.collapsiblePanel = collapsiblePanel;
 	}
 
 	public JFrame getBaseFrame() {
