@@ -147,6 +147,13 @@
             <version>1</version>
             <type>jar</type>
         </dependency>
+        
+        <dependency>
+            <groupId>local.jars</groupId>
+            <artifactId>napkin-lookandfeel</artifactId>
+            <version>1</version>
+            <type>jar</type>
+        </dependency>
 		  
         <dependency>
             <groupId>log4j</groupId>
