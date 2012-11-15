@@ -1,5 +1,14 @@
 package game.engine.slick2d.player;
 
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glColor3f;
+import static org.lwjgl.opengl.GL11.glPopMatrix;
+import static org.lwjgl.opengl.GL11.glPushMatrix;
+import static org.lwjgl.opengl.GL11.glRectf;
+import static org.lwjgl.opengl.GL11.glRotated;
+import static org.lwjgl.opengl.GL11.glTranslatef;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -10,7 +19,9 @@ import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
 //import org.jbox2d.testbed.*;
-
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GLContext;
 import org.newdawn.slick.util.Log;
 
 public class PhysicsComponent {
@@ -71,8 +82,33 @@ public class PhysicsComponent {
 		world.step(1/60f,8,3);
 	}
 	
+	public void inputLogic()
+	{
+		for(Body body:bodies)
+		{
+			if(body.getType()==BodyType.DYNAMIC)
+			{
+				mouseInputLogic(body);
+				keyboardInputLogic(body);
+			}
+		}
+		
+	}
 	
-	
+	public void keyboardInputLogic(Body body)
+	{
+		
+		
+		if(Keyboard.isKeyDown(Keyboard.KEY_A) &&  !Keyboard.isKeyDown(Keyboard.KEY_D))
+		{
+			body.applyAngularImpulse(+0.1f);
+		}
+		if(!Keyboard.isKeyDown(Keyboard.KEY_A) &&  Keyboard.isKeyDown(Keyboard.KEY_D))
+		{
+			body.applyAngularImpulse(-0.1f);
+		}
+		
+	}
 	
 	public void randomColors() {
 		Random randomGenerator = new Random();
@@ -83,6 +119,39 @@ public class PhysicsComponent {
 	}
 
 	
-	
+	public void mouseInputLogic(Body body)
+	{
+		if(Mouse.isButtonDown(0))
+		{
+			Vec2 mousePosition=new Vec2(Mouse.getX(),Mouse.getY()).mul(0.5f).mul(1/10f);
+			Vec2 bodyPosition=body.getPosition();
+			Vec2 force=mousePosition.sub(bodyPosition);
+			body.applyForce(force,body.getPosition());
+		}
 		
+		
+	}
+	
+	public void drawBoxes()
+	{
+		
+	    inputLogic();
+        moveLogic();
+        
+		for(Body body: bodies)
+		{
+			if(body.getType()==BodyType.DYNAMIC)
+			{
+				glPushMatrix();
+				
+				Vec2 bodyPosition=body.getPosition();
+				Log.debug("Position X:"+String.valueOf(bodyPosition.x)+"Position Y:"+String.valueOf(bodyPosition.y));
+				glTranslatef(bodyPosition.x,bodyPosition.y,0);
+				glRotated(Math.toDegrees(body.getAngle()),0,0,1);
+				glRectf(-0.2f * 30,-0.2f * 30,0.2f * 30,0.2f * 30);
+			    glPopMatrix();
+			}
+		}
+	}
+	
 }
