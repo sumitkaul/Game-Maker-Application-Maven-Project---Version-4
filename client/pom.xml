@@ -118,7 +118,35 @@
             <artifactId>jtattoo</artifactId>
             <version>1</version>
             <type>jar</type>
-        </dependency>	
+        </dependency>
+        
+        <dependency>
+            <groupId>local.jars</groupId>
+            <artifactId>synthetica</artifactId>
+            <version>1</version>
+            <type>jar</type>
+        </dependency>
+        
+        <dependency>
+            <groupId>local.jars</groupId>
+            <artifactId>synthetica-mauve</artifactId>
+            <version>1</version>
+            <type>jar</type>
+        </dependency>
+        
+        <dependency>
+            <groupId>local.jars</groupId>
+            <artifactId>synthetica-classy</artifactId>
+            <version>1</version>
+            <type>jar</type>
+        </dependency>
+        
+        <dependency>
+            <groupId>local.jars</groupId>
+            <artifactId>synthetica-silvermoon</artifactId>
+            <version>1</version>
+            <type>jar</type>
+        </dependency>
 		  
         <dependency>
             <groupId>log4j</groupId>
