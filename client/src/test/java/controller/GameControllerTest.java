@@ -1,8 +1,8 @@
-///**
-// * 
-// */
 //package controller;
-//
+//// * 
+// 
+////package controller;
+////
 //import static org.junit.Assert.*;
 //import org.uispec4j.UISpecTestCase;
 //import org.uispec4j.Window;
@@ -33,6 +33,7 @@
 //
 //import utility.Constants;
 //import utility.SpriteList;
+//import view.Design;
 //import view.GamePanel;
 //
 //
@@ -48,8 +49,8 @@
 //    private Map<String, SpriteModel> gameObjectsWithId;
 //    private Map<String, List<SpriteModel>> gameObjectsWithGroupId;
 //	private GameController gameControllerTest;
-//	static CollisionEventListener collisionListener;
-//	static GameAction action;
+//	private  CollisionEventListener collisionListener;
+//	private  GameAction action;
 //	@BeforeClass
 //	public static void setUpBeforeClass() throws Exception {
 //		//SpriteList spriteList= new SpriteList();
@@ -68,7 +69,7 @@
 //	 */
 //	@Before
 //	public void setUp() throws Exception {
-//		
+//	    Design.getInstance().reset();
 //        setAdapter(new MainClassAdapter(gameMaker.class, new String[0]));        
 //        gamePanel=new GamePanel(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT);
 //        selectedSpriteModel = new SpriteModel(100, 100, 10, 10, 100, 100, "","");
@@ -91,22 +92,9 @@
 //	 */
 //	@After
 //	public void tearDown() throws Exception {
+//		Design.getInstance().reset();
 //	}
 //
-//
-//	/**
-//	 * Test method for {@link controller.GameController#actionPerformed(java.awt.event.ActionEvent)}.
-//	 */
-////	@Test
-////	public void testActionPerformed() {
-////		ActionEvent event=new ActionEvent(gamePanel,ActionEvent.ACTION_PERFORMED,"");
-////		gameControllerTest.actionPerformed(event);
-////		if(selectedSpriteModel.getSpeedX()==20)
-////			 assertTrue(true);
-////		else
-////			 assertTrue(false);
-////		
-////	}
 //
 ////	/**
 ////	 * Test method for {@link controller.GameController#registerListener(eventlistener.EventListener)}.
