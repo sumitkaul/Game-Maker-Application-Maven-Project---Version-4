@@ -138,7 +138,7 @@ public class GameEngineController extends BasicGame {
     public void render(GameContainer gc, Graphics grphcs) throws SlickException {
 
         //remove later
-        physicsComponent.inputLogic();
+/*        physicsComponent.inputLogic();
         physicsComponent.moveLogic();
 
         for (Body body : physicsComponent.bodies) {
@@ -152,7 +152,7 @@ public class GameEngineController extends BasicGame {
             }
         }
         //
-
+*/
         for (SpriteModel s : SpriteList.getInstance().getSpriteList()) {
             if (!s.isVisible()) {
                 continue;

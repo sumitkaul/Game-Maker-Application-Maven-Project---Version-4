@@ -38,7 +38,7 @@ public class Design implements Resizable, ActionListener {
 
 
 
-/********/	
+	/********/	
 
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(Design.class);
 	private static Design sharedDesign = null;
@@ -57,15 +57,10 @@ public class Design implements Resizable, ActionListener {
 	private JTextField widthTextField;
 	private JPanel playerButtonPanel;
 	private JTextField heightTextField;
-	private JButton send;
-	private JTextField textSend;
-	private JLabel textLabel;
 
 	// Score Modificaion:
 	private JTextField scoreModificationField;
 	private JButton addLayerBtn;
-	private JFileChooser fileChooser;
-	private ThumbView thumbView = new ThumbView();
 	private JTextField spriteNameTextField;
 	private JTextField groupNameTextField;
 	private JComboBox layerBox;
@@ -74,19 +69,18 @@ public class Design implements Resizable, ActionListener {
 	private ActionEventPanel actionEventPanel;
 	private ImagePanel extendedImagePanel;
 	private boolean shouldDisplayScore = false;
-	private JTextArea textArea;
-	private JScrollPane textScrollPane;
+	private JPanel fieldPanel;
 
-	
-	
+
+
 	protected Design(int frameWidth, int frameHeight) {
 		// Create a baseframe for the game maker
 		ChatReceiver chatReceiver=new ChatReceiver();
-    	ChatSender chatSender=new ChatSender();
-    	Thread chatSenderThread=new Thread(chatSender);
-    	Thread chatReceiverThread=new Thread(chatReceiver);
-    	chatReceiverThread.start();
-    	chatSenderThread.start();
+		ChatSender chatSender=new ChatSender();
+		Thread chatSenderThread=new Thread(chatSender);
+		Thread chatReceiverThread=new Thread(chatReceiver);
+		chatReceiverThread.start();
+		chatSenderThread.start();
 		baseFrame = new JFrame();
 		baseFrame.addWindowListener(new WindowAdapter() {
 			@Override
@@ -99,7 +93,7 @@ public class Design implements Resizable, ActionListener {
 		baseFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		baseFrame.setTitle("Game Maker");
 		baseFrame.setSize(frameWidth, frameHeight);
-		baseFrame.setLayout(new GridLayout(1, 2));
+		baseFrame.setLayout(new GridLayout(1, 3));
 
 		baseFrame.setMinimumSize(new Dimension(Constants.MINIMUM_FRAMEWIDTH, Constants.MINIMUM_FRAMEHEIGHT));
 
@@ -130,6 +124,7 @@ public class Design implements Resizable, ActionListener {
 
 		MenuBarPanel menuBar = new MenuBarPanel();
 		this.baseFrame.setMenuBar(menuBar.getMenuBar());		
+
 		playerButtonPanel = new PlayerButtonPanel(this).getPlayerButtonPanel();
 		facade = new Facade(gamePanel);
 
@@ -146,10 +141,303 @@ public class Design implements Resizable, ActionListener {
 
 		gameMakerPanel.add(buttonPanel.getPanel());
 
+		createFieldPanel();
 		// Bottom part of the control panel
-		JPanel fieldPanel = new JPanel();
-		fieldPanel.setLayout(new GridBagLayout());
 
+
+
+
+		controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
+
+		collapsiblePanel = new CollapsiblePanel(baseFrame);
+		// collapsiblePanel.setPanels(extendedpanels);
+		gameMakerPanel.add(collapsiblePanel.getComponent());
+
+		JScrollPane imagePanel = getImagePanel();
+
+		controlPanel.add(imagePanel);
+
+		controlPanel.add(fieldPanel);
+
+
+
+		actionEventPanel = new ActionEventPanel(this);
+		controlPanel.add(actionEventPanel.getPanel());
+		switchPanel.add(controlPanel, "controlpanel");
+		//?? amruta
+		view.imagePanel.ImageActionListener imageActionListener = new view.imagePanel.ImageActionListener();
+		extendedImagePanel = new ImagePanel(imageActionListener);
+		JPanel[] extendedpanels = new JPanel[] { extendedImagePanel.getImagePanel() };
+		switchPanel.add(extendedImagePanel.getImagePanel(), "imagepanel");
+		// extendedImagePanel.getImagePanel().setVisible(false);
+
+		gameMakerPanel.add(switchPanel);
+		// baseFrame.getContentPane().add(gameMakerPanel);
+		// baseFrame.getContentPane().add(controlPanel);
+		baseFrame.getContentPane().add(gamePanel);
+		/*
+		 * Moved the following code to showGameMakerWindow. Problem: Game Maker
+		 * opens every time the Design class is initialized. JIRA: FATWVNINC-47
+		 * baseFrame.setVisible(true);
+		 */
+		baseFrame.setResizable(true);
+	}
+
+	@Override
+	public void Resize(int framewidth, int frameheight) {
+		int widthdiff = framewidth - Constants.FRAME_WIDTH;
+		int heightdiff = frameheight - Constants.FRAME_HEIGHT;
+
+		controlPanel.setSize(Constants.CONTROL_PANEL_WIDTH + (int) (widthdiff * 0.6), Constants.CONTROL_PANEL_LENGTH + (int) ((heightdiff * 2) / 7));
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+	}
+
+	public void createDuplicateSpriteModel(SpriteModel model) {
+
+		SpriteModel spriteModel = new SpriteModel(model.getPosX() + model.getWidth() / 2, model.getPosY() + model.getHeight() / 2, model.getSpeedX(), model.getSpeedY(), model.getWidth(), model.getHeight(), 
+				model.getImageUrlString(), model.getLayer(), model.getImageId());
+		updateSpriteList(spriteModel);
+		updateProperties();
+
+		facade.addSpriteModelToView(spriteModel);
+		gamePanel.repaint();
+	}
+
+	public void updateSpriteList(SpriteModel spriteModel) {
+		SpriteList.getInstance().addSprite(spriteModel);
+		SpriteList.getInstance().setSelectedSpriteModel(spriteModel);
+
+		actionEventPanel.getSpriteListIndividualModel().addElement(spriteModel.getId());
+		if (!actionEventPanel.getSpriteListGroupModel().contains(spriteModel.getGroupId())) {
+			actionEventPanel.getSpriteListGroupModel().addElement(spriteModel.getGroupId());
+		}
+		if (actionEventPanel.getSpriteListIndividualModel().size() > 0) {
+			actionEventPanel.getSpriteList().setModel(actionEventPanel.getSpriteListIndividualModel());
+		}
+
+	}
+
+	public void updateProperties() {
+		SpriteModel selectedSpriteModel = SpriteList.getInstance().getSelectedSpriteModel();
+		if (selectedSpriteModel == null) {
+			return;
+		}
+		spriteNameTextField.setText(selectedSpriteModel.getId());
+		groupNameTextField.setText(selectedSpriteModel.getGroupId());
+		widthTextField.setText(Double.toString(selectedSpriteModel.getWidth()));
+		heightTextField.setText(Double.toString(selectedSpriteModel.getHeight()));
+		velocityXTextField.setText(Double.toString(selectedSpriteModel.getSpeedX()));
+		velocityYTextField.setText(Double.toString(selectedSpriteModel.getSpeedY()));
+		// layerBox.setSelectedItem(selectedSpriteModel.getLayer());
+		int selectedItem = 0;
+		DefaultListModel listModel = actionEventPanel.getSpriteListIndividualModel();
+		for (int i = 0; i < listModel.size(); i++) {
+			String element = (String) listModel.get(i);
+			if (element.equalsIgnoreCase(selectedSpriteModel.getId())) {
+				selectedItem = i;
+			}
+		}
+		actionEventPanel.getSpriteList().setSelectedIndex(selectedItem);
+
+	}
+
+	public void clearAll() {
+		spriteNameTextField.setText("");
+		groupNameTextField.setText("");
+		widthTextField.setText("");
+		heightTextField.setText("");
+		velocityXTextField.setText("");
+		velocityYTextField.setText("");
+	}
+
+	public Facade getFacade() {
+		return facade;
+	}
+
+	public void removeSpriteModelFromList(SpriteModel selectedSpriteModel) {
+		int selectedItem = 0;
+		DefaultListModel listModel = actionEventPanel.getSpriteListIndividualModel();
+		for (int i = 0; i < listModel.size(); i++) {
+			String element = (String) listModel.get(i);
+			if (element.equalsIgnoreCase(selectedSpriteModel.getId())) {
+				selectedItem = i;
+			}
+		}
+		listModel.remove(selectedItem);
+		actionEventPanel.getSpriteList().setModel(listModel);
+
+	}
+
+	public void reset() {
+		List<SpriteModel> allSpriteModels = SpriteList.getInstance().getSpriteList();
+		for (SpriteModel model : allSpriteModels) {
+			Design.getInstance().getGamePanel().unregisterModel(model);
+		}
+		ClockDisplay.getInstance().reset();
+		SpriteList.getInstance().getSpriteList().clear();
+
+
+		facade.getGameController().getEvents().clear();
+		facade.getKeyListenerController().getKeyEvents().clear();
+
+		actionEventPanel.getSpriteListIndividualModel().removeAllElements();
+		actionEventPanel.getSpriteList().setModel(actionEventPanel.getSpriteListIndividualModel());
+
+		updateProperties();
+
+		gamePanel.removeAllDrawables();
+		gamePanel.repaint();
+	}
+
+	public JScrollPane getImagePanel() {
+		JPanel imagePanel = new JPanel();
+
+		URL jar = this.getClass().getClassLoader().getResource("resource.jar");
+		List<String> list = new ArrayList<String>();
+
+		ZipInputStream zip;
+		try {
+			LOG.debug(jar);
+			zip = new ZipInputStream(jar.openStream());
+			ZipEntry ze = null;
+
+			while ((ze = zip.getNextEntry()) != null) {
+				String entryName = ze.getName();
+				LOG.debug(entryName);
+				if (entryName.endsWith(".png") || entryName.endsWith(".jpg")) {
+					list.add(entryName);
+				}
+			}
+		} catch (IOException e1) {
+			LOG.error(e1);
+		}
+
+
+		ImageActionListener listener = this.new ImageActionListener();
+		List<ImageProperties> allImages = new ArrayList<ImageProperties>();
+		Exception[] exceptions = new Exception[1];
+		Resources[] images = ClientHandler.listPageResources("1", "1000",
+				null, "tintin.cs.indiana.edu:8096", "/GameMakerServer/listPageResources", exceptions);
+		for(int i = 0; i < images.length; i++){
+			Image image = Util.convertByteArraytoImage(images[i].getResource(), "jpg");
+			ImageProperties im = new ImageProperties(String.valueOf(images[i].getReourceNumber()),
+					images[i].getResourceName(), image);
+			allImages.add(im);
+		}
+
+
+		for (int i = 0; i < allImages.size(); i++) {
+
+			Image image = allImages.get(i).getImage();
+			ImageIcon icon = null;
+			try{
+				icon = new ImageIcon(image.getScaledInstance(50, 50, 1));
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+			JButton button = new JButton(icon);
+			button.setName(allImages.get(i).getImageKey());
+			button.addActionListener(listener);
+			imagePanel.add(button);
+
+		}
+		JScrollPane scroller = new JScrollPane(imagePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+		return scroller;
+	}
+
+	public BufferedImage createResizedCopy(Image originalImage, int scaledWidth, int scaledHeight, boolean preserveAlpha) {
+		int imageType = preserveAlpha ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
+		BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, imageType);
+		Graphics2D g = scaledBI.createGraphics();
+		if (preserveAlpha) {
+			g.setComposite(AlphaComposite.Src);
+		}
+		g.drawImage(originalImage, 0, 0, scaledWidth, scaledHeight, null);
+		g.dispose();
+		return scaledBI;
+	}
+
+	public class ImageActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+
+			JButton btn = (JButton) arg0.getSource();
+
+			double sizeX;
+			double sizeY;
+			double speedX;
+			double speedY;
+			String layer = null;
+			try {
+				sizeX = Double.valueOf(widthTextField.getText());
+				sizeY = Double.valueOf(heightTextField.getText());
+				LOG.debug("got size values for customObject x:" + sizeX + " y:" + sizeY);
+
+
+
+			} catch (Exception exception) {
+				LOG.error("did not read in size values ... using defaults");
+				sizeX = 30;
+				sizeY = 30;
+			}
+			try {
+				speedX = Double.valueOf(velocityXTextField.getText());
+				speedY = Double.valueOf(velocityYTextField.getText());
+				LOG.debug("got speed values for customObject x:" + speedX + " y:" + speedY);
+			} catch (Exception exception) {
+				LOG.error("did not read in speed values ... using defaults");
+				speedX = 1;
+				speedY = 1;
+			}
+			try {
+				layer = layerBox.getSelectedItem().toString();
+				if (layer.equalsIgnoreCase(Constants.ALL_LAYERS)) {
+					if (Layers.getInstance().getLayers().size() == 1) {
+						Layers.getInstance().addNewLayer();
+					}
+					List<String> layers = new ArrayList<String>();
+					layers = Layers.getInstance().getLayers();
+					layer = layers.get(1);
+				}
+			} catch (Exception exception) {
+				LOG.error("layer value not set", exception);
+			}
+			if (btn != null) {
+				// TO-DO : To get two images while importing objects. So
+				// that the second object can be used as a secondary image
+				// based on requirements.
+				Image image = null;
+				/*try {
+    				image = ImageIO.read(Design.class.getResource(btn.getName()));
+    			} catch (IOException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+				int imageId = 0;
+				try{
+					imageId = Integer.parseInt(btn.getName());
+				}catch (NumberFormatException ex){
+					ex.printStackTrace();
+				}
+				SpriteModel spriteModel = new SpriteModel(100, 100, speedX, speedY, sizeX, sizeY, btn.getName(), layer, imageId);
+				updateSpriteList(spriteModel);
+				updateProperties();
+				facade.addSpriteModelToView(spriteModel);
+				gamePanel.repaint();
+			}
+		}
+	}
+
+	public void createFieldPanel()
+	{
+		fieldPanel = new JPanel();
+		fieldPanel.setLayout(new GridBagLayout());
 		JLabel layerLabel = new JLabel("Select the Layer");
 		addLayerBtn = new JButton("Add New Layer");
 		addLayerBtn.addActionListener(new ActionListener() {
@@ -449,292 +737,9 @@ public class Design implements Resizable, ActionListener {
 		c.gridx = 1;
 		fieldPanel.add(velocityYTextField, c);
 
-		controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
-
-		collapsiblePanel = new CollapsiblePanel(baseFrame);
-		// collapsiblePanel.setPanels(extendedpanels);
-		gameMakerPanel.add(collapsiblePanel.getComponent());
-
-		JScrollPane imagePanel = getImagePanel();
-
-		controlPanel.add(imagePanel);
-
-		controlPanel.add(fieldPanel);
-
 		// Row 7
 		c.gridy = 7;
 		c.gridx = 0;
-
-		actionEventPanel = new ActionEventPanel(this);
-		controlPanel.add(actionEventPanel.getPanel());
-		switchPanel.add(controlPanel, "controlpanel");
-		view.imagePanel.ImageActionListener imageActionListener = new view.imagePanel.ImageActionListener();
-		extendedImagePanel = new ImagePanel(imageActionListener);
-		JPanel[] extendedpanels = new JPanel[] { extendedImagePanel.getImagePanel() };
-		switchPanel.add(extendedImagePanel.getImagePanel(), "imagepanel");
-		// extendedImagePanel.getImagePanel().setVisible(false);
-
-		gameMakerPanel.add(switchPanel);
-		// baseFrame.getContentPane().add(gameMakerPanel);
-		// baseFrame.getContentPane().add(controlPanel);
-		baseFrame.getContentPane().add(gamePanel);
-		/*
-		 * Moved the following code to showGameMakerWindow. Problem: Game Maker
-		 * opens every time the Design class is initialized. JIRA: FATWVNINC-47
-		 * baseFrame.setVisible(true);
-		 */
-		baseFrame.setResizable(true);
-	}
-
-	@Override
-	public void Resize(int framewidth, int frameheight) {
-		int widthdiff = framewidth - Constants.FRAME_WIDTH;
-		int heightdiff = frameheight - Constants.FRAME_HEIGHT;
-
-		controlPanel.setSize(Constants.CONTROL_PANEL_WIDTH + (int) (widthdiff * 0.6), Constants.CONTROL_PANEL_LENGTH + (int) ((heightdiff * 2) / 7));
-
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-	}
-
-	public void createDuplicateSpriteModel(SpriteModel model) {
-
-		SpriteModel spriteModel = new SpriteModel(model.getPosX() + model.getWidth() / 2, model.getPosY() + model.getHeight() / 2, model.getSpeedX(), model.getSpeedY(), model.getWidth(), model.getHeight(), 
-				model.getImageUrlString(), model.getLayer(), model.getImageId());
-		updateSpriteList(spriteModel);
-		updateProperties();
-
-		facade.addSpriteModelToView(spriteModel);
-		gamePanel.repaint();
-	}
-
-	public void updateSpriteList(SpriteModel spriteModel) {
-		SpriteList.getInstance().addSprite(spriteModel);
-		SpriteList.getInstance().setSelectedSpriteModel(spriteModel);
-
-		actionEventPanel.getSpriteListIndividualModel().addElement(spriteModel.getId());
-		if (!actionEventPanel.getSpriteListGroupModel().contains(spriteModel.getGroupId())) {
-			actionEventPanel.getSpriteListGroupModel().addElement(spriteModel.getGroupId());
-		}
-		if (actionEventPanel.getSpriteListIndividualModel().size() > 0) {
-			actionEventPanel.getSpriteList().setModel(actionEventPanel.getSpriteListIndividualModel());
-		}
-		
-	}
-
-	public void updateProperties() {
-		SpriteModel selectedSpriteModel = SpriteList.getInstance().getSelectedSpriteModel();
-		if (selectedSpriteModel == null) {
-			return;
-		}
-		spriteNameTextField.setText(selectedSpriteModel.getId());
-		groupNameTextField.setText(selectedSpriteModel.getGroupId());
-		widthTextField.setText(Double.toString(selectedSpriteModel.getWidth()));
-		heightTextField.setText(Double.toString(selectedSpriteModel.getHeight()));
-		velocityXTextField.setText(Double.toString(selectedSpriteModel.getSpeedX()));
-		velocityYTextField.setText(Double.toString(selectedSpriteModel.getSpeedY()));
-		// layerBox.setSelectedItem(selectedSpriteModel.getLayer());
-		int selectedItem = 0;
-		DefaultListModel listModel = actionEventPanel.getSpriteListIndividualModel();
-		for (int i = 0; i < listModel.size(); i++) {
-			String element = (String) listModel.get(i);
-			if (element.equalsIgnoreCase(selectedSpriteModel.getId())) {
-				selectedItem = i;
-			}
-		}
-		actionEventPanel.getSpriteList().setSelectedIndex(selectedItem);
-
-	}
-
-	public void clearAll() {
-		spriteNameTextField.setText("");
-		groupNameTextField.setText("");
-		widthTextField.setText("");
-		heightTextField.setText("");
-		velocityXTextField.setText("");
-		velocityYTextField.setText("");
-	}
-
-	public Facade getFacade() {
-		return facade;
-	}
-
-	public void removeSpriteModelFromList(SpriteModel selectedSpriteModel) {
-		int selectedItem = 0;
-		DefaultListModel listModel = actionEventPanel.getSpriteListIndividualModel();
-		for (int i = 0; i < listModel.size(); i++) {
-			String element = (String) listModel.get(i);
-			if (element.equalsIgnoreCase(selectedSpriteModel.getId())) {
-				selectedItem = i;
-			}
-		}
-		listModel.remove(selectedItem);
-		actionEventPanel.getSpriteList().setModel(listModel);
-
-	}
-
-	public void reset() {
-		List<SpriteModel> allSpriteModels = SpriteList.getInstance().getSpriteList();
-		for (SpriteModel model : allSpriteModels) {
-			Design.getInstance().getGamePanel().unregisterModel(model);
-		}
-		ClockDisplay.getInstance().reset();
-		SpriteList.getInstance().getSpriteList().clear();
-
-
-		facade.getGameController().getEvents().clear();
-		facade.getKeyListenerController().getKeyEvents().clear();
-
-		actionEventPanel.getSpriteListIndividualModel().removeAllElements();
-		actionEventPanel.getSpriteList().setModel(actionEventPanel.getSpriteListIndividualModel());
-
-		updateProperties();
-
-		gamePanel.removeAllDrawables();
-		gamePanel.repaint();
-	}
-
-	public JScrollPane getImagePanel() {
-		JPanel imagePanel = new JPanel();
-
-		URL jar = this.getClass().getClassLoader().getResource("resource.jar");
-		List<String> list = new ArrayList<String>();
-
-		ZipInputStream zip;
-		try {
-			LOG.debug(jar);
-			zip = new ZipInputStream(jar.openStream());
-			ZipEntry ze = null;
-
-			while ((ze = zip.getNextEntry()) != null) {
-				String entryName = ze.getName();
-				LOG.debug(entryName);
-				if (entryName.endsWith(".png") || entryName.endsWith(".jpg")) {
-					list.add(entryName);
-				}
-			}
-		} catch (IOException e1) {
-			LOG.error(e1);
-		}
-
-
-		ImageActionListener listener = this.new ImageActionListener();
-		List<ImageProperties> allImages = new ArrayList<ImageProperties>();
-		Exception[] exceptions = new Exception[1];
-		Resources[] images = ClientHandler.listPageResources("1", "1000",
-				null, "tintin.cs.indiana.edu:8096", "/GameMakerServer/listPageResources", exceptions);
-		for(int i = 0; i < images.length; i++){
-			Image image = Util.convertByteArraytoImage(images[i].getResource(), "jpg");
-			ImageProperties im = new ImageProperties(String.valueOf(images[i].getReourceNumber()),
-					images[i].getResourceName(), image);
-			allImages.add(im);
-		}
-
-
-		for (int i = 0; i < allImages.size(); i++) {
-
-			Image image = allImages.get(i).getImage();
-			ImageIcon icon = null;
-			try{
-				icon = new ImageIcon(image.getScaledInstance(50, 50, 1));
-			}catch(Exception ex){
-				ex.printStackTrace();
-			}
-			JButton button = new JButton(icon);
-			button.setName(allImages.get(i).getImageKey());
-			button.addActionListener(listener);
-			imagePanel.add(button);
-
-		}
-		JScrollPane scroller = new JScrollPane(imagePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-
-		return scroller;
-	}
-
-	public BufferedImage createResizedCopy(Image originalImage, int scaledWidth, int scaledHeight, boolean preserveAlpha) {
-		int imageType = preserveAlpha ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
-		BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, imageType);
-		Graphics2D g = scaledBI.createGraphics();
-		if (preserveAlpha) {
-			g.setComposite(AlphaComposite.Src);
-		}
-		g.drawImage(originalImage, 0, 0, scaledWidth, scaledHeight, null);
-		g.dispose();
-		return scaledBI;
-	}
-
-	public class ImageActionListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-
-			JButton btn = (JButton) arg0.getSource();
-
-			double sizeX;
-			double sizeY;
-			double speedX;
-			double speedY;
-			String layer = null;
-			try {
-				sizeX = Double.valueOf(widthTextField.getText());
-				sizeY = Double.valueOf(heightTextField.getText());
-				LOG.debug("got size values for customObject x:" + sizeX + " y:" + sizeY);
-
-
-
-			} catch (Exception exception) {
-				LOG.error("did not read in size values ... using defaults");
-				sizeX = 30;
-				sizeY = 30;
-			}
-			try {
-				speedX = Double.valueOf(velocityXTextField.getText());
-				speedY = Double.valueOf(velocityYTextField.getText());
-				LOG.debug("got speed values for customObject x:" + speedX + " y:" + speedY);
-			} catch (Exception exception) {
-				LOG.error("did not read in speed values ... using defaults");
-				speedX = 1;
-				speedY = 1;
-			}
-			try {
-				layer = layerBox.getSelectedItem().toString();
-				if (layer.equalsIgnoreCase(Constants.ALL_LAYERS)) {
-					if (Layers.getInstance().getLayers().size() == 1) {
-						Layers.getInstance().addNewLayer();
-					}
-					List<String> layers = new ArrayList<String>();
-					layers = Layers.getInstance().getLayers();
-					layer = layers.get(1);
-				}
-			} catch (Exception exception) {
-				LOG.error("layer value not set", exception);
-			}
-			if (btn != null) {
-				// TO-DO : To get two images while importing objects. So
-				// that the second object can be used as a secondary image
-				// based on requirements.
-				Image image = null;
-				/*try {
-    				image = ImageIO.read(Design.class.getResource(btn.getName()));
-    			} catch (IOException e) {
-    				// TODO Auto-generated catch block
-    				e.printStackTrace();
-    			}*/
-				int imageId = 0;
-				try{
-					imageId = Integer.parseInt(btn.getName());
-				}catch (NumberFormatException ex){
-					ex.printStackTrace();
-				}
-				SpriteModel spriteModel = new SpriteModel(100, 100, speedX, speedY, sizeX, sizeY, btn.getName(), layer, imageId);
-				updateSpriteList(spriteModel);
-				updateProperties();
-				facade.addSpriteModelToView(spriteModel);
-				gamePanel.repaint();
-			}
-		}
 	}
 
 	/****************** GETTERS & SETTERS **********************************/
