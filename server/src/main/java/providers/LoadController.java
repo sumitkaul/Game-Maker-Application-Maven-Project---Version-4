@@ -170,6 +170,25 @@ public class LoadController {
 	 
 	            return json;
 	        }
+	
+	
+		@RequestMapping(value = "/listMultiPlayerGameBases", method = RequestMethod.GET)
+		@ResponseBody
+		public String listMultiPlayerGameBases(HttpEntity<byte[]> requestEntity) {
+
+				int isMultiplayer=1;
+
+				String sql = "select game_name from GameBase where IsMultiplayer="+isMultiplayer;
+				@SuppressWarnings("unchecked")
+				List<String> names = DatabaseHandler.Query(sql);
+
+				Gson gson = new Gson();
+	            String json = gson.toJson(names);
+	            
+	    		return json;
+
+			
+	}
 
 
 }
