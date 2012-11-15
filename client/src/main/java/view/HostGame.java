@@ -15,7 +15,7 @@ public class HostGame {
     private JComponent rootComp;
     private final String host = "tintin.cs.indiana.edu:8096";
     private final String path = "/GameMakerServer";
-    private final String urlListAllGameBases = "/listAllGameBases";
+    private final String urlListMultiPlayerGameBases = "/listMultiPlayerGameBases";
     private final String urlLoadGameBase = "/loadGameBase";
 	
 	public HostGame (JComponent rootComp){
@@ -25,18 +25,38 @@ public class HostGame {
 	}
 	
 	
-	public void displayHostedGames(){
+	public String displayHostedGames(){
+		   Exception[] exceptions = new Exception[1];
+	        String[] gameNames = ClientHandler.listAllMultiPlayerGameBases(host, path + urlListMultiPlayerGameBases, exceptions);
+
+	        if (exceptions[0] != null) {
+	            JOptionPane.showMessageDialog(rootComp, exceptions[0].toString());
+	            return null;
+	        }
+
+	        String chosen = (String) JOptionPane.showInputDialog(
+	                rootComp,
+	                "Select Game Base from " + host,
+	                "Load Game Base",
+	                JOptionPane.PLAIN_MESSAGE,
+	                null, gameNames,
+	                null);
+
+	        if (chosen == null) {
+	            return null;
+	        }
+
+	        String gameData = ClientHandler.loadGameBase(chosen, host, path + urlLoadGameBase, exceptions);
+
+	        if (exceptions[0] != null) {
+	            JOptionPane.showMessageDialog(rootComp, exceptions[0].toString());
+	            return null;
+	        }
+
+	        GameProgressSaveInfo.getInstance().setLoadedGameName(chosen);
+
+	        return gameData;
 		
-		Exception[] exceptions = new Exception[1];
-		String[] gameNames={"aaaa","bbbbb"};
-		
-		String chosen = (String) JOptionPane.showInputDialog(
-                rootComp,
-                "List of hosted games :",
-                "Hosted games",
-                JOptionPane.PLAIN_MESSAGE,
-                null, gameNames,
-                null);
 		
 		
 
