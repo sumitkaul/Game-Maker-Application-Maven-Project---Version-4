@@ -35,7 +35,7 @@ import eventlistener.EventListener;
 import eventlistener.KeyPressedEventListener;
 import gameMaker.gameMaker;
 
-public class KeyListenerControllerTest extends UISpecTestCase {
+public class KeyListenerControllerTest  {
 
 	/**
 	 * @throws java.lang.Exception
@@ -66,7 +66,7 @@ public class KeyListenerControllerTest extends UISpecTestCase {
 	@Before
 	public void setUp() throws Exception {
 		Design.getInstance().reset();
-        setAdapter(new MainClassAdapter(gameMaker.class, new String[0]));
+        //setAdapter(new MainClassAdapter(gameMaker.class, new String[0]));
         selectedSpriteModel = new SpriteModel(100, 100, 20, 20, 100, 100, "","");
 		//secondarySpriteModel= new SpriteModel(190, 190, 10, 10, 100, 100, "");
 		selectedSpriteModel.setGroupId("Group1");
