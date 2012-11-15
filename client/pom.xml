@@ -85,8 +85,6 @@
             <type>jar</type>
         </dependency>
 	    
-	    
-	    
         <dependency>
             <groupId>local.jars</groupId>
             <artifactId>jdesktop-timing</artifactId>
@@ -113,7 +111,14 @@
             <artifactId>slick-util</artifactId>
             <version>1</version>
             <type>jar</type>
-        </dependency>		
+        </dependency>
+        
+        <dependency>
+            <groupId>local.jars</groupId>
+            <artifactId>jtattoo</artifactId>
+            <version>1</version>
+            <type>jar</type>
+        </dependency>	
 		  
         <dependency>
             <groupId>log4j</groupId>
