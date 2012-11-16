@@ -348,13 +348,15 @@ public class ActionEventPanel {
         
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipady = 100;
         actionEventPanel.add(spriteListScrollPane, gridBagConstraints);
 
+        
         gridBagConstraints.gridx = 1;
         actionEventPanel.add(scrollPane, gridBagConstraints);
         
        
-
+        gridBagConstraints.ipady = 0;
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         actionEventPanel.add(eventBox, gridBagConstraints);
