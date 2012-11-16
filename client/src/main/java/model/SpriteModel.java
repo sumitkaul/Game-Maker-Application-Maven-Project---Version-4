@@ -3,6 +3,7 @@ package model;
 
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import utility.ResizeHelper;
 import utility.SpriteList;
 import utility.enums.ImageSource;
 
-public class SpriteModel  {
+public class SpriteModel implements Serializable {
 
     private double posX, posY, speedX, speedY, width, height, previousX, previousY;
     private boolean visible;

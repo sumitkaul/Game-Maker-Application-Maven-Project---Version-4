@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import multiplayer.Sender;
-import multiplayer.Test;
 import net.miginfocom.swing.MigLayout;
 
 
@@ -52,7 +51,7 @@ public class MultiPlayerOption{
 				String text="Hello world";
 				String topic="TEST2";
 				
-				Test test=new Test();
+				
 				
 				//   ByteArrayOutputStream b = new ByteArrayOutputStream();
 			     //   ObjectOutputStream o;
@@ -69,14 +68,14 @@ public class MultiPlayerOption{
 				
 				
 				Sender sender=new Sender();
-				sender.sendAsHost(test,topic);
+				sender.sendAsHost(topic);
 				
 				
 				
 				
 
-				HostGame p = new HostGame(Design.getInstance().getGamePanel());
-				p.displayHostedGames();
+				//HostGame p = new HostGame(Design.getInstance().getGamePanel());
+				//p.displayHostedGames();
 
 			}
 				

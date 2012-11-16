@@ -19,9 +19,8 @@ public final class Publish{
 	private boolean done=false;
 	private ObjectMessage objectMessage;
 	private String topic;
-	private Test gameState;
 	private final static Publish instance =new Publish();
-	private Topic topic1;
+	private Destination topic1;
 	
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(Publish.class);
 	
@@ -48,7 +47,7 @@ public final class Publish{
 		
 		try {
 			//System.out.println(topic);
-			topic1 = (Topic) SessionFactory.getInstanceOf().getSession().createTopic(topic);
+			topic1 = (Destination) SessionFactory.getInstanceOf().getSession().createQueue(topic);
 			producer = SessionFactory.getInstanceOf().getSession().createProducer(topic1);
 			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 		
@@ -61,13 +60,12 @@ public final class Publish{
 	public void sendState() {
 		String text = "Hello world! From: " + Thread.currentThread().getName() + " : " + this.hashCode();
 		try {
-			objectMessage = SessionFactory.getInstanceOf().getSession().createObjectMessage();
-			objectMessage.setObject(gameState);
-			objectMessage.setJMSType("Some string");
+			Protocol protocol = new Protocol();
+			objectMessage=protocol.createDataAsHost();
 			  // Tell the producer to send the message
-			LOG.debug(gameState.getS());
 			LOG.debug("S is -------------------"+objectMessage.getObject());
 	        producer.send(objectMessage);
+	        SessionFactory.getInstanceOf().closeSession();
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,9 +73,7 @@ public final class Publish{
 	}
 
 
-	public void setGameState(Test test) {
-		this.gameState=test;
-	}
+	
 	
 	public void sendGameAction(GameAction action, SpriteModel spriteModel)
 	{

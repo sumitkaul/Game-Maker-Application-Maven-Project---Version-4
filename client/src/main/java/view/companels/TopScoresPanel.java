@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import view.communication.ClientHandler;
-import view.communication.protocol.GameSaveInfo;
+import view.communication.protocol.GameHostInfo;
 
 public class TopScoresPanel {
 
@@ -40,8 +40,9 @@ public class TopScoresPanel {
             return;
         }
 
-        GameSaveInfo[] gameSaves = ClientHandler.listTopScores(chosen, host, path + urlListTopScores, exceptions);
-
+     //   GameHostInfo[] gameSaves = ClientHandler.listTopScores(chosen, host, path + urlListTopScores, exceptions);
+        String[] gameSaves={"aaaaaa","bbbbbb"};
+        
         if (exceptions[0] != null) {
             JOptionPane.showMessageDialog(rootComp, exceptions[0].toString());
             return;
@@ -56,7 +57,8 @@ public class TopScoresPanel {
 
         Object[][] data = new Object[gameSaves.length][];
         for (int i = 0; i < gameSaves.length; i++) {
-            data[i] = new Object[]{gameSaves[i].getRank(), gameSaves[i].getGamePlayer(), gameSaves[i].getGameScore()};
+           // data[i] = new Object[]{gameSaves[i].getRank(), gameSaves[i].getGamePlayer(), gameSaves[i].getGameScore()};
+        	 data[i] = new Object[]{gameSaves[i]};
         }
 
         JTable table = new JTable(data, columnNames);

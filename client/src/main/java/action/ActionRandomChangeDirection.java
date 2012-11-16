@@ -1,5 +1,6 @@
 package action;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,7 +9,7 @@ import utility.SpriteList;
 import model.SpriteModel;
 
 
-public class ActionRandomChangeDirection implements GameAction{
+public class ActionRandomChangeDirection implements GameAction,Serializable{
 	 private double newSpeedX, newSpeedY;
 	 int magX, magY;
 	 private Random rand;
