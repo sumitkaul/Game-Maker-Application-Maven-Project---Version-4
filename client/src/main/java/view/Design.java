@@ -19,24 +19,14 @@ import javax.swing.event.DocumentListener;
 
 import chat.ChatReceiver;
 import chat.ChatSender;
-import loader.GameDataPackageIO;
-import loader.GamePackage;
 import model.Resources;
 import model.SpriteModel;
-import net.miginfocom.swing.MigLayout;
 import utility.*;
 import view.communication.ClientHandler;
-import view.companels.GameBaseLoadPanel;
-import view.companels.GameBaseSavePanel;
-
-
 import view.imagePanel.ImagePanel;
 import view.imagePanel.ImageProperties;
 
 public class Design implements Resizable, ActionListener {
-
-
-
 	/********/	
 
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(Design.class);
@@ -68,6 +58,7 @@ public class Design implements Resizable, ActionListener {
 	private ImagePanel extendedImagePanel;
 	private boolean shouldDisplayScore = false;
 	private JPanel fieldPanel;
+	private JPanel leftImagePanel;
 
 
 
@@ -126,6 +117,8 @@ public class Design implements Resizable, ActionListener {
 		playerButtonPanel = new PlayerButtonPanel(this).getPlayerButtonPanel();
 		facade = new Facade(gamePanel);
 
+		leftImagePanel = new JPanel(new FlowLayout());
+	
 		// This is the panel where all the controls are placed. The left side of
 		// the game maker
 		gameMakerPanel = new JPanel();
@@ -142,27 +135,34 @@ public class Design implements Resizable, ActionListener {
 		createFieldPanel();
 		// Bottom part of the control panel
 
-
+		
 
 
 		controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
-		JScrollPane imagePanel = getImagePanel();
-		controlPanel.add(imagePanel);
+
+		// collapsiblePanel.setPanels(extendedpanels);
+		//gameMakerPanel.add(collapsiblePanel.getComponent());
+
+	
+		
 		controlPanel.add(fieldPanel);
+
+
 
 		actionEventPanel = new ActionEventPanel(this);
 		controlPanel.add(actionEventPanel.getPanel());
 		switchPanel.add(controlPanel, "controlpanel");
-		
+		//?? amruta
 		view.imagePanel.ImageActionListener imageActionListener = new view.imagePanel.ImageActionListener();
 		extendedImagePanel = new ImagePanel(imageActionListener);
-		//JPanel[] extendedpanels = new JPanel[] { extendedImagePanel.getImagePanel() };
-		switchPanel.add(extendedImagePanel.getImagePanel(), "imagepanel");
+		JPanel[] extendedpanels = new JPanel[] { extendedImagePanel.getImagePanel() };
+		leftImagePanel.add(extendedImagePanel.getImagePanel());
 		// extendedImagePanel.getImagePanel().setVisible(false);
 
 		gameMakerPanel.add(switchPanel);
 		// baseFrame.getContentPane().add(gameMakerPanel);
 		// baseFrame.getContentPane().add(controlPanel);
+		baseFrame.getContentPane().add(leftImagePanel);
 		baseFrame.getContentPane().add(gamePanel);
 		/*
 		 * Moved the following code to showGameMakerWindow. Problem: Game Maker
@@ -172,14 +172,21 @@ public class Design implements Resizable, ActionListener {
 		baseFrame.setResizable(true);
 	}
 
+	public JPanel getLeftImagePanel() {
+		return leftImagePanel;
+	}
+
+	public void setLeftImagePanel(JPanel leftImagePanel) {
+		this.leftImagePanel = leftImagePanel;
+	}
+
 	@Override
 	public void Resize(int framewidth, int frameheight) {
 		int widthdiff = framewidth - Constants.FRAME_WIDTH;
 		int heightdiff = frameheight - Constants.FRAME_HEIGHT;
 
 		controlPanel.setSize(Constants.CONTROL_PANEL_WIDTH + (int) (widthdiff * 0.6), Constants.CONTROL_PANEL_LENGTH + (int) ((heightdiff * 2) / 7));
-
-	}
+		}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
