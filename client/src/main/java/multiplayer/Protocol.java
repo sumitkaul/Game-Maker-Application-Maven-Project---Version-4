@@ -11,7 +11,6 @@ import model.SpriteModel;
 import utility.ClockDisplay;
 import utility.Layers;
 import utility.SpriteList;
-import view.ActionEventPanel;
 import view.ButtonPanel;
 import view.Design;
 import action.GameAction;
@@ -78,6 +77,7 @@ public class Protocol {
 		for (SpriteModel model : allSpriteModels) {
 			SpriteList.getInstance().addSprite(model);
 			SpriteList.getInstance().setSelectedSpriteModel(model);
+			LOG.info("The id of the object is " + model.getId());
 		}
 		Design.getInstance().updateProperties();
 

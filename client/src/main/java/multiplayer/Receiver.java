@@ -31,6 +31,7 @@ public class Receiver implements Runnable{
 	public void startListening()
 	{
 		thread.start();
+		LOG.debug("in start listening ------------------------------------------");
 	}
 
 	public void stopListening()
@@ -42,7 +43,7 @@ public class Receiver implements Runnable{
 		}
 	}
 
-	public static void receiveFromHost(String topic) throws JMSException{
+	public  void receiveFromHost(String topic) throws JMSException{
 
 		SessionFactory.getInstanceOf().createConnection();
 		Subscribe.getInstanceOf().setQueue(topic);
@@ -59,20 +60,20 @@ public class Receiver implements Runnable{
 		}
 
 	}
-	public static void main(String[] args0)
-	{
-		while(true)
-		{
-			try {
-				receiveData();
-			} catch (JMSException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+//	public static void main(String[] args0)
+//	{
+//		while(true)
+//		{
+//			try {
+//				receiveData();
+//			} catch (JMSException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 
-	public static void receiveData() throws JMSException
+	private void receiveData() throws JMSException
 	{
 		SessionFactory.getInstanceOf().createConnection();
 		Subscribe.getInstanceOf().setQueue("TEST2");
@@ -82,9 +83,12 @@ public class Receiver implements Runnable{
 		//	if (message instanceof ObjectMessage) {
 		LOG.info("In the if loop");
 		ObjectMessage objectMessage = (ObjectMessage) message;
-		LOG.info("the kms type is "+message.getJMSType());
+		//LOG.info("the kms type is "+message.getJMSType());
 		LOG.info("object message is" +message);
 		GamePackage data =(GamePackage) objectMessage.getObject();
+		if (data != null)
+		{
+			LOG.info("The data is not null");
 		Protocol protocol = new Protocol();
 		protocol.setGameState(data);
 		//LOG.info("-----------------"+data.getS());
@@ -106,6 +110,7 @@ public class Receiver implements Runnable{
 		//            }
 		//           
 		// } 
+		}
 	}
 
 	@Override
@@ -114,12 +119,33 @@ public class Receiver implements Runnable{
 		while (receiveStatus)
 		{
 			try {
+				LOG.debug("in run ???????????????????????");
 				receiveData();
 			} catch (JMSException e) {
 				e.printStackTrace();
 			}
 		}
 
+	}
+	
+	public void runGame() 
+	{
+//		while (receiveStatus)
+//		{
+			try {
+				LOG.debug("in run ???????????????????????");
+				receiveData();
+			} catch (JMSException e) {
+				e.printStackTrace();
+			}
+		//}
+
+	}
+	public boolean isReceiveStatus() {
+		return receiveStatus;
+	}
+	public void setReceiveStatus(boolean receiveStatus) {
+		this.receiveStatus = receiveStatus;
 	}
 
 

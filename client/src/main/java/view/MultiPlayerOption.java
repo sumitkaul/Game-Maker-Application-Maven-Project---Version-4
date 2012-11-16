@@ -7,11 +7,13 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+import javax.jms.JMSException;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import multiplayer.Receiver;
 import multiplayer.Sender;
 import net.miginfocom.swing.MigLayout;
 
@@ -46,10 +48,9 @@ public class MultiPlayerOption{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-
-				String text="Hello world";
+			
 				String topic="TEST2";
+
 				
 				
 				
@@ -67,10 +68,13 @@ public class MultiPlayerOption{
 				
 				
 				
+				
+
 				Sender sender=new Sender();
 				sender.sendAsHost(topic);
+
 				
-				
+				Receiver.getInstanceOf().runGame();
 				
 				
 
