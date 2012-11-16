@@ -1,14 +1,14 @@
-package team3.a9.lookandfeel;
+package lookandfeel;
 
 import javax.swing.JComponent;
 import org.jdesktop.animation.transitions.TransitionTarget;
 
-public class OutTransition implements TransitionTarget {
+public class InTransition implements TransitionTarget {
 
     private JComponent jc;
     private JComponent container;
 
-    public OutTransition(JComponent jc, JComponent container) {
+    public InTransition(JComponent jc, JComponent container) {
         this.jc = jc;
         this.container = container;
     }
@@ -16,5 +16,6 @@ public class OutTransition implements TransitionTarget {
     @Override
     public void setupNextScreen() {
         container.remove(jc);
+        container.add(jc);
     }
 }

@@ -1,8 +1,8 @@
 package gameMaker;
 
-import team3.a9.imagewizard.ImageData;
-import team3.a9.imagewizard.Wizard;
-import team3.a9.lookandfeel.ThemeHandler;
+import lookandfeel.ThemeHandler;
+import imagewizard.ImageData;
+import imagewizard.Wizard;
 import view.Design;
 import view.OptionsFrame;
 

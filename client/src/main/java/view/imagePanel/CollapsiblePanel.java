@@ -6,7 +6,8 @@ import java.awt.font.*;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
 
-import team3.a9.lookandfeel.AnimationHandler;
+import lookandfeel.AnimationHandler;
+
 import view.Design;
 
 public class CollapsiblePanel extends MouseAdapter {
