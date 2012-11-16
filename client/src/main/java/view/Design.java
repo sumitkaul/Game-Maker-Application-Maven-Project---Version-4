@@ -214,12 +214,8 @@ public class Design implements Resizable, ActionListener {
 		if (selectedSpriteModel == null) {
 			return;
 		}
-		spriteNameTextField.setText(selectedSpriteModel.getId());
-		groupNameTextField.setText(selectedSpriteModel.getGroupId());
-		widthTextField.setText(Double.toString(selectedSpriteModel.getWidth()));
-		heightTextField.setText(Double.toString(selectedSpriteModel.getHeight()));
-		velocityXTextField.setText(Double.toString(selectedSpriteModel.getSpeedX()));
-		velocityYTextField.setText(Double.toString(selectedSpriteModel.getSpeedY()));
+		fieldPanel.updateProperties(selectedSpriteModel);
+		
 		// layerBox.setSelectedItem(selectedSpriteModel.getLayer());
 		int selectedItem = 0;
 		DefaultListModel listModel = actionEventPanel.getSpriteListIndividualModel();
