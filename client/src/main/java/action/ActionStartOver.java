@@ -1,8 +1,10 @@
 package action;
 
+import java.io.Serializable;
+
 import model.SpriteModel;
 
-public class ActionStartOver implements GameAction {
+public class ActionStartOver implements GameAction,Serializable {
 	
 	private double startX, startY;
 

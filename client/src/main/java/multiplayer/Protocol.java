@@ -26,7 +26,8 @@ public class Protocol {
 			
 		
 		msg = SessionFactory.getInstanceOf().getSession().createObjectMessage();
-		msg.setObject(game );
+		msg.setObject(game);
+		LOG.debug(game.getEventsForGameController().get(0));
 			msg.setJMSType("Sending as Host");
 		} catch (JMSException e) {
 			LOG.info("sending falied as host");

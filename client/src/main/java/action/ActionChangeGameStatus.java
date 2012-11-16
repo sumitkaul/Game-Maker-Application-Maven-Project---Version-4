@@ -1,6 +1,7 @@
 package action;
 
 import java.awt.Rectangle;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -10,7 +11,7 @@ import view.Design;
 
 import model.SpriteModel;
 
-public class ActionChangeGameStatus implements GameAction {
+public class ActionChangeGameStatus implements GameAction,Serializable {
 
     private final boolean YES = true;
     private final boolean NO = false;

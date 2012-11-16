@@ -9,13 +9,13 @@ public class Sender {
 	
 	Toolkit toolkit;
 	
-	public void sendAsHost(Test test,String topic)
+	public void sendAsHost(String topic)
 	{
 		
 		
 		SessionFactory.getInstanceOf().createConnection();
 		Publish.getInstanceOf().setTopic(topic);
-		Publish.getInstanceOf().setGameState(test);
+	
 		
 //		Timer timer=new Timer();
 //		timer.schedule(publishState,10);

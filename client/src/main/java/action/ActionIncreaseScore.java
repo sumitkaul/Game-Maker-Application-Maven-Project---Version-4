@@ -3,6 +3,8 @@
  */
 package action;
 
+import java.io.Serializable;
+
 import utility.Score;
 import model.SpriteModel;
 
@@ -10,7 +12,7 @@ import model.SpriteModel;
  * @author Nikhil
  *
  */
-public class ActionIncreaseScore implements GameAction {
+public class ActionIncreaseScore implements GameAction,Serializable {
 
     /* (non-Javadoc)
      * @see action.GameAction#doAction(model.SpriteModel)

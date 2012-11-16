@@ -1,8 +1,10 @@
 package action;
 
+import java.io.Serializable;
+
 import model.SpriteModel;
 
-public class ActionMove implements GameAction {
+public class ActionMove implements GameAction,Serializable {
     
     @Override
     public void doAction(SpriteModel object) {
