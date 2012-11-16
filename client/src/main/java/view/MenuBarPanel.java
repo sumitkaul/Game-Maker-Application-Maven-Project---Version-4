@@ -10,6 +10,13 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.List;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
+
 import loader.GameDataPackageIO;
 import loader.GamePackage;
 import lookandfeel.AnimationHandler;
@@ -21,18 +28,18 @@ import utility.SpriteList;
 import view.companels.GameBaseLoadPanel;
 import view.companels.GameBaseSavePanel;
 
-public class MenuBarPanel {
+public class MenuBarPanel implements ActionListener {
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(Design.class);
-	private MenuBar menuBar = new MenuBar();
+	private JMenuBar menuBar = new JMenuBar();
 
-	public MenuBarPanel(){
+	public MenuBarPanel() {
 
 		// Create a menu
-		Menu menu = new Menu("Insert");
+		JMenu menu = new JMenu("Insert");
 		menuBar.add(menu);
 
 		// Create a menu item
-		CheckboxMenuItem item = new CheckboxMenuItem("Clock");
+		JCheckBoxMenuItem item = new JCheckBoxMenuItem("Clock");
 		item.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
@@ -43,11 +50,11 @@ public class MenuBarPanel {
 		});
 		menu.add(item);
 		
-		Menu user = new Menu("User");
+		JMenu user = new JMenu("User");
 		menuBar.add(user);
 		
-		MenuItem login = new MenuItem("Login");
-		MenuItem register = new MenuItem("Register");
+		JMenuItem login = new JMenuItem("Login");
+		JMenuItem register = new JMenuItem("Register");
 		
 		login.addActionListener(new ActionListener() {
 			
@@ -72,12 +79,12 @@ public class MenuBarPanel {
 		user.add(login);
 		user.add(register);
 		
-		Menu menuGame = new Menu("Game");
+		JMenu menuGame = new JMenu("Game");
 		menuBar.add(menuGame);
 
 		// Create a menu item
-		MenuItem itemGame1 = new MenuItem("Load");
-		MenuItem itemGame2 = new MenuItem("Save");
+		JMenuItem itemGame1 = new JMenuItem("Load");
+		JMenuItem itemGame2 = new JMenuItem("Save");
 		itemGame1.addActionListener(new ActionListener() {
 
 		    @Override
@@ -97,8 +104,8 @@ public class MenuBarPanel {
 		menuGame.add(itemGame1);
 		menuGame.add(itemGame2);
 		
-		Menu menuMultiPlayer = new Menu("MultiPlayer");
-		MenuItem startMultiPlayer = new MenuItem("Start"); 
+		JMenu menuMultiPlayer = new JMenu("MultiPlayer");
+		JMenuItem startMultiPlayer = new JMenuItem("Start"); 
 		menuMultiPlayer.add(startMultiPlayer);
 		menuBar.add(menuMultiPlayer);
 		
@@ -112,15 +119,28 @@ public class MenuBarPanel {
 			p.selectOption();
 		    }
 		});
+		
+		JMenu menuMode = new JMenu("Mode");
+		ButtonGroup modeGroup = new ButtonGroup();
+		JMenuItem[] modes = new JMenuItem[2];
+		modes[0] = new JRadioButtonMenuItem("Single Player");
+		modes[1] = new JRadioButtonMenuItem("Multi Player");
+		modes[0].addActionListener(this);
+		modes[1].addActionListener(this);
+		modeGroup.add(modes[0]);
+		modeGroup.add(modes[1]);
+		menuMode.add(modes[0]);
+		menuMode.add(modes[1]);
+		menuBar.add(menuMode);
 
 	}
 		/********* Getters and Setters *************/
 
-		public void setMenuBar(MenuBar menuBar){
+		public void setMenuBar(JMenuBar menuBar){
 			this.menuBar = menuBar;
 		}
 
-		public MenuBar getMenuBar(){
+		public JMenuBar getMenuBar(){
 			return this.menuBar;
 		}
 		 
@@ -182,6 +202,11 @@ public class MenuBarPanel {
 			    // groupSpriteList.setModel(spriteListGroupModel);
 			}
 			Design.getInstance().updateProperties();
+		}
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			
 		}
 }
 		
