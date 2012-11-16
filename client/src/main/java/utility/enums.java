@@ -23,5 +23,20 @@ public class enums {
 	public enum playerModes{
 		SINGLE,MULTI
 	}
+	
+	public enum PropertyField{
+		SPRITE_NAME("Sprite Name"),GROUP_NAME("Group Name"),VELOCITY_X("Velocity X"),
+		VELOCITY_Y("Velocity Y"),WIDTH("Width"),HEIGHT("Height");
+		
+		private final String text;
+		private PropertyField(final String text) {
+	        this.text = text;
+	    }
+	    @Override
+	    public String toString() {
+	        // TODO Auto-generated method stub
+	        return text;
+	    }
+	}
 }
 

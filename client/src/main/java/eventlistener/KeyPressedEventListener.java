@@ -2,6 +2,8 @@ package eventlistener;
 
 import action.GameAction;
 
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,7 +13,7 @@ import utility.SpriteList;
 import model.SpriteModel;
 import multiplayer.Sender;
 
-public class KeyPressedEventListener implements EventListener {
+public class KeyPressedEventListener implements EventListener,Serializable {
 
     private int keyRegistered;
     private double xSpeed;

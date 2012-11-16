@@ -1,8 +1,10 @@
 package action;
 
+import java.io.Serializable;
+
 import model.SpriteModel;
 
-public class ActionChangeSpeed implements GameAction {
+public class ActionChangeSpeed implements GameAction,Serializable {
 
     private int newSpeedX, newSpeedY;
 

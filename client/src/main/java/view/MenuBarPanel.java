@@ -140,7 +140,12 @@ public class MenuBarPanel {
 			if (gameData == null) {
 			    return;
 			}
-
+			
+			postProcessingAfterLoad(gameData);
+		}
+		
+		public static void postProcessingAfterLoad(String gameData)
+		{
 			GamePackage game = GameDataPackageIO.loadGamePackageFromFile(gameData);
 
 			LOG.debug("load done");

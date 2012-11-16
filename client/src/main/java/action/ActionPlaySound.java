@@ -3,6 +3,7 @@ package action;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ import javax.swing.JOptionPane;
 
 import model.SpriteModel;
 
-public class ActionPlaySound implements GameAction{
+public class ActionPlaySound implements GameAction,Serializable{
 
     private String soundFile;
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger

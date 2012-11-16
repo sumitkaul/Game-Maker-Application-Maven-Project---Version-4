@@ -1,6 +1,7 @@
 package eventlistener;
 
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import view.Design;
 
 import action.GameAction;
 
-public class OutOfBoundaryEventListener implements EventListener {
+public class OutOfBoundaryEventListener implements EventListener,Serializable {
 
 	private String registeredObjectId;
 	private String registeredGroupId;
