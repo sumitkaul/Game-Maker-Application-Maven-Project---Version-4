@@ -21,8 +21,8 @@ public class ActionCreateSpriteModel implements GameAction,Serializable {
 		double cosValue = Math.cos(heading*Math.PI/180)*10;
 		double sinValue = Math.sin(heading*Math.PI/180)*10;
 		
-		double x = sinValue;
-		double y = -cosValue;
+		double x = sinValue / 10;
+		double y = -cosValue / 10;
 	
 		SpriteModel newSpriteModel=new SpriteModel((spriteModel.getPosX()+(spriteModel.getWidth()/2)),(spriteModel.getPosY()+5),x,y,7,12,spriteModel.getImageUrlString(),spriteModel.getLayer(),spriteModel.getImageId());
 

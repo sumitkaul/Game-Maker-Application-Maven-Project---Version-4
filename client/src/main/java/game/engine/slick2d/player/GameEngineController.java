@@ -1,5 +1,7 @@
 package game.engine.slick2d.player;
 
+import action.ActionCreateSpriteModel;
+import action.GameAction;
 import eventlistener.EventListener;
 import eventlistener.KeyPressedEventListener;
 import java.io.ByteArrayInputStream;
@@ -13,9 +15,6 @@ import loader.GamePackage;
 import model.Resources;
 import model.SpriteModel;
 import org.apache.log4j.Logger;
-import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -109,12 +108,21 @@ public class GameEngineController extends BasicGame {
             int i = key.getKeyRegistered();
             keyReg.put(i, key);
             LOG.debug("read one key: " + key + " " + i);
+
+            //hard coping for ActionCreateSpriteModel
+            if (!(key.getAction() instanceof ActionCreateSpriteModel)) {
+                continue;
+            }
+
+            String gid = "Bomb";
+            Image entityImage = imagesOfSprites.get(key.getRegisteredObjectId());
+            imagesOfSprites.put(gid, entityImage);
         }
 
     }
 
     @Override
-    public void update(GameContainer gc, int delta) throws SlickException {
+    public void update(GameContainer gc, int delta) throws SlickException {        
         for (EventListener event : eventsForGameController) {
             event.checkEvent(null);
         }
@@ -139,37 +147,30 @@ public class GameEngineController extends BasicGame {
 
         //remove later
 /*        physicsComponent.inputLogic();
-        physicsComponent.moveLogic();
+         physicsComponent.moveLogic();
 
-        for (Body body : physicsComponent.bodies) {
-            if (body.getType() == BodyType.DYNAMIC) {
-                grphcs.pushTransform();
-                Vec2 bodyPosition = body.getPosition();
-                grphcs.translate(bodyPosition.x, bodyPosition.y);
-                grphcs.rotate(0f, 0f, (float) Math.toDegrees(body.getAngle()));
-                grphcs.drawRect(-0.2f * 30, -0.2f * 30, 0.2f * 30, 0.2f * 30);
-                grphcs.popTransform();
-            }
-        }
-        //
-*/
+         for (Body body : physicsComponent.bodies) {
+         if (body.getType() == BodyType.DYNAMIC) {
+         grphcs.pushTransform();
+         Vec2 bodyPosition = body.getPosition();
+         grphcs.translate(bodyPosition.x, bodyPosition.y);
+         grphcs.rotate(0f, 0f, (float) Math.toDegrees(body.getAngle()));
+         grphcs.drawRect(-0.2f * 30, -0.2f * 30, 0.2f * 30, 0.2f * 30);
+         grphcs.popTransform();
+         }
+         }
+         //
+         */
         for (SpriteModel s : SpriteList.getInstance().getSpriteList()) {
             if (!s.isVisible()) {
                 continue;
             }
 
             if (!imagesOfSprites.containsKey(s.getId())) {
-                String rid = s.getImageUrlString();
-                Resources r = ClientHandler.loadResource(rid, "tintin.cs.indiana.edu:8096", "/GameMakerServer/loadResource", new Exception[1]);
-
-                byte[] imageData = r.getResource();
-                Image image = getImageFromBytes(imageData, r.getResourceName());
-
-                if (image == null) {
+                if (imagesOfSprites.containsKey(s.getGroupId())) {
+                    imagesOfSprites.get(s.getGroupId()).draw((float) s.getPosX(), (float) s.getPosY(), (float) s.getWidth(), (float) s.getHeight());
                     continue;
                 }
-
-                imagesOfSprites.put(s.getId(), image);
             }
 
             imagesOfSprites.get(s.getId()).draw((float) s.getPosX(), (float) s.getPosY(), (float) s.getWidth(), (float) s.getHeight());

@@ -17,8 +17,8 @@ public class TestEngine {
     public TestEngine(AppGameContainer app){
         
         LOG.debug("This is Game Engine Test");
-        System.setProperty("org.lwjgl.librarypath", System.getProperty("user.dir") + "/target/natives/");
-        System.setProperty("net.java.games.input.librarypath", System.getProperty("org.lwjgl.librarypath"));
+        //System.setProperty("org.lwjgl.librarypath", System.getProperty("user.dir") + "/target/natives/");
+        //System.setProperty("net.java.games.input.librarypath", System.getProperty("org.lwjgl.librarypath"));
 
         //GameEngineController game = new GameEngineController("test", GameEngineController.LOAD_MODE_REMOTE, null);
         this.app = app;

@@ -107,7 +107,7 @@ public class OptionsFrame implements ActionListener {
         if (e.getSource() == gamestartButton) {
            new Thread(){public void run(){
              try {
-                GameEngineController game = new GameEngineController("test", GameEngineController.LOAD_MODE_REMOTE, null);
+                GameEngineController game = new GameEngineController("test", GameEngineController.LOAD_MODE_LOCAL, new String[]{"/game/engine/slick2d/player/testing_game.xml"});
                 AppGameContainer app = new AppGameContainer(game);
                 te = new TestEngine(app); 
                 te.getApp().start();
