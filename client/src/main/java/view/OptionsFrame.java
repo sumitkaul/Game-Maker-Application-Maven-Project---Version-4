@@ -62,7 +62,13 @@ public class OptionsFrame implements ActionListener {
             Design.getInstance().clearAll();
             Design.getInstance().getGamePanel().registerDrawable(ClockDisplay.getInstance());
             Design.getInstance().getBaseFrame().setVisible(true);
+            Design.getInstance().getBaseFrame().getContentPane().removeAll();
+            Design.getInstance().getBaseFrame().getContentPane().add(Design.getInstance().getLeftImagePanel());
+            Design.getInstance().getBaseFrame().getContentPane().add(Design.getInstance().getGamePanel());
             AnimationHandler.FadeOut(Design.getInstance().getPlayerButtonPanel(), (JComponent) Design.getInstance().getBaseFrame().getContentPane(), 500);
+            Design.getInstance().getLeftImagePanel().setVisible(true);
+            Design.getInstance().getBaseFrame().validate();
+            
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e1) {
@@ -79,6 +85,10 @@ public class OptionsFrame implements ActionListener {
             Design.getInstance().clearAll();
             Design.getInstance().getBaseFrame().setVisible(true);
             AnimationHandler.FadeOut(Design.getInstance().getGameMakerPanel(), (JComponent) Design.getInstance().getBaseFrame().getContentPane(), 500);
+            //Design.getInstance().getLeftImagePanel().setVisible(false);
+            Design.getInstance().getBaseFrame().getContentPane().remove(Design.getInstance().getLeftImagePanel());
+            Design.getInstance().getBaseFrame().validate();
+            
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e1) {
