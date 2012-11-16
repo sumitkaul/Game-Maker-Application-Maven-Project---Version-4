@@ -46,6 +46,15 @@ public final class SessionFactory {
 		} catch (JMSException e1) {
 			// TODO Auto-generated catch block
 		//	e1.printStackTrace();
-		}	
-	}	
+		}
+        
+		
+	}
+	
+	public void closeSession() throws JMSException{
+		session.close();
+		connection.close();
+	}
+	
+	
 }

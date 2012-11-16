@@ -1,8 +1,11 @@
 package multiplayer;
 
+import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
+import javax.jms.ObjectMessage;
+import javax.jms.Queue;
 import javax.jms.Topic;
 
 public  final class Subscribe {
@@ -11,6 +14,7 @@ public  final class Subscribe {
 	private MessageConsumer consumer;
 	private static final Subscribe instance = new Subscribe();
 	private Topic topicName;
+	private Queue Name;
 	
 	public static Subscribe getInstanceOf()
 	{
@@ -25,7 +29,7 @@ public  final class Subscribe {
 	public void setTopic(String topic) throws JMSException {
 		// TODO Auto-generated method stub
 		this.topic=topic;
-		this.topicName = SessionFactory.getInstanceOf().getSession().createTopic(topic);
+		this.topicName = (Topic) SessionFactory.getInstanceOf().getSession().createTopic(topic);
 		
 	}
 	
@@ -33,17 +37,15 @@ public  final class Subscribe {
 	{
 		Message message = null;
 		try {
-			consumer = SessionFactory.getInstanceOf().getSession().createConsumer(this.topicName);
-		
-	     // Wait for a message
-       message = consumer.receive(1000);
+			consumer = SessionFactory.getInstanceOf().getSession().createConsumer(topicName);
+			message =  consumer.receive(1000);
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
        return message;
 	}
 	
-	public Topic getTopicName() {
+	public Destination getTopicName() {
 		return topicName;
 	}
 
