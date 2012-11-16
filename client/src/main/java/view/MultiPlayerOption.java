@@ -46,30 +46,10 @@ public class MultiPlayerOption{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-
-				String text="Hello world";
+			
 				String topic="TEST2";
-				
-				
-				
-				//   ByteArrayOutputStream b = new ByteArrayOutputStream();
-			     //   ObjectOutputStream o;
-				//	try {
-				//		o = new ObjectOutputStream(b);
-				//	    o.writeObject(test);
-				//	} catch (IOException e1) {
-				//		// TODO Auto-generated catch block
-				//		e1.printStackTrace();
-				//	}
-			    
-			        
-				
-				
-				
 				Sender sender=new Sender();
 				sender.sendAsHost(topic);
-				
 				
 				
 				
