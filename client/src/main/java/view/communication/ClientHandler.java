@@ -411,6 +411,36 @@ public class ClientHandler {
 			return null;
 		}
 	}
+	
+	private static boolean deleteHostedGameBase(int gameId, String host, String path, Exception[] exception) {
+		try {
+			URIBuilder ub = new URIBuilder();
+			ub.setScheme("http").setHost(host).setPath(path).setParameter("id",new Integer(gameId).toString());
+			URI uri = ub.build();
+
+			//should be using deleteHostedGameBaseRecord
+			String response = HttpUtil.httpGet(uri);
+
+			Gson gson = new Gson();
+			Boolean deleteOK = gson.fromJson(response, Boolean.class);
+
+			return deleteOK.booleanValue();
+
+		} catch (Exception ex) {
+			log.error(ex);
+			exception[0] = ex;
+			return false;
+		}
+	}
+	
+	public static boolean deleteHostedGameBase(String hostName, String gameBaseName, 
+			String saveGameBaseName, String host, String path, Exception[] exception) {
+		//TODO: figure out an id based on hostname, gamebasename, savegamebasename
+		int id = 2;
+		return ClientHandler.deleteHostedGameBase(id,host,path,exception);
+		
+	}
+	
 
 	private ClientHandler() {
 	}
