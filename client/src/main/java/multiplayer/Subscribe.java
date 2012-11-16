@@ -10,11 +10,11 @@ import javax.jms.Topic;
 
 public  final class Subscribe {
 
-	private String topic;
+	private String name;
 	private MessageConsumer consumer;
 	private static final Subscribe instance = new Subscribe();
-	private Topic topicName;
-	private Queue Name;
+	//private Destination topicName;
+	private Destination queueName;
 	
 	public static Subscribe getInstanceOf()
 	{
@@ -26,10 +26,10 @@ public  final class Subscribe {
 	{
 		
 	}
-	public void setTopic(String topic) throws JMSException {
+	public void setQueue(String name) throws JMSException {
 		// TODO Auto-generated method stub
-		this.topic=topic;
-		this.topicName = (Topic) SessionFactory.getInstanceOf().getSession().createTopic(topic);
+		this.name=name;
+		this.queueName = (Destination) SessionFactory.getInstanceOf().getSession().createQueue(name);
 		
 	}
 	
@@ -37,32 +37,42 @@ public  final class Subscribe {
 	{
 		Message message = null;
 		try {
-			consumer = SessionFactory.getInstanceOf().getSession().createConsumer(topicName);
+			consumer = SessionFactory.getInstanceOf().getSession().createConsumer(queueName);
 			message =  consumer.receive(1000);
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
        return message;
 	}
-	
-	public Destination getTopicName() {
-		return topicName;
+
+
+	public String getName() {
+		return name;
 	}
 
 
-	public void setTopicName(Topic topicName) {
-		this.topicName = topicName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 
-	public String getTopic() {
-		return topic;
+	public MessageConsumer getConsumer() {
+		return consumer;
 	}
 
 
-	private void receiveState() throws JMSException {
-		
-		Receiver.getInstanceOf().receiveFromHost(topic);
+	public void setConsumer(MessageConsumer consumer) {
+		this.consumer = consumer;
+	}
+
+
+	public Destination getQueueName() {
+		return queueName;
+	}
+
+
+	public void setQueueName(Destination queueName) {
+		this.queueName = queueName;
 	}
 	
 
