@@ -42,7 +42,7 @@ public class Receiver implements Runnable{
 		}
 	}
 
-	public static void receiveFromHost(String topic) throws JMSException{
+	public  void receiveFromHost(String topic) throws JMSException{
 
 		SessionFactory.getInstanceOf().createConnection();
 		Subscribe.getInstanceOf().setQueue(topic);
@@ -59,20 +59,20 @@ public class Receiver implements Runnable{
 		}
 
 	}
-	public static void main(String[] args0)
-	{
-		while(true)
-		{
-			try {
-				receiveData();
-			} catch (JMSException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+//	public static void main(String[] args0)
+//	{
+//		while(true)
+//		{
+//			try {
+//				receiveData();
+//			} catch (JMSException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 
-	public static void receiveData() throws JMSException
+	public  void receiveData() throws JMSException
 	{
 		SessionFactory.getInstanceOf().createConnection();
 		Subscribe.getInstanceOf().setQueue("TEST2");
