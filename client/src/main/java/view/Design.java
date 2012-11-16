@@ -26,6 +26,8 @@ import view.communication.ClientHandler;
 import view.imagePanel.ImagePanel;
 import view.imagePanel.ImageProperties;
 
+import view.PropertyPanel;
+
 public class Design implements Resizable, ActionListener {
 	/********/	
 
@@ -57,7 +59,7 @@ public class Design implements Resizable, ActionListener {
 	private ActionEventPanel actionEventPanel;
 	private ImagePanel extendedImagePanel;
 	private boolean shouldDisplayScore = false;
-	private JPanel fieldPanel;
+	private PropertyPanel fieldPanel;
 	private JPanel leftImagePanel;
 
 
@@ -132,19 +134,9 @@ public class Design implements Resizable, ActionListener {
 
 		gameMakerPanel.add(buttonPanel.getPanel());
 
-		createFieldPanel();
-		// Bottom part of the control panel
-
-		
-
-
 		controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
 
-		// collapsiblePanel.setPanels(extendedpanels);
-		//gameMakerPanel.add(collapsiblePanel.getComponent());
-
-	
-		
+		fieldPanel = new PropertyPanel();
 		controlPanel.add(fieldPanel);
 
 
@@ -242,12 +234,8 @@ public class Design implements Resizable, ActionListener {
 	}
 
 	public void clearAll() {
-		spriteNameTextField.setText("");
-		groupNameTextField.setText("");
-		widthTextField.setText("");
-		heightTextField.setText("");
-		velocityXTextField.setText("");
-		velocityYTextField.setText("");
+		fieldPanel.clearAll();
+
 	}
 
 	public Facade getFacade() {
@@ -430,313 +418,7 @@ public class Design implements Resizable, ActionListener {
 		}
 	}
 
-	public void createFieldPanel()
-	{
-		fieldPanel = new JPanel();
-		fieldPanel.setLayout(new GridBagLayout());
-		JLabel layerLabel = new JLabel("Select the Layer");
-		addLayerBtn = new JButton("Add New Layer");
-		addLayerBtn.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Layers.getInstance().addNewLayer();
-			}
-		});
-
-		layerBox = new JComboBox(Layers.getInstance().getLayers().toArray());
-		layerBox.addItemListener(new ItemListener() {
-
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				layer = ((String) ((JComboBox) e.getSource()).getSelectedItem());
-				gamePanel.setCurrentLayer(layer);
-				gamePanel.repaint();
-			}
-		});
-		JLabel spriteNameLabel = new JLabel("Sprite Name");
-		spriteNameTextField = new JTextField(10);
-		spriteNameTextField.getDocument().addDocumentListener(new DocumentListener() {
-
-			public void changedUpdate(DocumentEvent e) {
-				// warn();
-			}
-
-			public void removeUpdate(DocumentEvent e) {
-				warn();
-			}
-
-			public void insertUpdate(DocumentEvent e) {
-				warn();
-			}
-
-			public void warn() {
-				LOG.debug(spriteNameTextField.getText());
-				String spriteNameTextFieldString = spriteNameTextField.getText();
-				if (SpriteList.getInstance().getSelectedSpriteModel() != null) {
-
-					String previousName = SpriteList.getInstance().getSelectedSpriteModel().getId();
-					if (spriteNameTextFieldString != null && !spriteNameTextFieldString.equalsIgnoreCase("")) {
-						SpriteList.getInstance().getSelectedSpriteModel().setId(spriteNameTextFieldString);
-
-						for (int i = 0; i < actionEventPanel.getSpriteListIndividualModel().size(); i++) {
-							String textString = (String) actionEventPanel.getSpriteListIndividualModel().get(i);
-							if (textString.equalsIgnoreCase(previousName)) {
-								actionEventPanel.getSpriteListIndividualModel().set(i, spriteNameTextFieldString);
-							}
-						}
-
-					}
-				}
-
-			}
-		});
-
-		JLabel spriteGroupLabel = new JLabel("Group Name");
-
-		groupNameTextField = new JTextField(10);
-		groupNameTextField.getDocument().addDocumentListener(new DocumentListener() {
-
-			public void changedUpdate(DocumentEvent e) {
-				// warn();
-			}
-
-			public void removeUpdate(DocumentEvent e) {
-				warn();
-			}
-
-			public void insertUpdate(DocumentEvent e) {
-				warn();
-			}
-
-			public void warn() {
-				LOG.debug(groupNameTextField.getText());
-				String groupNameTextFieldString = groupNameTextField.getText();
-				if (SpriteList.getInstance().getSelectedSpriteModel() != null) {
-					String previousGroupId = SpriteList.getInstance().getSelectedSpriteModel().getGroupId();
-					if (groupNameTextFieldString != null && !groupNameTextFieldString.equalsIgnoreCase("")) {
-						SpriteModel spriteModel = SpriteList.getInstance().getSelectedSpriteModel();
-						spriteModel.setGroupId(groupNameTextFieldString);
-
-						for (int i = 0; i < actionEventPanel.getSpriteListGroupModel().size(); i++) {
-							String textString = (String) actionEventPanel.getSpriteListGroupModel().get(i);
-							if (textString.equalsIgnoreCase(previousGroupId)) {
-
-								actionEventPanel.getSpriteListGroupModel().set(i, groupNameTextFieldString);
-								// if(groupNameTextFieldString.equals(textString)){
-								// spriteListGroupModel.remove(i);
-								// }
-
-							}
-
-						}
-
-						for (int i = 0; i < actionEventPanel.getSpriteListGroupModel().size(); i++) {
-							String textString = (String) actionEventPanel.getSpriteListGroupModel().get(i);
-							if (textString.equalsIgnoreCase(groupNameTextFieldString)) {
-								actionEventPanel.getSpriteListGroupModel().remove(i);
-							}
-
-						}
-
-						if (!actionEventPanel.getSpriteListGroupModel().contains(spriteModel.getGroupId())) {
-							actionEventPanel.getSpriteListGroupModel().addElement(spriteModel.getGroupId());
-						}
-
-					}
-				}
-
-				if (groupNameTextFieldString != null && !groupNameTextFieldString.equalsIgnoreCase("")) {
-					SpriteList.getInstance().getSelectedSpriteModel().setGroupId(groupNameTextFieldString);
-				}
-
-			}
-
-		});
-
-		JLabel velocityXLabel = new JLabel("Velocity X");
-
-		velocityXTextField = new JTextField(10);
-		velocityXTextField.getDocument().addDocumentListener(new DocumentListener() {
-
-			public void changedUpdate(DocumentEvent e) {
-				warn();
-			}
-
-
-
-			public void removeUpdate(DocumentEvent e) {
-				warn();
-			}
-
-			public void insertUpdate(DocumentEvent e) {
-				warn();
-			}
-
-			public void warn() {
-
-				LOG.debug(velocityXTextField.getText());
-				String velocityTextString = velocityXTextField.getText();
-				if (velocityTextString != null && !velocityTextString.equalsIgnoreCase("")) {
-					SpriteList.getInstance().getSelectedSpriteModel().setSpeedX(Double.parseDouble(velocityTextString));
-				}
-			}
-		});
-
-
-		JLabel velocityYLabel = new JLabel("Velocity Y");
-
-		velocityYTextField = new JTextField(10);
-		velocityYTextField.getDocument().addDocumentListener(new DocumentListener() {
-
-			public void changedUpdate(DocumentEvent e) {
-				warn();
-			}
-
-			public void removeUpdate(DocumentEvent e) {
-				warn();
-			}
-
-			public void insertUpdate(DocumentEvent e) {
-				warn();
-			}
-
-			public void warn() {
-				LOG.debug(velocityYTextField.getText());
-				String velocityTextString = velocityYTextField.getText();
-				if (velocityTextString != null && !velocityTextString.equalsIgnoreCase("")) {
-					SpriteList.getInstance().getSelectedSpriteModel().setSpeedY(Double.parseDouble(velocityTextString));
-				}
-			}
-		});
-
-		JLabel heightLabel = new JLabel("Height");
-
-		heightTextField = new JTextField(10);
-		heightTextField.getDocument().addDocumentListener(new DocumentListener() {
-
-			public void changedUpdate(DocumentEvent e) {
-				warn();
-			}
-
-			public void removeUpdate(DocumentEvent e) {
-				warn();
-			}
-
-			public void insertUpdate(DocumentEvent e) {
-				warn();
-			}
-
-			public void warn() {
-				LOG.debug(velocityXTextField.getText());
-				String heightTextString = heightTextField.getText();
-				if (heightTextString != null && !heightTextString.equalsIgnoreCase("")) {
-					SpriteList.getInstance().getSelectedSpriteModel().setHeight(Double.valueOf(heightTextString));
-					gamePanel.repaint();
-				}
-
-			}
-		});
-
-		JLabel widthLabel = new JLabel("Width");
-
-		widthTextField = new JTextField(10);
-		widthTextField.getDocument().addDocumentListener(new DocumentListener() {
-
-			public void changedUpdate(DocumentEvent e) {
-				warn();
-			}
-
-			public void removeUpdate(DocumentEvent e) {
-				warn();
-			}
-
-			public void insertUpdate(DocumentEvent e) {
-				warn();
-			}
-
-			public void warn() {
-				LOG.debug(velocityXTextField.getText());
-				String widthTextString = widthTextField.getText();
-				if (widthTextString != null && !widthTextString.equalsIgnoreCase("")) {
-					SpriteList.getInstance().getSelectedSpriteModel().setWidth(Double.valueOf(widthTextField.getText()));
-					gamePanel.repaint();
-				}
-
-			}
-		});
-
-
-		// Score Modificaion:
-		scoreModificationField = new JTextField(10);
-		scoreModificationField.setVisible(false);
-
-		GridBagConstraints c = new GridBagConstraints();
-
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.insets = new Insets(10, 5, 0, 0);
-		c.weightx = 0.25;
-
-		// Row 0
-		c.gridy = 0;
-		c.gridx = 0;
-		fieldPanel.add(layerLabel);
-		c.gridx = 1;
-		fieldPanel.add(layerBox);
-		c.gridx = 2;
-		fieldPanel.add(addLayerBtn);
-		// Row 1
-		c.gridy = 1;
-
-		c.gridx = 0;
-		fieldPanel.add(spriteNameLabel, c);
-		c.gridx = 1;
-		fieldPanel.add(spriteNameTextField, c);
-
-		// Row 2
-		c.gridy = 2;
-		c.gridx = 0;
-		fieldPanel.add(spriteGroupLabel, c);
-
-		c.gridx = 1;
-		fieldPanel.add(groupNameTextField, c);
-
-		// Row 3
-		c.gridy = 3;
-		c.gridx = 0;
-		fieldPanel.add(widthLabel, c);
-
-		c.gridx = 1;
-		fieldPanel.add(widthTextField, c);
-
-		// Row 4
-		c.gridy = 4;
-		c.gridx = 0;
-		fieldPanel.add(heightLabel, c);
-
-		c.gridx = 1;
-		fieldPanel.add(heightTextField, c);
-
-		// Row 5
-		c.gridy = 5;
-		c.gridx = 0;
-		fieldPanel.add(velocityXLabel, c);
-
-		c.gridx = 1;
-		fieldPanel.add(velocityXTextField, c);
-
-		// Row 6
-		c.gridy = 6;
-		c.gridx = 0;
-		fieldPanel.add(velocityYLabel, c);
-
-		c.gridx = 1;
-		fieldPanel.add(velocityYTextField, c);
-
-		// Row 7
-		c.gridy = 7;
-		c.gridx = 0;
-	}
+	
 
 	/****************** GETTERS & SETTERS **********************************/
 	public ImagePanel getExtendedImagePanel() {
@@ -878,5 +560,13 @@ public class Design implements Resizable, ActionListener {
 	public void setShouldDisplayScore(boolean shouldDisplayScore) {
 		this.shouldDisplayScore = shouldDisplayScore;
 	}
+	
+	public DefaultListModel getSpriteListIndividualModel() {
+        return actionEventPanel.getSpriteListIndividualModel();
+    } 
+	
+	public DefaultListModel getSpriteListGroupModel() {
+        return actionEventPanel.getSpriteListGroupModel();
+    } 
 }
 
