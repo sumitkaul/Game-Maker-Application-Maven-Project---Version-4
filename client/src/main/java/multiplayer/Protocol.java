@@ -11,7 +11,6 @@ import model.SpriteModel;
 import utility.ClockDisplay;
 import utility.Layers;
 import utility.SpriteList;
-import view.ActionEventPanel;
 import view.ButtonPanel;
 import view.Design;
 import action.GameAction;

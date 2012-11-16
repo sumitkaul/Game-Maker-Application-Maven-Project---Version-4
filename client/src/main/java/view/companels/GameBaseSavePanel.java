@@ -53,4 +53,11 @@ public class GameBaseSavePanel {
         JOptionPane.showMessageDialog(frame,"Please login");
         }
     }
+    
+    public boolean saveGameToRemoteServerWithoutUI(String gameData,String gameName,String authorName) {
+    	
+    	 Exception[] exceptions = new Exception[1];
+         return ClientHandler.saveGameBase(gameName, authorName, gameData, host, path + urlSaveGameBase, exceptions);
+         
+    }    
 }

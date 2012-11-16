@@ -48,10 +48,9 @@ public class MultiPlayerOption{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-
-				String text="Hello world";
+			
 				String topic="TEST2";
+
 				
 				
 				
@@ -70,8 +69,10 @@ public class MultiPlayerOption{
 				
 				
 				
-				Sender sender = new Sender();
-				sender.sendAsHost("TEST3");
+
+				Sender sender=new Sender();
+				sender.sendAsHost(topic);
+
 				
 				Receiver.getInstanceOf().runGame();
 				
