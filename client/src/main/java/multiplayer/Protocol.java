@@ -24,15 +24,9 @@ public class Protocol {
 	{
 		GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), Design.getInstance().getFacade().getGameController().getEvents(), Design.getInstance().getFacade().getKeyListenerController().getKeyEvents(), Layers.getInstance().getLayers(), ClockDisplay.getInstance().isVisible());
 		try{
-
-			
-		
-		msg = SessionFactory.getInstanceOf().getSession().createObjectMessage();
-		msg.setObject(game);
-		LOG.debug(game.getEventsForGameController().get(0));
-
-
-
+			msg = SessionFactory.getInstanceOf().getSession().createObjectMessage();
+			msg.setObject(game);
+			LOG.debug(game.getEventsForGameController().get(0));
 			msg.setJMSType("Sending as Host");
 		} catch (JMSException e) {
 			LOG.info("sending falied as host");
@@ -84,9 +78,9 @@ public class Protocol {
 		{
 			model = map.get(action);
 			action.doAction(model);
-			
+
 		}
-		
+
 	}
 }
 
