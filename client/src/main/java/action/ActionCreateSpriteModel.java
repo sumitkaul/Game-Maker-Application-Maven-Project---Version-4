@@ -1,6 +1,7 @@
 package action;
 
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -11,7 +12,7 @@ import utility.SpriteList;
 import view.Design;
 import model.SpriteModel;
 
-public class ActionCreateSpriteModel implements GameAction {
+public class ActionCreateSpriteModel implements GameAction,Serializable {
 	
 	public void doAction(SpriteModel spriteModel){
 		

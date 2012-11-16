@@ -1,8 +1,10 @@
 package action;
 
+import java.io.Serializable;
+
 import model.SpriteModel;
 
-public class ActionChangeVisibility implements GameAction {
+public class ActionChangeVisibility implements GameAction,Serializable {
 
     private boolean visible;
 

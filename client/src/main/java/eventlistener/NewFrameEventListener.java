@@ -2,6 +2,7 @@ package eventlistener;
 
 import action.GameAction;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import utility.SpriteList;
 
 import model.SpriteModel;
 
-public class NewFrameEventListener implements EventListener {
+public class NewFrameEventListener implements EventListener,Serializable {
     
     private String registeredObjectId;
     private String registeredGroupId;
