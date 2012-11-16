@@ -3,7 +3,6 @@ package multiplayer;
 import java.util.HashMap;
 import java.util.Set;
 
-import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
@@ -11,9 +10,6 @@ import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
 import model.SpriteModel;
-
-import org.newdawn.slick.tests.xml.GameData;
-
 import action.GameAction;
 
 public class Receiver implements Runnable{

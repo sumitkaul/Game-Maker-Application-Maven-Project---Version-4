@@ -5,9 +5,6 @@ import java.util.HashMap;
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
 
-import action.GameAction;
-
-import loader.GameDataPackageIO;
 import loader.GamePackage;
 import model.SpriteModel;
 import utility.ClockDisplay;
@@ -15,7 +12,7 @@ import utility.Layers;
 import utility.SpriteList;
 import view.ButtonPanel;
 import view.Design;
-import view.companels.GameProgressSavePanel;
+import action.GameAction;
 
 public class Protocol {
 	private ObjectMessage msg;

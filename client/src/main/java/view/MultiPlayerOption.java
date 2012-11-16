@@ -2,25 +2,22 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import utility.ClockDisplay;
-import utility.SpriteList;
-import view.companels.GameBaseLoadPanel;
-
-import loader.GameDataPackageIO;
-import loader.GamePackage;
-import model.SpriteModel;
 import multiplayer.Sender;
+import multiplayer.Test;
 import net.miginfocom.swing.MigLayout;
 
 
-public class MultiPlayerOption {
+public class MultiPlayerOption{
 
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(MultiPlayerOption.class);
 	private JComponent rootComp;
@@ -28,6 +25,7 @@ public class MultiPlayerOption {
 	private JButton hostButton;
 	private JButton joinButton;
 	private JLabel optionLabel;
+	
 	
 	public MultiPlayerOption(JComponent rootComp) {
         this.rootComp = rootComp;
@@ -52,10 +50,26 @@ public class MultiPlayerOption {
 				
 
 				String text="Hello world";
-				String topic="TEST";
+				String topic="TEST2";
+				
+				Test test=new Test();
+				
+				//   ByteArrayOutputStream b = new ByteArrayOutputStream();
+			     //   ObjectOutputStream o;
+				//	try {
+				//		o = new ObjectOutputStream(b);
+				//	    o.writeObject(test);
+				//	} catch (IOException e1) {
+				//		// TODO Auto-generated catch block
+				//		e1.printStackTrace();
+				//	}
+			    
+			        
+				
+				
 				
 				Sender sender=new Sender();
-				sender.sendAsHost(text,topic);
+				sender.sendAsHost(test,topic);
 				
 				
 				
