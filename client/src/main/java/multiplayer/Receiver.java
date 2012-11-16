@@ -1,12 +1,17 @@
 package multiplayer;
 
+import java.util.HashMap;
+
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
+import action.GameAction;
+
 import loader.GamePackage;
+import model.SpriteModel;
 
 public class Receiver implements Runnable{
 
@@ -60,18 +65,18 @@ public class Receiver implements Runnable{
 		}
 
 	}
-//	public static void main(String[] args0)
-//	{
-//		while(true)
-//		{
-//			try {
-//				receiveData();
-//			} catch (JMSException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//	}
+	//	public static void main(String[] args0)
+	//	{
+	//		while(true)
+	//		{
+	//			try {
+	//				receiveData();
+	//			} catch (JMSException e) {
+	//				// TODO Auto-generated catch block
+	//				e.printStackTrace();
+	//			}
+	//		}
+	//	}
 
 	private void receiveData() throws JMSException
 	{
@@ -79,37 +84,32 @@ public class Receiver implements Runnable{
 		Subscribe.getInstanceOf().setQueue("TEST2");
 		Message message=  Subscribe.getInstanceOf().receiveData();
 
-		LOG.info("received message");
-		//	if (message instanceof ObjectMessage) {
-		LOG.info("In the if loop");
 		ObjectMessage objectMessage = (ObjectMessage) message;
-		//LOG.info("the kms type is "+message.getJMSType());
 		LOG.info("object message is" +message);
-		GamePackage data =(GamePackage) objectMessage.getObject();
-		if (data != null)
+		Object data = objectMessage.getObject();
+		try{
+			if ( data instanceof GamePackage)
+			{
+				GamePackage gameData = (GamePackage) data;
+				Protocol protocol = new Protocol();
+				protocol.setGameState(gameData);
+				//LOG.info("-----------------"+data.getS());
+				LOG.info("The data is GamePackage type " + objectMessage.getObject());
+			}
+			else if(data instanceof HashMap)
+			{
+				HashMap<GameAction, SpriteModel> actionData = (HashMap<GameAction, SpriteModel>) data;
+				Protocol protocol = new Protocol();
+				protocol.setMultiplayerAction(actionData);
+				//LOG.info("-----------------"+data.getS());
+				LOG.info("The data is HashMap type" + objectMessage.getObject());
+			}
+			SessionFactory.getInstanceOf().closeSession();
+
+		}
+		catch ( NullPointerException ne)
 		{
-			LOG.info("The data is not null");
-		Protocol protocol = new Protocol();
-		protocol.setGameState(data);
-		//LOG.info("-----------------"+data.getS());
-		LOG.info("The data is " + objectMessage.getObject());
-		SessionFactory.getInstanceOf().closeSession();
-		//            if (data instanceof HashMap)
-		//            {
-		//				HashMap<GameAction, SpriteModel> map = (HashMap<GameAction, SpriteModel>) data;
-		//            	Set <GameAction> actionSet = map.keySet();
-		//            	for (GameAction action: actionSet)
-		//            	{
-		//            		SpriteModel model = map.get(action);
-		//            		action.doAction(model);
-		//            	}
-		//            }
-		//            else if (data instanceof MultiPlayerOption)
-		//            {
-		//            	LOG.info("The data is " + data);
-		//            }
-		//           
-		// } 
+			LOG.info("No message received");
 		}
 	}
 
@@ -127,17 +127,17 @@ public class Receiver implements Runnable{
 		}
 
 	}
-	
+
 	public void runGame() 
 	{
-//		while (receiveStatus)
-//		{
-			try {
-				LOG.debug("in run ???????????????????????");
-				receiveData();
-			} catch (JMSException e) {
-				e.printStackTrace();
-			}
+		//		while (receiveStatus)
+		//		{
+		try {
+			LOG.debug("in run ???????????????????????");
+			receiveData();
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}
 		//}
 
 	}

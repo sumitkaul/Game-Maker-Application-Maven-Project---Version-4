@@ -60,20 +60,14 @@ public class Protocol {
 	public void setGameState(GamePackage game)
 	{
 		LOG.debug("load done");
-
- 
-
 		List<SpriteModel> allSpriteModels = game.getSpriteList();
 		List<String> layers = game.getLayers();
 		ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
 		// SpriteList.getInstance().setSpriteList(allSpriteModels);
 		SpriteList.getInstance().setSelectedSpriteModel(allSpriteModels.get(0));
-
 		Design.getInstance().getFacade().getGameController().setEvents(game.getEventsForGameController());
 		Design.getInstance().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
-
 		Design.getInstance().getFacade().createViewsForModels(game.getSpriteList());
-
 		for (SpriteModel model : allSpriteModels) {
 			SpriteList.getInstance().addSprite(model);
 			SpriteList.getInstance().setSelectedSpriteModel(model);
@@ -81,6 +75,18 @@ public class Protocol {
 		}
 		Design.getInstance().updateProperties();
 
+	}
+	public void setMultiplayerAction(HashMap<GameAction, SpriteModel> map)
+	{
+		SpriteModel model = null;
+		LOG.info("Setting multiplayer action");
+		for (GameAction action : map.keySet())
+		{
+			model = map.get(action);
+			action.doAction(model);
+			
+		}
+		
 	}
 }
 

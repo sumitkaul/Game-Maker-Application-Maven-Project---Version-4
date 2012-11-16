@@ -49,35 +49,11 @@ public class MultiPlayerOption{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			
-				String topic="TEST2";
-
-				
-				
-				
-				//   ByteArrayOutputStream b = new ByteArrayOutputStream();
-			     //   ObjectOutputStream o;
-				//	try {
-				//		o = new ObjectOutputStream(b);
-				//	    o.writeObject(test);
-				//	} catch (IOException e1) {
-				//		// TODO Auto-generated catch block
-				//		e1.printStackTrace();
-				//	}
-			    
-			        
-				
-				
-				
-				
-
+				String topic="TEST3";
 				Sender sender=new Sender();
 				sender.sendAsHost(topic);
 
-				
 				Receiver.getInstanceOf().runGame();
-				
-				
-
 				//HostGame p = new HostGame(Design.getInstance().getGamePanel());
 				//p.displayHostedGames();
 
