@@ -1,4 +1,4 @@
-package team3.a9.imagewizard;
+package imagewizard;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

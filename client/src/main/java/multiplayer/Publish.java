@@ -1,11 +1,9 @@
 package multiplayer;
 
-import java.util.HashMap;
-import java.util.TimerTask;
-
 import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.JMSException;
+import javax.jms.Message;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
@@ -21,8 +19,11 @@ public final class Publish{
 	private boolean done=false;
 	private ObjectMessage objectMessage;
 	private String topic;
-	private String gameState;
+	private Test gameState;
 	private final static Publish instance =new Publish();
+	private Topic topic1;
+	
+	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(Publish.class);
 	
 	
 	public static Publish getInstanceOf(){
@@ -43,9 +44,10 @@ public final class Publish{
 	public void setTopic(String topic) {
 		// TODO Auto-generated method stub
 		this.topic=topic;
-		Destination destination;
-		Topic topic1;
+		
+		
 		try {
+			//System.out.println(topic);
 			topic1 = (Topic) SessionFactory.getInstanceOf().getSession().createTopic(topic);
 			producer = SessionFactory.getInstanceOf().getSession().createProducer(topic1);
 			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
@@ -59,18 +61,22 @@ public final class Publish{
 	public void sendState() {
 		String text = "Hello world! From: " + Thread.currentThread().getName() + " : " + this.hashCode();
 		try {
-			message = SessionFactory.getInstanceOf().getSession().createTextMessage(gameState);
+			objectMessage = SessionFactory.getInstanceOf().getSession().createObjectMessage();
+			objectMessage.setObject(gameState);
+			objectMessage.setJMSType("Some string");
 			  // Tell the producer to send the message
-	          producer.send(message);
+			LOG.debug(gameState.getS());
+			LOG.debug("S is -------------------"+objectMessage.getObject());
+	        producer.send(objectMessage);
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 	}
-	
 
-	public void setGameState(String text) {
-		this.gameState=text;
+
+	public void setGameState(Test test) {
+		this.gameState=test;
 	}
 	
 	public void sendGameAction(GameAction action, SpriteModel spriteModel)

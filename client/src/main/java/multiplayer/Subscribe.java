@@ -5,14 +5,16 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.ObjectMessage;
+import javax.jms.Queue;
 import javax.jms.Topic;
 
 public  final class Subscribe {
 
-	private String topic;
+	private String name;
 	private MessageConsumer consumer;
 	private static final Subscribe instance = new Subscribe();
-	private Topic topicName;
+	//private Destination topicName;
+	private Destination queueName;
 	
 	public static Subscribe getInstanceOf()
 	{
@@ -24,10 +26,10 @@ public  final class Subscribe {
 	{
 		
 	}
-	public void setTopic(String topic) throws JMSException {
+	public void setQueue(String name) throws JMSException {
 		// TODO Auto-generated method stub
-		this.topic=topic;
-		topicName = SessionFactory.getInstanceOf().getSession().createTopic(topic);
+		this.name=name;
+		this.queueName = (Destination) SessionFactory.getInstanceOf().getSession().createQueue(name);
 		
 	}
 	
@@ -35,34 +37,42 @@ public  final class Subscribe {
 	{
 		Message message = null;
 		try {
-			consumer = SessionFactory.getInstanceOf().getSession().createConsumer(topicName);
-		
-	     // Wait for a message
-       message = consumer.receive(1000);
+			consumer = SessionFactory.getInstanceOf().getSession().createConsumer(queueName);
+			message =  consumer.receive(1000);
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
        return message;
 	}
-	
-	public Topic getTopicName() {
-		return topicName;
+
+
+	public String getName() {
+		return name;
 	}
 
 
-	public void setTopicName(Topic topicName) {
-		this.topicName = topicName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 
-	public String getTopic() {
-		return topic;
+	public MessageConsumer getConsumer() {
+		return consumer;
 	}
 
 
-	private void receiveState() throws JMSException {
-		
-		Receiver.getInstanceOf().receiveFromHost(topic);
+	public void setConsumer(MessageConsumer consumer) {
+		this.consumer = consumer;
+	}
+
+
+	public Destination getQueueName() {
+		return queueName;
+	}
+
+
+	public void setQueueName(Destination queueName) {
+		this.queueName = queueName;
 	}
 	
 

@@ -9,13 +9,15 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import org.newdawn.slick.SlickException;
-import team3.a9.lookandfeel.AnimationHandler;
 import utility.ClockDisplay;
 
 import net.miginfocom.swing.MigLayout;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import lookandfeel.AnimationHandler;
+
 import org.newdawn.slick.AppGameContainer;
 
 public class OptionsFrame implements ActionListener {

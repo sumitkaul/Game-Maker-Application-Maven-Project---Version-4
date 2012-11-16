@@ -1,7 +1,6 @@
 package multiplayer;
 
 import java.awt.Toolkit;
-import java.util.Timer;
 
 import model.SpriteModel;
 import action.GameAction;
@@ -10,13 +9,13 @@ public class Sender {
 	
 	Toolkit toolkit;
 	
-	public void sendAsHost(String text,String topic)
+	public void sendAsHost(Test test,String topic)
 	{
 		
 		
 		SessionFactory.getInstanceOf().createConnection();
 		Publish.getInstanceOf().setTopic(topic);
-		Publish.getInstanceOf().setGameState(text);
+		Publish.getInstanceOf().setGameState(test);
 		
 //		Timer timer=new Timer();
 //		timer.schedule(publishState,10);
