@@ -82,9 +82,12 @@ public class Receiver implements Runnable{
 		//	if (message instanceof ObjectMessage) {
 		LOG.info("In the if loop");
 		ObjectMessage objectMessage = (ObjectMessage) message;
-		LOG.info("the kms type is "+message.getJMSType());
+		//LOG.info("the kms type is "+message.getJMSType());
 		LOG.info("object message is" +message);
 		GamePackage data =(GamePackage) objectMessage.getObject();
+		if (data != null)
+		{
+			LOG.info("The data is not null");
 		Protocol protocol = new Protocol();
 		protocol.setGameState(data);
 		//LOG.info("-----------------"+data.getS());
@@ -106,6 +109,7 @@ public class Receiver implements Runnable{
 		//            }
 		//           
 		// } 
+		}
 	}
 
 	@Override

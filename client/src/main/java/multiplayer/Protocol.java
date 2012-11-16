@@ -73,6 +73,7 @@ public class Protocol {
 		for (SpriteModel model : allSpriteModels) {
 			SpriteList.getInstance().addSprite(model);
 			SpriteList.getInstance().setSelectedSpriteModel(model);
+			LOG.info("The id of the object is " + model.getId());
 		}
 		Design.getInstance().updateProperties();
 
