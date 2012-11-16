@@ -15,6 +15,7 @@ import loader.GamePackage;
 import lookandfeel.AnimationHandler;
 import model.SpriteModel;
 import utility.ClockDisplay;
+import utility.Constants;
 import utility.Layers;
 import utility.SpriteList;
 import view.companels.GameBaseLoadPanel;
@@ -105,6 +106,7 @@ public class MenuBarPanel {
 
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
+		    Constants.isMultiplayer = true;
 			MultiPlayerOption p = new MultiPlayerOption(Design.getInstance().getGamePanel());
 			LOG.info("in start action listener");
 			p.selectOption();
