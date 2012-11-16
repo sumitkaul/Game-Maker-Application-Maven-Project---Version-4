@@ -1,5 +1,8 @@
 package view.imagePanel;
 
+import imagewizard.MyFilter;
+import imagewizard.Wizard;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -35,8 +38,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import team3.a9.imagewizard.Wizard;
-import team3.a9.imagewizard.MyFilter;
 import utility.SpriteList;
 import utility.Util;
 import view.Design;
@@ -55,7 +56,7 @@ public class ImagePanel implements ActionListener,ChangeListener {
 	private JPanel imagePanel;
 	private JPanel imageTiles ;
 	private JPanel paginationPanel;
-	private static final int imagesPerPage = 9;
+	private static final int imagesPerPage = 14;
 	private List<ImageProperties> allImages;
 	private List<ImageProperties> presentImages;
 	private int presentPage = 1;
@@ -78,7 +79,7 @@ public class ImagePanel implements ActionListener,ChangeListener {
 		totalImages = ClientHandler.countTag(null, host, "/GameMakerServer/countTag", new Exception[1]);
 		int lastIndex = allImages.size() < imagesPerPage ? allImages.size():imagesPerPage;
 		presentImages = allImages.subList(0, lastIndex);
-		imageTiles = new JPanel(new GridLayout(4,4));
+		imageTiles = new JPanel(new GridLayout(7,2));
 		populateImageTiles();		
 		imageTilesScrollPane = new JScrollPane(imageTiles, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		paginationPanel = new JPanel(new FlowLayout());
@@ -92,7 +93,7 @@ public class ImagePanel implements ActionListener,ChangeListener {
 		JButton upload = new JButton("Upload Images");
 		upload.addActionListener(this);
 		imagePanel.add(upload);
-		imagePanel.setSize(400, 400);
+		imagePanel.setSize(200, 400);
 	}
 
 	private JPanel createPropertiesPanel() {

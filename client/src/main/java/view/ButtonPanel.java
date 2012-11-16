@@ -21,11 +21,11 @@ import javax.swing.JPanel;
 
 import loader.GameDataPackageIO;
 import loader.GamePackage;
+import lookandfeel.AnimationHandler;
 import model.GameBase;
 import model.Player;
 import model.Resource;
 import model.SpriteModel;
-import team3.a9.lookandfeel.AnimationHandler;
 import utility.ClockDisplay;
 import utility.Constants;
 import utility.Layers;

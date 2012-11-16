@@ -15,8 +15,8 @@ public class JoinGame {
     private JComponent rootComp;
     private final String host = "tintin.cs.indiana.edu:8096";
     private final String path = "/GameMakerServer";
-    private final String urlListAllGameBases = "/listAllGameBases";
-    private final String urlLoadGameBase = "/loadGameBase";
+    private final String urlListAllHostGames = "/listAllHostGames";
+    private final String urlloadHostGames = "/loadHostGames";
 	
 	public JoinGame (JComponent rootComp){
 		
@@ -25,10 +25,10 @@ public class JoinGame {
 	}
 	
 	
-	public void displayJoinGames(){
+	public String displayJoinGames(){
 		
 		Exception[] exceptions = new Exception[1];
-		String[] gameNames={"aaaa","bbbbb"};
+		String[] gameNames = ClientHandler.loadHostGames(host, path + urlListAllHostGames, exceptions);
 		
 		String chosen = (String) JOptionPane.showInputDialog(
                 rootComp,
@@ -38,11 +38,11 @@ public class JoinGame {
                 null, gameNames,
                 null);
 		
-		/*if (chosen == null) {
+		if (chosen == null) {
             return null;
         }
 
-        String gameData = ClientHandler.loadGameBase(chosen, host, path + urlLoadGameBase, exceptions);
+        String gameData = ClientHandler.loadGameBase(chosen, host, path + urlloadHostGames, exceptions);
 
         if (exceptions[0] != null) {
             JOptionPane.showMessageDialog(rootComp, exceptions[0].toString());
@@ -51,7 +51,7 @@ public class JoinGame {
 
         GameProgressSaveInfo.getInstance().setLoadedGameName(chosen);
 
-        return gameData;*/
+        return gameData;
 		
 	}
 	

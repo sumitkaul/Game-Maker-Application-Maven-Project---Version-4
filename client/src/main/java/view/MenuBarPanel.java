@@ -12,8 +12,8 @@ import java.util.List;
 
 import loader.GameDataPackageIO;
 import loader.GamePackage;
+import lookandfeel.AnimationHandler;
 import model.SpriteModel;
-import team3.a9.lookandfeel.AnimationHandler;
 import utility.ClockDisplay;
 import utility.Layers;
 import utility.SpriteList;

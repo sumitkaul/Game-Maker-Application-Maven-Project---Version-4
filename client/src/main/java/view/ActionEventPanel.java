@@ -74,6 +74,8 @@ public class ActionEventPanel {
     private JPanel actionEventPanel;
     private DefaultListModel spriteListIndividualModel;
     private DefaultListModel  spriteListGroupModel;
+    private JLabel spriteName;
+    private JLabel eventActionName;
 
 	
 	public ActionEventPanel(Design designArg) {
@@ -101,6 +103,8 @@ public class ActionEventPanel {
         spriteList.setListData(sample);
         spriteListScrollPane = new JScrollPane(spriteList);
         spriteListScrollPane.setSize(100, 100);
+        spriteName = new JLabel ("Sprite Name");
+        eventActionName = new JLabel("Event Action List");
 
         scoreModificationField = new JTextField(10);
         scoreModificationField.setVisible(false);
@@ -327,6 +331,7 @@ public class ActionEventPanel {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new Insets(10, 5, 0, 0);
         gridBagConstraints.weightx = 0.25;
+        //gridBagConstraints.weighty=1;
 
         // gridBagConstraints.gridx = 0;
         // gridBagConstraints.gridy = 0;
@@ -334,36 +339,46 @@ public class ActionEventPanel {
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-
+        
+        actionEventPanel.add(spriteName, gridBagConstraints);
+        
+        gridBagConstraints.gridx = 1;
+        
+        actionEventPanel.add(eventActionName, gridBagConstraints);
+        
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         actionEventPanel.add(spriteListScrollPane, gridBagConstraints);
 
         gridBagConstraints.gridx = 1;
         actionEventPanel.add(scrollPane, gridBagConstraints);
+        
+       
 
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         actionEventPanel.add(eventBox, gridBagConstraints);
 
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         actionEventPanel.add(actionBox, gridBagConstraints);
 
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         actionEventPanel.add(addEventActionButton, gridBagConstraints);
 
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         actionEventPanel.add(removeEventActionButton, gridBagConstraints);
 
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         actionEventPanel.add(collisionSpriteBox, gridBagConstraints);
         actionEventPanel.add(inputPanel, gridBagConstraints);
 
         // Score modification.
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         actionEventPanel.add(scoreModificationField, gridBagConstraints);
         // actionEventPanel.add(inputPanel, gridBagConstraints);
 

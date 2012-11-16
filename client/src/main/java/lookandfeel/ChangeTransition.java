@@ -1,4 +1,4 @@
-package team3.a9.lookandfeel;
+package lookandfeel;
 
 import javax.swing.JComponent;
 import org.jdesktop.animation.transitions.TransitionTarget;

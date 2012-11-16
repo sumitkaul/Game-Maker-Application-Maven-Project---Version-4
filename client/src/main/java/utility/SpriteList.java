@@ -1,6 +1,7 @@
 package utility;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import view.Design;
 
 import model.SpriteModel;
 
-public class SpriteList {
+public class SpriteList implements Serializable {
 
 	private static SpriteList sharedSpriteList = null;
 	private List<SpriteModel> spriteList;

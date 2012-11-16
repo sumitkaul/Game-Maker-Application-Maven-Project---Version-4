@@ -1,4 +1,4 @@
-package team3.a9.lookandfeel;
+package lookandfeel;
 
 import java.util.HashMap;
 import java.util.Map;

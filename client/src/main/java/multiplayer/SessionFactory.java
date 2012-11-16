@@ -51,5 +51,10 @@ public final class SessionFactory {
 		
 	}
 	
+	public void closeSession() throws JMSException{
+		session.close();
+		connection.close();
+	}
+	
 	
 }

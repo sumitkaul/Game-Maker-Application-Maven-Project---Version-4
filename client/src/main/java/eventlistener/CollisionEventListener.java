@@ -2,6 +2,8 @@ package eventlistener;
 
 import action.GameAction;
 
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,7 +11,7 @@ import utility.SpriteList;
 
 import model.SpriteModel;
 
-public class CollisionEventListener implements EventListener {
+public class CollisionEventListener implements EventListener,Serializable {
     private GameAction action;
     private String registeredObjectId1, registeredObjectId2, registeredGroupId1, registeredGroupId2;
    

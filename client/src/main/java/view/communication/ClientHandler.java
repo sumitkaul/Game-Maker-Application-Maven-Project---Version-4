@@ -411,6 +411,28 @@ public class ClientHandler {
 			return null;
 		}
 	}
+	
+	public static String[] loadHostGames(String host, String path,
+			Exception[] exception) {
+		try {
+			URIBuilder ub = new URIBuilder();
+			ub.setScheme("http").setHost(host).setPath(path);
+			URI uri = ub.build();
+
+			String jsonGameList = HttpUtil.httpGet(uri);
+
+			Gson gson = new Gson();
+
+			String[] gameNames = gson.fromJson(jsonGameList, String[].class);
+
+			return gameNames;
+		} catch (Exception ex) {
+			log.error(ex);
+			exception[0] = ex;
+			return null;
+		}
+
+	}
 
 	private ClientHandler() {
 	}
