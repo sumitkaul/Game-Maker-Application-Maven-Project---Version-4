@@ -31,6 +31,7 @@ public class Receiver implements Runnable{
 	public void startListening()
 	{
 		thread.start();
+		LOG.debug("in start listening ------------------------------------------");
 	}
 
 	public void stopListening()
@@ -72,7 +73,7 @@ public class Receiver implements Runnable{
 //		}
 //	}
 
-	public  void receiveData() throws JMSException
+	private void receiveData() throws JMSException
 	{
 		SessionFactory.getInstanceOf().createConnection();
 		Subscribe.getInstanceOf().setQueue("TEST2");
@@ -118,12 +119,33 @@ public class Receiver implements Runnable{
 		while (receiveStatus)
 		{
 			try {
+				LOG.debug("in run ???????????????????????");
 				receiveData();
 			} catch (JMSException e) {
 				e.printStackTrace();
 			}
 		}
 
+	}
+	
+	public void runGame() 
+	{
+//		while (receiveStatus)
+//		{
+			try {
+				LOG.debug("in run ???????????????????????");
+				receiveData();
+			} catch (JMSException e) {
+				e.printStackTrace();
+			}
+		//}
+
+	}
+	public boolean isReceiveStatus() {
+		return receiveStatus;
+	}
+	public void setReceiveStatus(boolean receiveStatus) {
+		this.receiveStatus = receiveStatus;
 	}
 
 
