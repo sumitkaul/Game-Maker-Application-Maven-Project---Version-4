@@ -21,6 +21,7 @@ import model.Resources;
 import model.SpriteModel;
 import utility.*;
 import view.communication.ClientHandler;
+import view.imagePanel.ImageActionListener;
 import view.imagePanel.ImagePanel;
 import view.imagePanel.ImageProperties;
 
@@ -46,14 +47,7 @@ public class GameMakerView implements Resizable, ActionListener {
 	private JPanel playerButtonPanel;
 	private JTextField heightTextField;
 
-	// Score Modificaion:
-	private JTextField scoreModificationField;
-	private JButton addLayerBtn;
-	private JTextField spriteNameTextField;
-	private JTextField groupNameTextField;
 	private JComboBox layerBox;
-	// private DefaultListModel spriteListIndividualModel;
-	private String layer;
 	private ActionEventPanel actionEventPanel;
 	private ImagePanel extendedImagePanel;
 	private boolean shouldDisplayScore = false;
@@ -147,8 +141,6 @@ public class GameMakerView implements Resizable, ActionListener {
 		extendedImagePanel = new ImagePanel(imageActionListener);
 		JPanel[] extendedpanels = new JPanel[] { extendedImagePanel.getImagePanel() };
 		leftPanel.add(extendedImagePanel.getImagePanel());
-		// extendedImagePanel.getImagePanel().setVisible(false);
-
 		
 		layeredPane = new JLayeredPane();
 		layeredPane.setBackground(Color.BLUE);
@@ -283,149 +275,6 @@ public class GameMakerView implements Resizable, ActionListener {
 		gamePanel.removeAllDrawables();
 		gamePanel.repaint();
 	}
-
-	public JScrollPane getImagePanel() {
-		JPanel imagePanel = new JPanel();
-
-		URL jar = this.getClass().getClassLoader().getResource("resource.jar");
-		List<String> list = new ArrayList<String>();
-
-		ZipInputStream zip;
-		try {
-			LOG.debug(jar);
-			zip = new ZipInputStream(jar.openStream());
-			ZipEntry ze = null;
-
-			while ((ze = zip.getNextEntry()) != null) {
-				String entryName = ze.getName();
-				LOG.debug(entryName);
-				if (entryName.endsWith(".png") || entryName.endsWith(".jpg")) {
-					list.add(entryName);
-				}
-			}
-		} catch (IOException e1) {
-			LOG.error(e1);
-		}
-
-
-		ImageActionListener listener = this.new ImageActionListener();
-		List<ImageProperties> allImages = new ArrayList<ImageProperties>();
-		Exception[] exceptions = new Exception[1];
-		Resources[] images = ClientHandler.listPageResources("1", "1000",
-				null, "tintin.cs.indiana.edu:8096", "/GameMakerServer/listPageResources", exceptions);
-		for(int i = 0; i < images.length; i++){
-			Image image = Util.convertByteArraytoImage(images[i].getResource(), "jpg");
-			ImageProperties im = new ImageProperties(String.valueOf(images[i].getReourceNumber()),
-					images[i].getResourceName(), image);
-			allImages.add(im);
-		}
-
-
-		for (int i = 0; i < allImages.size(); i++) {
-
-			Image image = allImages.get(i).getImage();
-			ImageIcon icon = null;
-			try{
-				icon = new ImageIcon(image.getScaledInstance(50, 50, 1));
-			}catch(Exception ex){
-				ex.printStackTrace();
-			}
-			JButton button = new JButton(icon);
-			button.setName(allImages.get(i).getImageKey());
-			button.addActionListener(listener);
-			imagePanel.add(button);
-
-		}
-		JScrollPane scroller = new JScrollPane(imagePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-
-		return scroller;
-	}
-
-	public BufferedImage createResizedCopy(Image originalImage, int scaledWidth, int scaledHeight, boolean preserveAlpha) {
-		int imageType = preserveAlpha ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
-		BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, imageType);
-		Graphics2D g = scaledBI.createGraphics();
-		if (preserveAlpha) {
-			g.setComposite(AlphaComposite.Src);
-		}
-		g.drawImage(originalImage, 0, 0, scaledWidth, scaledHeight, null);
-		g.dispose();
-		return scaledBI;
-	}
-
-	public class ImageActionListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-
-			JButton btn = (JButton) arg0.getSource();
-
-			double sizeX;
-			double sizeY;
-			double speedX;
-			double speedY;
-			String layer = null;
-			try {
-				sizeX = Double.valueOf(widthTextField.getText());
-				sizeY = Double.valueOf(heightTextField.getText());
-				LOG.debug("got size values for customObject x:" + sizeX + " y:" + sizeY);
-
-
-
-			} catch (Exception exception) {
-				LOG.error("did not read in size values ... using defaults");
-				sizeX = 30;
-				sizeY = 30;
-			}
-			try {
-				speedX = Double.valueOf(velocityXTextField.getText());
-				speedY = Double.valueOf(velocityYTextField.getText());
-				LOG.debug("got speed values for customObject x:" + speedX + " y:" + speedY);
-			} catch (Exception exception) {
-				LOG.error("did not read in speed values ... using defaults");
-				speedX = 1;
-				speedY = 1;
-			}
-			try {
-				layer = layerBox.getSelectedItem().toString();
-				if (layer.equalsIgnoreCase(Constants.ALL_LAYERS)) {
-					if (Layers.getInstance().getLayers().size() == 1) {
-						Layers.getInstance().addNewLayer();
-					}
-					List<String> layers = new ArrayList<String>();
-					layers = Layers.getInstance().getLayers();
-					layer = layers.get(1);
-				}
-			} catch (Exception exception) {
-				LOG.error("layer value not set", exception);
-			}
-			if (btn != null) {
-				// TO-DO : To get two images while importing objects. So
-				// that the second object can be used as a secondary image
-				// based on requirements.
-				Image image = null;
-				/*try {
-    				image = ImageIO.read(Design.class.getResource(btn.getName()));
-    			} catch (IOException e) {
-    				// TODO Auto-generated catch block
-    				e.printStackTrace();
-    			}*/
-				int imageId = 0;
-				try{
-					imageId = Integer.parseInt(btn.getName());
-				}catch (NumberFormatException ex){
-					ex.printStackTrace();
-				}
-				SpriteModel spriteModel = new SpriteModel(100, 100, speedX, speedY, sizeX, sizeY, btn.getName(), layer, imageId);
-				updateSpriteList(spriteModel);
-				updateProperties();
-				facade.addSpriteModelToView(spriteModel);
-				gamePanel.repaint();
-			}
-		}
-	}
-
-	
 
 	/****************** GETTERS & SETTERS **********************************/
 	public ImagePanel getExtendedImagePanel() {
