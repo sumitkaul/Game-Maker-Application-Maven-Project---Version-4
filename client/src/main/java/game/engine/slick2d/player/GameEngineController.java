@@ -15,6 +15,7 @@ import loader.GamePackage;
 import model.Resources;
 import model.SpriteModel;
 import org.apache.log4j.Logger;
+import org.jbox2d.common.Vec2;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -103,6 +104,8 @@ public class GameEngineController extends BasicGame {
     @Override
     public void render(GameContainer gc, Graphics grphcs) throws SlickException 
     {
+         physicsComponent.moveLogic();
+         physicsComponent.inputLogic();
          renderSpriteImageDraw();   
     }   
     //Init   : Create a body  for every spriteimage
@@ -151,26 +154,23 @@ public class GameEngineController extends BasicGame {
 
             if (!imagesOfSprites.containsKey(sprite.getId())) {
                 if (imagesOfSprites.containsKey(sprite.getGroupId())) {
-                    imagesOfSprites.get(sprite.getGroupId()).draw((float) sprite.getPosX(), (float) sprite.getPosY(), (float) sprite.getWidth(), (float) sprite.getHeight());
+                    imageDraw(sprite);
                     continue;
                 }
             }
            
-            renderImageDraw(sprite);
+            imageDraw(sprite);
             
         }
     
 
     }       
     
-    public void renderImageDraw(SpriteModel sprite)
+    public void imageDraw(SpriteModel sprite)
     {
-        for(int i=0;i<45;i++)
-        imagesOfSprites.get(sprite.getId()).setRotation(i);
         
-        imagesOfSprites.get(sprite.getId()).draw((float) sprite.getPosX(), (float) sprite.getPosY(), (float) sprite.getWidth(), (float) sprite.getHeight());
-        for(int i=(int)imagesOfSprites.get(sprite.getId()).getRotation();i<100+45;i++)
-        imagesOfSprites.get(sprite.getId()).setRotation(i);
+        Vec2 bodyPostion=physicsComponent.bodies.get(sprite.getId()).getPosition();
+        imagesOfSprites.get(sprite.getId()).draw((float)bodyPostion.x*30, (float)bodyPostion.y*30, (float)sprite.getWidth(), (float) sprite.getHeight());
         
     }
     

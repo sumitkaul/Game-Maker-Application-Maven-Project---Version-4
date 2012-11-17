@@ -6,9 +6,11 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 import org.jbox2d.collision.shapes.*;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
+import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.util.Log;
 
 public class PhysicsComponent {
@@ -31,6 +33,20 @@ public class PhysicsComponent {
 
       }
 
+      public void inputLogic() {
+		for (Entry<String,Body> body : bodies.entrySet()) {
+			if (body.getValue().getType() == BodyType.DYNAMIC) {
+                          Vec2 bodyPosition=body.getValue().getLinearVelocity();
+                          bodyPosition.x=-5;
+                          bodyPosition.y=2;
+                          body.getValue().setLinearVelocity(bodyPosition);
+                          Log.info(String.valueOf(body.getValue().getPosition().x));
+                     }
+                }
+                
+	}
+
+      
       public Body createBody(String spriteName,String shape,String bodyType,
               float x,float y,float width,float height,float radius) throws IOException
 	{
@@ -94,8 +110,7 @@ public class PhysicsComponent {
 		FixtureDef fixture=new FixtureDef();
 		fixture.restitution=restitution;
 		fixture.friction=friction;
-                
-		return fixture;
+                return fixture;
 	}
 
 }
