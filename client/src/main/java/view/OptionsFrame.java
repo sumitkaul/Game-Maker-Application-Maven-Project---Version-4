@@ -103,7 +103,7 @@ public class OptionsFrame implements ActionListener {
             } catch (InterruptedException e1) {
                 LOG.debug(e1);
             }
-            AnimationHandler.FadeIn(GameMakerView.getInstance().getPlayerButtonPanel(), (JComponent) GameMakerView.getInstance().getBaseFrame().getContentPane(), 500);
+          //  AnimationHandler.FadeIn(GameMakerView.getInstance().getPlayerButtonPanel(), (JComponent) GameMakerView.getInstance().getBaseFrame().getContentPane(), 500);
 
             /*
             GamePlayerWindow.getInstance();
