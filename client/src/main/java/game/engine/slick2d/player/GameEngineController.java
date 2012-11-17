@@ -175,7 +175,7 @@ public class GameEngineController extends BasicGame {
         sprite.setPosY((double)bodyPostion.y*30);
         imagesOfSprites.get(sprite.getId()).setRotation(physicsComponent.bodies.get(sprite.getId()).getAngle());
         imagesOfSprites.get(sprite.getId()).draw((float)bodyPostion.x*30, (float)bodyPostion.y*30, (float)sprite.getWidth(), (float) sprite.getHeight());
-//        Log.info("Sprite X : "+sprite.getPosX());
+     //   Log.info("Sprite X : "+sprite.getPosX());
     }
     
   
