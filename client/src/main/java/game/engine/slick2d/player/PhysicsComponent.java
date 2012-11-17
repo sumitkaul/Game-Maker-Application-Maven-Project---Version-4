@@ -27,7 +27,7 @@ public class PhysicsComponent {
 
 	}
 
-	public void createBody(String shape,String bodyType) throws IOException
+	public void createBody(String spriteName,String shape,String bodyType) throws IOException
 	{
 		Body body=null;
 		if(bodyType.equalsIgnoreCase("Dynamic"))
@@ -42,11 +42,12 @@ public class PhysicsComponent {
 			{
 				bodyFixture.shape=createShapeCircle(30);
 			}
-			if (shape.equalsIgnoreCase("ploygon"))
+			if (shape.equalsIgnoreCase("polygon"))
 			{
 				bodyFixture.shape=createShapePolygon(100,100);
 			}
 			body.createFixture(bodyFixture);
+                        bodies.put(spriteName, body);
 		}
 	}
 
