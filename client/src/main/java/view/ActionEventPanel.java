@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -20,7 +19,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -38,7 +36,6 @@ import org.apache.commons.lang3.StringUtils;
 import utility.Constants;
 import utility.Helper;
 import utility.SpriteList;
-import utility.enums.playerModes;
 import action.ActionStartOver;
 import action.GameAction;
 import controller.GameController;
@@ -46,7 +43,6 @@ import eventlistener.EventListener;
 import eventlistener.KeyPressedEventListener;
 import eventlistener.OutOfBoundaryEventListener;
 import facade.Facade;
-import gameMaker.gameMaker;
 
 public class ActionEventPanel {
 	

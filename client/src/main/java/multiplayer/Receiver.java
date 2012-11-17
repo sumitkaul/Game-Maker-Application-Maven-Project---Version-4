@@ -5,6 +5,7 @@ import java.util.HashMap;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
+import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
@@ -13,7 +14,7 @@ import action.GameAction;
 import loader.GamePackage;
 import model.SpriteModel;
 
-public class Receiver implements Runnable{
+public class Receiver implements Runnable, MessageListener{
 
 
 	private MessageConsumer consumer;
@@ -22,6 +23,7 @@ public class Receiver implements Runnable{
 
 	private boolean receiveStatus = true;
 	private Thread thread;
+	private Message message;
 
 
 	public static Receiver getInstanceOf()
@@ -82,35 +84,8 @@ public class Receiver implements Runnable{
 	{
 		SessionFactory.getInstanceOf().createConnection();
 		Subscribe.getInstanceOf().setQueue("TEST2");
-		Message message=  Subscribe.getInstanceOf().receiveData();
+		message=  Subscribe.getInstanceOf().receiveData();
 
-		ObjectMessage objectMessage = (ObjectMessage) message;
-		LOG.info("object message is" +message);
-		Object data = objectMessage.getObject();
-		try{
-			if ( data instanceof GamePackage)
-			{
-				GamePackage gameData = (GamePackage) data;
-				Protocol protocol = new Protocol();
-				protocol.setGameState(gameData);
-				//LOG.info("-----------------"+data.getS());
-				LOG.info("The data is GamePackage type " + objectMessage.getObject());
-			}
-			else if(data instanceof HashMap)
-			{
-				HashMap<GameAction, SpriteModel> actionData = (HashMap<GameAction, SpriteModel>) data;
-				Protocol protocol = new Protocol();
-				protocol.setMultiplayerAction(actionData);
-				//LOG.info("-----------------"+data.getS());
-				LOG.info("The data is HashMap type" + objectMessage.getObject());
-			}
-			SessionFactory.getInstanceOf().closeSession();
-
-		}
-		catch ( NullPointerException ne)
-		{
-			LOG.info("No message received");
-		}
 	}
 
 	@Override
@@ -146,6 +121,45 @@ public class Receiver implements Runnable{
 	}
 	public void setReceiveStatus(boolean receiveStatus) {
 		this.receiveStatus = receiveStatus;
+	}
+	@Override
+	public void onMessage(Message arg0) {
+		// TODO Auto-generated method stub
+		
+		ObjectMessage objectMessage = (ObjectMessage) message;
+		LOG.info("object message is" +message);
+		
+		try{
+			Object data = objectMessage.getObject();
+			if ( data instanceof GamePackage)
+			{
+				GamePackage gameData = (GamePackage) data;
+				Protocol protocol = new Protocol();
+				protocol.setGameState(gameData);
+				//LOG.info("-----------------"+data.getS());
+				LOG.info("The data is GamePackage type " + objectMessage.getObject());
+			}
+			else if(data instanceof HashMap)
+			{
+				HashMap<GameAction, SpriteModel> actionData = (HashMap<GameAction, SpriteModel>) data;
+				Protocol protocol = new Protocol();
+				protocol.setMultiplayerAction(actionData);
+				//LOG.info("-----------------"+data.getS());
+				LOG.info("The data is HashMap type" + objectMessage.getObject());
+			}
+		
+				SessionFactory.getInstanceOf().closeSession();
+		}
+		catch ( NullPointerException ne)
+		{
+			LOG.info("No message received");
+		} catch (JMSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	
+	
 	}
 
 

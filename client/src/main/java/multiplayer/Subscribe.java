@@ -15,6 +15,7 @@ public  final class Subscribe {
 	private static final Subscribe instance = new Subscribe();
 	//private Destination topicName;
 	private Destination queueName;
+	private boolean isMessageListenerSet=false;
 	
 	public static Subscribe getInstanceOf()
 	{
@@ -38,7 +39,9 @@ public  final class Subscribe {
 		Message message = null;
 		try {
 			consumer = SessionFactory.getInstanceOf().getSession().createConsumer(queueName);
-			message =  consumer.receive(1000);
+			//message =  consumer.receive(1000);
+			setMessageListener();
+			
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
@@ -74,6 +77,16 @@ public  final class Subscribe {
 	public void setQueueName(Destination queueName) {
 		this.queueName = queueName;
 	}
+	
+	public void setMessageListener() throws JMSException{
+		
+		if(!this.isMessageListenerSet){
+		consumer.setMessageListener(Receiver.getInstanceOf());
+		this.isMessageListenerSet=true;
+		}
+		
+	}
+	
 	
 
 }
