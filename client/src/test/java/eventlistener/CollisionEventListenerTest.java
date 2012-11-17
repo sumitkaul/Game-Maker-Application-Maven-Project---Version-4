@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import utility.ResizeHelper;
 import utility.SpriteList;
-import view.Design;
+import view.GameMakerView;
 
 import action.ActionChangeSpeed;
 import action.GameAction;
@@ -26,7 +26,7 @@ public class CollisionEventListenerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		Design.getInstance().reset();
+		GameMakerView.getInstance().reset();
 		ResizeHelper.getInstance().reset();
 		selectedSpriteModel = new SpriteModel(100, 100, 10, 10, 20, 30, "","");
 		secondarySpriteModel= new SpriteModel(100, 100, 10, 10, 100, 100, "","");
@@ -46,7 +46,7 @@ public class CollisionEventListenerTest {
 
 	@After
 	public void tearDown() throws Exception {
-		Design.getInstance().reset();		
+		GameMakerView.getInstance().reset();		
 	}
 
    @Test

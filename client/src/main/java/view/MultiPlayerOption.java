@@ -66,7 +66,7 @@ public class MultiPlayerOption{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				JoinGame p = new JoinGame(Design.getInstance().getGamePanel());
+				JoinGame p = new JoinGame(GameMakerView.getInstance().getGamePanel());
 				p.displayJoinGames();
 			}
 				

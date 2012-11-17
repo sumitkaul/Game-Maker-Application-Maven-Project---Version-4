@@ -18,7 +18,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import utility.SpriteList;
-import view.Design;
+import view.GameMakerView;
 
 import action.ActionMove;
 import action.GameAction;
@@ -50,7 +50,7 @@ public class KeyPressedEventListenerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		Design.getInstance().reset();
+		GameMakerView.getInstance().reset();
 		selectedSpriteModel = new SpriteModel(100, 100, 20, 20, 100, 100, "","");
 		selectedSpriteModel.setGroupId("Group1");
 		SpriteList.getInstance().addSprite(selectedSpriteModel);
@@ -73,7 +73,7 @@ public class KeyPressedEventListenerTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
-		Design.getInstance().reset();
+		GameMakerView.getInstance().reset();
 	}
 
 	/**

@@ -12,7 +12,7 @@ import javax.swing.*;
 
 import lookandfeel.AnimationHandler;
 
-import view.Design;
+import view.GameMakerView;
 
 
 class ActionPanel extends JPanel

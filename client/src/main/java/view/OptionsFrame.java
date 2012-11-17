@@ -57,44 +57,45 @@ public class OptionsFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == makerButton) {
-            Design.getInstance().setOptionFrame(this);
-            Design.getInstance().reset();
-            Design.getInstance().clearAll();
-            Design.getInstance().getGamePanel().registerDrawable(ClockDisplay.getInstance());
-            Design.getInstance().getBaseFrame().setVisible(true);
-            Design.getInstance().getBaseFrame().getContentPane().removeAll();
-            Design.getInstance().getBaseFrame().getContentPane().add(Design.getInstance().getLeftImagePanel());
-            Design.getInstance().getBaseFrame().getContentPane().add(Design.getInstance().getGamePanel());
-            AnimationHandler.FadeOut(Design.getInstance().getPlayerButtonPanel(), (JComponent) Design.getInstance().getBaseFrame().getContentPane(), 500);
-            Design.getInstance().getLeftImagePanel().setVisible(true);
-            Design.getInstance().getBaseFrame().validate();
-            
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e1) {
-                LOG.debug(e1);
-            }
-            AnimationHandler.FadeIn(Design.getInstance().getGameMakerPanel(), (JComponent) Design.getInstance().getBaseFrame().getContentPane(), 500);
+            GameMakerView.getInstance().setOptionFrame(this);
+            GameMakerView.getInstance();
+           // Design.getInstance().reset();
+           // Design.getInstance().clearAll();
+           // Design.getInstance().getGamePanel().registerDrawable(ClockDisplay.getInstance());
+           // Design.getInstance().getBaseFrame().setVisible(true);
+           // Design.getInstance().getBaseFrame().getContentPane().removeAll();
+           // Design.getInstance().getBaseFrame().getContentPane().add(Design.getInstance().getLeftImagePanel());
+           // Design.getInstance().getBaseFrame().getContentPane().add(Design.getInstance().getGamePanel());
+//            AnimationHandler.FadeOut(Design.getInstance().getPlayerButtonPanel(), (JComponent) Design.getInstance().getBaseFrame().getContentPane(), 500);
+//            Design.getInstance().getLeftImagePanel().setVisible(true);
+//            Design.getInstance().getBaseFrame().validate();
+//            
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e1) {
+//                LOG.debug(e1);
+//            }
+           // AnimationHandler.FadeIn(Design.getInstance().getGameMakerPanel(), (JComponent) Design.getInstance().getBaseFrame().getContentPane(), 500);
             optionFrame.setVisible(false);
         }
 
         if (e.getSource() == playerButton) {
-            Design.getInstance();
-            Design.getInstance().setOptionFrame(this);
-            Design.getInstance().reset();
-            Design.getInstance().clearAll();
-            Design.getInstance().getBaseFrame().setVisible(true);
-            AnimationHandler.FadeOut(Design.getInstance().getGameMakerPanel(), (JComponent) Design.getInstance().getBaseFrame().getContentPane(), 500);
+            GameMakerView.getInstance();
+            GameMakerView.getInstance().setOptionFrame(this);
+            GameMakerView.getInstance().reset();
+            GameMakerView.getInstance().clearAll();
+            GameMakerView.getInstance().getBaseFrame().setVisible(true);
+            AnimationHandler.FadeOut(GameMakerView.getInstance().getGameMakerPanel(), (JComponent) GameMakerView.getInstance().getBaseFrame().getContentPane(), 500);
             //Design.getInstance().getLeftImagePanel().setVisible(false);
-            Design.getInstance().getBaseFrame().getContentPane().remove(Design.getInstance().getLeftImagePanel());
-            Design.getInstance().getBaseFrame().validate();
+            GameMakerView.getInstance().getBaseFrame().getContentPane().remove(GameMakerView.getInstance().getLeftImagePanel());
+            GameMakerView.getInstance().getBaseFrame().validate();
             
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e1) {
                 LOG.debug(e1);
             }
-            AnimationHandler.FadeIn(Design.getInstance().getPlayerButtonPanel(), (JComponent) Design.getInstance().getBaseFrame().getContentPane(), 500);
+            AnimationHandler.FadeIn(GameMakerView.getInstance().getPlayerButtonPanel(), (JComponent) GameMakerView.getInstance().getBaseFrame().getContentPane(), 500);
 
             /*
             GamePlayerWindow.getInstance();

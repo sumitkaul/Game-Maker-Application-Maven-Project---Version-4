@@ -11,7 +11,7 @@ import com.mysql.jdbc.log.Log;
 import model.GameProgressSaveInfo;
 import model.Player;
 import utility.Score;
-import view.Design;
+import view.GameMakerView;
 import view.communication.ClientHandler;
 import view.communication.protocol.GameSaveInfo;
 

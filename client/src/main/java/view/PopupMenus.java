@@ -56,10 +56,10 @@ public class PopupMenus {
 					{
 						if(sm.getId().equals("background")) continue;
 						SpriteList.getInstance().removeSprite(sm);
-						Design.getInstance().removeSpriteModelFromList(sm);
+						GameMakerView.getInstance().removeSpriteModelFromList(sm);
 					}
-					Design.getInstance().getGamePanel().repaint();
-					Design.getInstance().updateProperties();
+					GameMakerView.getInstance().getGamePanel().repaint();
+					GameMakerView.getInstance().updateProperties();
 				}
 			});
 	
@@ -69,14 +69,14 @@ public class PopupMenus {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					java.util.List<SpriteModel> smList = SpriteList.getInstance().getSelectedSpriteModels();
-					Design.getInstance().createDuplicateSpriteModel(smList.get(smList.size()-1));
+					GameMakerView.getInstance().createDuplicateSpriteModel(smList.get(smList.size()-1));
 				}
 			});
 
 	}
 	private void createGameMenu()
 	{
-		Facade facade = Design.getInstance().getFacade();
+		Facade facade = GameMakerView.getInstance().getFacade();
 		
 		if(facade.getTimer().isRunning())
 		{
@@ -86,7 +86,7 @@ public class PopupMenus {
 
 				@Override
 			public void actionPerformed(ActionEvent e) {
-					Design.getInstance().getFacade().stopGame();					
+					GameMakerView.getInstance().getFacade().stopGame();					
 				}
 			});
 		}else	{
@@ -97,7 +97,7 @@ public class PopupMenus {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						Design.getInstance().getFacade().startGame();					
+						GameMakerView.getInstance().getFacade().startGame();					
 					}
 				});
 		}

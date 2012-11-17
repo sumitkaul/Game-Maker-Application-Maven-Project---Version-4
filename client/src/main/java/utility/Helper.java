@@ -3,7 +3,7 @@ package utility;
 import java.util.ArrayList;
 import java.util.List;
 
-import view.Design;
+import view.GameMakerView;
 
 import model.SpriteModel;
 import eventlistener.CollisionEventListener;
@@ -83,7 +83,7 @@ public class Helper {
 		
 		else if(actionString.equalsIgnoreCase("Increase Score")){
 		    gameAction = new ActionIncreaseScore(model.getScoreModificationValue());
-		    Design.getInstance().setShouldDisplayScore(true);
+		    GameMakerView.getInstance().setShouldDisplayScore(true);
 		}
 		
 		return gameAction;

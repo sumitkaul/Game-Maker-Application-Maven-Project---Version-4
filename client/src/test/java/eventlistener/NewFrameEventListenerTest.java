@@ -14,7 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import utility.SpriteList;
-import view.Design;
+import view.GameMakerView;
 
 import action.ActionBounce;
 import action.ActionMove;
@@ -45,7 +45,7 @@ public class NewFrameEventListenerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		Design.getInstance().reset();
+		GameMakerView.getInstance().reset();
 		selectedSpriteModel = new SpriteModel(100, 100, 20, 20, 100, 100, "","");
 		selectedSpriteModelTest = new SpriteModel(190, 190, 20, 20, 100, 100, "","");
 
@@ -65,7 +65,7 @@ public class NewFrameEventListenerTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
-		Design.getInstance().reset();
+		GameMakerView.getInstance().reset();
 	}
 
 	/**

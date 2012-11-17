@@ -10,7 +10,7 @@ import javax.jms.Topic;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-import view.Design;
+import view.GameMakerView;
 import view.PlayerButtonPanel;
 
 public class ChatReceiver implements Runnable {
@@ -56,7 +56,6 @@ public class ChatReceiver implements Runnable {
 					TextMessage textMessage = (TextMessage) message;
 					String text = textMessage.getText();
 					PlayerButtonPanel.updateChatWindow(text);
-					//System.out.println("r"+ text);
 					//Design.getInstance().updateChatWindow(text);
 					
 				} else {

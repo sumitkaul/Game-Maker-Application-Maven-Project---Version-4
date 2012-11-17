@@ -20,7 +20,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 
-import view.Design;
+import view.GameMakerView;
 import view.GamePanel;
 
 

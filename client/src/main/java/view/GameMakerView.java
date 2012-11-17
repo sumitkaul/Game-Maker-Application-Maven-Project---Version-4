@@ -14,8 +14,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 import chat.ChatReceiver;
 import chat.ChatSender;
@@ -28,13 +26,13 @@ import view.imagePanel.ImageProperties;
 
 import view.PropertyPanel;
 
-public class Design implements Resizable, ActionListener {
+public class GameMakerView implements Resizable, ActionListener {
 	/********/	
 
-	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(Design.class);
-	private static Design sharedDesign = null;
+	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(GameMakerView.class);
+	private static GameMakerView sharedDesign = null;
 	private GamePanel gamePanel; // Right view in game maker
-	private JPanel gameMakerPanel;//
+	private JPanel rightPanel;//
 	private JPanel switchPanel;//
 	private String userName = "";
 	private OptionsFrame optionFrame;
@@ -60,12 +58,13 @@ public class Design implements Resizable, ActionListener {
 	private ImagePanel extendedImagePanel;
 	private boolean shouldDisplayScore = false;
 	private PropertyPanel fieldPanel;
-	private JPanel leftImagePanel;
+	private JPanel leftPanel;
+	
+	private JLayeredPane layeredPane;
 
 
 
-	protected Design(int frameWidth, int frameHeight) {
-		// Create a baseframe for the game maker
+	protected GameMakerView(int frameWidth, int frameHeight) {
 		ChatReceiver chatReceiver=new ChatReceiver();
 		ChatSender chatSender=new ChatSender();
 		Thread chatSenderThread=new Thread(chatSender);
@@ -76,7 +75,7 @@ public class Design implements Resizable, ActionListener {
 		baseFrame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				Design.getInstance().getOptionFrame().getOptionFrame().setVisible(true);
+				GameMakerView.getInstance().getOptionFrame().getOptionFrame().setVisible(true);
 				baseFrame.setVisible(false);
 			}
 		});
@@ -119,12 +118,11 @@ public class Design implements Resizable, ActionListener {
 		playerButtonPanel = new PlayerButtonPanel(this).getPlayerButtonPanel();
 		facade = new Facade(gamePanel);
 
-		leftImagePanel = new JPanel(new FlowLayout());
-	
-		// This is the panel where all the controls are placed. The left side of
-		// the game maker
-		gameMakerPanel = new JPanel();
-		gameMakerPanel.setLayout(new BoxLayout(gameMakerPanel, BoxLayout.Y_AXIS));
+		leftPanel = new JPanel(new FlowLayout());
+
+		
+		rightPanel = new JPanel();
+		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
 		switchPanel = new JPanel(new CardLayout());
 		controlPanel = new JPanel();
 
@@ -132,44 +130,57 @@ public class Design implements Resizable, ActionListener {
 		// start/load/save.
 		buttonPanel = new ButtonPanel(this);
 
-		gameMakerPanel.add(buttonPanel.getPanel());
+		rightPanel.add(buttonPanel.getPanel());
 
 		controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
 
 		fieldPanel = new PropertyPanel();
-		controlPanel.add(fieldPanel);
+		rightPanel.add(fieldPanel);
 
 
 
 		actionEventPanel = new ActionEventPanel(this);
-		controlPanel.add(actionEventPanel.getPanel());
+		rightPanel.add(actionEventPanel.getPanel());
 		switchPanel.add(controlPanel, "controlpanel");
 		//?? amruta
 		view.imagePanel.ImageActionListener imageActionListener = new view.imagePanel.ImageActionListener();
 		extendedImagePanel = new ImagePanel(imageActionListener);
 		JPanel[] extendedpanels = new JPanel[] { extendedImagePanel.getImagePanel() };
-		leftImagePanel.add(extendedImagePanel.getImagePanel());
+		leftPanel.add(extendedImagePanel.getImagePanel());
 		// extendedImagePanel.getImagePanel().setVisible(false);
 
-		gameMakerPanel.add(switchPanel);
-		// baseFrame.getContentPane().add(gameMakerPanel);
-		// baseFrame.getContentPane().add(controlPanel);
-		baseFrame.getContentPane().add(leftImagePanel);
-		baseFrame.getContentPane().add(gamePanel);
-		/*
-		 * Moved the following code to showGameMakerWindow. Problem: Game Maker
-		 * opens every time the Design class is initialized. JIRA: FATWVNINC-47
-		 * baseFrame.setVisible(true);
-		 */
+		
+		layeredPane = new JLayeredPane();
+		layeredPane.setBackground(Color.BLUE);
+		baseFrame.getContentPane().add(layeredPane);
+		
+		
+		JPanel basePanel = new JPanel();
+		basePanel.setLayout(new GridLayout(1, 3));
+		basePanel.add(leftPanel, new Integer(0));
+		basePanel.add(gamePanel, new Integer(0));
+		basePanel.add(rightPanel, new Integer(0));
+		
+		basePanel.setBounds(0,0,Constants.FRAME_WIDTH,Constants.FRAME_HEIGHT);
+		layeredPane.add(basePanel);
+
+		
+//		InfoPanel infoPanel = new InfoPanel();
+//		infoPanel.setBackground(Color.RED);
+//		infoPanel.setBounds(150, 0, 200, 200);
+//		layeredPane.add(infoPanel,new Integer(1));
+		
+		
+		baseFrame.setVisible(true);
 		baseFrame.setResizable(true);
 	}
 
 	public JPanel getLeftImagePanel() {
-		return leftImagePanel;
+		return leftPanel;
 	}
 
 	public void setLeftImagePanel(JPanel leftImagePanel) {
-		this.leftImagePanel = leftImagePanel;
+		this.leftPanel = leftImagePanel;
 	}
 
 	@Override
@@ -255,7 +266,7 @@ public class Design implements Resizable, ActionListener {
 	public void reset() {
 		List<SpriteModel> allSpriteModels = SpriteList.getInstance().getSpriteList();
 		for (SpriteModel model : allSpriteModels) {
-			Design.getInstance().getGamePanel().unregisterModel(model);
+			GameMakerView.getInstance().getGamePanel().unregisterModel(model);
 		}
 		ClockDisplay.getInstance().reset();
 		SpriteList.getInstance().getSpriteList().clear();
@@ -425,9 +436,9 @@ public class Design implements Resizable, ActionListener {
 		this.extendedImagePanel = extendedImagePanel;
 	}
 
-	public static Design getInstance() {
+	public static GameMakerView getInstance() {
 		if (sharedDesign == null) {
-			sharedDesign = new Design(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
+			sharedDesign = new GameMakerView(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
 		}
 		return sharedDesign;
 	}
@@ -490,11 +501,11 @@ public class Design implements Resizable, ActionListener {
 	}
 
 	public JPanel getGameMakerPanel() {
-		return gameMakerPanel;
+		return rightPanel;
 	}
 
 	public void setGameMakerPanel(JPanel gameMakerPanel) {
-		this.gameMakerPanel = gameMakerPanel;
+		this.rightPanel = gameMakerPanel;
 	}
 
 	public JComboBox getLayerBox() {

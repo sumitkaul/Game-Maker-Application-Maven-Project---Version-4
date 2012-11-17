@@ -40,7 +40,7 @@ import javax.swing.event.DocumentListener;
 
 import utility.SpriteList;
 import utility.Util;
-import view.Design;
+import view.GameMakerView;
 import view.communication.ClientHandler;
 
 import model.Resources;

@@ -33,7 +33,7 @@ import gameMaker.gameMaker;
 
 import utility.Constants;
 import utility.SpriteList;
-import view.Design;
+import view.GameMakerView;
 import view.GamePanel;
 
 
@@ -69,7 +69,7 @@ public class GameControllerTest{
 	 */
 	@Before
 	public void setUp() throws Exception {
-	    Design.getInstance().reset();
+	    GameMakerView.getInstance().reset();
 //        setAdapter(new MainClassAdapter(gameMaker.class, new String[0]));        
         gamePanel=new GamePanel(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT);
         selectedSpriteModel = new SpriteModel(100, 100, 10, 10, 100, 100, "","");
@@ -92,7 +92,7 @@ public class GameControllerTest{
 	 */
 	@After
 	public void tearDown() throws Exception {
-		Design.getInstance().reset();
+		GameMakerView.getInstance().reset();
 	}
 
 

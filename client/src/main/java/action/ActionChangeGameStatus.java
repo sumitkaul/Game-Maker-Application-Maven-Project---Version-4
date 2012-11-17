@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import utility.SpriteList;
-import view.Design;
+import view.GameMakerView;
 
 import model.SpriteModel;
 
@@ -48,16 +48,16 @@ public class ActionChangeGameStatus implements GameAction,Serializable {
 		if (!isGameStopCommandIssued) {
 		    if (!xReversed.intersects(obj.getBoundingBox())) {
 			JOptionPane.showMessageDialog(null, message);
-			Design.getInstance().getFacade().stopGame();
+			GameMakerView.getInstance().getFacade().stopGame();
 			isGameStopCommandIssued = YES;
 		    }
 		    if (!yReversed.intersects(obj.getBoundingBox())) {
 			JOptionPane.showMessageDialog(null, message);
-			Design.getInstance().getFacade().stopGame();
+			GameMakerView.getInstance().getFacade().stopGame();
 			isGameStopCommandIssued = YES;
 		    } else if (yReversed.intersects(obj.getBoundingBox()) && xReversed.intersects(obj.getBoundingBox())) {
 			JOptionPane.showMessageDialog(null, message);
-			Design.getInstance().getFacade().stopGame();
+			GameMakerView.getInstance().getFacade().stopGame();
 			isGameStopCommandIssued = YES;
 		    }
 		}

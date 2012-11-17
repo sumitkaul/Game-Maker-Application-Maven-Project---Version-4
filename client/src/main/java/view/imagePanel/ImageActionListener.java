@@ -13,7 +13,7 @@ import javax.swing.JButton;
 import model.SpriteModel;
 import utility.Constants;
 import utility.Layers;
-import view.Design;
+import view.GameMakerView;
 
 public class ImageActionListener implements ActionListener {
 	
@@ -23,7 +23,7 @@ public class ImageActionListener implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		JButton btn = (JButton) arg0.getSource();
 		
-		Design design = Design.getInstance();
+		GameMakerView design = GameMakerView.getInstance();
 
         double sizeX;
         double sizeY;
