@@ -276,7 +276,18 @@ public class ActionEventPanel {
                 }
                 else
                 {
-                	//selectedSpriteModel.setMode(playerModes.PLayer);
+                	LOG.info("In multiplayer key control assignment");
+                 String mode= (String)GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getComboBox().getSelectedItem();
+                 if (mode.equals("Player 1"))
+                 {
+                	 LOG.info("setting the control to player 1");
+                	 selectedSpriteModel.setMode(playerModes.PLAYER1);
+                 }
+                 else if (mode.equals("Player 2"))
+                 {
+                	 LOG.info("setting the control to player 2");
+                	 selectedSpriteModel.setMode(playerModes.PLAYER2);
+                 }
                 	if (selectedSpriteModel != null) {
 
                         int scoreModificationValue = 1;
