@@ -20,13 +20,22 @@ import utility.Helper;
 public class InputKeyPanel implements MouseListener,KeyListener, ActionListener{
 
 	private static final org.apache.log4j.Logger LOG = 
-			org.apache.log4j.Logger.getLogger(gameMaker.class);	
+			org.apache.log4j.Logger.getLogger(InputKeyPanel.class);	
 	private JPanel inputPanel;
 	private JComboBox comboBox;
 	
 	private JLabel infoLbl;
 	
+	public JComboBox getComboBox() {
+		return comboBox;
+	}
+
+	public void setComboBox(JComboBox comboBox) {
+		this.comboBox = comboBox;
+	}
+
 	public InputKeyPanel(JPanel inputPanel){
+		LOG.info("Input key panel initialized");
 		this.inputPanel=inputPanel;
 		inputPanel.setFocusable(true);
 		comboBox = new JComboBox();

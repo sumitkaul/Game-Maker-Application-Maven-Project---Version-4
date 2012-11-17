@@ -257,16 +257,22 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		
 		if (e.getItem().equals(modes[0]))
 				{
+			LOG.info("In single player mode");
 			Constants.isMultiplayer = false;
 			Design.getInstance().getBaseFrame().validate();
 			Design.getInstance().getControlPanel().validate();
+			Design.getInstance().getActionEventPanel().getInputKeyPanel().getComboBox().setVisible(false);
+			Design.getInstance().getActionEventPanel().getInputKeyPanel().getInputPanel().validate();
 
 				}
 		if (e.getItem().equals(modes[1]))
 		{
+			LOG.info("In Multiplayer mode");
 	Constants.isMultiplayer = true;
 	Design.getInstance().getBaseFrame().validate();
 	Design.getInstance().getControlPanel().validate();
+	Design.getInstance().getActionEventPanel().getInputKeyPanel().getComboBox().setVisible(true);
+	Design.getInstance().getActionEventPanel().getInputKeyPanel().getInputPanel().validate();
 
 		}
 		
