@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 
 import org.newdawn.slick.SlickException;
 import utility.ClockDisplay;
+import utility.Constants;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -32,6 +33,7 @@ public class OptionsFrame implements ActionListener {
     private JFrame optionFrame;
     private JButton makerButton, playerButton, gamestartButton, gamestopButton;
     private TestEngine te;
+ 
 
     public OptionsFrame() {
         optionFrame = new JFrame();
@@ -85,24 +87,24 @@ public class OptionsFrame implements ActionListener {
         }
 
         if (e.getSource() == playerButton) {
-            GameMakerView.getInstance();
-            GameMakerView.getInstance().setOptionFrame(this);
-            GameMakerView.getInstance().reset();
-            GameMakerView.getInstance().clearAll();
-            GameMakerView.getInstance().getBaseFrame().setVisible(true);
-            AnimationHandler.FadeOut(GameMakerView.getInstance().getGameMakerPanel(), (JComponent) GameMakerView.getInstance().getBaseFrame().getContentPane(), 500);
-            //Design.getInstance().getLeftImagePanel().setVisible(false);
-            GameMakerView.getInstance().getBaseFrame().getContentPane().remove(GameMakerView.getInstance().getLeftImagePanel());
-            GameMakerView.getInstance().getBaseFrame().validate();
-            ChatSender chatSender=new ChatSender();
-            ChatReceiver chatReceiver=new ChatReceiver();
-            StatusSender statusSender=new StatusSender();
-            StatusReceiver statusReceiver=new StatusReceiver();
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e1) {
-                LOG.debug(e1);
-            }
+//            GameMakerView.getInstance();
+//            GameMakerView.getInstance().setOptionFrame(this);
+//            GameMakerView.getInstance().reset();
+//            GameMakerView.getInstance().clearAll();
+//            GameMakerView.getInstance().getBaseFrame().setVisible(true);
+//            AnimationHandler.FadeOut(GameMakerView.getInstance().getGameMakerPanel(), (JComponent) GameMakerView.getInstance().getBaseFrame().getContentPane(), 500);
+//            //Design.getInstance().getLeftImagePanel().setVisible(false);
+//            GameMakerView.getInstance().getBaseFrame().getContentPane().remove(GameMakerView.getInstance().getLeftImagePanel());
+//            GameMakerView.getInstance().getBaseFrame().validate();
+//            ChatSender chatSender=new ChatSender();
+//            ChatReceiver chatReceiver=new ChatReceiver();
+//            StatusSender statusSender=new StatusSender();
+//            StatusReceiver statusReceiver=new StatusReceiver();
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e1) {
+//                LOG.debug(e1);
+//            }
           //  AnimationHandler.FadeIn(GameMakerView.getInstance().getPlayerButtonPanel(), (JComponent) GameMakerView.getInstance().getBaseFrame().getContentPane(), 500);
 
             /*
@@ -110,6 +112,8 @@ public class OptionsFrame implements ActionListener {
             GamePlayerWindow.getInstance().setOptionFrame(this);
             GamePlayerWindow.getInstance().getBaseFrame().setVisible(true);
              */
+        	GamePlayerView gamePlayerview = new GamePlayerView(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
+        	
             optionFrame.setVisible(false);
         }
 

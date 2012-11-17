@@ -1,6 +1,7 @@
 package gameMaker;
 
 import lookandfeel.ThemeHandler;
+import utility.Helper;
 import view.OptionsFrame;
 
 public class gameMaker {
@@ -12,5 +13,6 @@ public class gameMaker {
         System.setProperty("org.lwjgl.librarypath", System.getProperty("user.dir") + "/target/natives/");
         System.setProperty("net.java.games.input.librarypath", System.getProperty("org.lwjgl.librarypath"));
         OptionsFrame optionFrame = new OptionsFrame();
+        Helper.getsharedHelper().setOptionsFrame(optionFrame.getOptionFrame());
     }
 }

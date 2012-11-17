@@ -56,7 +56,6 @@ import view.companels.TopScoresPanel;
 public class PlayerButtonPanel implements ActionListener{
 	
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PlayerButtonPanel.class);
-	private GameMakerView design;
 	private JPanel playerButtonPanel;
 	private JLabel userName;
 	private JButton startButton;
@@ -123,9 +122,8 @@ public class PlayerButtonPanel implements ActionListener{
 		return flag;
 	}
 	
-	public PlayerButtonPanel(GameMakerView designArg) {
+	public PlayerButtonPanel() {
 		
-		this.design = designArg;
 		userColor=new Color(0);
 		userColor=Color.BLUE;
 		textColor=new Color(0);

@@ -17,7 +17,7 @@ public class GameMakerView {
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(GameMakerView.class);
 	private static GameMakerView sharedDesign = null;
 	
-	private final JFrame baseFrame;
+	private JFrame baseFrame;
 	private JLayeredPane layeredPane;
 	private JPanel leftPanel;
 	private GamePanel gamePanel; 
@@ -36,28 +36,8 @@ public class GameMakerView {
 	
 	protected GameMakerView(int frameWidth, int frameHeight) {
 		
-		baseFrame = createBaseFrame(frameWidth,frameHeight);
+		baseFrame = Helper.getsharedHelper().createBaseFrame(frameWidth,frameHeight);
 		baseFrame.setJMenuBar(new MenuBarPanel().getMenuBar());
-
-		baseFrame.getRootPane().addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentResized(ComponentEvent e) {
-				int originalFrameWidth = Constants.FRAME_WIDTH;
-				int originalFrameHeight = Constants.FRAME_HEIGHT;
-
-				Component rootPane = e.getComponent();
-				Rectangle r = rootPane.getBounds();
-
-				double xScale = (double) r.width / originalFrameWidth;
-				double yScale = (double) r.height / originalFrameHeight;
-
-				ResizeHelper.getInstance().setxFactor(xScale);
-				ResizeHelper.getInstance().setyFactor(yScale);
-
-				gamePanel.repaint();
-			}
-		});
-		
 		
 		leftPanel = new JPanel(new FlowLayout());
 		view.imagePanel.ImageActionListener imageActionListener = new view.imagePanel.ImageActionListener();
@@ -96,7 +76,6 @@ public class GameMakerView {
 //		layeredPane.add(infoPanel,new Integer(1));
 		
 		baseFrame.setVisible(true);
-		baseFrame.setResizable(true);
 	}
 
 	public void createDuplicateSpriteModel(SpriteModel model) {
@@ -292,29 +271,4 @@ public class GameMakerView {
 	public void setLeftImagePanel(JPanel leftImagePanel) {
 		this.leftPanel = leftImagePanel;
 	}
-
-	
-	
-	//********************************************************************************
-	//Helper methods to create controls. Do not try to call this from any other class.
-	//********************************************************************************
-	
-	private JFrame createBaseFrame(int frameWidth, int frameHeight){
-		final JFrame frame = new JFrame();
-		frame.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent arg0) {
-				GameMakerView.getInstance().getOptionFrame().getOptionFrame().setVisible(true);
-				frame.setVisible(false);
-			}
-		});
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		frame.setTitle("Game Maker");
-		frame.setSize(frameWidth, frameHeight);
-		frame.setLayout(new GridLayout(1, 3));
-		frame.setMinimumSize(new Dimension(Constants.MINIMUM_FRAMEWIDTH, Constants.MINIMUM_FRAMEHEIGHT));
-		return frame;
-	}
-
 }
-
