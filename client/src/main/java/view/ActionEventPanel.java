@@ -72,7 +72,7 @@ public class ActionEventPanel {
     private String[] eventTypes = {"Collision", "Input", "New Frame", "Time Change", "Out of Boundary"};
     private double startX, startY;
     private  Facade facade;
-    private Design design;
+    private GameMakerView design;
     private JPanel actionEventPanel;
     private DefaultListModel spriteListIndividualModel;
     private DefaultListModel  spriteListGroupModel;
@@ -80,7 +80,7 @@ public class ActionEventPanel {
     private JLabel eventActionName;
 
 	
-	public ActionEventPanel(Design designArg) {
+	public ActionEventPanel(GameMakerView designArg) {
 		
 		this.design = designArg;
 		this.facade =this.design.getFacade();

@@ -8,13 +8,15 @@ import javax.jms.TextMessage;
 import javax.jms.Topic;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
-import view.PlayerButtonPanel;
+
 import utility.Constants;
-public class ChatReceiver implements Runnable {
+
+
+public class StatusReceiver implements Runnable {
 
 	private MessageConsumer consumer;
 
-	public ChatReceiver() {
+	public StatusReceiver() {
 		try {
 			// Create a ConnectionFactory
 			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(Constants.ActiveMQConnect);
@@ -32,13 +34,13 @@ public class ChatReceiver implements Runnable {
 
 			// Create the destination (Topic or Queue)
 			//Destination destination = session.createQueue("CHAT");
-			Topic topic= session.createTopic("CHAT");
+			Topic topic= session.createTopic("STATUS");
 			// Create a MessageConsumer from the Session to the Topic or Queue
 			consumer = session.createConsumer(topic);
-			Thread chatReceiverThread=new Thread(this);
-			chatReceiverThread.start();
+			Thread ststusReceiverThread=new Thread(this);
+			ststusReceiverThread.start();
 		} catch (Exception ex) {
-
+			ex.printStackTrace();
 		}
 
 	}
@@ -51,18 +53,15 @@ public class ChatReceiver implements Runnable {
 				Message message = consumer.receive();
 				if (message instanceof TextMessage) {
 					TextMessage textMessage = (TextMessage) message;
-					String text = textMessage.getText();
-					if(text.charAt(0)==':') {
-						
-					}
-					else
-						PlayerButtonPanel.updateChatWindow(text);
-					//Design.getInstance().updateChatWindow(text);
 
-				} else {
-					PlayerButtonPanel.updateChatWindow(message.toString());
+					String text = textMessage.getText();
+					String[] onlineUsers=text.split(",");
+					for(String i:onlineUsers) {
+						//Users online
+					}
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 	}

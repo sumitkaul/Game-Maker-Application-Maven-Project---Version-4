@@ -46,7 +46,6 @@ public final class Publish{
 		
 		
 		try {
-			//System.out.println(topic);
 			topic1 = (Destination) SessionFactory.getInstanceOf().getSession().createQueue(topic);
 			producer = SessionFactory.getInstanceOf().getSession().createProducer(topic1);
 			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);

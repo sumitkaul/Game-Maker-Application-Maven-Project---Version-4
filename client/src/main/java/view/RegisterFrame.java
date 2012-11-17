@@ -38,7 +38,7 @@ public class RegisterFrame extends LoginFrame {
                 boolean registerok = ClientHandler.userRegister(user_name, pass_word, "tintin.cs.indiana.edu:8096", "/GameMakerServer/registerUser", new Exception[1]);
 
 
-                Design d = Design.getInstance();
+                GameMakerView d = GameMakerView.getInstance();
                 if (registerok) {
                     Player.getInstance().setUsername(user_name);
                     Player.getInstance().setPassword(pass_word);

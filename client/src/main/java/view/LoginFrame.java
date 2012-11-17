@@ -96,7 +96,7 @@ public class LoginFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LoginFrame.LoginActionListener.class);
-            Design d = Design.getInstance();
+            GameMakerView d = GameMakerView.getInstance();
             String result = null;
             if (e.getSource() == login) {
 

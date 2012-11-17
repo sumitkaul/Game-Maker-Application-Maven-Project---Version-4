@@ -7,7 +7,7 @@ import java.util.List;
 
 import model.SpriteModel;
 import utility.SpriteList;
-import view.Design;
+import view.GameMakerView;
 
 import action.GameAction;
 
@@ -32,7 +32,7 @@ public class OutOfBoundaryEventListener implements EventListener,Serializable {
 				double posY = model.getPosY();
 				double speedY = model.getSpeedY();
 				if (speedX > 0) {
-					if ((posX - model.getWidth()) > Design.getInstance().getGamePanel().getWidth()){
+					if ((posX - model.getWidth()) > GameMakerView.getInstance().getGamePanel().getWidth()){
 						action.doAction(model);
 					}
 				} else {
@@ -41,7 +41,7 @@ public class OutOfBoundaryEventListener implements EventListener,Serializable {
 					}
 				}
 				if (speedY > 0) {
-					if ((posY - model.getHeight()) >  Design.getInstance().getGamePanel().getWidth()) {
+					if ((posY - model.getHeight()) >  GameMakerView.getInstance().getGamePanel().getWidth()) {
 						action.doAction(allSpriteModel.get(i));
 					}
 				} else {

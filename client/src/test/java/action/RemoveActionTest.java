@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import utility.SpriteList;
-import view.Design;
+import view.GameMakerView;
 import model.SpriteModel;
 
 public class RemoveActionTest {
@@ -22,7 +22,7 @@ public class RemoveActionTest {
 
 	@Before
 	public void setUp() throws Exception {
-		Design.getInstance().reset();
+		GameMakerView.getInstance().reset();
 		actualModel1 = new SpriteModel(100, 100, 5, 5,30,30, "","");
 		actualModel2 = new SpriteModel(150, 200, 10, 0,35,35, "","");
 		action = new RemoveAction();
@@ -31,7 +31,7 @@ public class RemoveActionTest {
 
 	@After
 	public void tearDown() throws Exception {
-		Design.getInstance().reset();
+		GameMakerView.getInstance().reset();
 	}
 
 	@Test

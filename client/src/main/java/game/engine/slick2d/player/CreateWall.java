@@ -31,7 +31,7 @@ public class CreateWall {
     {
         try {
             physicsComponent.bodies.put("Right Wall",physicsComponent.createBody
-                        ("Right Wall","polygon","Static",500,0,0,800,0.0f));
+                        ("Right Wall","polygon","Static",0,600,0,800,0.0f));
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(GameEngineController.class.getName()).log(Level.SEVERE, null, ex);
         }  
@@ -41,7 +41,7 @@ public class CreateWall {
     {
          try {
             physicsComponent.bodies.put("Top Wall",physicsComponent.createBody
-                        ("Top Wall","polygon","Static",0,30,500,0,0.0f));
+                        ("Top Wall","polygon","Static",500,0,800,0,0.0f));
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(GameEngineController.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -51,7 +51,7 @@ public class CreateWall {
     {
         try {
             physicsComponent.bodies.put("Bottom Wall",physicsComponent.createBody
-                        ("Bottom Wall","polygon","Static",500,600,800,0,0.0f));
+                        ("Bottom Wall","polygon","Static",500,580,800,0,0.0f));
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(GameEngineController.class.getName()).log(Level.SEVERE, null, ex);
         }  
