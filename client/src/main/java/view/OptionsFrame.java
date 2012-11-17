@@ -64,8 +64,8 @@ public class OptionsFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == makerButton) {
-            GameMakerView.getInstance().setOptionFrame(this);
             GameMakerView.getInstance();
+            GameMakerView.getInstance().getBaseFrame().setVisible(true);
            // Design.getInstance().reset();
            // Design.getInstance().clearAll();
            // Design.getInstance().getGamePanel().registerDrawable(ClockDisplay.getInstance());
@@ -112,7 +112,7 @@ public class OptionsFrame implements ActionListener {
             GamePlayerWindow.getInstance().setOptionFrame(this);
             GamePlayerWindow.getInstance().getBaseFrame().setVisible(true);
              */
-        	GamePlayerView gamePlayerview = new GamePlayerView(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
+        	new GamePlayerView(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
         	
             optionFrame.setVisible(false);
         }

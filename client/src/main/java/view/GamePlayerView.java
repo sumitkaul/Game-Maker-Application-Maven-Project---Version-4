@@ -11,6 +11,7 @@ public class GamePlayerView {
 	
 	public GamePlayerView(int frameWidth, int frameHeight) {
 		baseFrame = Helper.getsharedHelper().createBaseFrame(frameWidth,frameHeight);
+		baseFrame.setJMenuBar(new MenuBarPanel().getMenuBar());
 		
 		GamePanel gamePanel = new GamePanel(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT);
 		baseFrame.add(gamePanel);

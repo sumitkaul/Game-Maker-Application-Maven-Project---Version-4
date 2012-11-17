@@ -28,7 +28,6 @@ public class GameMakerView {
 	private ImagePanel extendedImagePanel;
 	
 	private String userName = "";
-	private OptionsFrame optionFrame;
 	private Facade facade;
 	private JComboBox layerBox;
 	private boolean shouldDisplayScore = false;
@@ -185,15 +184,7 @@ public class GameMakerView {
 	public JFrame getBaseFrame() {
 		return this.baseFrame;
 	}
-
-	public OptionsFrame getOptionsFrame() {
-		return this.optionFrame;
-	}
-
-	public void setOptionsFrame(OptionsFrame optionFrame) {
-		this.optionFrame = optionFrame;
-	}
-
+	
 	public JPanel getGameMakerPanel() {
 		return rightPanel;
 	}
@@ -228,14 +219,6 @@ public class GameMakerView {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
-	}
-
-	public OptionsFrame getOptionFrame() {
-		return optionFrame;
-	}
-
-	public void setOptionFrame(OptionsFrame optionFrame) {
-		this.optionFrame = optionFrame;
 	}
 
 	public void showGameMakerWindow(boolean visibility) {
