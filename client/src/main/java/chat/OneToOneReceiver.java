@@ -8,13 +8,15 @@ import javax.jms.TextMessage;
 import javax.jms.Topic;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
-import view.PlayerButtonPanel;
+
 import utility.Constants;
-public class ChatReceiver implements Runnable {
+import view.PlayerButtonPanel;
+
+public class OneToOneReceiver implements Runnable {
 
 	private MessageConsumer consumer;
 
-	public ChatReceiver() {
+	public OneToOneReceiver(String topicName) {
 		try {
 			// Create a ConnectionFactory
 			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(Constants.ActiveMQConnect);
@@ -32,11 +34,11 @@ public class ChatReceiver implements Runnable {
 
 			// Create the destination (Topic or Queue)
 			//Destination destination = session.createQueue("CHAT");
-			Topic topic= session.createTopic("CHAT");
+			Topic topic= session.createTopic(topicName);
 			// Create a MessageConsumer from the Session to the Topic or Queue
 			consumer = session.createConsumer(topic);
-			Thread chatReceiverThread=new Thread(this);
-			chatReceiverThread.start();
+			Thread receiverThread=new Thread(this);
+			receiverThread.start();
 		} catch (Exception ex) {
 
 		}
@@ -52,11 +54,9 @@ public class ChatReceiver implements Runnable {
 				if (message instanceof TextMessage) {
 					TextMessage textMessage = (TextMessage) message;
 					String text = textMessage.getText();
-					if(text.charAt(0)==':') {
-						
-					}
-					else
-						PlayerButtonPanel.updateChatWindow(text);
+
+					PlayerButtonPanel.updateChatWindow(text);
+					//System.out.println("r"+ text);
 					//Design.getInstance().updateChatWindow(text);
 
 				} else {

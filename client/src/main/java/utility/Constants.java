@@ -94,9 +94,11 @@ public class Constants
 	public static final String KEY_PRESS_RIGHT = "KeyPressRight";
 	public static final String TIMER_EVENT = "TimerEvent";
 	public static final String COLLIDE = "Collide";
+	public static final String ActiveMQConnect = "tcp://129.79.247.5:61616";
 	public static final double HEADING_AMOUNT = 10;
 	public static final int MINIMUM_FRAMEWIDTH = 700;
 	public static final int MINIMUM_FRAMEHEIGHT = 600;
+	
 	
 	public static String NEW_LAYER = "New Layer";
 	public static String ALL_LAYERS = "All Layers";
