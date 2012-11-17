@@ -12,14 +12,18 @@ import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JSeparator;
+import javax.swing.SwingUtilities;
 
 import loader.GameDataPackageIO;
 import loader.GamePackage;
 import lookandfeel.AnimationHandler;
+import lookandfeel.ThemeHandler;
 import model.SpriteModel;
 import utility.ClockDisplay;
 import utility.Constants;
@@ -34,6 +38,67 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 	private JMenuItem[] modes = new JMenuItem[2];
 
 	public MenuBarPanel() {
+
+		JMenu menuGame = new JMenu("Game");
+		menuBar.add(menuGame);
+
+		// Create a menu item
+		JMenuItem loadItem = new JMenuItem("Load");
+		JMenuItem saveItem = new JMenuItem("Save");
+		loadItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				loadGame();
+			}
+
+		});
+
+		saveItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				saveGame();		    	
+			}
+		});
+		
+		JMenuItem changeTheme= new JMenuItem("Change Theme");
+		changeTheme.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+            	ThemeHandler.showThemePanel();
+            	JFrame frame= Design.getInstance().getBaseFrame();            	
+                //frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
+            	SwingUtilities.updateComponentTreeUI(frame.getRootPane());
+            	//SwingUtilities.updateComponentTreeUI(menuBar); 
+            	frame.getRootPane().updateUI();
+            	//Update UI
+            	Design.getInstance().getGameMakerPanel().updateUI();
+            	Design.getInstance().getControlPanel().updateUI();
+            	Design.getInstance().getGamePanel().updateUI();
+            	Design.getInstance().getActionEventPanel().getPanel().updateUI();
+            	//pack the frame
+            	frame.pack();
+		    	
+		    }
+		});
+		
+		JMenuItem exitItem = new JMenuItem("Exit");
+
+		exitItem.addActionListener(new ActionListener() {
+
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		    	System.exit(0);		    	
+		    }
+		});
+
+		menuGame.add(loadItem);
+		menuGame.add(saveItem);
+		menuGame.add(new JSeparator());
+		menuGame.add(changeTheme);
+		menuGame.add(new JSeparator());		
+		menuGame.add(exitItem);
+
 
 		// Create a menu
 		JMenu menu = new JMenu("Insert");
@@ -80,32 +145,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		user.add(login);
 		user.add(register);
 
-		JMenu menuGame = new JMenu("Game");
-		menuBar.add(menuGame);
-
-		// Create a menu item
-		JMenuItem itemGame1 = new JMenuItem("Load");
-		JMenuItem itemGame2 = new JMenuItem("Save");
-		itemGame1.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				loadGame();
-			}
-
-		});
-
-		itemGame2.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				saveGame();		    	
-			}
-		});
-		menuGame.add(itemGame1);
-		menuGame.add(itemGame2);
-
-		JMenu menuMultiPlayer = new JMenu("MultiPlayer");
+				JMenu menuMultiPlayer = new JMenu("MultiPlayer");
 		JMenuItem startMultiPlayer = new JMenuItem("Start"); 
 		menuMultiPlayer.add(startMultiPlayer);
 		menuBar.add(menuMultiPlayer);
@@ -134,7 +174,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		menuMode.add(modes[0]);
 		menuMode.add(modes[1]);
 		menuBar.add(menuMode);
-		
+				
 	}
 	/********* Getters and Setters *************/
 

@@ -17,7 +17,9 @@ public class ThemeHandler {
     public final static String THEME_NIMBUS = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
     public final static String THEME_WOOD = "de.javasoft.plaf.synthetica.SyntheticaClassyLookAndFeel";
     public final static String THEME_SILVER = "de.javasoft.plaf.synthetica.SyntheticaSilverMoonLookAndFeel";
+    public final static String THEME_SYSTEM = UIManager.getSystemLookAndFeelClassName();
 
+    
     public static boolean applyTheme(String themeName) {
         try {
             UIManager.setLookAndFeel(themeName);
@@ -32,8 +34,9 @@ public class ThemeHandler {
         Map<String, String> themeNames = new HashMap<String, String>(3);
         themeNames.put("Pink", THEME_SYNTHETICA);
         themeNames.put("Black", THEME_ACRYL);
-        themeNames.put("Sketch", THEME_NAP);
+        //themeNames.put("Sketch", THEME_NAP);
         themeNames.put("Dark", THEME_DARK);
+        themeNames.put("System", THEME_SYSTEM);
         themeNames.put("Gray", THEME_NIMBUS);
         themeNames.put("Wood", THEME_WOOD);
         themeNames.put("Silver", THEME_SILVER);

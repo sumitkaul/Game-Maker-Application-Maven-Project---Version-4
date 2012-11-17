@@ -27,6 +27,8 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.Style;
+import javax.swing.text.StyleContext;
 
 import chat.ChatSender;
 
@@ -51,6 +53,7 @@ import view.companels.GameProgressSavePanel;
 import view.companels.TopScoresPanel;
 
 public class PlayerButtonPanel implements ActionListener{
+	
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PlayerButtonPanel.class);
 	private Design design;
 	private JPanel playerButtonPanel;
@@ -65,22 +68,31 @@ public class PlayerButtonPanel implements ActionListener{
 	private JTextField textSend;
 	private static JTextPane textPane;
 	private static JScrollPane textScrollPane;
+	private Color userColor;
 	
 	public static void updateChatWindow(String msg) {
 		textPane.setContentType("text/html");
 		int colonIndex=msg.indexOf(":");
 		int chatStart=textPane.getText().indexOf("<body>");
 		int chatEnd=textPane.getText().indexOf("</body>");
-    	textPane.setText("<html>"+textPane.getText().substring(chatStart+"<body>".length(), chatEnd)+"<br/><b style=\"color:blue\">"+msg.substring(0, colonIndex+1)+"</b>"+msg.substring(colonIndex+1, msg.length())+"</html>");
+    	textPane.setText("<html>"+textPane.getText().substring(chatStart+"<body>".length(), chatEnd)+"<br/>"+msg+"</html>");
     	textPane.setCaretPosition(textPane.getDocument().getLength());
     	textScrollPane.getVerticalScrollBar().setValue(textScrollPane.getVerticalScrollBar().getMaximum());
     }
 	public void sendChatMessage() {
 		
-		if(Player.getInstance().getUsername()!=null && checkText(textSend.getText()))
+		if(Player.getInstance().getUsername()!=null)
 		{
-			ChatSender.sendMessage(Player.getInstance().getUsername()+": "+textSend.getText());
+			Integer c=userColor.hashCode();
+			
+			String d=Integer.toHexString(c);
+			Integer c1=userColor.getColorSpace().hashCode();
+			
+			String d1=Integer.toHexString(c1);
+			
+			ChatSender.sendMessage("<b style=\"color:#"+d.substring(2)+"\">"+Player.getInstance().getUsername()+"</b>: "+textSend.getText());
 		}
+		
 		else
 		{
 			JFrame frame=new JFrame();
@@ -111,7 +123,10 @@ public class PlayerButtonPanel implements ActionListener{
 	}
 	
 	public PlayerButtonPanel(Design designArg) {
+		
 		this.design = designArg;
+		userColor=new Color(0);
+		userColor=Color.BLUE;
 		startButton = new JButton("Start");
 		startButton.addActionListener(new ActionListener() {
 
