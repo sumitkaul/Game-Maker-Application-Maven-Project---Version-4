@@ -2,7 +2,9 @@ package chat;
 
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
+import javax.jms.Destination;
 import javax.jms.MessageProducer;
+import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
@@ -13,14 +15,13 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 import utility.Constants;
 
-public class ChatSender implements Runnable {
+public class StatusSender implements Runnable {
 
 	private MessageProducer producer;
-	private static boolean messagePresent = false;
 	private static String message;
 	private Session session;
 
-	public ChatSender() {
+	public StatusSender() {
 		try {
 			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(Constants.ActiveMQConnect);
 
@@ -31,14 +32,16 @@ public class ChatSender implements Runnable {
 			// Create a Session
 			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
+
 			// Create the destination (Topic or Queue)
-			Topic topic= session.createTopic("CHAT");
+			//Destination destination = session.createQueue("CHAT");
+			Topic topic= session.createTopic("ISALIVE");
 
 			// Create a MessageProducer from the Session to the Topic or Queue
 			producer = session.createProducer(topic);
 			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-			Thread chatSenderThread=new Thread(this);
-			chatSenderThread.start();
+			Thread senderThread=new Thread(this);
+			senderThread.start();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -48,27 +51,17 @@ public class ChatSender implements Runnable {
 	public void run() {
 		while (true) {
 			try {
-				if (messagePresent) {
+				if(!(Player.getInstance().getUsername()==null)) {
+					message="Online:"+Player.getInstance().getUsername();
 					TextMessage textMessage = session.createTextMessage(message);
 					producer.send(textMessage);
-					messagePresent = false;
-
+					
 				}
-				Thread.sleep(200);
+				Thread.sleep(10000);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 
-	}
-
-	public static void sendMessage(String text) {
-		message = text;
-		messagePresent = true;
-	}
-	public static void sendChatRequest(String username) {
-		message = ":"+Player.getInstance().getUsername()+":"+username;
-		messagePresent = true;
 	}
 }

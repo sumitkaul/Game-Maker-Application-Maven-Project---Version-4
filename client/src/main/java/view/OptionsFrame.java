@@ -20,6 +20,11 @@ import lookandfeel.AnimationHandler;
 
 import org.newdawn.slick.AppGameContainer;
 
+import chat.ChatReceiver;
+import chat.ChatSender;
+import chat.StatusReceiver;
+import chat.StatusSender;
+
 public class OptionsFrame implements ActionListener {
 
     private static final org.apache.log4j.Logger LOG =
@@ -89,7 +94,10 @@ public class OptionsFrame implements ActionListener {
             //Design.getInstance().getLeftImagePanel().setVisible(false);
             GameMakerView.getInstance().getBaseFrame().getContentPane().remove(GameMakerView.getInstance().getLeftImagePanel());
             GameMakerView.getInstance().getBaseFrame().validate();
-            
+            ChatSender chatSender=new ChatSender();
+            ChatReceiver chatReceiver=new ChatReceiver();
+            StatusSender statusSender=new StatusSender();
+            StatusReceiver statusReceiver=new StatusReceiver();
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e1) {

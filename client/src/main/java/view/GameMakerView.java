@@ -15,8 +15,6 @@ import java.util.zip.ZipInputStream;
 
 import javax.swing.*;
 
-import chat.ChatReceiver;
-import chat.ChatSender;
 import model.Resources;
 import model.SpriteModel;
 import utility.*;
@@ -65,12 +63,7 @@ public class GameMakerView implements Resizable, ActionListener {
 
 
 	protected GameMakerView(int frameWidth, int frameHeight) {
-		ChatReceiver chatReceiver=new ChatReceiver();
-		ChatSender chatSender=new ChatSender();
-		Thread chatSenderThread=new Thread(chatSender);
-		Thread chatReceiverThread=new Thread(chatReceiver);
-		chatReceiverThread.start();
-		chatSenderThread.start();
+		
 		baseFrame = new JFrame();
 		baseFrame.addWindowListener(new WindowAdapter() {
 			@Override
