@@ -145,22 +145,7 @@ public class GameEngineController extends BasicGame {
     @Override
     public void render(GameContainer gc, Graphics grphcs) throws SlickException {
 
-        //remove later
-/*        physicsComponent.inputLogic();
-         physicsComponent.moveLogic();
-
-         for (Body body : physicsComponent.bodies) {
-         if (body.getType() == BodyType.DYNAMIC) {
-         grphcs.pushTransform();
-         Vec2 bodyPosition = body.getPosition();
-         grphcs.translate(bodyPosition.x, bodyPosition.y);
-         grphcs.rotate(0f, 0f, (float) Math.toDegrees(body.getAngle()));
-         grphcs.drawRect(-0.2f * 30, -0.2f * 30, 0.2f * 30, 0.2f * 30);
-         grphcs.popTransform();
-         }
-         }
-         //
-         */
+        
         for (SpriteModel s : SpriteList.getInstance().getSpriteList()) {
             if (!s.isVisible()) {
                 continue;
@@ -177,6 +162,9 @@ public class GameEngineController extends BasicGame {
         }
     }
 
+    
+    
+    
     public Image getImageFromBytes(byte[] imageData, String imageName) {
         Image image = null;
         try {
