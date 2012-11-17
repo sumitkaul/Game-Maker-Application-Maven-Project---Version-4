@@ -1,7 +1,6 @@
 package game.engine.slick2d.player;
 
 import action.ActionCreateSpriteModel;
-import action.GameAction;
 import eventlistener.EventListener;
 import eventlistener.KeyPressedEventListener;
 import java.io.ByteArrayInputStream;
@@ -29,6 +28,7 @@ public class GameEngineController extends BasicGame {
     private static final Logger LOG = Logger.getLogger(GameEngineController.class.getName());
     public final static int LOAD_MODE_LOCAL = 1;
     public final static int LOAD_MODE_REMOTE = 2;
+    public final static int LOAD_MODE_REMOTE_NO_UI = 3;
     private GamePackage game;
     private List<SpriteModel> allSpriteModels;
     private Map<String, Image> imagesOfSprites;
@@ -72,6 +72,9 @@ public class GameEngineController extends BasicGame {
             JFrame jf = new JFrame();
             GameBaseLoadPanel gb = new GameBaseLoadPanel(jf.getRootPane());
             String gameData = gb.readGameDataFromRemoteList();
+            gamePackage = GameDataPackageIO.loadGamePackageFromFile(gameData);
+        } else if (loadMode == LOAD_MODE_REMOTE_NO_UI) {
+            String gameData = ClientHandler.loadGameBase(paras[0], paras[1], paras[2], new Exception[1]);
             gamePackage = GameDataPackageIO.loadGamePackageFromFile(gameData);
         }
 
@@ -122,7 +125,7 @@ public class GameEngineController extends BasicGame {
     }
 
     @Override
-    public void update(GameContainer gc, int delta) throws SlickException {        
+    public void update(GameContainer gc, int delta) throws SlickException {
         for (EventListener event : eventsForGameController) {
             event.checkEvent(null);
         }
@@ -130,7 +133,7 @@ public class GameEngineController extends BasicGame {
             try {
                 if (gc.getInput().isKeyDown(key2key.get(keycode.intValue()))) {
                     LOG.debug(keycode + " is Pressed");
-                    HashMap<String, Object> map = new HashMap<String, Object>();
+                    HashMap<String, Object> map = new HashMap<String, Object>(5);
                     map.put("keypressed", new Integer(keycode));
                     keyReg.get(keycode).checkEvent(map);
                 }
