@@ -73,7 +73,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
             	frame.getRootPane().updateUI();
             	//Update UI
             	GameMakerView.getInstance().getGameMakerPanel().updateUI();
-            	GameMakerView.getInstance().getControlPanel().updateUI();
+            	//GameMakerView.getInstance().getControlPanel().updateUI();
             	GameMakerView.getInstance().getGamePanel().updateUI();
             	GameMakerView.getInstance().getActionEventPanel().getPanel().updateUI();
             	//pack the frame
@@ -191,14 +191,14 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), GameMakerView.getInstance().getFacade().getGameController().getEvents(), GameMakerView.getInstance().getFacade().getKeyListenerController().getKeyEvents(), Layers.getInstance().getLayers(), ClockDisplay.getInstance().isVisible());
 		String gameData = GameDataPackageIO.convertGamePackageToString(game);
 
-		GameBaseSavePanel p = new GameBaseSavePanel(GameMakerView.getInstance().getControlPanel());
+		GameBaseSavePanel p = new GameBaseSavePanel(GameMakerView.getInstance().getBaseFrame().getRootPane());
 		p.saveGameToRemoteServer(gameData);
 
 	}
 
 	public static void loadGame()
 	{
-		GameBaseLoadPanel p = new GameBaseLoadPanel(GameMakerView.getInstance().getControlPanel());
+		GameBaseLoadPanel p = new GameBaseLoadPanel(GameMakerView.getInstance().getBaseFrame().getRootPane());
 
 		String gameData = p.readGameDataFromRemoteList();
 		if (gameData == null) {
@@ -260,7 +260,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 			LOG.info("In single player mode");
 			Constants.isMultiplayer = false;
 			GameMakerView.getInstance().getBaseFrame().validate();
-			GameMakerView.getInstance().getControlPanel().validate();
+			//GameMakerView.getInstance().getControlPanel().validate();
 			GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getComboBox().setVisible(false);
 			GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getInputPanel().validate();
 
@@ -270,7 +270,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 			LOG.info("In Multiplayer mode");
 	Constants.isMultiplayer = true;
 	GameMakerView.getInstance().getBaseFrame().validate();
-	GameMakerView.getInstance().getControlPanel().validate();
+	//GameMakerView.getInstance().getControlPanel().validate();
 	GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getComboBox().setVisible(true);
 	GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getInputPanel().validate();
 

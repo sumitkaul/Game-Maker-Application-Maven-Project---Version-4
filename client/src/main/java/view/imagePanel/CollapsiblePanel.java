@@ -39,8 +39,8 @@ public class CollapsiblePanel extends MouseAdapter {
 
     private void togglePanelVisibility(ActionPanel ap, String s) {
 	int index = getPanelIndex(ap);
-	CardLayout cl = (CardLayout) (GameMakerView.getInstance().getSwitchPanel().getLayout());
-	cl.show(GameMakerView.getInstance().getSwitchPanel(), s);
+//	CardLayout cl = (CardLayout) (GameMakerView.getInstance().getSwitchPanel().getLayout());
+//	cl.show(GameMakerView.getInstance().getSwitchPanel(), s);
 
     }
 

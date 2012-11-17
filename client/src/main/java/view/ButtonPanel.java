@@ -39,13 +39,11 @@ import view.companels.GameProgressSavePanel;
 public class ButtonPanel {
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ButtonPanel.class);
 	private GameMakerView design;
-	private ActionEventPanel actionEventPanel;
 	private JPanel buttonPanel;
 	private JLabel userName;
 	
 	public ButtonPanel(GameMakerView designArg) {
 		this.design = designArg;
-		actionEventPanel = design.getActionEventPanel();
         buttonPanel = new JPanel();
 
         //controlPanel.setSize(Constants.CONTROL_PANEL_WIDTH, Constants.CONTROL_PANEL_LENGTH);
