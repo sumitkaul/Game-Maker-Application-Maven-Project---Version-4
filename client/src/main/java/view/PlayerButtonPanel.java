@@ -17,6 +17,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -65,10 +66,13 @@ public class PlayerButtonPanel implements ActionListener{
 	private JButton saveButton;
 	private JButton topscoreButton;
 	private JButton send;
+	private JButton choose;
+	private JButton chooseText;
 	private JTextField textSend;
 	private static JTextPane textPane;
 	private static JScrollPane textScrollPane;
 	private Color userColor;
+	private Color textColor;
 	
 	public static void updateChatWindow(String msg) {
 		textPane.setContentType("text/html");
@@ -83,14 +87,11 @@ public class PlayerButtonPanel implements ActionListener{
 		
 		if(Player.getInstance().getUsername()!=null)
 		{
-			Integer c=userColor.hashCode();
-			
-			String d=Integer.toHexString(c);
-			Integer c1=userColor.getColorSpace().hashCode();
-			
-			String d1=Integer.toHexString(c1);
-			
-			ChatSender.sendMessage("<b style=\"color:#"+d.substring(2)+"\">"+Player.getInstance().getUsername()+"</b>: "+textSend.getText());
+			Integer hash=userColor.hashCode();
+			String d=Integer.toHexString(hash);
+			Integer hash2=textColor.hashCode();
+			String d1=Integer.toHexString(hash2);
+			ChatSender.sendMessage("<b style=\"color:#"+d.substring(2)+"\">"+Player.getInstance().getUsername()+"</b>: <a style=\"color:#"+d1.substring(2)+"\">"+textSend.getText()+"</a>");
 		}
 		
 		else
@@ -127,6 +128,8 @@ public class PlayerButtonPanel implements ActionListener{
 		this.design = designArg;
 		userColor=new Color(0);
 		userColor=Color.BLUE;
+		textColor=new Color(0);
+		textColor=Color.RED;
 		startButton = new JButton("Start");
 		startButton.addActionListener(new ActionListener() {
 
@@ -266,7 +269,7 @@ public class PlayerButtonPanel implements ActionListener{
 		
 		JScrollPane textScrollPane = new JScrollPane(textPane);
 
-		JLabel textLabel = new JLabel("Enter Your Text Here:");
+		final JLabel textLabel = new JLabel("Enter Your Text Here:");
 
 		textSend = new JTextField();
 		textSend.getDocument().addDocumentListener(new DocumentListener() {
@@ -307,6 +310,7 @@ public class PlayerButtonPanel implements ActionListener{
 					}
 			}
 		});
+		
 		send = new JButton("Send");
 		send.setEnabled(false);
 		send.addActionListener(new ActionListener() {
@@ -318,8 +322,30 @@ public class PlayerButtonPanel implements ActionListener{
 			}
 		});
 		send.addActionListener(this);
-
-		
+		choose = new JButton("Username Color");
+		choose.setForeground(userColor);
+		choose.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Color bgColor=JColorChooser.showDialog(textLabel, "Choose Username Color", userColor);
+				userColor=bgColor;
+				choose.setForeground(userColor);
+			      //= JColorChooser.showDialog(this,"Choose Background Color",userColor);
+			}
+		});
+		chooseText = new JButton("Text Color");
+		chooseText.setForeground(textColor);
+		chooseText.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Color bgColor=JColorChooser.showDialog(textLabel, "Choose text Color", textColor);
+				textColor=bgColor;
+				chooseText.setForeground(textColor);
+			      //= JColorChooser.showDialog(this,"Choose Background Color",userColor);
+			}
+		});
 		playerButtonPanel = new JPanel(new MigLayout("center,center"));
 //		playerButtonPanel.add(loginButton, "wrap, wmin 200, hmin 30");
 //		playerButtonPanel.add(registerButton, "wrap, wmin 200, hmin 30");
@@ -332,6 +358,8 @@ public class PlayerButtonPanel implements ActionListener{
 		playerButtonPanel.add(textLabel,"wrap,wmin 100, hmin 10");
 		playerButtonPanel.add(textSend,"wrap,wmin 500, hmin 50");
 		playerButtonPanel.add(send,"wrap,wmin 200, hmin 30");
+		playerButtonPanel.add(choose);
+		playerButtonPanel.add(chooseText);
 		
 		
     }
