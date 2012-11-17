@@ -161,12 +161,12 @@ public class GamePanel extends JPanel implements KeyListener{
 	    		if(selectedSpriteModels.size() == 0 || 
 	    				(selectedSpriteModels.size()==1 && selectedSpriteModels.get(0).getId().equals("background")))
 	    		{
-	    			new PopupMenus(Design.getInstance().getBaseFrame(), event.getX(),event.getY(),PopupMenus.Type.Game);    			
+	    			new PopupMenus(Design.getInstance().getGamePanel(), event.getX(),event.getY(),PopupMenus.Type.Game);    			
 	    		    
 	    		}	    		
 	    		else
 	    		{
-	    			new PopupMenus(Design.getInstance().getBaseFrame(), event.getX(),event.getY(),PopupMenus.Type.Sprite);
+	    			new PopupMenus(Design.getInstance().getGamePanel(), event.getX(),event.getY(),PopupMenus.Type.Sprite);
 	    		}
 	    	}  
 	    	else if(clickCount == 2){
