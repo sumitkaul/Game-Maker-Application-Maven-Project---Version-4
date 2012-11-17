@@ -83,6 +83,81 @@ public class GameEngineController extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException {
+         
+        initSpriteImageMapping();
+        initActionEvents();
+
+    }
+
+    @Override
+    public void update(GameContainer gc, int delta) throws SlickException {
+        
+        updateKeyEventBinding(gc);
+
+    }
+
+    @Override
+    public void render(GameContainer gc, Graphics grphcs) throws SlickException 
+    {
+         renderSpriteImageDraw();   
+    }   
+        
+        
+    public Image getImageFromBytes(byte[] imageData, String imageName) {
+        Image image = null;
+        try {
+            image = new Image(new ByteArrayInputStream(imageData), imageName, false);
+        } catch (Exception ex) {
+            LOG.error(ex);
+            return null;
+        }
+        return image;
+    }
+    
+    public void initActionEvents()
+    {
+        
+        keyEvents = game.getEventsForKeyController();
+        for (EventListener keyevent : keyEvents) {
+            KeyPressedEventListener key = (KeyPressedEventListener) keyevent;
+            int i = key.getKeyRegistered();
+            keyReg.put(i, key);
+            LOG.debug("read one key: " + key + " " + i);
+
+            //hard coping for ActionCreateSpriteModel
+            if (!(key.getAction() instanceof ActionCreateSpriteModel)) {
+                continue;
+            }
+
+            String gid = "Bomb";
+            Image entityImage = imagesOfSprites.get(key.getRegisteredObjectId());
+            imagesOfSprites.put(gid, entityImage);
+        }
+
+    }
+    
+    public void renderSpriteImageDraw()
+    {
+        for (SpriteModel s : SpriteList.getInstance().getSpriteList()) {
+            if (!s.isVisible()) {
+                continue;
+            }
+
+            if (!imagesOfSprites.containsKey(s.getId())) {
+                if (imagesOfSprites.containsKey(s.getGroupId())) {
+                    imagesOfSprites.get(s.getGroupId()).draw((float) s.getPosX(), (float) s.getPosY(), (float) s.getWidth(), (float) s.getHeight());
+                    continue;
+                }
+            }
+
+            imagesOfSprites.get(s.getId()).draw((float) s.getPosX(), (float) s.getPosY(), (float) s.getWidth(), (float) s.getHeight());
+        }
+    
+
+    }       
+    
+    public void initSpriteImageMapping()
+    {
         allSpriteModels = game.getSpriteList();
         eventsForGameController = game.getEventsForGameController();
         imagesOfSprites = new HashMap<String, Image>(5);
@@ -103,30 +178,12 @@ public class GameEngineController extends BasicGame {
 
             imagesOfSprites.put(s.getId(), image);
         }
-
-
-        keyEvents = game.getEventsForKeyController();
-        for (EventListener keyevent : keyEvents) {
-            KeyPressedEventListener key = (KeyPressedEventListener) keyevent;
-            int i = key.getKeyRegistered();
-            keyReg.put(i, key);
-            LOG.debug("read one key: " + key + " " + i);
-
-            //hard coping for ActionCreateSpriteModel
-            if (!(key.getAction() instanceof ActionCreateSpriteModel)) {
-                continue;
-            }
-
-            String gid = "Bomb";
-            Image entityImage = imagesOfSprites.get(key.getRegisteredObjectId());
-            imagesOfSprites.put(gid, entityImage);
-        }
-
+        
     }
-
-    @Override
-    public void update(GameContainer gc, int delta) throws SlickException {
-        for (EventListener event : eventsForGameController) {
+    
+    public void updateKeyEventBinding(GameContainer gc)
+    {
+     for (EventListener event : eventsForGameController) {
             event.checkEvent(null);
         }
         for (Integer keycode : keyReg.keySet()) {
@@ -141,41 +198,8 @@ public class GameEngineController extends BasicGame {
                 LOG.error("don't worry, it is only temp key-mapping error, we not done yet: " + e);
             }
         }
-
-
+      
     }
-
-    @Override
-    public void render(GameContainer gc, Graphics grphcs) throws SlickException {
-
-        
-        for (SpriteModel s : SpriteList.getInstance().getSpriteList()) {
-            if (!s.isVisible()) {
-                continue;
-            }
-
-            if (!imagesOfSprites.containsKey(s.getId())) {
-                if (imagesOfSprites.containsKey(s.getGroupId())) {
-                    imagesOfSprites.get(s.getGroupId()).draw((float) s.getPosX(), (float) s.getPosY(), (float) s.getWidth(), (float) s.getHeight());
-                    continue;
-                }
-            }
-
-            imagesOfSprites.get(s.getId()).draw((float) s.getPosX(), (float) s.getPosY(), (float) s.getWidth(), (float) s.getHeight());
-        }
-    }
-
     
     
-    
-    public Image getImageFromBytes(byte[] imageData, String imageName) {
-        Image image = null;
-        try {
-            image = new Image(new ByteArrayInputStream(imageData), imageName, false);
-        } catch (Exception ex) {
-            LOG.error(ex);
-            return null;
-        }
-        return image;
-    }
 }
