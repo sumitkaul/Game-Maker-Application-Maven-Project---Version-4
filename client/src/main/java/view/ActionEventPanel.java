@@ -35,8 +35,10 @@ import model.SpriteModel;
 
 import org.apache.commons.lang3.StringUtils;
 
+import utility.Constants;
 import utility.Helper;
 import utility.SpriteList;
+import utility.enums.playerModes;
 import action.ActionStartOver;
 import action.GameAction;
 import controller.GameController;
@@ -224,7 +226,8 @@ public class ActionEventPanel {
                 // list = new ArrayList<SpriteModel>();
                 // if(!list.contains(selectedSpriteModel))
                 // list.add(selectedSpriteModel);
-
+                if (!Constants.isMultiplayer)
+                {
                 if (selectedSpriteModel != null) {
 
                     int scoreModificationValue = 1;
@@ -270,8 +273,58 @@ public class ActionEventPanel {
                     JOptionPane.showMessageDialog(design.getBaseFrame(), "You haven't selected any objects", "Input Error", JOptionPane.ERROR_MESSAGE);
                 }
 
+                }
+                else
+                {
+                	//selectedSpriteModel.setMode(playerModes.PLayer);
+                	if (selectedSpriteModel != null) {
+
+                        int scoreModificationValue = 1;
+
+                        if (scoreModificationField.isVisible()) {
+                            if (StringUtils.isNumeric(scoreModificationField.getText())) {
+                                scoreModificationValue = Integer.parseInt(scoreModificationField.getText());
+                            } else {
+                                JOptionPane.showMessageDialog(design.getBaseFrame(), "Integer expected in score modification field. currently set to " + scoreModificationValue + ". Resize window to view modification field", "Input Error", JOptionPane.WARNING_MESSAGE);
+                            }
+                        }
+                        selectedSpriteModel.setScoreModificationValue(scoreModificationValue);
+                        String eventActionString = eventName + "+" + actionName;
+                        eventActionListModel.addElement(eventActionString);
+                        SpriteModel secondaryModel = null;
+                        String itemName = (String) collisionSpriteBox.getSelectedItem();
+                        List<SpriteModel> spriteList = SpriteList.getInstance().getSpriteList();
+                        for (SpriteModel model : spriteList) {
+                            if (model.getId().equalsIgnoreCase(itemName)) {
+                                secondaryModel = model;
+                            }
+                        }
+                        EventListener listener = Helper.getsharedHelper().getEventListenerForString(eventName, actionName, selectedSpriteModel, secondaryModel);
+                        if (listener instanceof KeyPressedEventListener) {
+                            facade.getKeyListenerController().registerListener(listener);
+                        } else {
+                            facade.getGameController().registerListener(listener);
+                        }
+                        if (listener instanceof OutOfBoundaryEventListener) {
+                            OutOfBoundaryEventListener outOfBoundary = (OutOfBoundaryEventListener) listener;
+                            GameAction action = outOfBoundary.getAction();
+                            if (action instanceof ActionStartOver) {
+                                ActionStartOver startOver = (ActionStartOver) action;
+                                startOver.setStartX(startX);
+                                startOver.setStartY(startY);
+                            }
+                        }
+                        // gameController.getGameObjectsWithGroupId().put(selectedSpriteModel.getGroupId(),
+                        // list);
+                        selectedSpriteModel.getStringToEventMap().put(eventActionString, listener.getEventId());
+                        selectedSpriteModel.getEventListenerList().add(listener);
+                    } else {
+                        JOptionPane.showMessageDialog(design.getBaseFrame(), "You haven't selected any objects", "Input Error", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                }
             }
-        });
+            });
         removeEventActionButton = new JButton("Remove");
         removeEventActionButton.addActionListener(new ActionListener() {
 

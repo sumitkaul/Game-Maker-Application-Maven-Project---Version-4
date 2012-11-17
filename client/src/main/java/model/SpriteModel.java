@@ -12,6 +12,7 @@ import eventlistener.EventListener;
 import utility.ResizeHelper;
 import utility.SpriteList;
 import utility.enums.ImageSource;
+import utility.enums.playerModes;
 
 public class SpriteModel implements Serializable {
 
@@ -25,8 +26,19 @@ public class SpriteModel implements Serializable {
     private HashMap<String,Integer> stringToEventMap;
     private String layer;
     private String soundFile;
+    private playerModes mode;
     
-    private int scoreModificationValue;
+    public playerModes getMode() {
+		return mode;
+	}
+
+
+	public void setMode(playerModes mode) {
+		this.mode = mode;
+	}
+
+
+	private int scoreModificationValue;
     private int imageId;
     
     
