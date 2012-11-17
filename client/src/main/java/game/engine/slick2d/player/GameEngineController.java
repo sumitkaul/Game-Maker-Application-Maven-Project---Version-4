@@ -21,6 +21,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.util.Log;
 import utility.SpriteList;
 import view.communication.ClientHandler;
 import view.companels.GameBaseLoadPanel;
@@ -85,7 +86,9 @@ public class GameEngineController extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException {
+        
         try {
+            
             initSpriteImageMapping();
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(GameEngineController.class.getName()).log(Level.SEVERE, null, ex);
@@ -97,7 +100,8 @@ public class GameEngineController extends BasicGame {
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
         
-        updateKeyEventBinding(gc);
+        //updateKeyEventBinding(gc);
+        physicsComponent.inputLogic();
 
     }
 
@@ -105,11 +109,8 @@ public class GameEngineController extends BasicGame {
     public void render(GameContainer gc, Graphics grphcs) throws SlickException 
     {
          physicsComponent.moveLogic();
-         physicsComponent.inputLogic();
          renderSpriteImageDraw();   
     }   
-    //Init   : Create a body  for every spriteimage
-    //Render the Image and try to move it through mouse listener
     
         
     public Image getImageFromBytes(byte[] imageData, String imageName) {
@@ -133,7 +134,7 @@ public class GameEngineController extends BasicGame {
             keyReg.put(i, key);
             LOG.debug("read one key: " + key + " " + i);
 
-            //hard coping for ActionCreateSpriteModel
+            //hard coding for ActionCreateSpriteModel
             if (!(key.getAction() instanceof ActionCreateSpriteModel)) {
                 continue;
             }
@@ -170,8 +171,11 @@ public class GameEngineController extends BasicGame {
     {
         
         Vec2 bodyPostion=physicsComponent.bodies.get(sprite.getId()).getPosition();
+        sprite.setPosX((double)bodyPostion.x*30);
+        sprite.setPosY((double)bodyPostion.y*30);
+        imagesOfSprites.get(sprite.getId()).setRotation(physicsComponent.bodies.get(sprite.getId()).getAngle());
         imagesOfSprites.get(sprite.getId()).draw((float)bodyPostion.x*30, (float)bodyPostion.y*30, (float)sprite.getWidth(), (float) sprite.getHeight());
-        
+        Log.info("Sprite X : "+sprite.getPosX());
     }
     
   

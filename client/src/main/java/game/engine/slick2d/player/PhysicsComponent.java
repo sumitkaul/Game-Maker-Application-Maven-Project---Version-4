@@ -7,24 +7,30 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
+import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.collision.shapes.*;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
+import org.jbox2d.callbacks.ContactListener;
+import org.jbox2d.collision.Manifold;
+import org.jbox2d.dynamics.contacts.Contact;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.util.Log;
 
-public class PhysicsComponent {
+public class PhysicsComponent implements ContactListener{
 
 
 	public static World world;
 	public static LinkedHashMap<String,Body> bodies;
-	
+	private CreateWall createWall;
+        
 
 	public PhysicsComponent() throws IOException
 	{
 		this.world=new World(new Vec2(0,9.8f),false);
 		this.bodies=new LinkedHashMap<String,Body>();
-
+                this.createWall=new CreateWall(this);
+                
 	}
       public void moveLogic() 
       {
@@ -36,16 +42,20 @@ public class PhysicsComponent {
       public void inputLogic() {
 		for (Entry<String,Body> body : bodies.entrySet()) {
 			if (body.getValue().getType() == BodyType.DYNAMIC) {
+                            if(Keyboard.getEventKey()==Keyboard.KEY_A)
+                            {
                           Vec2 bodyPosition=body.getValue().getLinearVelocity();
-                          bodyPosition.x=-5;
-                          bodyPosition.y=2;
+                          bodyPosition.x=5;
+                          bodyPosition.y=-2;
                           body.getValue().setLinearVelocity(bodyPosition);
-                          Log.info(String.valueOf(body.getValue().getPosition().x));
+                          Log.info("Body Position : "+String.valueOf(body.getValue().getPosition().x*30));
+                            }       
+                          
                      }
                 }
                 
 	}
-
+       
       
       public Body createBody(String spriteName,String shape,String bodyType,
               float x,float y,float width,float height,float radius) throws IOException
@@ -87,8 +97,7 @@ public class PhysicsComponent {
 		BodyDef bodyDef=new BodyDef();
 		bodyDef.position.set(new Vec2(x/30,y/30));
 		bodyDef.type=BodyType.STATIC;
-                
-		return bodyDef;
+                return bodyDef;
 	}
 
 	public PolygonShape createShapePolygon(float x,float y)
@@ -112,6 +121,26 @@ public class PhysicsComponent {
 		fixture.friction=friction;
                 return fixture;
 	}
+
+    @Override
+    public void beginContact(Contact cntct) {
+        
+    }
+
+    @Override
+    public void endContact(Contact cntct) {
+        
+    }
+
+    @Override
+    public void preSolve(Contact cntct, Manifold mnfld) {
+        
+    }
+
+    @Override
+    public void postSolve(Contact cntct, ContactImpulse ci) {
+        
+    }
 
 }
 
