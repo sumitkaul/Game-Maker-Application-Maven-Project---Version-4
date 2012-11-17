@@ -24,7 +24,9 @@ public class PhysicsComponent implements ContactListener{
 	public static LinkedHashMap<String,Body> bodies;
 	private CreateWall createWall;
         
-
+       
+        
+        
 	public PhysicsComponent() throws IOException
 	{
 		this.world=new World(new Vec2(0,9.8f),false);
@@ -45,12 +47,12 @@ public class PhysicsComponent implements ContactListener{
                             if(Keyboard.getEventKey()==Keyboard.KEY_A)
                             {
                           Vec2 bodyPosition=body.getValue().getLinearVelocity();
-                          bodyPosition.x=5;
+                          bodyPosition.x=-5;
                           bodyPosition.y=-2;
                           body.getValue().setLinearVelocity(bodyPosition);
-                          Log.info("Body Position : "+String.valueOf(body.getValue().getPosition().x*30));
-                            }       
                           
+                            }       
+                     //Log.info("Body Position : "+String.valueOf(body.getValue().getPosition().x*30));     
                      }
                 }
                 
@@ -78,6 +80,8 @@ public class PhysicsComponent implements ContactListener{
 				bodyFixture.shape=createShapePolygon(width,height);
 			}
 			body.createFixture(bodyFixture);
+                        
+                            
                         bodies.put(spriteName, body);
 		}
                 return body;
@@ -97,13 +101,15 @@ public class PhysicsComponent implements ContactListener{
 		BodyDef bodyDef=new BodyDef();
 		bodyDef.position.set(new Vec2(x/30,y/30));
 		bodyDef.type=BodyType.STATIC;
+                
                 return bodyDef;
 	}
 
 	public PolygonShape createShapePolygon(float x,float y)
 	{
 		PolygonShape polygonShape=new PolygonShape();
-		polygonShape.setAsBox(x/30,y/30);
+		polygonShape.setAsBox(x/58,y/58);
+                
 		return polygonShape;
 	}
 
@@ -119,11 +125,15 @@ public class PhysicsComponent implements ContactListener{
 		FixtureDef fixture=new FixtureDef();
 		fixture.restitution=restitution;
 		fixture.friction=friction;
+                
                 return fixture;
 	}
 
+   
+        
     @Override
-    public void beginContact(Contact cntct) {
+    public void beginContact(Contact con) {
+        Log.debug("Present Sir");
         
     }
 
