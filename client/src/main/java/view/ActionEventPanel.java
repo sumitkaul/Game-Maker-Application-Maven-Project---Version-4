@@ -439,6 +439,22 @@ public class ActionEventPanel {
 
     }
 	
+	public JPanel getInputPanel() {
+		return inputPanel;
+	}
+
+	public void setInputPanel(JPanel inputPanel) {
+		this.inputPanel = inputPanel;
+	}
+
+	public InputKeyPanel getInputKeyPanel() {
+		return inputKeyPanel;
+	}
+
+	public void setInputKeyPanel(InputKeyPanel inputKeyPanel) {
+		this.inputKeyPanel = inputKeyPanel;
+	}
+
 	JPanel getPanel()
 	{
 		return actionEventPanel;	
