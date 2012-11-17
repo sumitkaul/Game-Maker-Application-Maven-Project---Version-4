@@ -15,10 +15,8 @@ public class PhysicsComponent {
 
 
 	public static World world;
-	private static LinkedHashMap<String,Body> bodies;
-	private float colorRed;
-	private float colorBlue;
-	private float colorGreen;
+	public static LinkedHashMap<String,Body> bodies;
+	
 
 	public PhysicsComponent() throws IOException
 	{
@@ -26,36 +24,44 @@ public class PhysicsComponent {
 		this.bodies=new LinkedHashMap<String,Body>();
 
 	}
+      public void moveLogic() 
+      {
+          
+	world.step(1 / 60f, 8, 3);
 
-	public void createBody(String spriteName,String shape,String bodyType) throws IOException
+      }
+
+      public Body createBody(String spriteName,String shape,String bodyType,
+              float x,float y,float width,float height,float radius) throws IOException
 	{
 		Body body=null;
 		if(bodyType.equalsIgnoreCase("Dynamic"))
-			body=world.createBody(createBodyDefDynamic(500, 500));
+			body=world.createBody(createBodyDefDynamic(x,y));
 		if (bodyType.equalsIgnoreCase("Static"))
-			body=world.createBody(createBodyDefStatic(500, 500));
+			body=world.createBody(createBodyDefStatic(x,y));
 		if(body!=null)
 		{
 			FixtureDef bodyFixture=createFixtureDefinition(0.3f, 0.7f);
-
+                        
 			if (shape.equalsIgnoreCase("circle"))
 			{
-				bodyFixture.shape=createShapeCircle(30);
+				bodyFixture.shape=createShapeCircle(radius);
 			}
 			if (shape.equalsIgnoreCase("polygon"))
 			{
-				bodyFixture.shape=createShapePolygon(100,100);
+				bodyFixture.shape=createShapePolygon(width,height);
 			}
 			body.createFixture(bodyFixture);
                         bodies.put(spriteName, body);
 		}
+                return body;
 	}
 
 
 	public BodyDef createBodyDefDynamic(float x,float y)
 	{
 		BodyDef bodyDef=new BodyDef();
-		bodyDef.position.set(new Vec2(x,y));
+		bodyDef.position.set(new Vec2(x/30,y/30));
 		bodyDef.type=BodyType.DYNAMIC;
 		return bodyDef;
 	}
@@ -63,8 +69,9 @@ public class PhysicsComponent {
 	public BodyDef createBodyDefStatic(float x,float y)
 	{
 		BodyDef bodyDef=new BodyDef();
-		bodyDef.position.set(new Vec2(x,y));
+		bodyDef.position.set(new Vec2(x/30,y/30));
 		bodyDef.type=BodyType.STATIC;
+                
 		return bodyDef;
 	}
 
@@ -87,6 +94,7 @@ public class PhysicsComponent {
 		FixtureDef fixture=new FixtureDef();
 		fixture.restitution=restitution;
 		fixture.friction=friction;
+                
 		return fixture;
 	}
 

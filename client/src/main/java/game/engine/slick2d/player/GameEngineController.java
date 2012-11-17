@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import javax.swing.JFrame;
 import loader.GameDataPackageIO;
 import loader.GamePackage;
@@ -83,8 +84,11 @@ public class GameEngineController extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException {
-         
-        initSpriteImageMapping();
+        try {
+            initSpriteImageMapping();
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(GameEngineController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         initActionEvents();
 
     }
@@ -101,7 +105,9 @@ public class GameEngineController extends BasicGame {
     {
          renderSpriteImageDraw();   
     }   
-        
+    //Init   : Create a body  for every spriteimage
+    //Render the Image and try to move it through mouse listener
+    
         
     public Image getImageFromBytes(byte[] imageData, String imageName) {
         Image image = null;
@@ -138,35 +144,48 @@ public class GameEngineController extends BasicGame {
     
     public void renderSpriteImageDraw()
     {
-        for (SpriteModel s : SpriteList.getInstance().getSpriteList()) {
-            if (!s.isVisible()) {
+        for (SpriteModel sprite : SpriteList.getInstance().getSpriteList()) {
+            if (!sprite.isVisible()) {
                 continue;
             }
 
-            if (!imagesOfSprites.containsKey(s.getId())) {
-                if (imagesOfSprites.containsKey(s.getGroupId())) {
-                    imagesOfSprites.get(s.getGroupId()).draw((float) s.getPosX(), (float) s.getPosY(), (float) s.getWidth(), (float) s.getHeight());
+            if (!imagesOfSprites.containsKey(sprite.getId())) {
+                if (imagesOfSprites.containsKey(sprite.getGroupId())) {
+                    imagesOfSprites.get(sprite.getGroupId()).draw((float) sprite.getPosX(), (float) sprite.getPosY(), (float) sprite.getWidth(), (float) sprite.getHeight());
                     continue;
                 }
             }
-
-            imagesOfSprites.get(s.getId()).draw((float) s.getPosX(), (float) s.getPosY(), (float) s.getWidth(), (float) s.getHeight());
+           
+            renderImageDraw(sprite);
+            
         }
     
 
     }       
     
-    public void initSpriteImageMapping()
+    public void renderImageDraw(SpriteModel sprite)
+    {
+        for(int i=0;i<45;i++)
+        imagesOfSprites.get(sprite.getId()).setRotation(i);
+        
+        imagesOfSprites.get(sprite.getId()).draw((float) sprite.getPosX(), (float) sprite.getPosY(), (float) sprite.getWidth(), (float) sprite.getHeight());
+        for(int i=(int)imagesOfSprites.get(sprite.getId()).getRotation();i<100+45;i++)
+        imagesOfSprites.get(sprite.getId()).setRotation(i);
+        
+    }
+    
+  
+    public void initSpriteImageMapping() throws IOException
     {
         allSpriteModels = game.getSpriteList();
         eventsForGameController = game.getEventsForGameController();
-        imagesOfSprites = new HashMap<String, Image>(5);
+        imagesOfSprites = new HashMap<String, Image>();
 
-        for (SpriteModel s : allSpriteModels) {
+        for (SpriteModel sprite : allSpriteModels) {
 
-            SpriteList.getInstance().addSprite(s);
+            SpriteList.getInstance().addSprite(sprite);
 
-            String rid = s.getImageUrlString();
+            String rid = sprite.getImageUrlString();
             Resources r = ClientHandler.loadResource(rid, "tintin.cs.indiana.edu:8096", "/GameMakerServer/loadResource", new Exception[1]);
 
             byte[] imageData = r.getResource();
@@ -176,10 +195,27 @@ public class GameEngineController extends BasicGame {
                 continue;
             }
 
-            imagesOfSprites.put(s.getId(), image);
+            imagesOfSprites.put(sprite.getId(), image);
+            initSpriteBodyMapping(sprite);
+
         }
         
     }
+    
+    
+    public void initSpriteBodyMapping(SpriteModel sprite)
+    {
+        try {
+            physicsComponent.bodies.put(sprite.getId().toString(),physicsComponent.createBody
+                        (sprite.getId() ,"polygon","Dynamic",(float)
+                        sprite.getPosX(),(float)sprite.getPreviousY(),(float)sprite.getWidth()
+                        ,(float)sprite.getHeight(),0.0f));
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(GameEngineController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
     
     public void updateKeyEventBinding(GameContainer gc)
     {
