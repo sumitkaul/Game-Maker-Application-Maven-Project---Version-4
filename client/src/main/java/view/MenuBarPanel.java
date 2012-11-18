@@ -145,7 +145,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		user.add(login);
 		user.add(register);
 
-				JMenu menuMultiPlayer = new JMenu("MultiPlayer");
+				/*JMenu menuMultiPlayer = new JMenu("MultiPlayer");
 		JMenuItem startMultiPlayer = new JMenuItem("Start"); 
 		menuMultiPlayer.add(startMultiPlayer);
 		menuBar.add(menuMultiPlayer);
@@ -159,7 +159,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 				LOG.info("in start action listener");
 				p.selectOption();
 			}
-		});
+		});*/
 
 		JMenu menuMode = new JMenu("Mode");
 		ButtonGroup modeGroup = new ButtonGroup();
