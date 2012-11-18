@@ -168,8 +168,8 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		modes[1] = new JRadioButtonMenuItem("Multi Player");
 		modes[0].setSelected(true);
 		modes[0].addItemListener(this);
+		if(Constants.isGamePlayer){
 		modes[1].addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Constants.isMultiplayer = true;
@@ -178,6 +178,9 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 				p.selectOption();
 			}
 		});
+		}
+		if(Constants.isGameMaker)
+			modes[1].addItemListener(this);
 		modeGroup.add(modes[0]);
 		modeGroup.add(modes[1]);
 		menuMode.add(modes[0]);

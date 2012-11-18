@@ -105,5 +105,7 @@ public class Constants
 	public static String SELECT_LAYER="Please select the layer";
 	
 	public static boolean isMultiplayer = false;
+	public static boolean isGameMaker = false;
+	public static boolean isGamePlayer = false;
 
 }

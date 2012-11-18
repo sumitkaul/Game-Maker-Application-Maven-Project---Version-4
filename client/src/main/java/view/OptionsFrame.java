@@ -64,6 +64,7 @@ public class OptionsFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == makerButton) {
+        	Constants.isGameMaker=true;
             GameMakerView.getInstance();
             GameMakerView.getInstance().getBaseFrame().setVisible(true);
            // Design.getInstance().reset();
@@ -87,6 +88,7 @@ public class OptionsFrame implements ActionListener {
         }
 
         if (e.getSource() == playerButton) {
+        	Constants.isGamePlayer = true;
 //            GameMakerView.getInstance();
 //            GameMakerView.getInstance().setOptionFrame(this);
 //            GameMakerView.getInstance().reset();
