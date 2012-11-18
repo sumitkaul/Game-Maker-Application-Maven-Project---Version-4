@@ -124,9 +124,7 @@ public class PlayerButtonPanel implements ActionListener{
 	
 	public PlayerButtonPanel() {
 		
-		userColor=new Color(0);
 		userColor=Color.BLUE;
-		textColor=new Color(0);
 		textColor=Color.RED;
 		startButton = new JButton("Start");
 		startButton.addActionListener(new ActionListener() {
