@@ -38,7 +38,7 @@ public class ActionChangeGameStatus implements GameAction,Serializable {
 	yReversed.y -= ySpeed;
 	List<SpriteModel> spriteModels = SpriteList.getInstance().getSpriteList();
 	for (SpriteModel obj : spriteModels) {
-	    if (obj.equals(spriteModels))
+		if(obj.getClass().equals(spriteModels.getClass()))
 		continue;
 	    if (model.intersects(obj.getBoundingBox())) {
 		/*
