@@ -19,7 +19,7 @@ import org.uispec4j.interception.MainClassAdapter;
 
 import utility.Constants;
 import utility.SpriteList;
-import view.Design;
+import view.GameMakerView;
 import view.GamePanel;
 
 public class FacadeTest   {
@@ -61,7 +61,7 @@ public class FacadeTest   {
 	@Test
 	public void testCreateViewsForModels() {
 		//removing all the drawables and spritemodels.
-		Design.getInstance().reset();
+		GameMakerView.getInstance().reset();
 
 		SpriteModel selectedSpriteModel = new SpriteModel(190, 190, 10, 10, 100, 100, "","");
 		selectedSpriteModel.setImageId(12);
@@ -77,7 +77,7 @@ public class FacadeTest   {
 		else
 			assertTrue(false);
 		//post processing needed only for this test
-		Design.getInstance().reset();
+		GameMakerView.getInstance().reset();
 				
 	}	
 

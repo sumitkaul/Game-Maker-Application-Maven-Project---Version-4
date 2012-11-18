@@ -38,14 +38,12 @@ import view.companels.GameProgressSavePanel;
 
 public class ButtonPanel {
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ButtonPanel.class);
-	private Design design;
-	private ActionEventPanel actionEventPanel;
+	private GameMakerView design;
 	private JPanel buttonPanel;
 	private JLabel userName;
 	
-	public ButtonPanel(Design designArg) {
+	public ButtonPanel(GameMakerView designArg) {
 		this.design = designArg;
-		actionEventPanel = design.getActionEventPanel();
         buttonPanel = new JPanel();
 
         //controlPanel.setSize(Constants.CONTROL_PANEL_WIDTH, Constants.CONTROL_PANEL_LENGTH);
@@ -99,7 +97,7 @@ public class ButtonPanel {
             public void actionPerformed(ActionEvent e) {
                 design.getFacade().stopGame();
                 // ScoreDialog.showScoreDialog();
-                if (Design.getInstance().isShouldDisplayScore()) {
+                if (GameMakerView.getInstance().isShouldDisplayScore()) {
 		    JOptionPane.showMessageDialog(design.getBaseFrame(), "Your Score is " + Score.getInstance().getScore());
 		}
             }

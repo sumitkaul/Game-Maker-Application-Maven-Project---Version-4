@@ -1,9 +1,21 @@
 package utility;
 
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Rectangle;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import view.Design;
+import javax.swing.JFrame;
+
+import view.GameMakerView;
+import view.GamePanel;
+import view.OptionsFrame;
 
 import model.SpriteModel;
 import eventlistener.CollisionEventListener;
@@ -29,6 +41,8 @@ import action.RemoveAction;
 public class Helper {
 	public static Helper sharedHelper;
 	private int currentKeyCode; 
+	
+	private JFrame optionsFrame;
 	
 	public static Helper getsharedHelper(){
 		if(sharedHelper == null)
@@ -83,7 +97,7 @@ public class Helper {
 		
 		else if(actionString.equalsIgnoreCase("Increase Score")){
 		    gameAction = new ActionIncreaseScore(model.getScoreModificationValue());
-		    Design.getInstance().setShouldDisplayScore(true);
+		    GameMakerView.getInstance().setShouldDisplayScore(true);
 		}
 		
 		return gameAction;
@@ -149,6 +163,44 @@ public class Helper {
 		
 	}
 	
+	public JFrame createBaseFrame(int frameWidth, int frameHeight){
+		final JFrame frame = new JFrame();
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				Helper.getsharedHelper().getOptionsFrame().setVisible(true);
+				frame.setVisible(false);
+			}
+		});
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.setTitle("Game Maker");
+		frame.setSize(frameWidth, frameHeight);
+		frame.setLayout(new GridLayout(1, 3));
+		frame.setMinimumSize(new Dimension(Constants.MINIMUM_FRAMEWIDTH, Constants.MINIMUM_FRAMEHEIGHT));
+		frame.setResizable(true);
+		
+		frame.getRootPane().addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				int originalFrameWidth = Constants.FRAME_WIDTH;
+				int originalFrameHeight = Constants.FRAME_HEIGHT;
+
+				Component rootPane = e.getComponent();
+				Rectangle r = rootPane.getBounds();
+
+				double xScale = (double) r.width / originalFrameWidth;
+				double yScale = (double) r.height / originalFrameHeight;
+
+				ResizeHelper.getInstance().setxFactor(xScale);
+				ResizeHelper.getInstance().setyFactor(yScale);
+				
+//				GamePanel gamePanel = GameMakerView.getInstance().getGamePanel();
+//				gamePanel.repaint();
+			}
+		});
+		return frame;
+	}
+	
 	/*
 	 * GETTER AND SETTER
 	 */
@@ -159,5 +211,13 @@ public class Helper {
 
 	public void setCurrentKeyCode(int currentKeyCode) {
 		this.currentKeyCode = currentKeyCode;
+	}
+
+	public JFrame getOptionsFrame() {
+		return optionsFrame;
+	}
+
+	public void setOptionsFrame(JFrame optionsFrame) {
+		this.optionsFrame = optionsFrame;
 	}
 }

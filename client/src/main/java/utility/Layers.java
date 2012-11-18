@@ -6,7 +6,7 @@ package utility;
 import java.util.ArrayList;
 import java.util.List;
 
-import view.Design;
+import view.GameMakerView;
 
 
 
@@ -33,7 +33,7 @@ public class Layers {
 		String layer = "Layer "+layers.size();
 		this.layers.add(layer);
 		
-		Design.getInstance().getLayerBox().addItem(layer);
+		GameMakerView.getInstance().getLayerBox().addItem(layer);
 		
 		
 		return layer;

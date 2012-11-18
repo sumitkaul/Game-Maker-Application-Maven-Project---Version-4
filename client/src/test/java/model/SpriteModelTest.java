@@ -20,7 +20,7 @@ import org.junit.Test;
 import eventlistener.EventListener;
 
 import utility.Helper;
-import view.Design;
+import view.GameMakerView;
 
 
 
@@ -57,7 +57,7 @@ public class SpriteModelTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		Design.getInstance().reset();
+		GameMakerView.getInstance().reset();
 		double xSpeed = 10;
 		double ySpeed = 10;
 		double initialPosX = 100;
@@ -86,7 +86,7 @@ public class SpriteModelTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
-		Design.getInstance().reset();
+		GameMakerView.getInstance().reset();
 	}
 
 	/**

@@ -12,7 +12,7 @@ import facade.Facade;
 import utility.Helper;
 import utility.SpriteList;
 import utility.enums.PropertyField;
-import view.Design;
+import view.GameMakerView;
 
 public class TextFieldDocumentListener implements DocumentListener{
 
@@ -37,12 +37,12 @@ public class TextFieldDocumentListener implements DocumentListener{
         JTextField textField = (JTextField) e.getDocument().getProperty("parent");
         
 
-		Facade facade = Design.getInstance().getFacade();
+		Facade facade = GameMakerView.getInstance().getFacade();
         
         String textString = textField.getText();
     
-        DefaultListModel spriteListIndividualModel = Design.getInstance().getSpriteListIndividualModel();
-        DefaultListModel spriteListGroupModel = Design.getInstance().getSpriteListGroupModel();
+        DefaultListModel spriteListIndividualModel = GameMakerView.getInstance().getSpriteListIndividualModel();
+        DefaultListModel spriteListGroupModel = GameMakerView.getInstance().getSpriteListGroupModel();
         
         if(owner.equalsIgnoreCase(PropertyField.SPRITE_NAME.toString())){
 			String previousName = SpriteList.getInstance().getSelectedSpriteModel().getId();

@@ -73,7 +73,7 @@ public class Login implements ActionListener {
 				  //Login HTTPrequest to LoginServlet return result
 				  
 				  if(result){
-				  Design.getInstance().setUserName(userName.getText());
+				  GameMakerView.getInstance().setUserName(userName.getText());
 				  loginFrame.setVisible(false);
 				  }
 				  else{

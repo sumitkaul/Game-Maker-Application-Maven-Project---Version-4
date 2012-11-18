@@ -8,7 +8,7 @@ import javax.swing.*;
 
 import lookandfeel.AnimationHandler;
 
-import view.Design;
+import view.GameMakerView;
 
 public class CollapsiblePanel extends MouseAdapter {
     private ActionPanel[] aps;
@@ -39,8 +39,8 @@ public class CollapsiblePanel extends MouseAdapter {
 
     private void togglePanelVisibility(ActionPanel ap, String s) {
 	int index = getPanelIndex(ap);
-	CardLayout cl = (CardLayout) (Design.getInstance().getSwitchPanel().getLayout());
-	cl.show(Design.getInstance().getSwitchPanel(), s);
+//	CardLayout cl = (CardLayout) (GameMakerView.getInstance().getSwitchPanel().getLayout());
+//	cl.show(GameMakerView.getInstance().getSwitchPanel(), s);
 
     }
 

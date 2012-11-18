@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import view.Design;
+import view.GameMakerView;
 
 import model.SpriteModel;
 
@@ -37,7 +37,7 @@ public class SpriteList implements Serializable {
     
     public void removeSprite(SpriteModel spriteModel){
     	getSpriteList().remove(spriteModel);
-    	Design.getInstance().getGamePanel().unregisterModel(spriteModel);
+    	GameMakerView.getInstance().getGamePanel().unregisterModel(spriteModel);
   
     }
 

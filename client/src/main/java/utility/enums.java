@@ -21,7 +21,7 @@ public class enums {
 		PRIMARY,SECONDARY
 	}
 	public enum playerModes{
-		SINGLE,MULTI
+		PLAYER1,PLAYER2
 	}
 	
 	public enum PropertyField{

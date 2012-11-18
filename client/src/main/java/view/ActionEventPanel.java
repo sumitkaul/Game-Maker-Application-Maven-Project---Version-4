@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -20,7 +19,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -35,8 +33,10 @@ import model.SpriteModel;
 
 import org.apache.commons.lang3.StringUtils;
 
+import utility.Constants;
 import utility.Helper;
 import utility.SpriteList;
+import utility.enums.playerModes;
 import action.ActionStartOver;
 import action.GameAction;
 import controller.GameController;
@@ -44,7 +44,6 @@ import eventlistener.EventListener;
 import eventlistener.KeyPressedEventListener;
 import eventlistener.OutOfBoundaryEventListener;
 import facade.Facade;
-import gameMaker.gameMaker;
 
 public class ActionEventPanel {
 	
@@ -70,7 +69,7 @@ public class ActionEventPanel {
     private String[] eventTypes = {"Collision", "Input", "New Frame", "Time Change", "Out of Boundary"};
     private double startX, startY;
     private  Facade facade;
-    private Design design;
+    private GameMakerView design;
     private JPanel actionEventPanel;
     private DefaultListModel spriteListIndividualModel;
     private DefaultListModel  spriteListGroupModel;
@@ -78,7 +77,7 @@ public class ActionEventPanel {
     private JLabel eventActionName;
 
 	
-	public ActionEventPanel(Design designArg) {
+	public ActionEventPanel(GameMakerView designArg) {
 		
 		this.design = designArg;
 		this.facade =this.design.getFacade();
@@ -224,7 +223,8 @@ public class ActionEventPanel {
                 // list = new ArrayList<SpriteModel>();
                 // if(!list.contains(selectedSpriteModel))
                 // list.add(selectedSpriteModel);
-
+                if (!Constants.isMultiplayer)
+                {
                 if (selectedSpriteModel != null) {
 
                     int scoreModificationValue = 1;
@@ -270,8 +270,69 @@ public class ActionEventPanel {
                     JOptionPane.showMessageDialog(design.getBaseFrame(), "You haven't selected any objects", "Input Error", JOptionPane.ERROR_MESSAGE);
                 }
 
+                }
+                else
+                {
+                	LOG.info("In multiplayer key control assignment");
+                 String mode= (String)GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getComboBox().getSelectedItem();
+                 if (mode.equals("Player 1"))
+                 {
+                	 LOG.info("setting the control to player 1");
+                	 selectedSpriteModel.setMode(playerModes.PLAYER1);
+                 }
+                 else if (mode.equals("Player 2"))
+                 {
+                	 LOG.info("setting the control to player 2");
+                	 selectedSpriteModel.setMode(playerModes.PLAYER2);
+                 }
+                	if (selectedSpriteModel != null) {
+
+                        int scoreModificationValue = 1;
+
+                        if (scoreModificationField.isVisible()) {
+                            if (StringUtils.isNumeric(scoreModificationField.getText())) {
+                                scoreModificationValue = Integer.parseInt(scoreModificationField.getText());
+                            } else {
+                                JOptionPane.showMessageDialog(design.getBaseFrame(), "Integer expected in score modification field. currently set to " + scoreModificationValue + ". Resize window to view modification field", "Input Error", JOptionPane.WARNING_MESSAGE);
+                            }
+                        }
+                        selectedSpriteModel.setScoreModificationValue(scoreModificationValue);
+                        String eventActionString = eventName + "+" + actionName;
+                        eventActionListModel.addElement(eventActionString);
+                        SpriteModel secondaryModel = null;
+                        String itemName = (String) collisionSpriteBox.getSelectedItem();
+                        List<SpriteModel> spriteList = SpriteList.getInstance().getSpriteList();
+                        for (SpriteModel model : spriteList) {
+                            if (model.getId().equalsIgnoreCase(itemName)) {
+                                secondaryModel = model;
+                            }
+                        }
+                        EventListener listener = Helper.getsharedHelper().getEventListenerForString(eventName, actionName, selectedSpriteModel, secondaryModel);
+                        if (listener instanceof KeyPressedEventListener) {
+                            facade.getKeyListenerController().registerListener(listener);
+                        } else {
+                            facade.getGameController().registerListener(listener);
+                        }
+                        if (listener instanceof OutOfBoundaryEventListener) {
+                            OutOfBoundaryEventListener outOfBoundary = (OutOfBoundaryEventListener) listener;
+                            GameAction action = outOfBoundary.getAction();
+                            if (action instanceof ActionStartOver) {
+                                ActionStartOver startOver = (ActionStartOver) action;
+                                startOver.setStartX(startX);
+                                startOver.setStartY(startY);
+                            }
+                        }
+                        // gameController.getGameObjectsWithGroupId().put(selectedSpriteModel.getGroupId(),
+                        // list);
+                        selectedSpriteModel.getStringToEventMap().put(eventActionString, listener.getEventId());
+                        selectedSpriteModel.getEventListenerList().add(listener);
+                    } else {
+                        JOptionPane.showMessageDialog(design.getBaseFrame(), "You haven't selected any objects", "Input Error", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                }
             }
-        });
+            });
         removeEventActionButton = new JButton("Remove");
         removeEventActionButton.addActionListener(new ActionListener() {
 

@@ -25,7 +25,7 @@ import org.junit.Test;
 
 import utility.Constants;
 import utility.SpriteList;
-import view.Design;
+import view.GameMakerView;
 import view.GamePanel;
 
 import action.ActionMove;
@@ -65,7 +65,7 @@ public class KeyListenerControllerTest  {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		Design.getInstance().reset();
+		GameMakerView.getInstance().reset();
         //setAdapter(new MainClassAdapter(gameMaker.class, new String[0]));
         selectedSpriteModel = new SpriteModel(100, 100, 20, 20, 100, 100, "","");
 		//secondarySpriteModel= new SpriteModel(190, 190, 10, 10, 100, 100, "");
@@ -94,7 +94,7 @@ public class KeyListenerControllerTest  {
 	 */
 	@After
 	public void tearDown() throws Exception {
-		Design.getInstance().reset();
+		GameMakerView.getInstance().reset();
 	}
 
 	/**
@@ -103,7 +103,6 @@ public class KeyListenerControllerTest  {
 	@Test
 	public void testKeyPressed() {
 		keyListenerControllerTest.registerListener(keyListener);
-		System.out.println("test"+keyListenerControllerTest.getKeyEvents());
 		KeyEvent keyEvent=new KeyEvent(gamePanel, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), InputEvent.CTRL_MASK, KeyEvent.VK_SHIFT);
 		keyListenerControllerTest.keyPressed(keyEvent);
 		if(selectedSpriteModel.getPosY()==120)

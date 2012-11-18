@@ -56,7 +56,6 @@ import view.companels.TopScoresPanel;
 public class PlayerButtonPanel implements ActionListener{
 	
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PlayerButtonPanel.class);
-	private Design design;
 	private JPanel playerButtonPanel;
 	private JLabel userName;
 	private JButton startButton;
@@ -123,9 +122,8 @@ public class PlayerButtonPanel implements ActionListener{
 		return flag;
 	}
 	
-	public PlayerButtonPanel(Design designArg) {
+	public PlayerButtonPanel() {
 		
-		this.design = designArg;
 		userColor=new Color(0);
 		userColor=Color.BLUE;
 		textColor=new Color(0);
@@ -135,8 +133,8 @@ public class PlayerButtonPanel implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Design.getInstance().getFacade().startGame();
-				Design.getInstance().getGamePanel().requestFocusInWindow();
+				GameMakerView.getInstance().getFacade().startGame();
+				GameMakerView.getInstance().getGamePanel().requestFocusInWindow();
 			}
 		});
 		pauseButton = new JButton("Pause");
@@ -144,9 +142,9 @@ public class PlayerButtonPanel implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Design.getInstance().getFacade().stopGame();
+				GameMakerView.getInstance().getFacade().stopGame();
 				// ScoreDialog.showScoreDialog();
-				JOptionPane.showMessageDialog(Design.getInstance().getBaseFrame(), "Your Score is " + Score.getInstance().getScore());
+				JOptionPane.showMessageDialog(GameMakerView.getInstance().getBaseFrame(), "Your Score is " + Score.getInstance().getScore());
 			}
 		});
 
@@ -155,8 +153,8 @@ public class PlayerButtonPanel implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Design.getInstance().reset();
-				GameBaseLoadPanel p = new GameBaseLoadPanel(Design.getInstance().getGamePanel());
+				GameMakerView.getInstance().reset();
+				GameBaseLoadPanel p = new GameBaseLoadPanel(GameMakerView.getInstance().getGamePanel());
 
 				String gameData = p.readGameDataFromRemoteList();
 				if (gameData == null) {
@@ -173,10 +171,10 @@ public class PlayerButtonPanel implements ActionListener{
 				// SpriteList.getInstance().setSpriteList(allSpriteModels);
 				SpriteList.getInstance().setSelectedSpriteModel(allSpriteModels.get(0));
 
-				Design.getInstance().getFacade().getGameController().setEvents(game.getEventsForGameController());
-				Design.getInstance().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
+				GameMakerView.getInstance().getFacade().getGameController().setEvents(game.getEventsForGameController());
+				GameMakerView.getInstance().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
 
-				Design.getInstance().getFacade().createViewsForModels(game.getSpriteList());
+				GameMakerView.getInstance().getFacade().createViewsForModels(game.getSpriteList());
 
 				for (SpriteModel model : allSpriteModels) {
 					SpriteList.getInstance().addSprite(model);
@@ -191,7 +189,7 @@ public class PlayerButtonPanel implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				GameProgressLoadPanel p = new GameProgressLoadPanel(Design.getInstance().getGamePanel());
+				GameProgressLoadPanel p = new GameProgressLoadPanel(GameMakerView.getInstance().getGamePanel());
 
 				String gameData = p.readGameDataFromRemoteList();
 
@@ -209,10 +207,10 @@ public class PlayerButtonPanel implements ActionListener{
 				// SpriteList.getInstance().setSpriteList(allSpriteModels);
 				SpriteList.getInstance().setSelectedSpriteModel(allSpriteModels.get(0));
 
-				Design.getInstance().getFacade().getGameController().setEvents(game.getEventsForGameController());
-				Design.getInstance().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
+				GameMakerView.getInstance().getFacade().getGameController().setEvents(game.getEventsForGameController());
+				GameMakerView.getInstance().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
 
-				Design.getInstance().getFacade().createViewsForModels(game.getSpriteList());
+				GameMakerView.getInstance().getFacade().createViewsForModels(game.getSpriteList());
 
 				for (SpriteModel model : allSpriteModels) {
 					SpriteList.getInstance().addSprite(model);
@@ -225,9 +223,9 @@ public class PlayerButtonPanel implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), Design.getInstance().getFacade().getGameController().getEvents(), Design.getInstance().getFacade().getKeyListenerController().getKeyEvents(), Layers.getInstance().getLayers(), ClockDisplay.getInstance().isVisible());
+				GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), GameMakerView.getInstance().getFacade().getGameController().getEvents(), GameMakerView.getInstance().getFacade().getKeyListenerController().getKeyEvents(), Layers.getInstance().getLayers(), ClockDisplay.getInstance().isVisible());
 				String gameData = GameDataPackageIO.convertGamePackageToString(game);
-				GameProgressSavePanel p = new GameProgressSavePanel(Design.getInstance().getGamePanel());
+				GameProgressSavePanel p = new GameProgressSavePanel(GameMakerView.getInstance().getGamePanel());
 
 				p.saveGameToRemoteServer(gameData);
 
@@ -239,7 +237,7 @@ public class PlayerButtonPanel implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				TopScoresPanel p = new TopScoresPanel(Design.getInstance().getGamePanel());
+				TopScoresPanel p = new TopScoresPanel(GameMakerView.getInstance().getGamePanel());
 				p.readGameScoresFromRemoteList();
 			}
 		});

@@ -12,7 +12,7 @@ import utility.ClockDisplay;
 import utility.Layers;
 import utility.SpriteList;
 import view.ButtonPanel;
-import view.Design;
+import view.GameMakerView;
 import action.GameAction;
 
 public class Protocol {
@@ -22,7 +22,7 @@ public class Protocol {
 
 	public ObjectMessage createDataAsHost()
 	{
-		GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), Design.getInstance().getFacade().getGameController().getEvents(), Design.getInstance().getFacade().getKeyListenerController().getKeyEvents(), Layers.getInstance().getLayers(), ClockDisplay.getInstance().isVisible());
+		GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), GameMakerView.getInstance().getFacade().getGameController().getEvents(), GameMakerView.getInstance().getFacade().getKeyListenerController().getKeyEvents(), Layers.getInstance().getLayers(), ClockDisplay.getInstance().isVisible());
 		try{
 			msg = SessionFactory.getInstanceOf().getSession().createObjectMessage();
 			msg.setObject(game);
@@ -59,15 +59,15 @@ public class Protocol {
 		ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
 		// SpriteList.getInstance().setSpriteList(allSpriteModels);
 		SpriteList.getInstance().setSelectedSpriteModel(allSpriteModels.get(0));
-		Design.getInstance().getFacade().getGameController().setEvents(game.getEventsForGameController());
-		Design.getInstance().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
-		Design.getInstance().getFacade().createViewsForModels(game.getSpriteList());
+		GameMakerView.getInstance().getFacade().getGameController().setEvents(game.getEventsForGameController());
+		GameMakerView.getInstance().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
+		GameMakerView.getInstance().getFacade().createViewsForModels(game.getSpriteList());
 		for (SpriteModel model : allSpriteModels) {
 			SpriteList.getInstance().addSprite(model);
 			SpriteList.getInstance().setSelectedSpriteModel(model);
 			LOG.info("The id of the object is " + model.getId());
 		}
-		Design.getInstance().updateProperties();
+		GameMakerView.getInstance().updateProperties();
 
 	}
 	public void setMultiplayerAction(HashMap<GameAction, SpriteModel> map)

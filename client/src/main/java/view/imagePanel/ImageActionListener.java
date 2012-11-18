@@ -13,7 +13,9 @@ import javax.swing.JButton;
 import model.SpriteModel;
 import utility.Constants;
 import utility.Layers;
-import view.Design;
+import utility.enums.PropertyField;
+import view.GameMakerView;
+import view.PropertyPanel;
 
 public class ImageActionListener implements ActionListener {
 	
@@ -23,7 +25,8 @@ public class ImageActionListener implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		JButton btn = (JButton) arg0.getSource();
 		
-		Design design = Design.getInstance();
+		GameMakerView gameMakerView = GameMakerView.getInstance();
+		PropertyPanel propertyPanel = gameMakerView.getPropertyPanel();
 
         double sizeX;
         double sizeY;
@@ -31,8 +34,8 @@ public class ImageActionListener implements ActionListener {
         double speedY;
         String layer = null;
         try {
-            sizeX = Double.valueOf(design.getWidthTextField().getText());
-            sizeY = Double.valueOf(design.getHeightTextField().getText());
+            sizeX = Double.valueOf(propertyPanel.getValueForProperty(PropertyField.WIDTH.toString()));
+            sizeY = Double.valueOf(propertyPanel.getValueForProperty(PropertyField.HEIGHT.toString()));
             LOG.debug("got size values for customObject x:" + sizeX + " y:" + sizeY);
 
         } catch (Exception exception) {
@@ -41,8 +44,8 @@ public class ImageActionListener implements ActionListener {
             sizeY = 30;
         }
         try {
-            speedX = Double.valueOf(design.getVelocityXTextField().getText());
-            speedY = Double.valueOf(design.getVelocityYTextField().getText());
+            speedX = Double.valueOf(propertyPanel.getValueForProperty(PropertyField.VELOCITY_X.toString()));
+            speedY = Double.valueOf(propertyPanel.getValueForProperty(PropertyField.VELOCITY_Y.toString()));
             LOG.debug("got speed values for customObject x:" + speedX + " y:" + speedY);
         } catch (Exception exception) {
             LOG.error("did not read in speed values ... using defaults");
@@ -50,7 +53,7 @@ public class ImageActionListener implements ActionListener {
             speedY = 1;
         }
         try {
-            layer = design.getLayerBox().getSelectedItem().toString();
+            layer = gameMakerView.getLayerBox().getSelectedItem().toString();
             if (layer.equalsIgnoreCase(Constants.ALL_LAYERS)) {
                 if (Layers.getInstance().getLayers().size() == 1) {
                     Layers.getInstance().addNewLayer();
@@ -81,10 +84,10 @@ public class ImageActionListener implements ActionListener {
 			}
 			
             SpriteModel spriteModel = new SpriteModel(100, 100, speedX, speedY, sizeX, sizeY, btn.getName(), layer, imageId);
-            design.updateSpriteList(spriteModel);
-            design.updateProperties();
-            design.getFacade().addSpriteModelToView(spriteModel);
-            design.getGamePanel().repaint();
+            gameMakerView.updateSpriteList(spriteModel);
+            gameMakerView.updateProperties();
+            gameMakerView.getFacade().addSpriteModelToView(spriteModel);
+            gameMakerView.getGamePanel().repaint();
         }
 
 	}
