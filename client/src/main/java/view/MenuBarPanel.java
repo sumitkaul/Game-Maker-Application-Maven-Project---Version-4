@@ -173,7 +173,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Constants.isMultiplayer = true;
-				MultiPlayerOption p = new MultiPlayerOption(Design.getInstance().getGamePanel());
+				MultiPlayerOption p = new MultiPlayerOption(GameMakerView.getInstance().getGamePanel());
 				LOG.info("in start action listener");
 				p.selectOption();
 			}
