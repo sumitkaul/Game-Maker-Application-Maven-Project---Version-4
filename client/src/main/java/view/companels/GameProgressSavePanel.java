@@ -23,8 +23,6 @@ public class GameProgressSavePanel {
 
     public void saveGameToRemoteServer(String gameData) {
         JTextField saveNameField = new JTextField();
-        JTextField playerNamelField = new JTextField();
-
         if(Player.getInstance().getUsername()!=null)
         {
         Object[] message = new Object[]{"Save Name:", saveNameField};

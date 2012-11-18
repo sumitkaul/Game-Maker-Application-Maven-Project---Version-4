@@ -21,7 +21,6 @@ public class GameBaseSavePanel {
 
     public void saveGameToRemoteServer(String gameData) {
         JTextField gameNameField = new JTextField();
-        JTextField authorNamelField = new JTextField();
         if(Player.getInstance().getUsername()!=null)
         {
         Object[] message = new Object[]{"Game Base Name:", gameNameField};
