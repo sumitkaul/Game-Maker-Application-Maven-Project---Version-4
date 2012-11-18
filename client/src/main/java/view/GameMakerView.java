@@ -43,7 +43,6 @@ public class GameMakerView {
 		extendedImagePanel = new ImagePanel(imageActionListener);
 		leftPanel.add(extendedImagePanel.getImagePanel());
 		
-		
 		gamePanel = new GamePanel(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT);
 		facade = new Facade(gamePanel);
 
@@ -74,7 +73,17 @@ public class GameMakerView {
 //		infoPanel.setBounds(150, 0, 200, 200);
 //		layeredPane.add(infoPanel,new Integer(1));
 		
-		baseFrame.setVisible(true);
+		layerBox = new JComboBox(Layers.getInstance().getLayers().toArray());
+		layerBox.addItemListener(new ItemListener() {
+
+		    @Override
+		    public void itemStateChanged(ItemEvent e) {
+			String layer = ((String) ((JComboBox) e.getSource()).getSelectedItem());
+			gamePanel.setCurrentLayer(layer);
+			gamePanel.repaint();
+		    }
+		});
+		
 	}
 
 	public void createDuplicateSpriteModel(SpriteModel model) {
