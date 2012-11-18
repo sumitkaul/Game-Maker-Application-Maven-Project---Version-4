@@ -371,7 +371,7 @@ public class ActionEventPanel {
                 eventActionListModel.clear();
                 collisionSpriteModel.removeAllElements();
                 for (int i = 0; i < SpriteList.getInstance().getSpriteList().size(); i++) {
-                    if (SpriteList.getInstance().getSpriteList().get(i).getId() == spriteList.getSelectedValue()) {
+                    if (SpriteList.getInstance().getSpriteList().get(i).getId().equals(spriteList.getSelectedValue())) {
                         SpriteList.getInstance().setSelectedSpriteModel(SpriteList.getInstance().getSpriteList().get(i));
                         design.updateProperties();
 
@@ -473,7 +473,7 @@ public class ActionEventPanel {
                     }
 
                     for (int i = 0; i < SpriteList.getInstance().getSpriteList().size(); i++) {
-                        if (SpriteList.getInstance().getSpriteList().get(i).getId() == spriteList.getSelectedValue()) {
+                        if (SpriteList.getInstance().getSpriteList().get(i).getId().equals(spriteList.getSelectedValue())) {
                         } else {
                             collisionSpriteModel.addElement(SpriteList.getInstance().getSpriteList().get(i).getId());
                         }
