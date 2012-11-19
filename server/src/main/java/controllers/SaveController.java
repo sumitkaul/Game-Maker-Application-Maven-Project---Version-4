@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -26,16 +27,10 @@ public class SaveController {
 	
 	@RequestMapping(value = "/saveResource", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Gson> saveResourc(HttpEntity<byte[]> requestEntity) {
+	public String saveResource(@RequestParam("resource") String json) {
 		Gson gson = new Gson();
         try {
-            //log.info("request /saveResource from: " + request.getRemoteHost() + " " + request.getRemoteAddr());
         	
-        	HttpHeaders requestHeader = requestEntity.getHeaders();
-            String json =requestHeader.get("resource").get(0);
-
-            //json = "{'name':'test2','type':'test','data':[1,1,2,2],'username':'han'}";
-
             Resources resource = gson.fromJson(json, Resources.class);
 
             Session session = DatabaseHandler.getDatabaseHandlerInstance().getHibernateSession();
@@ -45,13 +40,13 @@ public class SaveController {
 
             session.close();
 
-            gson.toJson(true);
+            return gson.toJson(true);
 
         } catch (Exception e) {
-            gson.toJson(false);
+        	return gson.toJson(false);
         } 
 		
-		return new ResponseEntity<Gson>(gson, null);
+	
 	}
 	
 	@RequestMapping(value = "/saveGameBase", method = RequestMethod.POST)
