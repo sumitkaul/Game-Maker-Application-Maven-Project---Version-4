@@ -98,12 +98,8 @@ public class LoadController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/listTopScores", method = RequestMethod.GET)
 	@ResponseBody		
-	 public String  listTopScores(HttpEntity<byte[]> requestEntity){
-	       		
-		 		HttpHeaders requestHeaders= requestEntity.getHeaders();
-	            String gameName = requestHeaders.get("game_name").get(0);
-	            		
-
+	 public String  listTopScores(@RequestParam("game_name") String gameName){
+        		
 	            if (gameName.isEmpty()) {
 	                return " ";
 	            }
@@ -130,13 +126,8 @@ public class LoadController {
 	
 	@RequestMapping(value = "/listAllGamePlays", method = RequestMethod.GET)
 	@ResponseBody	
-	 public String listAllGamePlays(HttpEntity<byte[]> requestEntity)
+	 public String listAllGamePlays(@RequestParam("player_name") String playerName)
 	 {
-	 		HttpHeaders requestHeaders= requestEntity.getHeaders();
-	            String playerName = requestHeaders.get("player_name").get(0);
-	            
-	            		
-
 	            if (playerName.isEmpty()) {
 	                return " ";
 	            }
@@ -164,7 +155,7 @@ public class LoadController {
 	
 		@RequestMapping(value = "/listMultiPlayerGameBases", method = RequestMethod.GET)
 		@ResponseBody
-		public String listMultiPlayerGameBases(HttpEntity<byte[]> requestEntity) {
+		public String listMultiPlayerGameBases() {
 
 				int isMultiplayer=1;
 
