@@ -3,11 +3,14 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.jms.JMSException;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
+import utility.Constants;
 
 import multiplayer.Receiver;
 import multiplayer.Sender;
@@ -22,8 +25,41 @@ public class MultiPlayerOption{
 	private JButton hostButton;
 	private JButton joinButton;
 	private JLabel optionLabel;
+	private String sendingQueueName;
+	private String receivingQueueName;
 	
 	
+	public String getSendingQueueName() {
+		return sendingQueueName;
+	}
+
+	public void setSendingQueueName(String sendingQueueName) {
+		if (Constants.isHost)
+		{
+		this.sendingQueueName = sendingQueueName +"#sender";
+		}
+		else
+		{
+			this.sendingQueueName = sendingQueueName +"#receiver";
+		}
+		
+	}
+
+	public String getReceivingQueueName() {
+		return receivingQueueName;
+	}
+
+	public void setReceivingQueueName(String receivingQueueName) {
+		if (Constants.isHost)
+		{
+		this.sendingQueueName = sendingQueueName +"#receiver";
+		}
+		else
+		{
+			this.sendingQueueName = sendingQueueName +"#sender";
+		}
+	}
+
 	public MultiPlayerOption(JComponent rootComp) {
         this.rootComp = rootComp;
     }
@@ -44,15 +80,22 @@ public class MultiPlayerOption{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			
-				String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the name of the hosted game");
-				//String topic="TEST3";
-				Sender sender=new Sender();
-				sender.sendAsHost(queueName);
-
-				Receiver.getInstanceOf().runGame();
+				Constants.isHost = true;
 				//HostGame p = new HostGame(Design.getInstance().getGamePanel());
 				//p.displayHostedGames();
+				String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the name of the hosted game");
+				setSendingQueueName(queueName);
+				setReceivingQueueName(queueName);
+				Sender sender=new Sender();
+				sender.sendAsHost(getSendingQueueName());
+				try {
+					Receiver.getInstanceOf().subscribe(getReceivingQueueName());
+				} catch (JMSException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				Receiver.getInstanceOf().runGame();
+				
 
 			}
 				
@@ -62,9 +105,23 @@ public class MultiPlayerOption{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Constants.isHost = false;
 				
 				JoinGame p = new JoinGame(GameMakerView.getInstance().getGamePanel());
 				p.displayJoinGames();
+				//Should be supported with a GUI displaying a list of games available to 
+				String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the game you want to join");
+				setSendingQueueName(queueName);
+				setReceivingQueueName(queueName);
+				Sender sender=new Sender();
+				sender.sendAsHost(getSendingQueueName());
+				try {
+					Receiver.getInstanceOf().subscribe(getReceivingQueueName());
+				} catch (JMSException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				Receiver.getInstanceOf().runGame();
 			}
 				
 		});

@@ -129,4 +129,11 @@ public class Receiver implements MessageListener{
 	}
 
 
+
+	public void subscribe(String receivingQueueName) throws JMSException {
+		Subscribe.getInstanceOf().setQueue(receivingQueueName);
+		
+	}
+
+
 }
