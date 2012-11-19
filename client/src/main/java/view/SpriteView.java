@@ -6,21 +6,15 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-
-import javax.imageio.ImageIO;
-
-import utility.ResizeHelper;
-import utility.Util;
-import view.communication.ClientHandler;
 
 import model.Resources;
 import model.SpriteModel;
+import utility.Constants;
+import utility.ResizeHelper;
+import utility.Util;
+import view.communication.ClientHandler;
 
 public class SpriteView implements Drawable {
 
@@ -77,8 +71,8 @@ public class SpriteView implements Drawable {
 	}
 	
 	public Image getImageFromDb(int id){
-		Resources resource = ClientHandler.loadResource(String.valueOf(id), "tintin.cs.indiana.edu:8096", 
-				"/GameMakerServer/loadResource", new Exception[1]);
+		Resources resource = ClientHandler.loadResource(String.valueOf(id), Constants.HOST, 
+				Constants.PATH+"/loadResource", new Exception[1]);
 		Image image = Util.convertByteArraytoImage(resource.getResource(), "jpg");
 		return image;
 	}

@@ -2,8 +2,11 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JOptionPane;
+
 import model.Player;
+import utility.Constants;
 import view.communication.ClientHandler;
 
 public class RegisterFrame extends LoginFrame {
@@ -35,7 +38,7 @@ public class RegisterFrame extends LoginFrame {
                 @SuppressWarnings("deprecation")
 				String pass_word = getPassword().getText();
 
-                boolean registerok = ClientHandler.userRegister(user_name, pass_word, "tintin.cs.indiana.edu:8096", "/GameMakerServer/registerUser", new Exception[1]);
+                boolean registerok = ClientHandler.userRegister(user_name, pass_word, Constants.HOST, Constants.PATH+"/registerUser", new Exception[1]);
 
 
                 GameMakerView d = GameMakerView.getInstance();

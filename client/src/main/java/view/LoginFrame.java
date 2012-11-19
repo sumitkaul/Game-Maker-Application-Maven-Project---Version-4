@@ -2,6 +2,7 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -9,7 +10,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
 import model.Player;
+import utility.Constants;
 import view.communication.ClientHandler;
 
 public class LoginFrame extends JFrame {
@@ -104,7 +107,7 @@ public class LoginFrame extends JFrame {
                 String user_name = username.getText();
                 String pass_word = password.getText();
 
-                boolean loginok = ClientHandler.userLogin(user_name, pass_word, "tintin.cs.indiana.edu:8096", "/GameMakerServer/loginUser", new Exception[1]);
+                boolean loginok = ClientHandler.userLogin(user_name, pass_word, Constants.HOST, Constants.PATH+"/loginUser", new Exception[1]);
 
                 if (loginok) {
                     d.getButtonPanel().getUserName().setText("Welcome " + user_name);
