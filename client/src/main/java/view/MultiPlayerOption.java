@@ -109,6 +109,19 @@ public class MultiPlayerOption{
 				
 				JoinGame p = new JoinGame(GameMakerView.getInstance().getGamePanel());
 				p.displayJoinGames();
+				//Should be supported with a GUI displaying a list of games available to 
+				String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the game you want to join");
+				setSendingQueueName(queueName);
+				setReceivingQueueName(queueName);
+				Sender sender=new Sender();
+				sender.sendAsHost(getSendingQueueName());
+				try {
+					Receiver.getInstanceOf().subscribe(getReceivingQueueName());
+				} catch (JMSException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				Receiver.getInstanceOf().runGame();
 			}
 				
 		});
