@@ -107,5 +107,6 @@ public class Constants
 	public static boolean isMultiplayer = false;
 	public static boolean isGameMaker = false;
 	public static boolean isGamePlayer = false;
+	public static boolean isHost = false;
 
 }
