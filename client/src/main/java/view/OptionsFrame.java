@@ -2,29 +2,16 @@ package view;
 
 import game.engine.slick2d.player.GameEngineController;
 import game.engine.slick2d.player.TestEngine;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
-
 import org.newdawn.slick.SlickException;
-import utility.ClockDisplay;
 import utility.Constants;
-
 import net.miginfocom.swing.MigLayout;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import lookandfeel.AnimationHandler;
-
 import org.newdawn.slick.AppGameContainer;
 
-import chat.ChatReceiver;
-import chat.ChatSender;
-import chat.StatusReceiver;
-import chat.StatusSender;
 
 public class OptionsFrame implements ActionListener {
 
@@ -98,10 +85,7 @@ public class OptionsFrame implements ActionListener {
 //            //Design.getInstance().getLeftImagePanel().setVisible(false);
 //            GameMakerView.getInstance().getBaseFrame().getContentPane().remove(GameMakerView.getInstance().getLeftImagePanel());
 //            GameMakerView.getInstance().getBaseFrame().validate();
-//            ChatSender chatSender=new ChatSender();
-//            ChatReceiver chatReceiver=new ChatReceiver();
-//            StatusSender statusSender=new StatusSender();
-//            StatusReceiver statusReceiver=new StatusReceiver();
+//            
 //            try {
 //                Thread.sleep(1000);
 //            } catch (InterruptedException e1) {

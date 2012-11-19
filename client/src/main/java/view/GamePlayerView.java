@@ -2,6 +2,11 @@ package view;
 
 import javax.swing.JFrame;
 
+import chat.ChatReceiver;
+import chat.ChatSender;
+import chat.StatusReceiver;
+import chat.StatusSender;
+
 import utility.Constants;
 import utility.Helper;
 
@@ -20,6 +25,10 @@ public class GamePlayerView {
 		baseFrame.add(playerButtonPanel.getPlayerButtonPanel());
 		
 		baseFrame.setVisible(true);
+		ChatSender chatSender=new ChatSender();
+		ChatReceiver chatReceiver=new ChatReceiver();
+		StatusSender statusSender=new StatusSender();
+		StatusReceiver statusReceiver=new StatusReceiver();
 	}
 	
 }
