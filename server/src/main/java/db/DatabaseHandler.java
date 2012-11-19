@@ -49,7 +49,7 @@ public class DatabaseHandler {
     }
 
     public static DatabaseHandler getDatabaseHandlerInstance() {
-        return DatabaseHandler.getDatabaseHandler("/config/hibernate.cfg.xml");
+        return DatabaseHandler.getDatabaseHandler("hibernate.cfg.xml");
     }
 
     public synchronized void cleanUp() {

@@ -13,7 +13,7 @@
             org.hibernate.transaction.JDBCTransactionFactory
         </property>
         <property name="hibernate.current_session_context_class">thread</property>
-        <mapping resource="db/User.hbm.xml"/>
-        <mapping resource="db/Resources.hbm.xml"/>
+        <mapping resource="User.hbm.xml"/>
+        <mapping resource="Resources.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
