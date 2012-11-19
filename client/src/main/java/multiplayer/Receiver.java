@@ -14,7 +14,7 @@ import action.GameAction;
 import loader.GamePackage;
 import model.SpriteModel;
 
-public class Receiver implements Runnable, MessageListener{
+public class Receiver implements MessageListener{
 
 
 	private MessageConsumer consumer;
@@ -22,7 +22,6 @@ public class Receiver implements Runnable, MessageListener{
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(Receiver.class);
 
 	private boolean receiveStatus = true;
-	private Thread thread;
 	private Message message;
 
 
@@ -30,25 +29,8 @@ public class Receiver implements Runnable, MessageListener{
 	{
 		return receiver;
 	}
-	private Receiver()
-	{
-		thread = new Thread();
-	}
+	
 
-	public void startListening()
-	{
-		thread.start();
-		LOG.debug("in start listening ------------------------------------------");
-	}
-
-	public void stopListening()
-	{
-		try {
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public  void receiveFromHost(String topic) throws JMSException{
 
@@ -65,7 +47,6 @@ public class Receiver implements Runnable, MessageListener{
 		{
 
 		}
-
 	}
 	//	public static void main(String[] args0)
 	//	{
@@ -85,21 +66,6 @@ public class Receiver implements Runnable, MessageListener{
 		SessionFactory.getInstanceOf().createConnection();
 		Subscribe.getInstanceOf().setQueue("TEST2");
 		message=  Subscribe.getInstanceOf().receiveData();
-
-	}
-
-	@Override
-	public void run() 
-	{
-		while (receiveStatus)
-		{
-			try {
-				LOG.debug("in run ???????????????????????");
-				receiveData();
-			} catch (JMSException e) {
-				e.printStackTrace();
-			}
-		}
 
 	}
 
