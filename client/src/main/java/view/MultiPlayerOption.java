@@ -3,6 +3,7 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.jms.JMSException;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -83,9 +84,16 @@ public class MultiPlayerOption{
 				//HostGame p = new HostGame(Design.getInstance().getGamePanel());
 				//p.displayHostedGames();
 				String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the name of the hosted game");
+				setSendingQueueName(queueName);
+				setReceivingQueueName(queueName);
 				Sender sender=new Sender();
-				sender.sendAsHost(queueName);
-
+				sender.sendAsHost(getSendingQueueName());
+				try {
+					Receiver.getInstanceOf().subscribe(getReceivingQueueName());
+				} catch (JMSException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				Receiver.getInstanceOf().runGame();
 				
 
