@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import utility.Constants;
+
 import multiplayer.Receiver;
 import multiplayer.Sender;
 import net.miginfocom.swing.MigLayout;
@@ -44,6 +46,7 @@ public class MultiPlayerOption{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Constants.isHost = true;
 				//HostGame p = new HostGame(Design.getInstance().getGamePanel());
 				//p.displayHostedGames();
 				String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the name of the hosted game");
@@ -62,6 +65,7 @@ public class MultiPlayerOption{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Constants.isHost = false;
 				
 				JoinGame p = new JoinGame(GameMakerView.getInstance().getGamePanel());
 				p.displayJoinGames();
