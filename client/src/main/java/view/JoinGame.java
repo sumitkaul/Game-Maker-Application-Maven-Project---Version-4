@@ -2,19 +2,16 @@ package view;
 
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
 import model.GameProgressSaveInfo;
-
+import utility.Constants;
 import view.communication.ClientHandler;
-import view.communication.protocol.GameHostInfo;
 
 public class JoinGame {
 	
     private JComponent rootComp;
-    private final String host = "tintin.cs.indiana.edu:8096";
-    private final String path = "/GameMakerServer";
+    private final String host = Constants.HOST;
+    private final String path = Constants.PATH;
     private final String urlListAllHostGames = "/listAllHostGames";
     private final String urlloadHostGames = "/loadHostGames";
 	
