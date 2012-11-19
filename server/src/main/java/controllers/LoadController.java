@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import protocol.GameSaveInfo;
@@ -29,10 +30,7 @@ import db.Resources;
 public class LoadController {
 	@RequestMapping(value = "/loadGameBase", method = RequestMethod.GET)
 	@ResponseBody
-	public String loadGameBase(HttpEntity<byte[]> requestEntity) {
-
-		HttpHeaders requestHeaders = requestEntity.getHeaders();
-		String gameName = requestHeaders.get("game_name").get(0);
+	public String loadGameBase(@RequestParam("game_name") String gameName) {
 
 		String sql = "select game_data from GameBase where game_name='"
 				+ gameName + "'";
@@ -42,7 +40,6 @@ public class LoadController {
 		if (game.isEmpty()) {
 			return "";
 		}
-
 		return game.get(0);
 	}
 
@@ -94,7 +91,7 @@ public class LoadController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/listAllGameBases", method = RequestMethod.GET)
 	@ResponseBody	
-	public String  listAllGameBases(HttpEntity<byte[]> requestEntity){
+	public String  listAllGameBases(){
         
             String sql = "select game_name from GameBase";
             List<String> gameNames = DatabaseHandler.Query(sql);
