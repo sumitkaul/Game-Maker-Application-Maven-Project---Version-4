@@ -46,10 +46,7 @@ public class LoadController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/loadGamePlay", method = RequestMethod.GET)
 	@ResponseBody
-	public String loadGamePlay(HttpEntity<byte[]> requestEntity) {
-		HttpHeaders requestHeaders = requestEntity.getHeaders();
-
-		String gameSaveId = requestHeaders.get("game_save_id").get(0);
+	public String loadGamePlay(@RequestParam("game_save_id") String gameSaveId) {
 
 		if (gameSaveId.isEmpty()) {
 			return " ";
@@ -68,10 +65,7 @@ public class LoadController {
 
 	@RequestMapping(value = "/loadResource", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Gson> loadResource(HttpEntity<byte[]> requestEntity) {
-
-		HttpHeaders requestHeaders = requestEntity.getHeaders();
-		String id = requestHeaders.get("resource_id").get(0);
+	public String loadResource(@RequestParam("resource_id") String id) {
 
 		Integer rid = Integer.parseInt(id);
 
@@ -83,9 +77,8 @@ public class LoadController {
 		session.close();
 
 		Gson gson = new Gson();
-		gson.toJson(r);
 
-		return new ResponseEntity<Gson>(gson, null);
+		return gson.toJson(r);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -105,12 +98,8 @@ public class LoadController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/listTopScores", method = RequestMethod.GET)
 	@ResponseBody		
-	 public String  listTopScores(HttpEntity<byte[]> requestEntity){
-	       		
-		 		HttpHeaders requestHeaders= requestEntity.getHeaders();
-	            String gameName = requestHeaders.get("game_name").get(0);
-	            		
-
+	 public String  listTopScores(@RequestParam("game_name") String gameName){
+        		
 	            if (gameName.isEmpty()) {
 	                return " ";
 	            }
@@ -137,13 +126,8 @@ public class LoadController {
 	
 	@RequestMapping(value = "/listAllGamePlays", method = RequestMethod.GET)
 	@ResponseBody	
-	 public String listAllGamePlays(HttpEntity<byte[]> requestEntity)
+	 public String listAllGamePlays(@RequestParam("player_name") String playerName)
 	 {
-	 		HttpHeaders requestHeaders= requestEntity.getHeaders();
-	            String playerName = requestHeaders.get("player_name").get(0);
-	            
-	            		
-
 	            if (playerName.isEmpty()) {
 	                return " ";
 	            }
@@ -171,7 +155,7 @@ public class LoadController {
 	
 		@RequestMapping(value = "/listMultiPlayerGameBases", method = RequestMethod.GET)
 		@ResponseBody
-		public String listMultiPlayerGameBases(HttpEntity<byte[]> requestEntity) {
+		public String listMultiPlayerGameBases() {
 
 				int isMultiplayer=1;
 
