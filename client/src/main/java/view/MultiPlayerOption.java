@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import multiplayer.Receiver;
 import multiplayer.Sender;
@@ -44,9 +45,10 @@ public class MultiPlayerOption{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			
-				String topic="TEST3";
+				String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the name of the hosted game");
+				//String topic="TEST3";
 				Sender sender=new Sender();
-				sender.sendAsHost(topic);
+				sender.sendAsHost(queueName);
 
 				Receiver.getInstanceOf().runGame();
 				//HostGame p = new HostGame(Design.getInstance().getGamePanel());
