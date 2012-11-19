@@ -24,8 +24,41 @@ public class MultiPlayerOption{
 	private JButton hostButton;
 	private JButton joinButton;
 	private JLabel optionLabel;
+	private String sendingQueueName;
+	private String receivingQueueName;
 	
 	
+	public String getSendingQueueName() {
+		return sendingQueueName;
+	}
+
+	public void setSendingQueueName(String sendingQueueName) {
+		if (Constants.isHost)
+		{
+		this.sendingQueueName = sendingQueueName +"#sender";
+		}
+		else
+		{
+			this.sendingQueueName = sendingQueueName +"#receiver";
+		}
+		
+	}
+
+	public String getReceivingQueueName() {
+		return receivingQueueName;
+	}
+
+	public void setReceivingQueueName(String receivingQueueName) {
+		if (Constants.isHost)
+		{
+		this.sendingQueueName = sendingQueueName +"#receiver";
+		}
+		else
+		{
+			this.sendingQueueName = sendingQueueName +"#sender";
+		}
+	}
+
 	public MultiPlayerOption(JComponent rootComp) {
         this.rootComp = rootComp;
     }
@@ -50,7 +83,6 @@ public class MultiPlayerOption{
 				//HostGame p = new HostGame(Design.getInstance().getGamePanel());
 				//p.displayHostedGames();
 				String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the name of the hosted game");
-				
 				Sender sender=new Sender();
 				sender.sendAsHost(queueName);
 
