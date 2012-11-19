@@ -46,12 +46,8 @@ public class LoginController {
 
 	@RequestMapping(value = "/registerUser", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Gson> register(HttpEntity<byte[]> requestEntity) {
+	public String register(@RequestParam("username") String userName,@RequestParam("password") String passWord) {
 		Gson gson = new Gson();
-		HttpHeaders requestHeader = requestEntity.getHeaders();
-		String userName = requestHeader.get("username").get(0);
-		String passWord = requestHeader.get("password").get(0);
-
 		Session session = DatabaseHandler.getDatabaseHandlerInstance()
 				.getHibernateSession();
 		Transaction t = session.beginTransaction();
@@ -61,7 +57,7 @@ public class LoginController {
 
 		session.close();
 		gson.toJson(true);
-		return new ResponseEntity<Gson>(gson, null);
+		return gson.toJson(true);
 
 	}
 }
