@@ -51,13 +51,7 @@ public class SaveController {
 	
 	@RequestMapping(value = "/saveGameBase", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Gson> saveGame(HttpEntity<byte[]> requestEntity) {
-		
-		HttpHeaders requestHeader = requestEntity.getHeaders();
-		
-		String game_name = requestHeader.get("game_name").get(0);
-        String game_data = requestHeader.get("game_data").get(0);
-        String game_author = requestHeader.get("game_author").get(0);
+	public String saveGameBase(@RequestParam("game_name") String game_name,@RequestParam("game_data") String game_data,@RequestParam("game_author") String game_author) {
 
         Gson gson = new Gson();
 
@@ -78,12 +72,11 @@ public class SaveController {
 
             log.info("added game: " + game_name);
 
-            gson.toJson(true);
+            return gson.toJson(true);
         } else {
-            gson.toJson(false);
+            return gson.toJson(false);
         }
         
-        return new ResponseEntity<Gson>(gson, null);
 	}
 	
 	@RequestMapping(value = "/saveGameProgress", method = RequestMethod.POST)
