@@ -64,7 +64,7 @@ public class ImagePanel implements ActionListener,ChangeListener {
 		this.imageActionListener = imageActionListener;
 		JPanel propertiesPanel = createPropertiesPanel();
 		getImages(); //change this
-		totalImages = ClientHandler.countTag(null, host, "/GameMakerServer/countTag", new Exception[1]);
+		totalImages = ClientHandler.countTag(null, Constants.HOST, Constants.PATH+"/countTag", new Exception[1]);
 		int lastIndex = allImages.size() < imagesPerPage ? allImages.size():imagesPerPage;
 		presentImages = allImages.subList(0, lastIndex);
 		imageTiles = new JPanel(new GridLayout(7,2));
@@ -99,7 +99,7 @@ public class ImagePanel implements ActionListener,ChangeListener {
 
 	private String[] getImageTags() {
 		//String[] tags = {"All", "Tanks", "Bricks", "Enter tag name:"};
-		String tags[] = ClientHandler.listTags(host, "/GameMakerServer/getAllTags", new Exception[1]);
+		String tags[] = ClientHandler.listTags(Constants.HOST, Constants.PATH+"/getAllTags", new Exception[1]);
 		String[] finalTags = new String[tags.length+1];
 		finalTags[0] = new String("All");
 		for(int i = 1;i<tags.length;i++){
@@ -220,7 +220,7 @@ public class ImagePanel implements ActionListener,ChangeListener {
 		allImages = new ArrayList<ImageProperties>();
 		Exception[] exceptions = new Exception[1];
 		Resources[] images = ClientHandler.listPageResources(String.valueOf(presentPage), String.valueOf(imagesPerPage),
-				tag, host, "/GameMakerServer/listPageResources", exceptions);
+				tag, Constants.HOST, Constants.PATH+"/listPageResources", exceptions);
 		for(int i = 0; i < images.length; i++){
 			Image image = Util.convertByteArraytoImage(images[i].getResource(), "jpg");
 			ImageProperties im = new ImageProperties(String.valueOf(images[i].getReourceNumber()),
@@ -278,7 +278,7 @@ public class ImagePanel implements ActionListener,ChangeListener {
 		else if(e.getSource() == imageTags){
 			presentPage = 1;
 			String tag = (String)imageTags.getSelectedItem();
-			totalImages = ClientHandler.countTag(tag, host, "/GameMakerServer/countTag", new Exception[1]);
+			totalImages = ClientHandler.countTag(tag, Constants.HOST, Constants.PATH+"/countTag", new Exception[1]);
 			getImages();
 			updateImageTiles();
 			populatePaginationPanel();
