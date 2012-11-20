@@ -26,38 +26,29 @@ public class RegisterFrame extends LoginFrame {
             final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(RegisterButtonListner.class);
 
             if (e.getSource() ==  getLogin()) {
+            	if(getUsername().getText().equalsIgnoreCase("") || getPassword().getText().equalsIgnoreCase("")){
+            		getLoginPanel();
+    			  }else{
+    				  setVisible(false);
 
-//                Player player = Player.getInstance();
-//                player.setUsername(username.getText());
-//                player.setPassword(password.getText());
-//                player.setUsertype("GameMaker");
+    	                String user_name = getUsername().getText();
+    	                @SuppressWarnings("deprecation")
+    					String pass_word = getPassword().getText();
 
-                setVisible(false);
-
-                String user_name = getUsername().getText();
-                @SuppressWarnings("deprecation")
-				String pass_word = getPassword().getText();
-
-                boolean registerok = ClientHandler.userRegister(user_name, pass_word, Constants.HOST, Constants.PATH+"/registerUser", new Exception[1]);
+    	                boolean registerok = ClientHandler.userRegister(user_name, pass_word, Constants.HOST, Constants.PATH+"/registerUser", new Exception[1]);
 
 
-                GameMakerView d = GameMakerView.getInstance();
-                if (registerok) {
-                    Player.getInstance().setUsername(user_name);
-                    Player.getInstance().setPassword(pass_word);
+    	                GameMakerView d = GameMakerView.getInstance();
+    	                if (registerok) {
+    	                    Player.getInstance().setUsername(user_name);
+    	                    Player.getInstance().setPassword(pass_word);
 
-                    d.getButtonPanel().getUserName().setText("Welcome " + user_name);
-                } else {
-                    JOptionPane.showMessageDialog(d.getBaseFrame(), "Registration Faile");
-                    Player.setInstanceNull();
-                }
-
-
-//                if (new RegisterConfiguration().isRegisterPlayer(player));
-//                {
-//                    Design d = Design.getInstance();
-//                    d.getButtonPanel().getUserName().setText("Welcome " + player.getUsername());
-//                }
+    	                    d.getButtonPanel().getUserName().setText("Welcome " + user_name);
+    	                } else {
+    	                    JOptionPane.showMessageDialog(d.getBaseFrame(), "Registration Failed");
+    	                    Player.setInstanceNull();
+    	                }
+    			  }
             }
         }
     }
