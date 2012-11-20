@@ -44,6 +44,7 @@ public class PhysicsComponent implements ContactListener{
       }
 
       public void inputLogic() {
+          
 		for (Entry<String,Body> body : bodies.entrySet()) {
 			if (body.getValue().getType() == BodyType.DYNAMIC) {
                             if(Keyboard.getEventKey()==Keyboard.KEY_A)

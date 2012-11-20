@@ -90,9 +90,9 @@ public class GameEngineController extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException {
-        
+
         try {
-            
+
             initSpriteImageMapping();
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(GameEngineController.class.getName()).log(Level.SEVERE, null, ex);
@@ -103,20 +103,18 @@ public class GameEngineController extends BasicGame {
 
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
-        
-        //updateKeyEventBinding(gc);
-        physicsComponent.inputLogic();
+
+        updateKeyEventBinding(gc);
+        //physicsComponent.inputLogic();
 
     }
 
     @Override
-    public void render(GameContainer gc, Graphics grphcs) throws SlickException 
-    {
-         physicsComponent.moveLogic();
-         renderSpriteImageDraw();   
-    }   
-    
-        
+    public void render(GameContainer gc, Graphics grphcs) throws SlickException {
+        //physicsComponent.moveLogic();
+        renderSpriteImageDraw();
+    }
+
     public Image getImageFromBytes(byte[] imageData, String imageName) {
         Image image = null;
         try {
@@ -127,10 +125,9 @@ public class GameEngineController extends BasicGame {
         }
         return image;
     }
-    
-    public void initActionEvents()
-    {
-        
+
+    public void initActionEvents() {
+
         keyEvents = game.getEventsForKeyController();
         for (EventListener keyevent : keyEvents) {
             KeyPressedEventListener key = (KeyPressedEventListener) keyevent;
@@ -149,9 +146,8 @@ public class GameEngineController extends BasicGame {
         }
 
     }
-    
-    public void renderSpriteImageDraw()
-    {
+
+    public void renderSpriteImageDraw() {
         for (SpriteModel sprite : SpriteList.getInstance().getSpriteList()) {
             if (!sprite.isVisible()) {
                 continue;
@@ -163,28 +159,25 @@ public class GameEngineController extends BasicGame {
                     continue;
                 }
             }
-           
-            imageDraw(sprite);
-            
-        }
-    
 
-    }       
-    
-    public void imageDraw(SpriteModel sprite)
-    {
-        
-        Vec2 bodyPostion=physicsComponent.bodies.get(sprite.getId()).getPosition();
-        sprite.setPosX((double)bodyPostion.x*30);
-        sprite.setPosY((double)bodyPostion.y*30);
-        imagesOfSprites.get(sprite.getId()).setRotation(physicsComponent.bodies.get(sprite.getId()).getAngle());
-        imagesOfSprites.get(sprite.getId()).draw((float)bodyPostion.x*30, (float)bodyPostion.y*30, (float)sprite.getWidth(), (float) sprite.getHeight());
-     //   Log.info("Sprite X : "+sprite.getPosX());
+            imageDraw(sprite);
+
+        }
+
+
     }
-    
-  
-    public void initSpriteImageMapping() throws IOException
-    {
+
+    public void imageDraw(SpriteModel sprite) {
+
+       // Vec2 bodyPostion = physicsComponent.bodies.get(sprite.getId()).getPosition();
+       // sprite.setPosX((double) bodyPostion.x * 30);
+       // sprite.setPosY((double) bodyPostion.y * 30);
+        imagesOfSprites.get(sprite.getId()).setRotation(physicsComponent.bodies.get(sprite.getId()).getAngle());
+        imagesOfSprites.get(sprite.getId()).draw((float) sprite.getPosX(), (float) sprite.getPosY(), (float) sprite.getWidth(), (float) sprite.getHeight());//(float) bodyPostion.x * 30, (float) bodyPostion.y * 30, (float) sprite.getWidth(), (float) sprite.getHeight());
+        //   Log.info("Sprite X : "+sprite.getPosX());
+    }
+
+    public void initSpriteImageMapping() throws IOException {
         allSpriteModels = game.getSpriteList();
         eventsForGameController = game.getEventsForGameController();
         imagesOfSprites = new HashMap<String, Image>();
@@ -194,7 +187,7 @@ public class GameEngineController extends BasicGame {
             SpriteList.getInstance().addSprite(sprite);
 
             String rid = sprite.getImageUrlString();
-            Resources r = ClientHandler.loadResource(rid, Constants.HOST, Constants.PATH+"/loadResource", new Exception[1]);
+            Resources r = ClientHandler.loadResource(rid, Constants.HOST, Constants.PATH + "/loadResource", new Exception[1]);
 
             byte[] imageData = r.getResource();
             Image image = getImageFromBytes(imageData, r.getResourceName());
@@ -207,29 +200,22 @@ public class GameEngineController extends BasicGame {
             initSpriteBodyMapping(sprite);
 
         }
-        
+
     }
-    
-    
-    public void initSpriteBodyMapping(SpriteModel sprite)
-    {
+
+    public void initSpriteBodyMapping(SpriteModel sprite) {
         try {
-            physicsComponent.bodies.put(sprite.getId().toString(),physicsComponent.createBody
-                        (sprite.getId() ,"polygon","Dynamic",(float)
-                        sprite.getPosX(),(float)sprite.getPreviousY(),(float)sprite.getWidth()
-                        ,(float)sprite.getHeight(),0.0f));
+            physicsComponent.bodies.put(sprite.getId().toString(), physicsComponent.createBody(sprite.getId(), "polygon", "Dynamic", (float) sprite.getPosX(), (float) sprite.getPreviousY(), (float) sprite.getWidth(), (float) sprite.getHeight(), 0.0f));
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(GameEngineController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    
-    public void updateKeyEventBinding(GameContainer gc)
-    {
-     for (EventListener event : eventsForGameController) {
+
+    public void updateKeyEventBinding(GameContainer gc) {
+        for (EventListener event : eventsForGameController) {
             event.checkEvent(null);
         }
+        
         for (Integer keycode : keyReg.keySet()) {
             try {
                 if (gc.getInput().isKeyDown(key2key.get(keycode.intValue()))) {
@@ -242,8 +228,6 @@ public class GameEngineController extends BasicGame {
                 LOG.error("don't worry, it is only temp key-mapping error, we not done yet: " + e);
             }
         }
-      
+
     }
-    
-    
 }
