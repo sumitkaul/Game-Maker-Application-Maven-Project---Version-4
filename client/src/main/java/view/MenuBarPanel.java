@@ -1,6 +1,8 @@
+
 package view;
 
 import java.awt.CheckboxMenuItem;
+import java.awt.Desktop;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
@@ -8,6 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -20,6 +25,8 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
 
+import facade.Facade;
+
 import loader.GameDataPackageIO;
 import loader.GamePackage;
 import lookandfeel.AnimationHandler;
@@ -27,6 +34,7 @@ import lookandfeel.ThemeHandler;
 import model.SpriteModel;
 import utility.ClockDisplay;
 import utility.Constants;
+import utility.Helper;
 import utility.Layers;
 import utility.SpriteList;
 import view.companels.GameBaseLoadPanel;
@@ -121,7 +129,29 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 
 		JMenuItem login = new JMenuItem("Login");
 		JMenuItem register = new JMenuItem("Register");
-
+		JMenuItem facebookLogin=new JMenuItem("Login with Facebook");
+		
+		facebookLogin.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try {
+					URI uri=new URI("http://www.cs.indiana.edu/cgi-pub/harihanu/Info/my_fb.php");
+					Desktop.getDesktop().browse(uri);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		
+		
+		
 		login.addActionListener(new ActionListener() {
 
 			@Override
@@ -144,6 +174,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 
 		user.add(login);
 		user.add(register);
+		user.add(facebookLogin);
 
 				/*JMenu menuMultiPlayer = new JMenu("MultiPlayer");
 		JMenuItem startMultiPlayer = new JMenuItem("Start"); 
@@ -233,31 +264,55 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
 		// SpriteList.getInstance().setSpriteList(allSpriteModels);
 		SpriteList.getInstance().setSelectedSpriteModel(allSpriteModels.get(0));
-		GameMakerView.getInstance().getLayerBox().removeAllItems();
-		for (String layer : layers) {
-			GameMakerView.getInstance().getLayerBox().addItem(layer);
-		}
-
-		GameMakerView.getInstance().getFacade().getGameController().setEvents(game.getEventsForGameController());
-		GameMakerView.getInstance().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
-
-		GameMakerView.getInstance().getFacade().createViewsForModels(game.getSpriteList());
-
 		for (SpriteModel model : allSpriteModels) {
 			SpriteList.getInstance().addSprite(model);
 			SpriteList.getInstance().setSelectedSpriteModel(model);
-
-			GameMakerView.getInstance().getActionEventPanel().getSpriteListIndividualModel().addElement(model.getId());
-			if (!GameMakerView.getInstance().getActionEventPanel().getSpriteListGroupModel().contains(model.getGroupId())) {
-				GameMakerView.getInstance().getActionEventPanel().getSpriteListGroupModel().addElement(model.getGroupId());
-			}
-			if (GameMakerView.getInstance().getActionEventPanel().getSpriteListIndividualModel().size() > 0) {
-				GameMakerView.getInstance().getActionEventPanel().getSpriteList().setModel(GameMakerView.getInstance().getActionEventPanel().getSpriteListIndividualModel());
-			}
-			// if(spriteListGroupModel.size() >0 )
-				// groupSpriteList.setModel(spriteListGroupModel);
 		}
-		GameMakerView.getInstance().updateProperties();
+		
+		
+		if(!Helper.getsharedHelper().isPlayerMode()){
+			GameMakerView gameMakerView = GameMakerView.getInstance();
+			gameMakerView.getLayerBox().removeAllItems();
+			for (String layer : layers) {
+				gameMakerView.getLayerBox().addItem(layer);
+			}
+
+			Facade facade = gameMakerView.getFacade();
+			facade.getGameController().setEvents(game.getEventsForGameController());
+			facade.getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
+
+			facade.createViewsForModels(game.getSpriteList());
+
+			ActionEventPanel actionEventPanel = GameMakerView.getInstance().getActionEventPanel();
+			for (SpriteModel model : allSpriteModels) {
+
+				actionEventPanel.getSpriteListIndividualModel().addElement(model.getId());
+				if (!actionEventPanel.getSpriteListGroupModel().contains(model.getGroupId())) {
+					actionEventPanel.getSpriteListGroupModel().addElement(model.getGroupId());
+				}
+				if (actionEventPanel.getSpriteListIndividualModel().size() > 0) {
+					actionEventPanel.getSpriteList().setModel(GameMakerView.getInstance().getActionEventPanel().getSpriteListIndividualModel());
+				}
+		
+			}
+			gameMakerView.updateProperties();
+		}
+		else{
+			GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
+			GamePanel gamePanel = gamePlayerView.getGamePanel();
+
+			Facade facade = gamePlayerView.getFacade();
+			facade.createViewsForModels(game.getSpriteList());
+			facade.getGameController().setEvents(game.getEventsForGameController());
+			facade.getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
+			
+			
+			
+			gamePanel.repaint();
+		
+
+		}
+		
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {

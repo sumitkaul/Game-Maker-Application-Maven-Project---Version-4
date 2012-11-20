@@ -8,7 +8,7 @@ import javax.jms.TextMessage;
 import javax.jms.Topic;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
-import view.PlayerButtonPanel;
+import view.ChatPanel;
 import utility.Constants;
 public class ChatReceiver implements Runnable {
 
@@ -56,11 +56,11 @@ public class ChatReceiver implements Runnable {
 						
 					}
 					else
-						PlayerButtonPanel.updateChatWindow(text);
+						ChatPanel.updateChatWindow(text);
 					//Design.getInstance().updateChatWindow(text);
 
 				} else {
-					PlayerButtonPanel.updateChatWindow(message.toString());
+					ChatPanel.updateChatWindow(message.toString());
 				}
 			} catch (Exception e) {
 			}

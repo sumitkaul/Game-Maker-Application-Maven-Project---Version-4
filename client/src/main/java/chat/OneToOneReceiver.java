@@ -10,7 +10,7 @@ import javax.jms.Topic;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import utility.Constants;
-import view.PlayerButtonPanel;
+import view.ChatPanel;
 
 public class OneToOneReceiver implements Runnable {
 
@@ -55,12 +55,12 @@ public class OneToOneReceiver implements Runnable {
 					TextMessage textMessage = (TextMessage) message;
 					String text = textMessage.getText();
 
-					PlayerButtonPanel.updateChatWindow(text);
+					ChatPanel.updateChatWindow(text);
 					//System.out.println("r"+ text);
 					//Design.getInstance().updateChatWindow(text);
 
 				} else {
-					PlayerButtonPanel.updateChatWindow(message.toString());
+					ChatPanel.updateChatWindow(message.toString());
 				}
 			} catch (Exception e) {
 			}

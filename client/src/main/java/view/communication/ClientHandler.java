@@ -1,3 +1,4 @@
+
 package view.communication;
 
 import com.google.gson.Gson;
@@ -13,6 +14,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import view.communication.protocol.GameSaveInfo;
 import view.utils.HttpUtil;
+
 
 public class ClientHandler {
 

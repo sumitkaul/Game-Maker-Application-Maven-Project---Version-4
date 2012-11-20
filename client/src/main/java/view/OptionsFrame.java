@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import org.newdawn.slick.SlickException;
 import utility.Constants;
+import utility.Helper;
 import net.miginfocom.swing.MigLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -72,6 +73,7 @@ public class OptionsFrame implements ActionListener {
 //            }
            // AnimationHandler.FadeIn(Design.getInstance().getGameMakerPanel(), (JComponent) Design.getInstance().getBaseFrame().getContentPane(), 500);
             optionFrame.setVisible(false);
+            Helper.getsharedHelper().setPlayerMode(false);
         }
 
         if (e.getSource() == playerButton) {
@@ -98,8 +100,9 @@ public class OptionsFrame implements ActionListener {
             GamePlayerWindow.getInstance().setOptionFrame(this);
             GamePlayerWindow.getInstance().getBaseFrame().setVisible(true);
              */
-        	new GamePlayerView(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
-        	
+        	GamePlayerView gamePlayerView = new GamePlayerView(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
+        	Helper.getsharedHelper().setGamePlayerView(gamePlayerView);
+        	Helper.getsharedHelper().setPlayerMode(true);
             optionFrame.setVisible(false);
         }
 

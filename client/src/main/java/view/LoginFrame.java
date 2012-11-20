@@ -115,7 +115,7 @@ public class LoginFrame extends JFrame {
                     Player.getInstance().setPassword(pass_word);
                     JFrame frame = new JFrame();
                     JOptionPane.showMessageDialog(frame,
-                            "login successfull");
+                            "login successful");
                 } else {
                     d.getButtonPanel().getUserName().setText("invalid username and password");
                     JFrame frame = new JFrame();

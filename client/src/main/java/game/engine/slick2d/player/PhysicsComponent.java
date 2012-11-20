@@ -3,16 +3,20 @@ package game.engine.slick2d.player;
 
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Random;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
+
 import org.jbox2d.callbacks.ContactImpulse;
-import org.jbox2d.collision.shapes.*;
-import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.*;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
+import org.jbox2d.collision.shapes.CircleShape;
+import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.BodyType;
+import org.jbox2d.dynamics.FixtureDef;
+import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.util.Log;
