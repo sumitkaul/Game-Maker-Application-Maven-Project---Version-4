@@ -159,7 +159,8 @@ public class LoadController {
 
 				int isMultiplayer=1;
 
-				String sql = "select game_name from GameBase where IsMultiplayer="+isMultiplayer;
+				//String sql = "select game_name from GameBase where IsMultiplayer="+isMultiplayer;
+				String sql = "select game_name from GameBase";
 				@SuppressWarnings("unchecked")
 				List<String> names = DatabaseHandler.Query(sql);
 
@@ -167,6 +168,26 @@ public class LoadController {
 	            String json = gson.toJson(names);
 	            
 	    		return json;
+
+			
+	}
+		
+		@RequestMapping(value = "/getHostedGameBaseId", method = RequestMethod.GET)
+		@ResponseBody
+		public int getHostedGameBaseId(@RequestParam("hostname") String hostName,@RequestParam("gamebasename") String gameBaseName,
+				@RequestParam("savegamebasename") String saveGameBaseName) {
+
+				//int isMultiplayer=1;
+
+				//String sql = "select game_name from GameBase where IsMultiplayer="+isMultiplayer;
+				String sql = "select id from HostedGameBases where hostname=" + hostName + 
+							 "and gamebasename=" + gameBaseName + "and savegamebasename=" + saveGameBaseName;
+				List<String> ids = DatabaseHandler.Query(sql);
+
+				Gson gson = new Gson();
+	            String json = gson.toJson(ids.get(0));
+	            
+	    		return Integer.valueOf(json);
 
 			
 	}
