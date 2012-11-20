@@ -44,7 +44,7 @@ public class KeyPressedEventListener implements EventListener,Serializable {
 //    			if (Constants.isMultiplayer)
 //    			{
     				Sender sender = new Sender();
-    				sender.sendAsClient(action, allSpriteModel.get(i));
+    				//sender.sendAsClient(action, allSpriteModel.get(i));
     			}
     		}	
     	}
