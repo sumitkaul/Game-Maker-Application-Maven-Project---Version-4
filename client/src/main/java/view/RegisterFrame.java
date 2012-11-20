@@ -16,7 +16,7 @@ public class RegisterFrame extends LoginFrame {
         super();
        
         getLogin().addActionListener(new RegisterButtonListner());
-        getLogin().setLabel("register");
+        getLogin().setLabel("Register");
     }
 
     class RegisterButtonListner implements ActionListener {
