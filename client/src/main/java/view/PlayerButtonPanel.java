@@ -226,7 +226,7 @@ public class PlayerButtonPanel implements ActionListener{
 				BrowserFrame browserFrame=new BrowserFrame();
 				browserFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			}
-			
+		
 			
 		});
 		
