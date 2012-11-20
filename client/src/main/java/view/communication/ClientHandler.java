@@ -416,7 +416,7 @@ public class ClientHandler {
 	private static boolean deleteHostedGameBase(int gameId, String host, String path, Exception[] exception) {
 		try {
 			URIBuilder ub = new URIBuilder();
-			ub.setScheme("http").setHost(host).setPath(path).setParameter("id",new Integer(gameId).toString());
+			ub.setScheme("http").setHost(host).setPath(path).setParameter("gameId",new Integer(gameId).toString());
 			URI uri = ub.build();
 
 			//should be using deleteHostedGameBaseRecord
