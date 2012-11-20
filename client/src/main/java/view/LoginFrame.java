@@ -102,8 +102,10 @@ public class LoginFrame extends JFrame {
             GameMakerView d = GameMakerView.getInstance();
             String result = null;
             if (e.getSource() == login) {
-
-                setVisible(false);
+            	if(username.getText().equalsIgnoreCase("") || password.getText().equalsIgnoreCase("")){
+  				  JOptionPane.showMessageDialog(loginPanel,"UserName and Password can not be empty");
+  			  }else{
+  				setVisible(false);
                 String user_name = username.getText();
                 String pass_word = password.getText();
 
@@ -123,15 +125,7 @@ public class LoginFrame extends JFrame {
                             "login invalid");
                     Player.setInstanceNull();
                 }
-
-//                LoginConfiguration lconfig = new LoginConfiguration();
-//                if (lconfig.loginConfigurationCheck(username.getText(), password.getText())) {
-//                    d.getButtonPanel().getUserName().setText("Welcome " + username.getText());
-//                } else {
-//                    d.getButtonPanel().getUserName().setText("invalid username and password");
-//                }
-
-
+  			  }
             }
         }
     }
