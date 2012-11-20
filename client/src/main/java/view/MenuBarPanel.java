@@ -23,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
@@ -36,6 +37,7 @@ import loader.GamePackage;
 import lookandfeel.AnimationHandler;
 import lookandfeel.ThemeHandler;
 import model.SpriteModel;
+import twitter.UpdateStatus;
 import utility.ClockDisplay;
 import utility.Constants;
 import utility.Helper;
@@ -134,6 +136,32 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		JMenuItem login = new JMenuItem("Login");
 		JMenuItem register = new JMenuItem("Register");
 		JMenuItem facebookLogin=new JMenuItem("Login with Facebook");
+		JMenuItem twitter=new JMenuItem("Post Score to Twitter");
+		
+		twitter.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+		
+				try {
+					UpdateStatus updateStatus=new UpdateStatus();
+					boolean result=updateStatus.execute("Test Message from GameMaker");
+					if(result){
+						JOptionPane.showMessageDialog (null, "Posted Score succesfully to Twitter", "Twitter Post Confirmation", JOptionPane.PLAIN_MESSAGE);
+					}
+					else{
+						JOptionPane.showMessageDialog (null, "Oops something went wrong try again!", "Twitter Post Confirmation", JOptionPane.PLAIN_MESSAGE);
+					}
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			
+			}
+		});
+		
 		
 		facebookLogin.addActionListener(new ActionListener() {
 			
@@ -184,6 +212,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		user.add(login);
 		user.add(register);
 		user.add(facebookLogin);
+		user.add(twitter);
 
 				/*JMenu menuMultiPlayer = new JMenu("MultiPlayer");
 		JMenuItem startMultiPlayer = new JMenuItem("Start"); 

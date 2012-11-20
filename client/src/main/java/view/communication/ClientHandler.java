@@ -12,6 +12,8 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
+
+import utility.Constants;
 import view.communication.protocol.GameSaveInfo;
 import view.utils.HttpUtil;
 
@@ -101,16 +103,16 @@ public class ClientHandler {
 			ub.setScheme("http").setHost(host).setPath(path);
 			URI uri = ub.build();
 
-			List<NameValuePair> nvps = new ArrayList<NameValuePair>(3);
+			List<NameValuePair> nvps = new ArrayList<NameValuePair>(4);
 			nvps.add(new BasicNameValuePair("game_name", gameName));
 			nvps.add(new BasicNameValuePair("game_author", gameAuthor));
 			nvps.add(new BasicNameValuePair("game_data", gameData));
-			nvps.add(new BasicNameValuePair("isMultiplayer", isMultiPlayerString));
-
+			nvps.add(new BasicNameValuePair("isMultiPlayer", isMultiPlayerString));
 			String json = HttpUtil.httpPost(uri, nvps);
 
 			Gson gson = new Gson();
 			Boolean saveOK = gson.fromJson(json, Boolean.class);
+			log.info("Save check"+saveOK);
 			return saveOK.booleanValue();
 
 		} catch (Exception ex) {
@@ -440,8 +442,35 @@ public class ClientHandler {
 	public static boolean deleteHostedGameBase(String hostName, String gameBaseName, 
 			String saveGameBaseName, String host, String path, Exception[] exception) {
 		//TODO: figure out an id based on hostname, gamebasename, savegamebasename
-		int id = 2;
+		//parameters: (null, Constants.HOST, Constants.PATH+"/countTag", new Exception[1])
+		//int id = 2;
+		
+		int id = ClientHandler.getHostedGameBaseId(hostName, gameBaseName, saveGameBaseName, 
+												   host, Constants.PATH+"/getHostedGameBaseId", exception); 
 		return ClientHandler.deleteHostedGameBase(id,host,path,exception);
+		
+	}
+	
+	public static int getHostedGameBaseId(String hostName, String gameBaseName, 
+			String saveGameBaseName, String host, String path, Exception[] exception){
+		try {
+			URIBuilder ub = new URIBuilder();
+			ub.setScheme("http").setHost(host).setPath(path);
+			URI uri = ub.build();
+
+			String jsonId = HttpUtil.httpGet(uri);
+
+			Gson gson = new Gson();
+
+			int gameId = gson.fromJson(jsonId, int.class);
+
+			return gameId;
+		} catch (Exception ex) {
+			log.error(ex);
+			exception[0] = ex;
+			return -1;
+		}
+		
 		
 	}
 	
