@@ -35,7 +35,7 @@ public class GameBaseSavePanel {
         String authorName = Player.getInstance().getUsername();
 
         Exception[] exceptions = new Exception[1];
-        boolean saveOK = ClientHandler.saveGameBase(gameName, authorName, gameData, host, path + urlSaveGameBase, exceptions);
+        boolean saveOK = ClientHandler.saveGameBase(gameName, authorName, gameData,Constants.isMultiplayer, host, path + urlSaveGameBase, exceptions);
 
         if (exceptions[0] != null) {
             JOptionPane.showMessageDialog(rootComp, exceptions[0].toString());
@@ -54,10 +54,10 @@ public class GameBaseSavePanel {
         }
     }
     
-    public boolean saveGameToRemoteServerWithoutUI(String gameData,String gameName,String authorName) {
+    public boolean saveGameToRemoteServerWithoutUI(String gameData,String gameName,String authorName,Boolean isMultiPlayer) {
     	
     	 Exception[] exceptions = new Exception[1];
-         return ClientHandler.saveGameBase(gameName, authorName, gameData, host, path + urlSaveGameBase, exceptions);
+         return ClientHandler.saveGameBase(gameName, authorName, gameData,isMultiPlayer, host, path + urlSaveGameBase, exceptions);
          
     }    
 }
