@@ -112,6 +112,7 @@ public class ActionEventPanel {
         // groupSpriteList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         // groupSpriteList.setEnabled(false);
         actionBox = new JComboBox(actionTypes);
+        actionBox.setToolTipText("Select action");
         actionBox.addActionListener(new ActionListener() {
 
             @Override
@@ -188,6 +189,7 @@ public class ActionEventPanel {
         });
 
         eventBox = new JComboBox(eventTypes);
+        eventBox.setToolTipText("Select Event");
         // eventActionListModel.addElement("Event-Action List");
         eventActionList = new JList();
         if (eventActionListModel != null) {
@@ -201,6 +203,7 @@ public class ActionEventPanel {
             collisionSpriteBox.setModel(collisionSpriteModel);
         }
         collisionSpriteBox.setVisible(false);
+        collisionSpriteBox.setToolTipText("Collision against");
 
         addEventActionButton = new JButton("Add");
         addEventActionButton.addActionListener(new ActionListener() {
@@ -421,6 +424,7 @@ public class ActionEventPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         actionEventPanel.add(eventBox, gridBagConstraints);
+        
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;

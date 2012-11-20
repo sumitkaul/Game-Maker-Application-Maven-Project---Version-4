@@ -1,3 +1,4 @@
+
 package view.communication;
 
 import com.google.gson.Gson;
@@ -13,6 +14,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import view.communication.protocol.GameSaveInfo;
 import view.utils.HttpUtil;
+
 
 public class ClientHandler {
 
@@ -87,14 +89,14 @@ public class ClientHandler {
 	}
 
 	public static boolean saveGameBase(String gameName, String gameAuthor,
-			String gameData, String host, String path, Exception[] exception) {
+			String gameData,Boolean isMultiPlayer, String host, String path, Exception[] exception) {
 		try {
 			if (gameName.isEmpty() || gameAuthor.isEmpty()
 					|| gameData.isEmpty()) {
 				exception[0] = new Exception("Required information is empty");
 				return false;
 			}
-
+			String isMultiPlayerString = isMultiPlayer.toString();
 			URIBuilder ub = new URIBuilder();
 			ub.setScheme("http").setHost(host).setPath(path);
 			URI uri = ub.build();
@@ -103,6 +105,7 @@ public class ClientHandler {
 			nvps.add(new BasicNameValuePair("game_name", gameName));
 			nvps.add(new BasicNameValuePair("game_author", gameAuthor));
 			nvps.add(new BasicNameValuePair("game_data", gameData));
+			nvps.add(new BasicNameValuePair("isMultiplayer", isMultiPlayerString));
 
 			String json = HttpUtil.httpPost(uri, nvps);
 

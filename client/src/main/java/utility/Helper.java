@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 
 import view.GameMakerView;
 import view.GamePanel;
+import view.GamePlayerView;
 import view.OptionsFrame;
 
 import model.SpriteModel;
@@ -23,6 +24,7 @@ import eventlistener.EventListener;
 import eventlistener.KeyPressedEventListener;
 import eventlistener.NewFrameEventListener;
 import eventlistener.OutOfBoundaryEventListener;
+import facade.Facade;
 import action.ActionBackToLastPosition;
 import action.ActionCreateSpriteModel;
 import action.ActionBounce;
@@ -41,8 +43,11 @@ import action.RemoveAction;
 public class Helper {
 	public static Helper sharedHelper;
 	private int currentKeyCode; 
-	
+	private boolean isPlayerMode;
 	private JFrame optionsFrame;
+	private GamePlayerView gamePlayerView;
+
+	
 	
 	public static Helper getsharedHelper(){
 		if(sharedHelper == null)
@@ -220,4 +225,21 @@ public class Helper {
 	public void setOptionsFrame(JFrame optionsFrame) {
 		this.optionsFrame = optionsFrame;
 	}
+
+	public GamePlayerView getGamePlayerView() {
+		return gamePlayerView;
+	}
+
+	public void setGamePlayerView(GamePlayerView gamePlayerView) {
+		this.gamePlayerView = gamePlayerView;
+	}
+
+	public boolean isPlayerMode() {
+		return isPlayerMode;
+	}
+
+	public void setPlayerMode(boolean isPlayerMode) {
+		this.isPlayerMode = isPlayerMode;
+	}
+
 }
