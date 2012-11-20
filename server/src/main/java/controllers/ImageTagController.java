@@ -82,7 +82,7 @@ public class ImageTagController {
 		return gson.toJson(r);
 	}
 	
-	@RequestMapping(value = "/getAllTagsTest", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAllTags", method = RequestMethod.GET)
 	@ResponseBody	
 	public String getAllTagNames() {
 		
