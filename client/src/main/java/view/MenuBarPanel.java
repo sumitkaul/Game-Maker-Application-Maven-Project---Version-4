@@ -25,6 +25,8 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
 
+import facade.Facade;
+
 import loader.GameDataPackageIO;
 import loader.GamePackage;
 import lookandfeel.AnimationHandler;
@@ -32,6 +34,7 @@ import lookandfeel.ThemeHandler;
 import model.SpriteModel;
 import utility.ClockDisplay;
 import utility.Constants;
+import utility.Helper;
 import utility.Layers;
 import utility.SpriteList;
 import view.companels.GameBaseLoadPanel;
@@ -261,31 +264,47 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
 		// SpriteList.getInstance().setSpriteList(allSpriteModels);
 		SpriteList.getInstance().setSelectedSpriteModel(allSpriteModels.get(0));
-		GameMakerView.getInstance().getLayerBox().removeAllItems();
-		for (String layer : layers) {
-			GameMakerView.getInstance().getLayerBox().addItem(layer);
-		}
-
-		GameMakerView.getInstance().getFacade().getGameController().setEvents(game.getEventsForGameController());
-		GameMakerView.getInstance().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
-
-		GameMakerView.getInstance().getFacade().createViewsForModels(game.getSpriteList());
-
-		for (SpriteModel model : allSpriteModels) {
-			SpriteList.getInstance().addSprite(model);
-			SpriteList.getInstance().setSelectedSpriteModel(model);
-
-			GameMakerView.getInstance().getActionEventPanel().getSpriteListIndividualModel().addElement(model.getId());
-			if (!GameMakerView.getInstance().getActionEventPanel().getSpriteListGroupModel().contains(model.getGroupId())) {
-				GameMakerView.getInstance().getActionEventPanel().getSpriteListGroupModel().addElement(model.getGroupId());
+		
+		
+		if(!Helper.getsharedHelper().isPlayerMode()){
+			GameMakerView.getInstance().getLayerBox().removeAllItems();
+			for (String layer : layers) {
+				GameMakerView.getInstance().getLayerBox().addItem(layer);
 			}
-			if (GameMakerView.getInstance().getActionEventPanel().getSpriteListIndividualModel().size() > 0) {
-				GameMakerView.getInstance().getActionEventPanel().getSpriteList().setModel(GameMakerView.getInstance().getActionEventPanel().getSpriteListIndividualModel());
+
+			GameMakerView.getInstance().getFacade().getGameController().setEvents(game.getEventsForGameController());
+			GameMakerView.getInstance().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
+
+			GameMakerView.getInstance().getFacade().createViewsForModels(game.getSpriteList());
+
+			for (SpriteModel model : allSpriteModels) {
+				SpriteList.getInstance().addSprite(model);
+				SpriteList.getInstance().setSelectedSpriteModel(model);
+
+				GameMakerView.getInstance().getActionEventPanel().getSpriteListIndividualModel().addElement(model.getId());
+				if (!GameMakerView.getInstance().getActionEventPanel().getSpriteListGroupModel().contains(model.getGroupId())) {
+					GameMakerView.getInstance().getActionEventPanel().getSpriteListGroupModel().addElement(model.getGroupId());
+				}
+				if (GameMakerView.getInstance().getActionEventPanel().getSpriteListIndividualModel().size() > 0) {
+					GameMakerView.getInstance().getActionEventPanel().getSpriteList().setModel(GameMakerView.getInstance().getActionEventPanel().getSpriteListIndividualModel());
+				}
+				// if(spriteListGroupModel.size() >0 )
+					// groupSpriteList.setModel(spriteListGroupModel);
 			}
-			// if(spriteListGroupModel.size() >0 )
-				// groupSpriteList.setModel(spriteListGroupModel);
+			GameMakerView.getInstance().updateProperties();
 		}
-		GameMakerView.getInstance().updateProperties();
+		else{
+			GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
+			GamePanel gamePanel = gamePlayerView.getGamePanel();
+
+			Facade facade = gamePlayerView.getFacade();
+			facade.createViewsForModels(game.getSpriteList());
+			facade.getGameController().setEvents(game.getEventsForGameController());
+			facade.getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
+			gamePanel.repaint();
+
+		}
+		
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
