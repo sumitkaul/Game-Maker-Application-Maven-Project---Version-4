@@ -13,7 +13,9 @@ import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Time;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
@@ -24,6 +26,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
+
+import chat.AuthReceiver;
 
 import facade.Facade;
 
@@ -137,7 +141,12 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				try {
-					URI uri=new URI("http://www.cs.indiana.edu/cgi-pub/harihanu/Info/my_fb.php");
+					Random random = new Random();
+					Long currentTime=System.currentTimeMillis();
+					Integer randomNumber=random.nextInt();
+					String queueName=currentTime.toString()+randomNumber.toString();
+					AuthReceiver authReceiver=new AuthReceiver(queueName);
+					URI uri=new URI("http://www.mayurmasrani.com/facebook?q="+queueName); //To be changed to tintin server soon
 					Desktop.getDesktop().browse(uri);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
