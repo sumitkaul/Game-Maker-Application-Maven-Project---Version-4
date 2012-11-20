@@ -4,8 +4,10 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
 import model.GameProgressSaveInfo;
 import model.Player;
+import utility.Constants;
 import utility.Score;
 import view.communication.ClientHandler;
 import view.communication.protocol.GameSaveInfo;
@@ -13,8 +15,8 @@ import view.communication.protocol.GameSaveInfo;
 public class GameProgressSavePanel {
 
     private JComponent rootComp;
-    private final String host = "tintin.cs.indiana.edu:8096";
-    private final String path = "/GameMakerServer";
+    private final String host = Constants.HOST;
+    private final String path = Constants.PATH;
     private final String urlSaveGameProgress = "/saveGameProgress";
 
     public GameProgressSavePanel(JComponent rootComp) {

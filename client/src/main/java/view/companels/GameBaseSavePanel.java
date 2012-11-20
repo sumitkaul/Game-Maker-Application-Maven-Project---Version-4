@@ -6,13 +6,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import model.Player;
+import utility.Constants;
 import view.communication.ClientHandler;
 
 public class GameBaseSavePanel {
 
     private JComponent rootComp;
-    private final String host = "tintin.cs.indiana.edu:8096";
-    private final String path = "/GameMakerServer";
+    private final String host = Constants.HOST;
+    private final String path = Constants.PATH;
     private final String urlSaveGameBase = "/saveGameBase";
 
     public GameBaseSavePanel(JComponent rootComp) {

@@ -6,20 +6,18 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import com.mysql.jdbc.log.Log;
-
 import model.GameProgressSaveInfo;
 import model.Player;
+import utility.Constants;
 import utility.Score;
-import view.GameMakerView;
 import view.communication.ClientHandler;
 import view.communication.protocol.GameSaveInfo;
 
 public class GameProgressLoadPanel {
 
     private JComponent rootComp;
-    private final String host = "tintin.cs.indiana.edu:8096";
-    private final String path = "/GameMakerServer";
+    private final String host = Constants.HOST;
+    private final String path = Constants.PATH;
     private final String urlListAllGamePlays = "/listAllGamePlays";
     private final String urlLoadGameProgress = "/loadGamePlay";
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(GameProgressLoadPanel.class);

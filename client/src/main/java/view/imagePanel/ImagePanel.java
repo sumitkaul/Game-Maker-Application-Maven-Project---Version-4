@@ -1,23 +1,17 @@
 package view.imagePanel;
 
 import imagewizard.MyFilter;
-import imagewizard.Wizard;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
@@ -26,7 +20,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,17 +28,12 @@ import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
-import utility.SpriteList;
-import utility.Util;
-import view.GameMakerView;
-import view.communication.ClientHandler;
 
 import model.Resources;
-import model.SpriteModel;
 import net.miginfocom.swing.MigLayout;
+import utility.Constants;
+import utility.Util;
+import view.communication.ClientHandler;
 
 
 
@@ -67,8 +55,8 @@ public class ImagePanel implements ActionListener,ChangeListener {
 	private ImageActionListener imageActionListener;
 	private int totalImages;
 
-	private final String host = "tintin.cs.indiana.edu:8096";
-    private final String path = "/GameMakerServer/listPageResources";
+	private final String host = Constants.HOST;
+    private final String path = Constants.PATH+"/listPageResources";
 	
 
 
@@ -353,7 +341,7 @@ public class ImagePanel implements ActionListener,ChangeListener {
 		//TAG: allow for the logged in user to pass on the name later
 		resources.setUsername("admin");
 		resources.setResource(Util.convertImagetoByteArray(image, imagetype));
-		ClientHandler.saveResource(resources, "tintin.cs.indiana.edu:8096", "/GameMakerServer/saveResource", new Exception[1]);
+		ClientHandler.saveResource(resources, Constants.HOST, Constants.PATH+"/saveResource", new Exception[1]);
 	}
 
 	public JPanel getImagePanel(){

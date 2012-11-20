@@ -1,19 +1,19 @@
 package game.engine.slick2d.player;
 
-import action.ActionCreateSpriteModel;
-import eventlistener.EventListener;
-import eventlistener.KeyPressedEventListener;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
+
 import javax.swing.JFrame;
+
 import loader.GameDataPackageIO;
 import loader.GamePackage;
 import model.Resources;
 import model.SpriteModel;
+
 import org.apache.log4j.Logger;
 import org.jbox2d.common.Vec2;
 import org.newdawn.slick.BasicGame;
@@ -21,10 +21,14 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.util.Log;
+
+import utility.Constants;
 import utility.SpriteList;
 import view.communication.ClientHandler;
 import view.companels.GameBaseLoadPanel;
+import action.ActionCreateSpriteModel;
+import eventlistener.EventListener;
+import eventlistener.KeyPressedEventListener;
 
 public class GameEngineController extends BasicGame {
 
@@ -190,7 +194,7 @@ public class GameEngineController extends BasicGame {
             SpriteList.getInstance().addSprite(sprite);
 
             String rid = sprite.getImageUrlString();
-            Resources r = ClientHandler.loadResource(rid, "tintin.cs.indiana.edu:8096", "/GameMakerServer/loadResource", new Exception[1]);
+            Resources r = ClientHandler.loadResource(rid, Constants.HOST, Constants.PATH+"/loadResource", new Exception[1]);
 
             byte[] imageData = r.getResource();
             Image image = getImageFromBytes(imageData, r.getResourceName());
