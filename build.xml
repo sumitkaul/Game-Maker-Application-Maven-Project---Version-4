@@ -208,6 +208,7 @@
 	<!-- Commenting out the junit tests and deploy webstart temporarily. Will be added later as required when maven is integrated 
 	<target name='deploy-all' depends='run-tests, deploy-webstart' />-->
 	<target name='deploy-all' depends='deploy-webstart-maven, copy-cobertura-reports'>
+		<copy file="restart-gameserver.sh" toDir="${webstart.location}" />
 		<exec executable="${code-root}/restart-gameserver.sh"/>
 	</target>
 	
