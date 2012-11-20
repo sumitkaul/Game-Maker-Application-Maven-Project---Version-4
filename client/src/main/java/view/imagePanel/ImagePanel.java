@@ -326,7 +326,9 @@ public class ImagePanel implements ActionListener,ChangeListener {
 				if(ret == JOptionPane.OK_OPTION){
 					uploadImageToDb(image,tagInput.getText(),imagetype);
 				}
-
+				JFrame frame = new JFrame();
+				JOptionPane.showMessageDialog(frame,
+                        "Image Upload successful");
 			} catch (IOException e1) {
 				LOG.error("Unable to read the file");
 			}
