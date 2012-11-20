@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.CheckboxMenuItem;
+import java.awt.Desktop;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
@@ -8,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -121,7 +125,29 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 
 		JMenuItem login = new JMenuItem("Login");
 		JMenuItem register = new JMenuItem("Register");
-
+		JMenuItem facebookLogin=new JMenuItem("Login with Facebook");
+		
+		facebookLogin.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try {
+					URI uri=new URI("http://mayurmasrani.com/facebook");
+					Desktop.getDesktop().browse(uri);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		
+		
+		
 		login.addActionListener(new ActionListener() {
 
 			@Override
@@ -144,6 +170,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 
 		user.add(login);
 		user.add(register);
+		user.add(facebookLogin);
 
 				/*JMenu menuMultiPlayer = new JMenu("MultiPlayer");
 		JMenuItem startMultiPlayer = new JMenuItem("Start"); 

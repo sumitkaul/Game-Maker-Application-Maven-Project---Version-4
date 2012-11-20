@@ -59,6 +59,7 @@ public class PlayerButtonPanel implements ActionListener{
 	
 	public PlayerButtonPanel() {
 		
+		
 //		userColor=Color.BLUE;
 //		textColor=Color.BLACK;
 //		playerAvatarUrl="http://www.mayurmasrani.com/default_user.jpg"; //to be changed later according to users avatar
