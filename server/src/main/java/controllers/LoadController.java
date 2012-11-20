@@ -159,8 +159,7 @@ public class LoadController {
 
 				int isMultiplayer=1;
 
-				//String sql = "select game_name from GameBase where IsMultiplayer="+isMultiplayer;
-				String sql = "select game_name from GameBase";
+				String sql = "select game_name from GameBase where IsMultiplayer="+isMultiplayer;
 				@SuppressWarnings("unchecked")
 				List<String> names = DatabaseHandler.Query(sql);
 

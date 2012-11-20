@@ -51,14 +51,19 @@ public class SaveController {
 	
 	@RequestMapping(value = "/saveGameBase", method = RequestMethod.POST)
 	@ResponseBody
-	public String saveGameBase(@RequestParam("game_name") String game_name,@RequestParam("game_data") String game_data,@RequestParam("game_author") String game_author) {
-
+	public String saveGameBase(@RequestParam("game_name") String game_name,@RequestParam("game_data") String game_data,@RequestParam("game_author") String game_author,@RequestParam("isMultiPlayer") String isMultiPlayer ) {
+		int isMultiPlayerValue;
         Gson gson = new Gson();
-
+        if(isMultiPlayer.equals("true")){
+        	isMultiPlayerValue=1;
+        }
+        else{
+        	isMultiPlayerValue=0;
+        }
         if (game_name != null && game_data != null && game_author != null) {
 
             String sql = "select count(*) FROM GameBase where game_name='" + game_name + "'";
-            String sql2 = "insert into GameBase (game_name, game_author, game_data) VALUES ('" + game_name + "', '" + game_author + "', '" + game_data + "')";
+            String sql2 = "insert into GameBase (game_name, game_author, game_data,isMultiPlayer) VALUES ('" + game_name + "', '" + game_author + "', '" + game_data + "', " + isMultiPlayerValue + ")";
             String sql3 = "update GameBase set game_author = '" + game_author + "', game_data = '" + game_data + "' where game_name='" + game_name + "'";
 
             List<BigInteger> count = DatabaseHandler.Query(sql);
