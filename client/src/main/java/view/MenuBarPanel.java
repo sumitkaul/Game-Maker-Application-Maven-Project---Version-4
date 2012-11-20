@@ -207,7 +207,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		modes[0] = new JRadioButtonMenuItem("Single Player");
 		modes[1] = new JRadioButtonMenuItem("Multi Player");
 		modes[0].setSelected(true);
-		modes[0].addItemListener(this);
+		//modes[0].addItemListener(this);
 		if(Constants.isGamePlayer){
 		modes[1].addActionListener(new ActionListener() {
 			@Override
@@ -333,23 +333,35 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		
-		if (e.getItem().equals(modes[0]))
-				{
-			LOG.info("In single player mode");
-			Constants.isMultiplayer = false;
-			GameMakerView.getInstance().getBaseFrame().validate();
-			//GameMakerView.getInstance().getControlPanel().validate();
-			GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getComboBox().setVisible(false);
-			GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getInputPanel().validate();
-
-				}
+//		if (e.getItem().equals(modes[0]))
+//				{
+//			LOG.info("In single player mode");
+//			Constants.isMultiplayer = false;
+//			GameMakerView.getInstance().getBaseFrame().validate();
+//			//GameMakerView.getInstance().getControlPanel().validate();
+//			GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getComboBox().setVisible(false);
+//			GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getInputPanel().validate();
+//
+//				}
 		if (e.getItem().equals(modes[1]))
 		{
 			LOG.info("In Multiplayer mode");
-	Constants.isMultiplayer = true;
+	if(!Constants.isMultiplayer){
+		Constants.isMultiplayer = true;
+	}
+	else
+	{
+		Constants.isMultiplayer = false;
+	}
 	GameMakerView.getInstance().getBaseFrame().validate();
 	//GameMakerView.getInstance().getControlPanel().validate();
+	if(!GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getComboBox().isVisible()){
 	GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getComboBox().setVisible(true);
+	}
+	else
+		GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getComboBox().setVisible(false);
+
+		
 	GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getInputPanel().validate();
 
 		}
