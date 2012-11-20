@@ -137,7 +137,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				try {
-					URI uri=new URI("http://mayurmasrani.com/facebook");
+					URI uri=new URI("http://www.cs.indiana.edu/cgi-pub/harihanu/Info/my_fb.php");
 					Desktop.getDesktop().browse(uri);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
