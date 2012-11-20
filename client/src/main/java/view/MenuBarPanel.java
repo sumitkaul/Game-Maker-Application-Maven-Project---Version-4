@@ -210,12 +210,14 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 
 	public static void loadGame()
 	{
-		GameBaseLoadPanel p = new GameBaseLoadPanel(GameMakerView.getInstance().getBaseFrame().getRootPane());
+		GameBaseLoadPanel p = new GameBaseLoadPanel(GameMakerView. getInstance().getBaseFrame().getRootPane());
 
 		String gameData = p.readGameDataFromRemoteList();
 		if (gameData == null) {
 			return;
 		}
+		
+		LOG.debug("Game data is --------------------------------------------------------------------"+gameData);
 
 		postProcessingAfterLoad(gameData);
 	}

@@ -54,6 +54,7 @@ public class PlayerButtonPanel implements ActionListener{
 	private JButton saveButton;
 	private JButton topscoreButton;
 	private JButton send;
+	private JButton share;
 	private JButton chooseUsername;
 	private JButton chooseText;
 	private JTextField textSend;
@@ -215,6 +216,24 @@ public class PlayerButtonPanel implements ActionListener{
 				}
 			}
 		});
+		
+		
+		share=new JButton("Share");
+		share.addActionListener(new ActionListener(){
+			
+			public void actionPerformed(ActionEvent e){
+				
+				BrowserFrame browserFrame=new BrowserFrame();
+				browserFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			}
+			
+			
+		});
+		
+		
+		
+		
+		
 		saveButton = new JButton("Save");
 		saveButton.addActionListener(new ActionListener() {
 
@@ -338,6 +357,7 @@ public class PlayerButtonPanel implements ActionListener{
 		playerButtonPanel.add(loadButton, "wrap,wmin 200, hmin 30");
 		playerButtonPanel.add(saveButton, "wrap,wmin 200, hmin 30");
 		playerButtonPanel.add(startButton, "wrap,wmin 200, hmin 30");
+		playerButtonPanel.add(share, "wrap,wmin 200, hmin 30");
 		playerButtonPanel.add(pauseButton, "wrap,wmin 200, hmin 30");
 		playerButtonPanel.add(textScrollPane, "wrap,wmin 500, hmin 150");
 		playerButtonPanel.add(textLabel,"wrap,wmin 100, hmin 10");
