@@ -32,6 +32,7 @@ import loader.GamePackage;
 import lookandfeel.AnimationHandler;
 import lookandfeel.ThemeHandler;
 import model.SpriteModel;
+import twitter.UpdateStatus;
 import utility.ClockDisplay;
 import utility.Constants;
 import utility.Helper;
@@ -130,6 +131,25 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		JMenuItem login = new JMenuItem("Login");
 		JMenuItem register = new JMenuItem("Register");
 		JMenuItem facebookLogin=new JMenuItem("Login with Facebook");
+		JMenuItem twitter=new JMenuItem("Post Score to Twitter");
+		
+		twitter.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+		
+				try {
+					UpdateStatus updateStatus=new UpdateStatus();
+					updateStatus.execute("Test Message from GameMaker");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			
+			}
+		});
+		
 		
 		facebookLogin.addActionListener(new ActionListener() {
 			
@@ -175,6 +195,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		user.add(login);
 		user.add(register);
 		user.add(facebookLogin);
+		user.add(twitter);
 
 				/*JMenu menuMultiPlayer = new JMenu("MultiPlayer");
 		JMenuItem startMultiPlayer = new JMenuItem("Start"); 
