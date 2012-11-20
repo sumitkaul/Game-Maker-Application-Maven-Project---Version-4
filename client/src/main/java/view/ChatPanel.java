@@ -1,8 +1,7 @@
 package view;
 
-import java.awt.BorderLayout;
+
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,10 +25,11 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
-import net.miginfocom.swing.MigLayout;
+
 
 import model.Player;
 import chat.ChatSender;
+import chat.Sender;
 
 public class ChatPanel {
 	ChatViewPanel chatViewPanel;
@@ -37,19 +37,20 @@ public class ChatPanel {
 	private JButton choose;
 	private JButton chooseText;
 	private JTextField textSend;
-	private static JTextPane textPane;
-	private static JScrollPane textScrollPane;
+	private  JTextPane textPane;
+	private  JScrollPane textScrollPane;
 	private Color userColor;
 	private Color textColor;
 	private JPanel chatPanel;
 	private JPanel sendPanel;
 	private JPanel colorPanel;
-	private static HTMLEditorKit kit;
-    private static HTMLDocument doc;
+	private  HTMLEditorKit kit;
+    private  HTMLDocument doc;
     private String playerAvatarUrl;
+    private Sender sender;
 	
-	public ChatPanel(ChatViewPanel chatViewPanelArg){
-		this.chatViewPanel = chatViewPanelArg;
+	public ChatPanel(Sender sender){
+		this.sender=sender;
 		chatPanel = new JPanel();
 		sendPanel = new JPanel();
 		colorPanel = new JPanel();
@@ -125,9 +126,11 @@ public class ChatPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Color bgColor=JColorChooser.showDialog(textLabel, "Choose Username Color", userColor);
-				userColor=bgColor;
-				choose.setForeground(userColor);
+				Color color=JColorChooser.showDialog(textLabel, "Choose Username Color", userColor);
+				if(color!=null) {
+					userColor=color;
+					choose.setForeground(userColor);
+				}
 			      //= JColorChooser.showDialog(this,"Choose Background Color",userColor);
 			}
 		});
@@ -137,9 +140,11 @@ public class ChatPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Color bgColor=JColorChooser.showDialog(textLabel, "Choose text Color", textColor);
-				textColor=bgColor;
-				chooseText.setForeground(textColor);
+				Color color=JColorChooser.showDialog(textLabel, "Choose text Color", textColor);
+				if(color!=null) {
+					textColor=color;
+					chooseText.setForeground(textColor);
+				}
 			      //= JColorChooser.showDialog(this,"Choose Background Color",userColor);
 			}
 		});
@@ -165,7 +170,7 @@ public class ChatPanel {
 	
 	}
 	
-	public static void updateChatWindow(String msg) {
+	public void updateChatWindow(String msg) {
 		
 				try {
 				kit.insertHTML(doc, doc.getLength(),msg, 0, 0, null);
@@ -188,7 +193,7 @@ public class ChatPanel {
 			Integer textColorHashNumber=textColor.hashCode();
 			String textColorHash=Integer.toHexString(textColorHashNumber);
 			//ChatSender.sendMessage("<b style=\"color:#"+d.substring(2)+"\">"+Player.getInstance().getUsername()+"</b>: <a style=\"color:#"+d1.substring(2)+"\">"+textSend.getText()+"</a>");
-			ChatSender.sendMessage("<img src=\""+playerAvatarUrl+"\" width=\"25\" height=\"25\"><b style=\"color:#"+userColorHash.substring(2)+"\">"+Player.getInstance().getUsername()+"</b>: <a style=\"color:#"+textColorHash.substring(2)+"\">"+textSend.getText()+"</a>");
+			sender.sendMessage("<img src=\""+playerAvatarUrl+"\" width=\"25\" height=\"25\"><b style=\"color:#"+userColorHash.substring(2)+"\">"+Player.getInstance().getUsername()+"</b>: <a style=\"color:#"+textColorHash.substring(2)+"\">"+textSend.getText()+"</a>");
 			textSend.setText("");	
 			send.setEnabled(false);
 		}

@@ -15,8 +15,9 @@ import view.ChatPanel;
 public class OneToOneReceiver implements Runnable {
 
 	private MessageConsumer consumer;
+	private ChatPanel chatPanel;
 
-	public OneToOneReceiver(String topicName) {
+	public OneToOneReceiver(String topicName, ChatPanel chatPanel) {
 		try {
 			// Create a ConnectionFactory
 			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(Constants.ActiveMQConnect);
@@ -38,6 +39,7 @@ public class OneToOneReceiver implements Runnable {
 			// Create a MessageConsumer from the Session to the Topic or Queue
 			consumer = session.createConsumer(topic);
 			Thread receiverThread=new Thread(this);
+			this.chatPanel=chatPanel;
 			receiverThread.start();
 		} catch (Exception ex) {
 
@@ -55,12 +57,12 @@ public class OneToOneReceiver implements Runnable {
 					TextMessage textMessage = (TextMessage) message;
 					String text = textMessage.getText();
 
-					ChatPanel.updateChatWindow(text);
+					chatPanel.updateChatWindow(text);
 					//System.out.println("r"+ text);
 					//Design.getInstance().updateChatWindow(text);
 
 				} else {
-					ChatPanel.updateChatWindow(message.toString());
+					chatPanel.updateChatWindow(message.toString());
 				}
 			} catch (Exception e) {
 			}
