@@ -8,6 +8,7 @@ then
   kill -9 $PID
 fi
 
-mvn -f server/pom.xml cargo:run > $LOGFILE 2>&1 &
+
+/u/kspace/local/maven/bin/mvn -f server/pom.xml cargo:run > $LOGFILE 2>&1 &
 pid=$!
 echo $pid > $PIDFILE
