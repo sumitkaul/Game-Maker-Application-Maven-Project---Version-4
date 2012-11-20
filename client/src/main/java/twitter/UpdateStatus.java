@@ -1,6 +1,5 @@
 package twitter;
 /*
- * Copyright 2007 Yusuke Yamamoto
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +22,7 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
+import view.ButtonPanel;
 
 import java.awt.Desktop;
 import java.io.BufferedReader;
@@ -35,12 +35,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public  class UpdateStatus {
+	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(UpdateStatus.class);
 
     public boolean execute(String statusMessage) throws IOException {
-//        if (args.length < 1) {
-//            System.out.println("Usage: java twitter4j.examples.tweets.UpdateStatus [text]");
-//            System.exit(-1);
-//        }
         try {
             Twitter twitter = new TwitterFactory().getInstance();
             try {
@@ -48,12 +45,11 @@ public  class UpdateStatus {
                 // this will throw IllegalStateException if access token is already available
             	
                 RequestToken requestToken = twitter.getOAuthRequestToken();
-                System.out.println("Got request token.");
-                System.out.println("Request token: " + requestToken.getToken());
-                System.out.println("Request token secret: " + requestToken.getTokenSecret());
+                LOG.info("Got request token.");
+                LOG.info("Request token: " + requestToken.getToken());
+                LOG.info("Request token secret: " + requestToken.getTokenSecret());
                 AccessToken accessToken = null;
 
-                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                 while (null == accessToken) {
     				try {
     					URI uri=new URI(requestToken.getAuthorizationURL());
@@ -65,15 +61,11 @@ public  class UpdateStatus {
     					// TODO Auto-generated catch block
     					e.printStackTrace();
     				}
-                    //System.out.println("Open the following URL and grant access to your account:");
-                    //System.out.println(requestToken.getAuthorizationURL());
-                    System.out.print("Enter the PIN(if available) and hit enter after you granted access.[PIN]:");
-                    //String pin = br.readLine();
-                    
-                    JFrame frame = new JFrame("InputDialog Example #1");
+
+                    JFrame frame = new JFrame("Twitter PIN verification");
 
                     // prompt the user to enter their name
-                    String pin = JOptionPane.showInputDialog(frame, "What's your name?");
+                    String pin = JOptionPane.showInputDialog(frame, "Enter the PIN");
 
                     
                     
@@ -85,32 +77,25 @@ public  class UpdateStatus {
                         }
                     } catch (TwitterException te) {
                         if (401 == te.getStatusCode()) {
-                            System.out.println("Unable to get the access token.");
+                            LOG.error("Unable to get the access token.");
                         } else {
                             te.printStackTrace();
                         }
                     }
                 }
-                System.out.println("Got access token.");
-                System.out.println("Access token: " + accessToken.getToken());
-                System.out.println("Access token secret: " + accessToken.getTokenSecret());
+                LOG.info("Got access token.");
+                LOG.info("Access token: " + accessToken.getToken());
+                LOG.info("Access token secret: " + accessToken.getTokenSecret());
             } catch (IllegalStateException ie) {
                 // access token is already available, or consumer key/secret is not set.
                 if (!twitter.getAuthorization().isEnabled()) {
-//                    System.out.println("OAuth consumer key/secret is not set.");
-//                    System.exit(-1);
                 	return false;
                 }
             }
-            //statusMessage = "A test message from the GameMaker";
             Status status = twitter.updateStatus(statusMessage);
-//            System.out.println("Successfully updated the status to [" + status.getText() + "].");
-//            System.exit(0);
             
         } catch (TwitterException te) {
             te.printStackTrace();
-//            System.out.println("Failed to get timeline: " + te.getMessage());
-//            System.exit(-1);
             return false;
         }
         return true;

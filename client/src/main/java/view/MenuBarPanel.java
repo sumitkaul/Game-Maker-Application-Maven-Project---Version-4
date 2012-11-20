@@ -23,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
@@ -145,7 +146,14 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		
 				try {
 					UpdateStatus updateStatus=new UpdateStatus();
-					updateStatus.execute("Test Message from GameMaker");
+					boolean result=updateStatus.execute("Test Message from GameMaker");
+					if(result){
+						JOptionPane.showMessageDialog (null, "Posted Score succesfully to Twitter", "Twitter Post Confirmation", JOptionPane.PLAIN_MESSAGE);
+					}
+					else{
+						JOptionPane.showMessageDialog (null, "Oops something went wrong try again!", "Twitter Post Confirmation", JOptionPane.PLAIN_MESSAGE);
+					}
+					
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
