@@ -30,8 +30,6 @@ public class GamePlayerView {
 		
 		baseFrame.setVisible(true);
 		
-		new ChatSender();
-		new ChatReceiver();
 		new StatusSender();
 		new StatusReceiver();
 	}

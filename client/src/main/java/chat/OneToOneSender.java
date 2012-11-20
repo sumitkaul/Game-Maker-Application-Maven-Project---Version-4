@@ -10,7 +10,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 import utility.Constants;
 
-public class OneToOneSender implements Runnable {
+public class OneToOneSender implements Runnable, Sender {
 
 	private MessageProducer producer;
 	private static boolean messagePresent = false;
@@ -52,7 +52,7 @@ public class OneToOneSender implements Runnable {
 					messagePresent = false;
 
 				}
-				Thread.currentThread().sleep(100);
+				Thread.sleep(100);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -13,13 +13,13 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 import utility.Constants;
 
-public class ChatSender implements Runnable {
+
+public class ChatSender implements Runnable, Sender {
 
 	private MessageProducer producer;
 	private static boolean messagePresent = false;
 	private static String message;
 	private Session session;
-
 	public ChatSender() {
 		try {
 			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(Constants.ActiveMQConnect);
@@ -63,7 +63,7 @@ public class ChatSender implements Runnable {
 
 	}
 
-	public static void sendMessage(String text) {
+	public void sendMessage(String text) {
 		message = text;
 		messagePresent = true;
 	}

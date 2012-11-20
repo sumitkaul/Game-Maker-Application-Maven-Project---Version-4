@@ -20,7 +20,10 @@ import org.newdawn.slick.util.Log;
 
 
 import model.Player;
+import chat.ChatReceiver;
 import chat.ChatSender;
+import chat.OneToOneReceiver;
+import chat.OneToOneSender;
 	
 public class ChatViewPanel {
 	
@@ -63,15 +66,20 @@ public class ChatViewPanel {
 		gameBuddyList = new JList();
 		gameBuddyList.setListData(gameBudList);
 		gameBuddyScroll = new JScrollPane(gameBuddyList);
-		
-		commonChatPanel = new ChatPanel(this).getChatPanel();
-	
+		ChatSender chatSender = new ChatSender();
+		ChatPanel commChatPanel=new ChatPanel(chatSender);
+		commonChatPanel = commChatPanel.getChatPanel();
+		new ChatReceiver(commChatPanel);
 		
 		commonChat.setLayout(new GridLayout(1,2));
 		commonChat.add(buddyScroll);
 		commonChat.add(commonChatPanel);
 	
-		gameChatPannel = new ChatPanel(this).getChatPanel();
+		OneToOneSender oneSender=new OneToOneSender("topicname");
+		ChatPanel gameChatPanel=new ChatPanel(oneSender);
+		gameChatPannel = gameChatPanel.getChatPanel();
+		//new OneToOneReceiver(topicName, gameChatPanel)
+		
 		gameChat.setLayout(new GridLayout(1,2));
 		gameChat.add(gameBuddyScroll);
 		gameChat.add(gameChatPannel);

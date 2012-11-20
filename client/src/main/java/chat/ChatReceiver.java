@@ -13,8 +13,9 @@ import utility.Constants;
 public class ChatReceiver implements Runnable {
 
 	private MessageConsumer consumer;
+	private ChatPanel chatPanel;
 
-	public ChatReceiver() {
+	public ChatReceiver(ChatPanel chatPanel) {
 		try {
 			// Create a ConnectionFactory
 			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(Constants.ActiveMQConnect);
@@ -36,6 +37,7 @@ public class ChatReceiver implements Runnable {
 			// Create a MessageConsumer from the Session to the Topic or Queue
 			consumer = session.createConsumer(topic);
 			Thread chatReceiverThread=new Thread(this);
+			this.chatPanel=chatPanel;
 			chatReceiverThread.start();
 		} catch (Exception ex) {
 
@@ -56,11 +58,10 @@ public class ChatReceiver implements Runnable {
 						
 					}
 					else
-						ChatPanel.updateChatWindow(text);
-					//Design.getInstance().updateChatWindow(text);
+					chatPanel.updateChatWindow(text);
 
 				} else {
-					ChatPanel.updateChatWindow(message.toString());
+					chatPanel.updateChatWindow(message.toString());
 				}
 			} catch (Exception e) {
 			}
