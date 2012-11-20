@@ -101,16 +101,16 @@ public class ClientHandler {
 			ub.setScheme("http").setHost(host).setPath(path);
 			URI uri = ub.build();
 
-			List<NameValuePair> nvps = new ArrayList<NameValuePair>(3);
+			List<NameValuePair> nvps = new ArrayList<NameValuePair>(4);
 			nvps.add(new BasicNameValuePair("game_name", gameName));
 			nvps.add(new BasicNameValuePair("game_author", gameAuthor));
 			nvps.add(new BasicNameValuePair("game_data", gameData));
-			nvps.add(new BasicNameValuePair("isMultiplayer", isMultiPlayerString));
-
+			nvps.add(new BasicNameValuePair("isMultiPlayer", isMultiPlayerString));
 			String json = HttpUtil.httpPost(uri, nvps);
 
 			Gson gson = new Gson();
 			Boolean saveOK = gson.fromJson(json, Boolean.class);
+			log.info("Save check"+saveOK);
 			return saveOK.booleanValue();
 
 		} catch (Exception ex) {
