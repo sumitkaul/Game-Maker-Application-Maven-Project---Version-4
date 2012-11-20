@@ -264,34 +264,38 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
 		// SpriteList.getInstance().setSpriteList(allSpriteModels);
 		SpriteList.getInstance().setSelectedSpriteModel(allSpriteModels.get(0));
+		for (SpriteModel model : allSpriteModels) {
+			SpriteList.getInstance().addSprite(model);
+			SpriteList.getInstance().setSelectedSpriteModel(model);
+		}
 		
 		
 		if(!Helper.getsharedHelper().isPlayerMode()){
-			GameMakerView.getInstance().getLayerBox().removeAllItems();
+			GameMakerView gameMakerView = GameMakerView.getInstance();
+			gameMakerView.getLayerBox().removeAllItems();
 			for (String layer : layers) {
-				GameMakerView.getInstance().getLayerBox().addItem(layer);
+				gameMakerView.getLayerBox().addItem(layer);
 			}
 
-			GameMakerView.getInstance().getFacade().getGameController().setEvents(game.getEventsForGameController());
-			GameMakerView.getInstance().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
+			Facade facade = gameMakerView.getFacade();
+			facade.getGameController().setEvents(game.getEventsForGameController());
+			facade.getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
 
-			GameMakerView.getInstance().getFacade().createViewsForModels(game.getSpriteList());
+			facade.createViewsForModels(game.getSpriteList());
 
+			ActionEventPanel actionEventPanel = GameMakerView.getInstance().getActionEventPanel();
 			for (SpriteModel model : allSpriteModels) {
-				SpriteList.getInstance().addSprite(model);
-				SpriteList.getInstance().setSelectedSpriteModel(model);
 
-				GameMakerView.getInstance().getActionEventPanel().getSpriteListIndividualModel().addElement(model.getId());
-				if (!GameMakerView.getInstance().getActionEventPanel().getSpriteListGroupModel().contains(model.getGroupId())) {
-					GameMakerView.getInstance().getActionEventPanel().getSpriteListGroupModel().addElement(model.getGroupId());
+				actionEventPanel.getSpriteListIndividualModel().addElement(model.getId());
+				if (!actionEventPanel.getSpriteListGroupModel().contains(model.getGroupId())) {
+					actionEventPanel.getSpriteListGroupModel().addElement(model.getGroupId());
 				}
-				if (GameMakerView.getInstance().getActionEventPanel().getSpriteListIndividualModel().size() > 0) {
-					GameMakerView.getInstance().getActionEventPanel().getSpriteList().setModel(GameMakerView.getInstance().getActionEventPanel().getSpriteListIndividualModel());
+				if (actionEventPanel.getSpriteListIndividualModel().size() > 0) {
+					actionEventPanel.getSpriteList().setModel(GameMakerView.getInstance().getActionEventPanel().getSpriteListIndividualModel());
 				}
-				// if(spriteListGroupModel.size() >0 )
-					// groupSpriteList.setModel(spriteListGroupModel);
+		
 			}
-			GameMakerView.getInstance().updateProperties();
+			gameMakerView.updateProperties();
 		}
 		else{
 			GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
@@ -301,7 +305,11 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 			facade.createViewsForModels(game.getSpriteList());
 			facade.getGameController().setEvents(game.getEventsForGameController());
 			facade.getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
+			
+			
+			
 			gamePanel.repaint();
+		
 
 		}
 		

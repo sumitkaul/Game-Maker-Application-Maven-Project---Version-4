@@ -1,39 +1,21 @@
 package view;
 
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.IOException;
 import java.util.List;
-
 import javax.swing.JButton;
-
-import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.html.HTMLDocument;
-import javax.swing.text.html.HTMLEditorKit;
-
-import chat.ChatSender;
-
 import net.miginfocom.swing.MigLayout;
 
 import loader.GameDataPackageIO;
 import loader.GamePackage;
-import model.Player;
 import model.SpriteModel;
 import utility.ClockDisplay;
+import utility.Helper;
 import utility.Layers;
 import utility.Score;
 import utility.SpriteList;
@@ -55,6 +37,7 @@ public class PlayerButtonPanel implements ActionListener{
 	private JButton topscoreButton;
 	private JPanel chatViewPanel;
 	private JButton share;
+	
 
 	
 	public PlayerButtonPanel() {
@@ -68,8 +51,9 @@ public class PlayerButtonPanel implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GameMakerView.getInstance().getFacade().startGame();
-				GameMakerView.getInstance().getGamePanel().requestFocusInWindow();
+				GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
+				gamePlayerView.getFacade().startGame();
+				gamePlayerView.getGamePanel().requestFocusInWindow();
 			}
 		});
 		pauseButton = new JButton("Pause");
@@ -77,7 +61,8 @@ public class PlayerButtonPanel implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GameMakerView.getInstance().getFacade().stopGame();
+				GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
+				gamePlayerView.getFacade().stopGame();
 				// ScoreDialog.showScoreDialog();
 				JOptionPane.showMessageDialog(GameMakerView.getInstance().getBaseFrame(), "Your Score is " + Score.getInstance().getScore());
 			}
@@ -106,10 +91,10 @@ public class PlayerButtonPanel implements ActionListener{
 				// SpriteList.getInstance().setSpriteList(allSpriteModels);
 				SpriteList.getInstance().setSelectedSpriteModel(allSpriteModels.get(0));
 
-				GameMakerView.getInstance().getFacade().getGameController().setEvents(game.getEventsForGameController());
-				GameMakerView.getInstance().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
+				Helper.getsharedHelper().getGamePlayerView().getFacade().getGameController().setEvents(game.getEventsForGameController());
+				Helper.getsharedHelper().getGamePlayerView().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
 
-				GameMakerView.getInstance().getFacade().createViewsForModels(game.getSpriteList());
+				Helper.getsharedHelper().getGamePlayerView().getFacade().createViewsForModels(game.getSpriteList());
 
 				for (SpriteModel model : allSpriteModels) {
 					SpriteList.getInstance().addSprite(model);
