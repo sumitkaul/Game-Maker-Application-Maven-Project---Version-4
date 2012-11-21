@@ -6,6 +6,7 @@ import view.OptionsFrame;
 
 public class gameMaker {
 
+	
     public static void main(String[] args) throws Exception {
     	//Default theme has been set
     	//TODO -create a new XML file to store the default properties
