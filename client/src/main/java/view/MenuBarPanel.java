@@ -174,7 +174,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 					Integer randomNumber=random.nextInt();
 					String queueName=currentTime.toString()+randomNumber.toString();
 					AuthReceiver authReceiver=new AuthReceiver(queueName);
-					URI uri=new URI("http://www.mayurmasrani.com/facebook?q="+queueName); //To be changed to tintin server soon
+					URI uri=new URI("http://fluency.knownspace.org/student-files/fall2012/a10/team-all/server/fb_login.php"); //To be changed to tintin server soon
 					Desktop.getDesktop().browse(uri);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
