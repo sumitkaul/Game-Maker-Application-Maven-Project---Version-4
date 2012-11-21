@@ -81,8 +81,8 @@ public class MultiPlayerOption{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Constants.isHost = true;
-				//HostGame p = new HostGame(Design.getInstance().getGamePanel());
-				//p.displayHostedGames();
+				HostGame p = new HostGame(rootComp);
+				p.displayHostedGames();
 				String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the name of the hosted game");
 				setSendingQueueName(queueName);
 				setReceivingQueueName(queueName);

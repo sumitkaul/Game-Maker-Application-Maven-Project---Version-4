@@ -18,18 +18,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import db.DatabaseHandler;
+import db.HostedGameBaseRecord;
 import db.Resources;
+import db.User;
 
 @Controller
 public class InsertDeleteRecordsController {
 
 	private static Logger log = Logger.getLogger(InsertDeleteRecordsController.class);
-
+	
+	@RequestMapping(value = "/deleteHostedGameBaseRecord", method = RequestMethod.GET)
+	@ResponseBody
 	public String deleteHostedGameBaseRecord(@RequestParam("gameId") String gameId) {
 
 		Gson gson = new Gson();
 		
-		boolean isCommited = false;
+		boolean deleteOK = false;
 
 		if (gameId != null) {
 
@@ -40,17 +44,35 @@ public class InsertDeleteRecordsController {
 			log.info(count);
 
 			if (count.get(0).intValue() < 1) {
-				isCommited = false;
+				deleteOK = false;
 			} else {
 				DatabaseHandler.ExecuteQuery(sql1);
-				isCommited = true;
+				deleteOK = true;
 			}
 
 			log.info("deleted entry id: " + gameId);
-			return gson.toJson(isCommited);
+			return gson.toJson(deleteOK);
 		} else {
 			return gson.toJson(false);
 		}
+
+	}
+	
+	@RequestMapping(value = "/insertHostedGameBaseRecord", method = RequestMethod.GET)
+	@ResponseBody
+	public String insertHostedGameBaseRecord(@RequestParam("hostname") String hostName,
+											 @RequestParam("gamebasename") String gameBaseName,
+											 @RequestParam("save_gamebasename") String saveGameBaseName){
+		Gson gson = new Gson();
+		Session session = DatabaseHandler.getDatabaseHandlerInstance().getHibernateSession();
+		Transaction t = session.beginTransaction();
+		HostedGameBaseRecord hostedGameBaseRecord = 
+				new HostedGameBaseRecord(hostName, gameBaseName, saveGameBaseName);
+		session.save(hostedGameBaseRecord);
+		t.commit();
+		session.close();
+		gson.toJson(true);
+		return gson.toJson(true);
 
 	}
 

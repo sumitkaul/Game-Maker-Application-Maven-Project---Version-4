@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Session;
+import org.jboss.logging.Logger;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,8 @@ import db.Resources;
 
 @Controller
 public class LoadController {
+	private static Logger log = Logger.getLogger(LoadController.class);
+
 	@RequestMapping(value = "/loadGameBase", method = RequestMethod.GET)
 	@ResponseBody
 	public String loadGameBase(@RequestParam("game_name") String gameName) {
@@ -159,11 +162,13 @@ public class LoadController {
 
 				int isMultiplayer=1;
 
-				//String sql = "select game_name from GameBase where IsMultiplayer="+isMultiplayer;
-				String sql = "select game_name from GameBase";
+				String sql = "select game_name from GameBase where IsMultiplayer="+isMultiplayer;
+				//String sql = "select game_name from GameBase";
+				
 				@SuppressWarnings("unchecked")
 				List<String> names = DatabaseHandler.Query(sql);
-
+				log.info("*****************NAMES*********"+names);
+				
 				Gson gson = new Gson();
 	            String json = gson.toJson(names);
 	            
