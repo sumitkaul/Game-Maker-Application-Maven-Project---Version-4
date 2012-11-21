@@ -14,6 +14,7 @@ import model.SpriteModel;
 
 import eventlistener.TextFieldDocumentListener;
 
+import utility.SpriteList;
 import utility.enums.PropertyField;
 
 public class PropertyPanel extends JPanel{
@@ -74,25 +75,28 @@ public class PropertyPanel extends JPanel{
 		addToPanel(createTextField(10,heightFieldName), 1, 5, constraints);
 	}
 	
-	public void updateProperties(SpriteModel selectedSpriteModel){
-		Component[] components = getComponents();
-		for(Component component : components){
-			if(component instanceof JTextField){
-				JTextField textField = (JTextField) component;
-				String owner = (String) textField.getDocument().getProperty("owner");
-				
-				if(owner.equalsIgnoreCase(PropertyField.SPRITE_NAME.toString()))
-					textField.setText(selectedSpriteModel.getId());
-				else if(owner.equalsIgnoreCase(PropertyField.GROUP_NAME.toString()))
-					textField.setText(selectedSpriteModel.getGroupId());
-				else if(owner.equalsIgnoreCase(PropertyField.VELOCITY_X.toString()))
-					textField.setText(Double.toString(selectedSpriteModel.getSpeedX()));
-				else if(owner.equalsIgnoreCase(PropertyField.VELOCITY_Y.toString()))
-					textField.setText(Double.toString(selectedSpriteModel.getSpeedY()));
-				else if(owner.equalsIgnoreCase(PropertyField.WIDTH.toString()))
-					textField.setText(Double.toString(selectedSpriteModel.getWidth()));
-				else if(owner.equalsIgnoreCase(PropertyField.HEIGHT.toString()))
-					textField.setText(Double.toString(selectedSpriteModel.getHeight()));
+	public void updateProperties(){
+		SpriteModel selectedSpriteModel = SpriteList.getInstance().getSelectedSpriteModel();
+		if(selectedSpriteModel != null){
+			Component[] components = getComponents();
+			for(Component component : components){
+				if(component instanceof JTextField){
+					JTextField textField = (JTextField) component;
+					String owner = (String) textField.getDocument().getProperty("owner");
+					
+					if(owner.equalsIgnoreCase(PropertyField.SPRITE_NAME.toString()))
+						textField.setText(selectedSpriteModel.getId());
+					else if(owner.equalsIgnoreCase(PropertyField.GROUP_NAME.toString()))
+						textField.setText(selectedSpriteModel.getGroupId());
+					else if(owner.equalsIgnoreCase(PropertyField.VELOCITY_X.toString()))
+						textField.setText(Double.toString(selectedSpriteModel.getSpeedX()));
+					else if(owner.equalsIgnoreCase(PropertyField.VELOCITY_Y.toString()))
+						textField.setText(Double.toString(selectedSpriteModel.getSpeedY()));
+					else if(owner.equalsIgnoreCase(PropertyField.WIDTH.toString()))
+						textField.setText(Double.toString(selectedSpriteModel.getWidth()));
+					else if(owner.equalsIgnoreCase(PropertyField.HEIGHT.toString()))
+						textField.setText(Double.toString(selectedSpriteModel.getHeight()));
+				}
 			}
 		}
 	}

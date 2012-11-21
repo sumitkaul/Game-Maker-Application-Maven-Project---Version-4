@@ -84,7 +84,7 @@ public class ImageActionListener implements ActionListener {
 			}
 			
             SpriteModel spriteModel = new SpriteModel(100, 100, speedX, speedY, sizeX, sizeY, btn.getName(), layer, imageId);
-            gameMakerView.updateSpriteList(spriteModel);
+            gameMakerView.getActionEventPanel().updateSpriteList(spriteModel);
             gameMakerView.updateProperties();
             gameMakerView.getFacade().addSpriteModelToView(spriteModel);
             gameMakerView.getGamePanel().repaint();

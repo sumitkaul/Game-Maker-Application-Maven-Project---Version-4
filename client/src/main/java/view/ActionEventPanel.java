@@ -504,6 +504,53 @@ public class ActionEventPanel {
 
     }
 	
+	public void updateActionEvents(){
+		SpriteModel selectedSpriteModel = SpriteList.getInstance().getSelectedSpriteModel();
+		if(selectedSpriteModel != null){
+			int selectedItem = 0;
+			DefaultListModel listModel = getSpriteListIndividualModel();
+			for (int i = 0; i < listModel.size(); i++) {
+				String element = (String) listModel.get(i);
+				if (element.equalsIgnoreCase(selectedSpriteModel.getId())) {
+					selectedItem = i;
+				}
+			}
+			getSpriteList().setSelectedIndex(selectedItem);
+		}
+	}
+	
+	public void removeSpriteModelFromList(SpriteModel selectedSpriteModel) {
+		int selectedItem = 0;
+		DefaultListModel listModel = getSpriteListIndividualModel();
+		for (int i = 0; i < listModel.size(); i++) {
+			String element = (String) listModel.get(i);
+			if (element.equalsIgnoreCase(selectedSpriteModel.getId())) {
+				selectedItem = i;
+			}
+		}
+		listModel.remove(selectedItem);
+		getSpriteList().setModel(listModel);
+	}
+	
+	public void reset() {
+		getSpriteListIndividualModel().removeAllElements();
+		getSpriteList().setModel(getSpriteListIndividualModel());
+		
+	}
+	
+	public void updateSpriteList(SpriteModel spriteModel) {
+		SpriteList.getInstance().addSprite(spriteModel);
+		SpriteList.getInstance().setSelectedSpriteModel(spriteModel);
+
+		getSpriteListIndividualModel().addElement(spriteModel.getId());
+		if (!getSpriteListGroupModel().contains(spriteModel.getGroupId())) {
+			getSpriteListGroupModel().addElement(spriteModel.getGroupId());
+		}
+		if (getSpriteListIndividualModel().size() > 0) {
+			getSpriteList().setModel(getSpriteListIndividualModel());
+		}
+	}
+	
 	public JPanel getInputPanel() {
 		return inputPanel;
 	}
@@ -549,6 +596,4 @@ public class ActionEventPanel {
 	public void setSpriteListGroupModel(DefaultListModel spriteListGroupModel) {
 		this.spriteListGroupModel = spriteListGroupModel;
 	}
-
-	
 }

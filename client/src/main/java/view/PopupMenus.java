@@ -56,7 +56,7 @@ public class PopupMenus {
 					{
 						if(sm.getId().equals("background")) continue;
 						SpriteList.getInstance().removeSprite(sm);
-						GameMakerView.getInstance().removeSpriteModelFromList(sm);
+						GameMakerView.getInstance().getActionEventPanel().removeSpriteModelFromList(sm);
 					}
 					GameMakerView.getInstance().getGamePanel().repaint();
 					GameMakerView.getInstance().updateProperties();
@@ -69,7 +69,8 @@ public class PopupMenus {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					java.util.List<SpriteModel> smList = SpriteList.getInstance().getSelectedSpriteModels();
-					GameMakerView.getInstance().createDuplicateSpriteModel(smList.get(smList.size()-1));
+					Facade facade = GameMakerView.getInstance().getFacade();
+					facade.createDuplicateSpriteModel(smList.get(smList.size()-1));
 				}
 			});
 

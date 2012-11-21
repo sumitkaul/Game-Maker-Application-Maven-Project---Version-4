@@ -2,8 +2,6 @@ package view;
 
 import javax.swing.JFrame;
 
-import chat.ChatReceiver;
-import chat.ChatSender;
 import chat.StatusReceiver;
 import chat.StatusSender;
 import facade.Facade;
@@ -18,13 +16,16 @@ public class GamePlayerView {
 	private Facade facade;
 	
 	public GamePlayerView(int frameWidth, int frameHeight) {
+		//Create  a base frame to hold all the other panels
 		baseFrame = Helper.getsharedHelper().createBaseFrame(frameWidth,frameHeight);
 		baseFrame.setJMenuBar(new MenuBarPanel().getMenuBar());
 		
+		//Create a game panel. This is where all the game objects are rendered and the game is played.
 		gamePanel = new GamePanel(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT);
 		baseFrame.add(gamePanel);
 		facade = new Facade(gamePanel);
 		
+		//Create a button panel where the controls to play/pause etc the game and chat window is present.
 		PlayerButtonPanel playerButtonPanel = new PlayerButtonPanel();
 		baseFrame.add(playerButtonPanel.getPlayerButtonPanel());
 		
