@@ -277,6 +277,7 @@ public class ImagePanel implements ActionListener,ChangeListener {
 		}
 		else if(e.getSource() == imageTags){
 			presentPage = 1;
+			imageSize = 50;
 			String tag = (String)imageTags.getSelectedItem();
 			totalImages = ClientHandler.countTag(tag, Constants.HOST, Constants.PATH+"/countTag", new Exception[1]);
 			getImages();
