@@ -4,6 +4,7 @@ package view;
 
 
 
+import facade.Facade;
 import interfaces.Drawable;
 
 import java.awt.Color;
@@ -39,7 +40,6 @@ public class GamePanel extends JPanel implements KeyListener{
     private Image image;
     private Graphics graphic;
     private List<Drawable> drawables;
-    private static GamePanel gameBoard;
     private String currentLayer;
 
    
@@ -153,6 +153,7 @@ public class GamePanel extends JPanel implements KeyListener{
 	    	SpriteList.getInstance().setSelectedSpriteModel(selectedSpriteModel);
 	    	SpriteList.getInstance().setSelectedSpriteModels(selectedSpriteModels);
 
+	    	Facade facade = GameMakerView.getInstance().getFacade();
 	    	int clickCount = event.getClickCount();
 	    	if(event.getButton() == MouseEvent.BUTTON3)
 	    	{
@@ -171,13 +172,13 @@ public class GamePanel extends JPanel implements KeyListener{
 	    	}  
 	    	else if(clickCount == 2){
 	    		if(foundObject){
-	    			GameMakerView.getInstance().createDuplicateSpriteModel(selectedSpriteModel);
+	    			facade.createDuplicateSpriteModel(selectedSpriteModel);
 	    		}
 	    			
 	    	}
 	    	if(clickCount == 2){
 	    		if(foundObject){
-	    			GameMakerView.getInstance().createDuplicateSpriteModel(selectedSpriteModel);
+	    			facade.createDuplicateSpriteModel(selectedSpriteModel);
 	    		}
 	    			
 	    	}
@@ -264,7 +265,7 @@ public class GamePanel extends JPanel implements KeyListener{
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		if(arg0.getKeyChar() == KeyEvent.VK_DELETE){
-			GameMakerView.getInstance().removeSpriteModelFromList(SpriteList.getInstance().getSelectedSpriteModel());
+			GameMakerView.getInstance().getActionEventPanel().removeSpriteModelFromList(SpriteList.getInstance().getSelectedSpriteModel());
 		SpriteList.getInstance().removeSprite(SpriteList.getInstance().getSelectedSpriteModel());
 			GameMakerView.getInstance().getGamePanel().repaint();
 
@@ -286,5 +287,14 @@ public class GamePanel extends JPanel implements KeyListener{
 
 	public void setCurrentLayer(String currentLayer) {
 		this.currentLayer = currentLayer;
+	}
+
+	public void reset() {
+		List<SpriteModel> allSpriteModels = SpriteList.getInstance().getSpriteList();
+		for (SpriteModel model : allSpriteModels) {
+			unregisterModel(model);
+		}
+		removeAllDrawables();
+		repaint();
 	}
 }

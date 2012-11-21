@@ -2,12 +2,9 @@ package view;
 
 
 import facade.Facade;
-import interfaces.Resizable;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.List;
 import javax.swing.*;
-import model.SpriteModel;
 import utility.*;
 import view.imagePanel.ImagePanel;
 import view.PropertyPanel;
@@ -17,21 +14,29 @@ public class GameMakerView {
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(GameMakerView.class);
 	private static GameMakerView sharedDesign = null;
 	
-	private JFrame baseFrame;
-	private JLayeredPane layeredPane;
-	private JPanel leftPanel;
-	private GamePanel gamePanel; 
-	private JPanel rightPanel;
-	private ButtonPanel buttonPanel;
-	private PropertyPanel propertyPanel;
-	private ActionEventPanel actionEventPanel;
-	private ImagePanel extendedImagePanel;
+	private JFrame baseFrame;					//The base frame where all other panels are placed
+	private JLayeredPane layeredPane;			//Will be used for showing pop-ups
+	private JPanel leftPanel;					//The panel with images
+	private GamePanel gamePanel; 				//The middle panel where the game objects are rendered.
+	private JPanel rightPanel;					//This contains Button, property and event action panel
 	
-	private String userName = "";
+	private ButtonPanel buttonPanel;			//The panel with buttons at the top right corner		
+	private PropertyPanel propertyPanel;		//Panel where width, height etc are changed.
+	private ActionEventPanel actionEventPanel;	//Can add action and events to game objects from this panel
+	private ImagePanel extendedImagePanel;		//The image panel that is present in the left panel	
+	
+	private String userName = "";				
 	private Facade facade;
 	private JComboBox layerBox;
 	private boolean shouldDisplayScore = false;
 	
+	
+	public static GameMakerView getInstance() {
+		if (sharedDesign == null) {
+			sharedDesign = new GameMakerView(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
+		}
+		return sharedDesign;
+	}
 	
 	protected GameMakerView(int frameWidth, int frameHeight) {
 		
@@ -86,109 +91,25 @@ public class GameMakerView {
 		
 	}
 
-	public void createDuplicateSpriteModel(SpriteModel model) {
-
-		SpriteModel spriteModel = new SpriteModel(model.getPosX() + model.getWidth() / 2, model.getPosY() + model.getHeight() / 2, model.getSpeedX(), model.getSpeedY(), model.getWidth(), model.getHeight(), 
-				model.getImageUrlString(), model.getLayer(), model.getImageId());
-		updateSpriteList(spriteModel);
-		updateProperties();
-
-		facade.addSpriteModelToView(spriteModel);
-		gamePanel.repaint();
-	}
-
-	public void updateSpriteList(SpriteModel spriteModel) {
-		SpriteList.getInstance().addSprite(spriteModel);
-		SpriteList.getInstance().setSelectedSpriteModel(spriteModel);
-
-		actionEventPanel.getSpriteListIndividualModel().addElement(spriteModel.getId());
-		if (!actionEventPanel.getSpriteListGroupModel().contains(spriteModel.getGroupId())) {
-			actionEventPanel.getSpriteListGroupModel().addElement(spriteModel.getGroupId());
-		}
-		if (actionEventPanel.getSpriteListIndividualModel().size() > 0) {
-			actionEventPanel.getSpriteList().setModel(actionEventPanel.getSpriteListIndividualModel());
-		}
-
-	}
-
 	public void updateProperties() {
-		SpriteModel selectedSpriteModel = SpriteList.getInstance().getSelectedSpriteModel();
-		if (selectedSpriteModel == null) {
-			return;
-		}
-		propertyPanel.updateProperties(selectedSpriteModel);
-	
-		int selectedItem = 0;
-		DefaultListModel listModel = actionEventPanel.getSpriteListIndividualModel();
-		for (int i = 0; i < listModel.size(); i++) {
-			String element = (String) listModel.get(i);
-			if (element.equalsIgnoreCase(selectedSpriteModel.getId())) {
-				selectedItem = i;
-			}
-		}
-		actionEventPanel.getSpriteList().setSelectedIndex(selectedItem);
-
+		propertyPanel.updateProperties();
+		actionEventPanel.updateActionEvents();
 	}
 
 	public void clearAll() {
 		propertyPanel.clearAll();
-
-	}
-
-	public Facade getFacade() {
-		return facade;
-	}
-
-	public void removeSpriteModelFromList(SpriteModel selectedSpriteModel) {
-		int selectedItem = 0;
-		DefaultListModel listModel = actionEventPanel.getSpriteListIndividualModel();
-		for (int i = 0; i < listModel.size(); i++) {
-			String element = (String) listModel.get(i);
-			if (element.equalsIgnoreCase(selectedSpriteModel.getId())) {
-				selectedItem = i;
-			}
-		}
-		listModel.remove(selectedItem);
-		actionEventPanel.getSpriteList().setModel(listModel);
-
 	}
 
 	public void reset() {
-		List<SpriteModel> allSpriteModels = SpriteList.getInstance().getSpriteList();
-		for (SpriteModel model : allSpriteModels) {
-			GameMakerView.getInstance().getGamePanel().unregisterModel(model);
-		}
 		ClockDisplay.getInstance().reset();
 		SpriteList.getInstance().getSpriteList().clear();
-
-
-		facade.getGameController().getEvents().clear();
-		facade.getKeyListenerController().getKeyEvents().clear();
-
-		actionEventPanel.getSpriteListIndividualModel().removeAllElements();
-		actionEventPanel.getSpriteList().setModel(actionEventPanel.getSpriteListIndividualModel());
-
+		gamePanel.reset();
+		facade.reset();
+		actionEventPanel.reset();
 		updateProperties();
-
-		gamePanel.removeAllDrawables();
-		gamePanel.repaint();
 	}
 
 	/****************** GETTERS & SETTERS **********************************/
-	public ImagePanel getExtendedImagePanel() {
-		return extendedImagePanel;
-	}
-
-	public void setExtendedImagePanel(ImagePanel extendedImagePanel) {
-		this.extendedImagePanel = extendedImagePanel;
-	}
-
-	public static GameMakerView getInstance() {
-		if (sharedDesign == null) {
-			sharedDesign = new GameMakerView(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
-		}
-		return sharedDesign;
-	}
 
 	public JFrame getBaseFrame() {
 		return this.baseFrame;
@@ -256,11 +177,8 @@ public class GameMakerView {
 	public void setPropertyPanel(PropertyPanel propertyPanel) {
 		this.propertyPanel = propertyPanel;
 	}
-	public JPanel getLeftImagePanel() {
-		return leftPanel;
-	}
-
-	public void setLeftImagePanel(JPanel leftImagePanel) {
-		this.leftPanel = leftImagePanel;
+	
+	public Facade getFacade() {
+		return facade;
 	}
 }

@@ -7,6 +7,7 @@ import model.SpriteModel;
 import controller.GameController;
 import controller.KeyListenerController;
 import utility.ClockDisplay;
+import view.GameMakerView;
 import view.GamePanel;
 import view.SpriteView;
 
@@ -44,7 +45,17 @@ public class Facade {
         this.gamePanel.requestFocusInWindow();
 
     }
+    
+    public void createDuplicateSpriteModel(SpriteModel model) {
 
+		SpriteModel spriteModel = new SpriteModel(model.getPosX() + model.getWidth() / 2, model.getPosY() + model.getHeight() / 2, model.getSpeedX(), model.getSpeedY(), model.getWidth(), model.getHeight(), 
+				model.getImageUrlString(), model.getLayer(), model.getImageId());
+		GameMakerView.getInstance().getActionEventPanel().updateSpriteList(spriteModel);
+		GameMakerView.getInstance().updateProperties();
+		addSpriteModelToView(spriteModel);
+		gamePanel.repaint();
+	}
+    
     public void addSpriteModelToView(SpriteModel spriteModel) {
        
         SpriteView spriteView = new SpriteView(spriteModel);
@@ -89,6 +100,12 @@ public class Facade {
 
 	public void setTimer(Timer timer) {
 		this.timer = timer;
+	}
+
+	public void reset() {
+		getGameController().getEvents().clear();
+		getKeyListenerController().getKeyEvents().clear();
+		
 	}
 
 	
