@@ -54,12 +54,14 @@ public class SaveController {
 	public String saveGameBase(@RequestParam("game_name") String game_name,@RequestParam("game_data") String game_data,@RequestParam("game_author") String game_author,@RequestParam("isMultiPlayer") String isMultiPlayer ) {
 		int isMultiPlayerValue;
         Gson gson = new Gson();
+        log.info("****************isMultiPlayer**********************"+isMultiPlayer);
         if(isMultiPlayer.equals("true")){
         	isMultiPlayerValue=1;
         }
         else{
         	isMultiPlayerValue=0;
         }
+        log.info("**************isMultiPlayerValue************************"+isMultiPlayerValue);
         if (game_name != null && game_data != null && game_author != null) {
 
             String sql = "select count(*) FROM GameBase where game_name='" + game_name + "'";
