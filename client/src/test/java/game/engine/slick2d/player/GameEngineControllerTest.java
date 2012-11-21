@@ -16,7 +16,7 @@ public class GameEngineControllerTest {
 
         GameEngineController instance = new GameEngineController("test", GameEngineController.LOAD_MODE_REMOTE_NO_UI,
                 new String[]{"test_game_engine_delta",
-                    "tintin.cs.indiana.edu:8097",
-                    "/finalproject/loadGameBase"});
+                    "tintin.cs.indiana.edu:8096",
+                    "/GameMakerServer/loadGameBase"});
     }
 }
