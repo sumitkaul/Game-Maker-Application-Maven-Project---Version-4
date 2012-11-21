@@ -1,21 +1,11 @@
 package facade;
 
-import static org.junit.Assert.*;
-
-import interfaces.Drawable;
-
-import java.util.List;
-
-import gameMaker.gameMaker;
-
+import static org.junit.Assert.assertTrue;
 import model.SpriteModel;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.uispec4j.UISpecTestCase;
-import org.uispec4j.interception.MainClassAdapter;
 
 import utility.Constants;
 import utility.SpriteList;
