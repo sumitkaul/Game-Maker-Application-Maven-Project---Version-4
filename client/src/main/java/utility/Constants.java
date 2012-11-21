@@ -109,8 +109,8 @@ public class Constants
 	public static boolean isGamePlayer = false;
 	public static boolean isHost = false;
 	
-	public static final String HOST =  "tintin.cs.indiana.edu:8096";
-	public static final String PATH = "/GameMakerServer";
+	public static final String HOST =  "tintin.cs.indiana.edu:8097";
+	public static final String PATH = "/finalproject";
 	
 //	public static final String HOST =  "localhost:8097";
 //    public static final String PATH = "/finalproject";
