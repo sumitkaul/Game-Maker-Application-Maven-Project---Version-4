@@ -68,6 +68,42 @@ public class GameEngineController extends BasicGame {
         key2key.put(38, 200);
         key2key.put(40, 208);
         key2key.put(32, 57);
+        key2key.put(65, 30);
+        key2key.put(66, 48);
+        key2key.put(67, 46);
+        key2key.put(68, 32);
+        key2key.put(69, 18);
+        key2key.put(70, 33);
+        key2key.put(71, 34);
+        key2key.put(72, 35);
+        key2key.put(73, 23);
+        key2key.put(74, 36);
+        key2key.put(75, 37);
+        key2key.put(76, 38);
+        key2key.put(77, 50);
+        key2key.put(78, 49);
+        key2key.put(79, 24);
+        key2key.put(80, 25);
+        key2key.put(81, 16);
+        key2key.put(82, 19);
+        key2key.put(83, 31);
+        key2key.put(84, 20);
+        key2key.put(85, 22);
+        key2key.put(86, 47);
+        key2key.put(87, 17);
+        key2key.put(88, 45);
+        key2key.put(89, 21);
+        key2key.put(90, 44);
+        key2key.put(48, 11);
+        key2key.put(49, 2);
+        key2key.put(50, 3);
+        key2key.put(51, 4);
+        key2key.put(52, 5);
+        key2key.put(53, 6);
+        key2key.put(54, 7);
+        key2key.put(55, 8);
+        key2key.put(56, 9);
+        key2key.put(57, 10);
     }
 
     private GamePackage loadGameData(int loadMode, String[] paras) {
