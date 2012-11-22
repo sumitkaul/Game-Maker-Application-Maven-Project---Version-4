@@ -137,8 +137,19 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		JMenuItem register = new JMenuItem("Register");
 		JMenuItem facebookLogin=new JMenuItem("Login with Facebook");
 		JMenuItem twitter=new JMenuItem("Post Score to Twitter");
+		JMenuItem getTwitterScore= new JMenuItem("Get Score from Twitter");
 		
-		twitter.addActionListener(new ActionListener() {
+                getTwitterScore.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+		
+				LOG.debug("works");
+			
+			}
+		});
+                twitter.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -213,6 +224,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		user.add(register);
 		user.add(facebookLogin);
 		user.add(twitter);
+                user.add(getTwitterScore);
 
 				/*JMenu menuMultiPlayer = new JMenu("MultiPlayer");
 		JMenuItem startMultiPlayer = new JMenuItem("Start"); 
