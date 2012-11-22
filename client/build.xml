@@ -72,7 +72,7 @@
 	<property name="src" value="${code-root}/src" />
 	<property name="lib" value="${code-root}/lib" />
 	<property name="resources" value="${code-root}/resources"/>
-	<property name="webstart.home" value="${code-root}/client/webstart" />
+	<property name="webstart.home" value="${code-root}/webstart" />
 	<property name="key.store" value="${webstart.home}/projectKeystore" />
 	<property name="cobertura.dir" value="${code-root}/target/site/cobertura" />
 
