@@ -17,8 +17,12 @@ public class ActionChangeGameStatus implements GameAction,Serializable {
     private final boolean NO = false;
 
     private boolean isGameStopCommandIssued = NO;
+    
+    // This is added to suppress the message for unit testing.
+    private boolean showMessage = true;
 
-    String message = "";
+
+	String message = "";
 
     public ActionChangeGameStatus(boolean isWin) {
 	if (isWin)
@@ -45,25 +49,38 @@ public class ActionChangeGameStatus implements GameAction,Serializable {
 		 * used a boolean isGameStopCommandIssued so that the
 		 * showMessageDialog is not executed again for this for loop.
 		 */
-		if (!isGameStopCommandIssued) {
+		if (!isGameStopCommandIssued  ) {
 		    if (!xReversed.intersects(obj.getBoundingBox())) {
-			JOptionPane.showMessageDialog(null, message);
-			GameMakerView.getInstance().getFacade().stopGame();
-			isGameStopCommandIssued = YES;
+		        if(showMessage == true)		    	
+			      JOptionPane.showMessageDialog(null, message);
+		    
+			    GameMakerView.getInstance().getFacade().stopGame();
+			    isGameStopCommandIssued = YES;
 		    }
 		    if (!yReversed.intersects(obj.getBoundingBox())) {
-			JOptionPane.showMessageDialog(null, message);
-			GameMakerView.getInstance().getFacade().stopGame();
-			isGameStopCommandIssued = YES;
+		    	if(showMessage == true)	
+			        JOptionPane.showMessageDialog(null, message);
+			    GameMakerView.getInstance().getFacade().stopGame();
+			    isGameStopCommandIssued = YES;
 		    } else if (yReversed.intersects(obj.getBoundingBox()) && xReversed.intersects(obj.getBoundingBox())) {
-			JOptionPane.showMessageDialog(null, message);
-			GameMakerView.getInstance().getFacade().stopGame();
-			isGameStopCommandIssued = YES;
+		        if(showMessage == true)	
+			        JOptionPane.showMessageDialog(null, message);
+			    GameMakerView.getInstance().getFacade().stopGame();
+			    isGameStopCommandIssued = YES;
 		    }
 		}
 
 	    }
 	}
     }
+    
+
+    public boolean isShowMessage() {
+		return showMessage;
+	}
+
+	public void setShowMessage(boolean showMessage) {
+		this.showMessage = showMessage;
+	}
 
 }
