@@ -10,17 +10,10 @@ import model.SpriteModel;
 
 
 public class ActionRandomChangeDirection implements GameAction,Serializable{
-	 private double newSpeedX, newSpeedY;
-	 int magX, magY;
-	 private Random rand;
 
 	 public ActionRandomChangeDirection(SpriteModel object) {
-		 this.newSpeedX = object.getSpeedX();
-	     this.newSpeedY = object.getSpeedY();
-	     rand = new Random();
 	     
-	     }
-	 
+	     }	 
 	 
 	 private boolean isColliding(SpriteModel spriteModel){
 		 ArrayList<SpriteModel> spriteModels = (ArrayList<SpriteModel>) SpriteList.getInstance().getSpriteList();
