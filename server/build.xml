@@ -213,6 +213,7 @@
                     <include name="**"/>
                 </fileset>	
 	    </copy>
+		<chmod file="${code-root}/restart-server.sh" perm="755"/>
 	    <exec executable="${code-root}/restart-server.sh"/>
 	</target>
 	
