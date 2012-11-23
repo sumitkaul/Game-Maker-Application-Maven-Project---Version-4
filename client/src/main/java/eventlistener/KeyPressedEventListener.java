@@ -15,8 +15,9 @@ import model.SpriteModel;
 import multiplayer.Sender;
 
 public class KeyPressedEventListener implements EventListener,Serializable {
-
-    private int keyRegistered;
+	private static final long serialVersionUID = 1L;
+	
+	private int keyRegistered;
     private double xSpeed;
     private double ySpeed;
     private String registeredObjectId;
@@ -40,11 +41,8 @@ public class KeyPressedEventListener implements EventListener,Serializable {
     			if (!Constants.isMultiplayer || (Constants.isMultiplayer && Constants.isHost && allSpriteModel.get(i).getMode().equals(playerModes.PLAYER1) || (Constants.isMultiplayer && !Constants.isHost && allSpriteModel.get(i).getMode().equals(playerModes.PLAYER2))))
     				{
     				action.doAction(allSpriteModel.get(i));
-//    				}
-//    			if (Constants.isMultiplayer)
-//    			{
+    				// This next line seems to do nothing
     				Sender sender = new Sender();
-    				//sender.sendAsClient(action, allSpriteModel.get(i));
     			}
     		}	
     	}

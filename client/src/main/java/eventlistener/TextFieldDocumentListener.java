@@ -9,7 +9,6 @@ import model.SpriteModel;
 
 import facade.Facade;
 
-import utility.Helper;
 import utility.SpriteList;
 import utility.enums.PropertyField;
 import view.GameMakerView;

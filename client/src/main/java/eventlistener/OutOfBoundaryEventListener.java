@@ -12,7 +12,8 @@ import view.GameMakerView;
 import action.GameAction;
 
 public class OutOfBoundaryEventListener implements EventListener,Serializable {
-
+	private static final long serialVersionUID = 1L;
+	
 	private String registeredObjectId;
 	private String registeredGroupId;
 	private GameAction action;

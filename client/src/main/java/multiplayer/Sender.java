@@ -11,18 +11,8 @@ public class Sender {
 	
 	public void sendAsHost(String topic)
 	{
-		
-		
 		SessionFactory.getInstanceOf().createConnection();
 		Publish.getInstanceOf().setTopic(topic);
-	
-		
-//		Timer timer=new Timer();
-//		timer.schedule(publishState,10);
-//		   toolkit = Toolkit.getDefaultToolkit();
-//		    timer = new Timer();
-//		    timer.schedule(publishState, 10);
-
 
 		Publish.getInstanceOf().sendState();
 		

@@ -55,9 +55,8 @@ public class Protocol {
 	{
 		LOG.debug("load done");
 		List<SpriteModel> allSpriteModels = game.getSpriteList();
-		List<String> layers = game.getLayers();
+		game.getLayers();
 		ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
-		// SpriteList.getInstance().setSpriteList(allSpriteModels);
 		SpriteList.getInstance().setSelectedSpriteModel(allSpriteModels.get(0));
 		GameMakerView.getInstance().getFacade().getGameController().setEvents(game.getEventsForGameController());
 		GameMakerView.getInstance().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
