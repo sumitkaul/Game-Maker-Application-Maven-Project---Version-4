@@ -35,14 +35,13 @@ import utility.Constants;
 import utility.Util;
 import view.communication.ClientHandler;
 
+public class ImagePanel implements ActionListener, ChangeListener {
 
-
-public class ImagePanel implements ActionListener,ChangeListener {
-
-	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ImagePanel.class);
+	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger
+			.getLogger(ImagePanel.class);
 
 	private JPanel imagePanel;
-	private JPanel imageTiles ;
+	private JPanel imageTiles;
 	private JPanel paginationPanel;
 	private static final int imagesPerPage = 14;
 	private List<ImageProperties> allImages;
@@ -56,28 +55,30 @@ public class ImagePanel implements ActionListener,ChangeListener {
 	private int totalImages;
 
 	private final String host = Constants.HOST;
-    private final String path = Constants.PATH+"/listPageResources";
-	
+	private final String path = Constants.PATH + "/listPageResources";
 
-
-	public ImagePanel(ImageActionListener imageActionListener){
+	public ImagePanel(ImageActionListener imageActionListener) {
 		this.imageActionListener = imageActionListener;
 		JPanel propertiesPanel = createPropertiesPanel();
-		getImages(); //change this
-		totalImages = ClientHandler.countTag(null, Constants.HOST, Constants.PATH+"/countTag", new Exception[1]);
-		int lastIndex = allImages.size() < imagesPerPage ? allImages.size():imagesPerPage;
+		getImages(); // change this
+		totalImages = ClientHandler.countTag(null, Constants.HOST,
+				Constants.PATH + "/countTag", new Exception[1]);
+		int lastIndex = allImages.size() < imagesPerPage ? allImages.size()
+				: imagesPerPage;
 		presentImages = allImages.subList(0, lastIndex);
-		imageTiles = new JPanel(new GridLayout(7,2));
-		populateImageTiles();		
-		imageTilesScrollPane = new JScrollPane(imageTiles, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		imageTiles = new JPanel(new GridLayout(7, 2));
+		populateImageTiles();
+		imageTilesScrollPane = new JScrollPane(imageTiles,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		paginationPanel = new JPanel(new FlowLayout());
 		populatePaginationPanel();
 		imagePanel = new JPanel();
 		imagePanel.setLayout(new BoxLayout(imagePanel, BoxLayout.PAGE_AXIS));
 		propertiesPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		imagePanel.add(propertiesPanel);
-		imagePanel.add(imageTilesScrollPane,"span");
-		imagePanel.add(paginationPanel,"span");
+		imagePanel.add(imageTilesScrollPane, "span");
+		imagePanel.add(paginationPanel, "span");
 		JButton upload = new JButton("Upload Images");
 		upload.addActionListener(this);
 		imagePanel.add(upload);
@@ -87,22 +88,23 @@ public class ImagePanel implements ActionListener,ChangeListener {
 	private JPanel createPropertiesPanel() {
 		MigLayout migLayout = new MigLayout();
 		JPanel propPanel = new JPanel(migLayout);
-		
+
 		JLabel tags = new JLabel("Image Tags");
 		propPanel.add(tags);
 		String[] tagNames = getImageTags();
 		imageTags = new JComboBox(tagNames);
 		imageTags.addActionListener(this);
-		propPanel.add(imageTags,"wrap");
+		propPanel.add(imageTags, "wrap");
 		return propPanel;
 	}
 
 	private String[] getImageTags() {
-		//String[] tags = {"All", "Tanks", "Bricks", "Enter tag name:"};
-		String tags[] = ClientHandler.listTags(Constants.HOST, Constants.PATH+"/getAllTags", new Exception[1]);
-		String[] finalTags = new String[tags.length+1];
+		String tags[] = ClientHandler.listTags(Constants.HOST, Constants.PATH
+				+ "/getAllTags", new Exception[1]);
+		LOG.debug(tags.length);
+		String[] finalTags = new String[tags.length + 1];
 		finalTags[0] = new String("All");
-		for(int i = 1;i<tags.length;i++){
+		for (int i = 1; i < tags.length; i++) {
 			finalTags[i] = new String(tags[i]);
 		}
 		return finalTags;
@@ -111,7 +113,7 @@ public class ImagePanel implements ActionListener,ChangeListener {
 	private void populatePaginationPanel() {
 		int size = totalImages;
 		paginationPanel.removeAll();
-		JSlider imageResizeSlider = new JSlider(JSlider.HORIZONTAL,10,100,50);
+		JSlider imageResizeSlider = new JSlider(JSlider.HORIZONTAL, 10, 100, 50);
 		imageResizeSlider.addChangeListener(this);
 		paginationPanel.add(imageResizeSlider);
 		JButton first = new JButton("<<");
@@ -124,8 +126,8 @@ public class ImagePanel implements ActionListener,ChangeListener {
 		last.addActionListener(this);
 		paginationPanel.add(first);
 		paginationPanel.add(prev);
-		int noOfPages = (int) Math.ceil((double)size/(double)imagesPerPage);
-		for(int i = 1; i <= noOfPages ; i++){
+		int noOfPages = (int) Math.ceil((double) size / (double) imagesPerPage);
+		for (int i = 1; i <= noOfPages; i++) {
 			JButton b = new JButton(String.valueOf(i));
 			b.addActionListener(this);
 			paginationPanel.add(b);
@@ -137,38 +139,23 @@ public class ImagePanel implements ActionListener,ChangeListener {
 
 	private void populateImageTiles() {
 		String tag = (String) imageTags.getSelectedItem();
-		if(tag.equalsIgnoreCase("All")){
+		if (tag.equalsIgnoreCase("All")) {
 			tag = null;
 		}
 		imageTiles.removeAll();
-		/*Exception[] exceptions = new Exception[1];
-		Resources[] images = ClientHandler.listPageResources(String.valueOf(presentPage), String.valueOf(imagesPerPage),
-				tag, host, "/GameMakerServer/listPageResources", exceptions);*/
-		for(int i = 0; i < allImages.size(); i++){
+
+		for (int i = 0; i < allImages.size(); i++) {
 			Image image = allImages.get(i).getImage();
-			ImageIcon icon = new ImageIcon(image.getScaledInstance(imageSize, imageSize, 1));
-            JButton button = new JButton(icon);
-            button.setName(allImages.get(i).getImageKey());
-            button.addActionListener(imageActionListener);
-            imageTiles.add(button);
-			
-		}
-		/*for(ImageProperties i:presentImages){
-			ImageIcon icon = new ImageIcon(i.getImage().getScaledInstance(imageSize, imageSize, 1));
-<<<<<<< HEAD
-            JButton button = new JButton(icon);
-            button.setName(i.getImageKey());
-            button.addActionListener(imageActionListener);
-            imageTiles.add(button);
-		}*/
-		
+			ImageIcon icon = new ImageIcon(image.getScaledInstance(imageSize,
+					imageSize, 1));
+			JButton button = new JButton(icon);
+			button.setName(allImages.get(i).getImageKey());
+			button.addActionListener(imageActionListener);
+			imageTiles.add(button);
+
 		}
 
-
-	//	public JPanel createImagePanel() {
-	//
-	//		return mainImagePanel;
-	//	}
+	}
 
 	/**
 	 * @param args
@@ -176,7 +163,6 @@ public class ImagePanel implements ActionListener,ChangeListener {
 	public static void main(String[] args) {
 		JFrame f = new JFrame();
 		ImagePanel panel = new ImagePanel(null);
-		//JPanel ipanel = panel.createImagePanel();
 		f.setContentPane(panel.getImagePanel());
 		f.setVisible(true);
 		f.setSize(600, 400);
@@ -184,121 +170,90 @@ public class ImagePanel implements ActionListener,ChangeListener {
 
 	}
 
-	public List<ImageProperties> getImages(){
-//		List<ImageProperties> images = new ArrayList<ImageProperties>();
-//		URL jar = this.getClass().getClassLoader().getResource("resource.jar");
-//		List<String> list = new ArrayList<String>();
-//
-//		ZipInputStream zip;
-//		try {
-//			zip = new ZipInputStream(jar.openStream());
-//			ZipEntry ze = null;
-//
-//			while ((ze = zip.getNextEntry()) != null) {
-//				String entryName = ze.getName();
-//				if (entryName.endsWith(".png") || entryName.endsWith(".jpg")) {
-//					list.add(entryName);
-//					Image image = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource(entryName));
-//					ImageProperties imp = new ImageProperties("/"+entryName,"All",image);
-//					images.add(imp);
-//				}
-//			}
-//		} catch (IOException e1) {
-//		}
-//
-//		/* for (int i = 0; i < list.size(); i++) {
-//
-//	            Image image = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource(list.get(i)));
-//	            images.add(image);
-//
-//	        }*/
-//		return images;
+	public List<ImageProperties> getImages() {
 		String tag = (String) imageTags.getSelectedItem();
-		if(tag.equalsIgnoreCase("all")){
+		if (tag.equalsIgnoreCase("all")) {
 			tag = null;
 		}
 		allImages = new ArrayList<ImageProperties>();
 		Exception[] exceptions = new Exception[1];
-		Resources[] images = ClientHandler.listPageResources(String.valueOf(presentPage), String.valueOf(imagesPerPage),
-				tag, Constants.HOST, Constants.PATH+"/listPageResources", exceptions);
-		for(int i = 0; i < images.length; i++){
-			Image image = Util.convertByteArraytoImage(images[i].getResource(), "jpg");
-			ImageProperties im = new ImageProperties(String.valueOf(images[i].getReourceNumber()),
-					images[i].getResourceName(), image);
+		Resources[] images = ClientHandler.listPageResources(
+				String.valueOf(presentPage), String.valueOf(imagesPerPage),
+				tag, Constants.HOST, Constants.PATH + "/listPageResources",
+				exceptions);
+		for (int i = 0; i < images.length; i++) {
+			Image image = Util.convertByteArraytoImage(images[i].getResource(),
+					"jpg");
+			ImageProperties im = new ImageProperties(String.valueOf(images[i]
+					.getReourceNumber()), images[i].getResourceName(), image);
 			allImages.add(im);
 		}
 		return allImages;
-		
-	}
-	
-	
 
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().contentEquals("<<")){
-			if(presentPage == 1){
+		if (e.getActionCommand().contentEquals("<<")) {
+			if (presentPage == 1) {
 				return;
 			}
 			presentPage = 1;
 			getImages();
 			updateImageTiles();
 			return;
-		}
-		else if(e.getActionCommand().contentEquals("<")){
-			if(presentPage == 1){
+		} else if (e.getActionCommand().contentEquals("<")) {
+			if (presentPage == 1) {
 				return;
 			}
 			presentPage--;
 			getImages();
 			updateImageTiles();
 			return;
-		}
-		else if(e.getActionCommand().contentEquals(">")){
-			if(presentPage == Math.ceil((double)totalImages/(double)imagesPerPage)){
+		} else if (e.getActionCommand().contentEquals(">")) {
+			if (presentPage == Math.ceil((double) totalImages
+					/ (double) imagesPerPage)) {
 				return;
 			}
 			presentPage++;
 			getImages();
 			updateImageTiles();
 			return;
-		}
-		else if(e.getActionCommand().contentEquals(">>")){
-			if(presentPage == Math.ceil((double)totalImages/(double)imagesPerPage)){
+		} else if (e.getActionCommand().contentEquals(">>")) {
+			if (presentPage == Math.ceil((double) totalImages
+					/ (double) imagesPerPage)) {
 				return;
 			}
-			presentPage = (int) Math.ceil((double)totalImages/(double)imagesPerPage);
+			presentPage = (int) Math.ceil((double) totalImages
+					/ (double) imagesPerPage);
 			getImages();
 			updateImageTiles();
 			return;
-		}
-		else if(e.getActionCommand().equalsIgnoreCase("Upload Images")){
+		} else if (e.getActionCommand().equalsIgnoreCase("Upload Images")) {
 			handleUpload();
-		}
-		else if(e.getSource() == imageTags){
+		} else if (e.getSource() == imageTags) {
 			presentPage = 1;
 			imageSize = 50;
-			String tag = (String)imageTags.getSelectedItem();
-			totalImages = ClientHandler.countTag(tag, Constants.HOST, Constants.PATH+"/countTag", new Exception[1]);
+			String tag = (String) imageTags.getSelectedItem();
+			totalImages = ClientHandler.countTag(tag, Constants.HOST,
+					Constants.PATH + "/countTag", new Exception[1]);
 			getImages();
 			updateImageTiles();
 			populatePaginationPanel();
 			paginationPanel.revalidate();
 			paginationPanel.repaint();
 
-		}
-		else{
-			try{
+		} else {
+			try {
 				int num = Integer.parseInt(e.getActionCommand());
 				presentPage = num;
 				getImages();
 				updateImageTiles();
 				return;
-			}catch (NumberFormatException ex){
+			} catch (NumberFormatException ex) {
 
 			}
 		}
-
 
 	}
 
@@ -312,24 +267,27 @@ public class ImagePanel implements ActionListener,ChangeListener {
 			file = jFileChooser.getSelectedFile();
 			try {
 				Image image = ImageIO.read(file);
-				String fileName =file.getName();
-				int dotposition= fileName.lastIndexOf(".");
+				String fileName = file.getName();
+				int dotposition = fileName.lastIndexOf(".");
 
-				String imagetype  = fileName.substring(dotposition + 1, fileName.length()); 
-				ImageIcon icon = new ImageIcon(image.getScaledInstance(150, 150, 1));
+				String imagetype = fileName.substring(dotposition + 1,
+						fileName.length());
+				ImageIcon icon = new ImageIcon(image.getScaledInstance(150,
+						150, 1));
 				JButton button = new JButton(icon);
-				previewPanel.add(button,"wrap");
+				previewPanel.add(button, "wrap");
 				JLabel tag = new JLabel("Enter tag name:");
 				JTextField tagInput = new JTextField(10);
 				previewPanel.add(tag);
-				previewPanel.add(tagInput,"wrap");
-				int ret = JOptionPane.showConfirmDialog(null, previewPanel,"Preview",JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
-				if(ret == JOptionPane.OK_OPTION){
-					uploadImageToDb(image,tagInput.getText(),imagetype);
+				previewPanel.add(tagInput, "wrap");
+				int ret = JOptionPane.showConfirmDialog(null, previewPanel,
+						"Preview", JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.PLAIN_MESSAGE);
+				if (ret == JOptionPane.OK_OPTION) {
+					uploadImageToDb(image, tagInput.getText(), imagetype);
 				}
 				JFrame frame = new JFrame();
-				JOptionPane.showMessageDialog(frame,
-                        "Image Upload successful");
+				JOptionPane.showMessageDialog(frame, "Image Upload successful");
 			} catch (IOException e1) {
 				LOG.error("Unable to read the file");
 			}
@@ -339,27 +297,30 @@ public class ImagePanel implements ActionListener,ChangeListener {
 	private void uploadImageToDb(Image image, String tag, String imagetype) {
 		Resources resources = new Resources();
 		resources.setResourceType("image");
-		//TAG: replace the tag with a filename later
+		// TAG: replace the tag with a filename later
 		resources.setResourceName(tag);
-		//TAG: allow for the logged in user to pass on the name later
+		// TAG: allow for the logged in user to pass on the name later
 		resources.setUsername("admin");
 		resources.setResource(Util.convertImagetoByteArray(image, imagetype));
-		ClientHandler.saveResource(resources, Constants.HOST, Constants.PATH+"/saveResource", new Exception[1]);
+		ClientHandler.saveResource(resources, Constants.HOST, Constants.PATH
+				+ "/saveResource", new Exception[1]);
 	}
 
-	public JPanel getImagePanel(){
+	public JPanel getImagePanel() {
 		return this.imagePanel;
 	}
 
-	private void updateImageTiles(){
-		/*int firstIndex = imagesPerPage*(presentPage-1);
-		int lastIndex = allImages.size() < (firstIndex + imagesPerPage) ? allImages.size(): (firstIndex + imagesPerPage);
-		presentImages = allImages.subList(firstIndex, lastIndex);*/
+	private void updateImageTiles() {
+		/*
+		 * int firstIndex = imagesPerPage*(presentPage-1); int lastIndex =
+		 * allImages.size() < (firstIndex + imagesPerPage) ? allImages.size():
+		 * (firstIndex + imagesPerPage); presentImages =
+		 * allImages.subList(firstIndex, lastIndex);
+		 */
 		populateImageTiles();
 		imageTiles.revalidate();
 		imagePanel.repaint();
 	}
-
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
@@ -368,7 +329,5 @@ public class ImagePanel implements ActionListener,ChangeListener {
 		updateImageTiles();
 
 	}
-
-
 
 }

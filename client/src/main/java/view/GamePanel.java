@@ -1,8 +1,4 @@
-
 package view;
-
-
-
 
 import facade.Facade;
 import interfaces.Drawable;
@@ -35,7 +31,7 @@ import view.imagePanel.ImagePanel;
 public class GamePanel extends JPanel implements KeyListener{
 
 	private static final org.apache.log4j.Logger LOG = 
-			org.apache.log4j.Logger.getLogger(SpriteList.class);
+			org.apache.log4j.Logger.getLogger(GamePanel.class);
     private static final long serialVersionUID = 1L;
     private Image image;
     private Graphics graphic;

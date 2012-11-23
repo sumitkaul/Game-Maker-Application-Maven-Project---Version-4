@@ -12,58 +12,48 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
 public class BrowserFrame extends JFrame {
-
+	private static final long serialVersionUID = 1L;
+	
 	private JTextField addressBar;
 	private JEditorPane display;
-	
-	
-	public BrowserFrame(){
+
+	public BrowserFrame() {
 		super("Share with Facebook");
-		addressBar=new JTextField("http://facebook.com");
-		addressBar.addActionListener(new ActionListener(){
-			
-			public void actionPerformed(ActionEvent event){
+		addressBar = new JTextField("http://facebook.com");
+		addressBar.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent event) {
 				loadAddress(event.getActionCommand());
 			}
 
-			
-			
 		});
-		
-	add(addressBar,BorderLayout.NORTH);	
-	
-	display=new JEditorPane();
-	display.setEditable(false);
-	display.addHyperlinkListener(new HyperlinkListener(){
-		@Override
-		public void hyperlinkUpdate(HyperlinkEvent event) {
-			if(event.getEventType()==HyperlinkEvent.EventType.ACTIVATED)
-			loadAddress(event.getURL().toString());
-		}		
-		
-	});
-	add(new JScrollPane(display),BorderLayout.CENTER);	
-	setSize(500,300);
-	setVisible(true);
 
-	
+		add(addressBar, BorderLayout.NORTH);
+
+		display = new JEditorPane();
+		display.setEditable(false);
+		display.addHyperlinkListener(new HyperlinkListener() {
+			@Override
+			public void hyperlinkUpdate(HyperlinkEvent event) {
+				if (event.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
+					loadAddress(event.getURL().toString());
+			}
+
+		});
+		add(new JScrollPane(display), BorderLayout.CENTER);
+		setSize(500, 300);
+		setVisible(true);
+
 	}
-	
-	
-	
-	
+
 	private void loadAddress(String address) {
-		try{
+		try {
 			display.setPage(address);
 			addressBar.setText(address);
-		}catch(Exception e){
-			
+		} catch (Exception e) {
+
 		}
-		
-		
-		
+
 	}
-	
-	
-	
+
 }
