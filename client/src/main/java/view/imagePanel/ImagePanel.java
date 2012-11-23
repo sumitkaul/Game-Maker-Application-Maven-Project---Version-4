@@ -45,17 +45,12 @@ public class ImagePanel implements ActionListener, ChangeListener {
 	private JPanel paginationPanel;
 	private static final int imagesPerPage = 14;
 	private List<ImageProperties> allImages;
-	private List<ImageProperties> presentImages;
 	private int presentPage = 1;
 	private int imageSize = 50;
-	private int imageHeight = 50;
 	private JScrollPane imageTilesScrollPane;
 	private JComboBox imageTags;
 	private ImageActionListener imageActionListener;
 	private int totalImages;
-
-	private final String host = Constants.HOST;
-	private final String path = Constants.PATH + "/listPageResources";
 
 	public ImagePanel(ImageActionListener imageActionListener) {
 		this.imageActionListener = imageActionListener;
@@ -65,7 +60,7 @@ public class ImagePanel implements ActionListener, ChangeListener {
 				Constants.PATH + "/countTag", new Exception[1]);
 		int lastIndex = allImages.size() < imagesPerPage ? allImages.size()
 				: imagesPerPage;
-		presentImages = allImages.subList(0, lastIndex);
+		allImages.subList(0, lastIndex);
 		imageTiles = new JPanel(new GridLayout(7, 2));
 		populateImageTiles();
 		imageTilesScrollPane = new JScrollPane(imageTiles,
@@ -311,12 +306,6 @@ public class ImagePanel implements ActionListener, ChangeListener {
 	}
 
 	private void updateImageTiles() {
-		/*
-		 * int firstIndex = imagesPerPage*(presentPage-1); int lastIndex =
-		 * allImages.size() < (firstIndex + imagesPerPage) ? allImages.size():
-		 * (firstIndex + imagesPerPage); presentImages =
-		 * allImages.subList(firstIndex, lastIndex);
-		 */
 		populateImageTiles();
 		imageTiles.revalidate();
 		imagePanel.repaint();
