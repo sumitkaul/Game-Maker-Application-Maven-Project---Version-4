@@ -14,9 +14,7 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import view.GameMakerView;
-import view.GamePanel;
 import view.GamePlayerView;
-import view.OptionsFrame;
 
 import model.SpriteModel;
 import eventlistener.CollisionEventListener;
@@ -24,7 +22,6 @@ import eventlistener.EventListener;
 import eventlistener.KeyPressedEventListener;
 import eventlistener.NewFrameEventListener;
 import eventlistener.OutOfBoundaryEventListener;
-import facade.Facade;
 import action.ActionBackToLastPosition;
 import action.ActionCreateSpriteModel;
 import action.ActionBounce;
@@ -199,15 +196,13 @@ public class Helper {
 				ResizeHelper.getInstance().setxFactor(xScale);
 				ResizeHelper.getInstance().setyFactor(yScale);
 				
-//				GamePanel gamePanel = GameMakerView.getInstance().getGamePanel();
-//				gamePanel.repaint();
 			}
 		});
 		return frame;
 	}
 	
 	/*
-	 * GETTER AND SETTER
+	 * GETTERS AND SETTERS
 	 */
 	
 	public int getCurrentKeyCode() {

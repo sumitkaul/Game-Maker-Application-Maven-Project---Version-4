@@ -1,14 +1,9 @@
-/**
- * 
- */
 package utility;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import view.GameMakerView;
-
-
 
 public class Layers {
 
@@ -28,7 +23,6 @@ public class Layers {
 		this.layers = layers;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public String addNewLayer() {
 		String layer = "Layer "+layers.size();
 		this.layers.add(layer);
@@ -44,6 +38,4 @@ public class Layers {
 		
 		layers.add(Constants.ALL_LAYERS);
 	}
-	
-	
 }

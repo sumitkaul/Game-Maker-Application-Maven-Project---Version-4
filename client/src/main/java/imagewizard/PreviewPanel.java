@@ -7,17 +7,18 @@ import java.awt.Image;
 import javax.swing.JPanel;
 
 class PreviewPanel extends JPanel {
+	private static final long serialVersionUID = 1L;
+
 	private Image image = null;
 	private int width, heigth;
 
-	public Dimension getMinimumSize()
-	{ 
-		return new Dimension((int)(this.width*0.7), (int)(this.heigth*0.7)); 
+	public Dimension getMinimumSize() {
+		return new Dimension((int) (this.width * 0.7),
+				(int) (this.heigth * 0.7));
 	}
 
-	public Dimension getPreferredSize()
-	{
-		return getMinimumSize(); 
+	public Dimension getPreferredSize() {
+		return getMinimumSize();
 	}
 
 	PreviewPanel(int width, int heigth) {
@@ -28,10 +29,7 @@ class PreviewPanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(image, 0, 0, this.getWidth(),this.getHeight(), null);
-		//g.drawImage(image,0,0,300,300,null);
-		//g.drawString("BLAH", 20, 20);
-		//g.drawRect(0, 0, this.getWidth()-1, this.getHeight()-20);
+		g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
 	}
 
 	public Image getImage() {
