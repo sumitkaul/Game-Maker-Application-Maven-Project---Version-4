@@ -7,8 +7,9 @@ import java.util.List;
 import model.SpriteModel;
 
 public class GamePackage implements Serializable {
-
-    private List<SpriteModel> spriteList;
+	private static final long serialVersionUID = 1L;
+	
+	private List<SpriteModel> spriteList;
     private List<EventListener> eventsForGameController;
     private List<EventListener> eventsForKeyController;
     private List<String> layers;

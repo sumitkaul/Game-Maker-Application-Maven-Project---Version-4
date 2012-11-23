@@ -1,14 +1,5 @@
 package model;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.SQLException;
-
-
-//import com.mysql.jdbc.Blob;
-import java.sql.Blob;
-
 @Deprecated
 public class Resource {
 	

@@ -1,22 +1,20 @@
 
 package model;
 
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import eventlistener.EventListener;
 import utility.ResizeHelper;
 import utility.SpriteList;
-import utility.enums.ImageSource;
 import utility.enums.playerModes;
 
 public class SpriteModel implements Serializable {
-
-    private double posX, posY, speedX, speedY, width, height, previousX, previousY;
+	private static final long serialVersionUID = 1L;
+	
+	private double posX, posY, speedX, speedY, width, height, previousX, previousY;
     private boolean visible;
     private String id;
     private String groupId;
@@ -82,7 +80,6 @@ public class SpriteModel implements Serializable {
         this.heading = 0;
         this.layer= layer;
         this.imageId = imageId;
-        URL url = SpriteModel.class.getResource("/images/closed.png");
        
         int spriteCount = SpriteList.getInstance().getSpriteList().size();
         setId("Untitled "+spriteCount);
@@ -103,7 +100,6 @@ public class SpriteModel implements Serializable {
         this.visible = true;
         this.heading = 0;
         this.layer= layer;
-        URL url = SpriteModel.class.getResource("/images/closed.png");
        
         int spriteCount = SpriteList.getInstance().getSpriteList().size();
         setId("Untitled "+spriteCount);
