@@ -88,20 +88,24 @@ public class GameEnginePanel implements ActionListener{
     
     public void exitGame(){
         app.getContainer().exit();
+        app.requestFocusInWindow();
     }
 
     public void pauseGame(){
         app.getContainer().setPaused(!app.getContainer().isPaused());
         //app.getContainer().pause();
+        app.requestFocusInWindow();
     }
     
     public void resumeGame(){
         app.getContainer().resume();
+        app.requestFocusInWindow();
     }
     
     public void restartGame(){
         try {
             app.getContainer().reinit();
+            app.requestFocusInWindow();
         } catch (SlickException ex) {
             LOG.error(ex);
         }
@@ -115,8 +119,20 @@ public class GameEnginePanel implements ActionListener{
     }
 
     @Override
-    public void actionPerformed(ActionEvent ae) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void actionPerformed(ActionEvent e) {
+       if (e.getSource() == gamestopButton) {
+           exitGame();
+       }
+       
+       if (e.getSource() == gamepauseButton) {
+           pauseGame();
+       }
+       if (e.getSource() == gameresumeButton) {
+           resumeGame();
+       }
+       if (e.getSource() == gamerestartButton) {
+           restartGame();
+       }
     }
     
 }

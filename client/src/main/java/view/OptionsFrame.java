@@ -41,7 +41,7 @@ public class OptionsFrame implements ActionListener {
         optionFrame.add(gamestartButton, "wmin 100, hmin 150");
         
 
-        optionFrame.setSize(800, 500);
+        optionFrame.setSize(500, 500);
         optionFrame.setFocusable(true);
         optionFrame.setLocationRelativeTo(null);
         optionFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
