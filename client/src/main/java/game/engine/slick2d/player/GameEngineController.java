@@ -1,34 +1,33 @@
 package game.engine.slick2d.player;
 
+import action.ActionCreateSpriteModel;
+import action.ActionPlaySound;
+import action.GameAction;
+import eventlistener.EventListener;
+import eventlistener.KeyPressedEventListener;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
-
 import javax.swing.JFrame;
-
 import loader.GameDataPackageIO;
 import loader.GamePackage;
 import model.Resources;
 import model.SpriteModel;
-
 import org.apache.log4j.Logger;
-import org.jbox2d.common.Vec2;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-
+import org.newdawn.slick.Sound;
 import utility.Constants;
 import utility.SpriteList;
 import view.communication.ClientHandler;
 import view.companels.GameBaseLoadPanel;
-import action.ActionCreateSpriteModel;
-import eventlistener.EventListener;
-import eventlistener.KeyPressedEventListener;
 
 public class GameEngineController extends BasicGame {
 
@@ -37,7 +36,7 @@ public class GameEngineController extends BasicGame {
     public final static int LOAD_MODE_REMOTE = 2;
     public final static int LOAD_MODE_REMOTE_NO_UI = 3;
     private GamePackage game;
-    private List<SpriteModel> allSpriteModels;
+    private Collection<SpriteModel> allSpriteModels;
     private Map<String, Image> imagesOfSprites;
     private List<EventListener> eventsForGameController;
     private List<EventListener> keyEvents;
@@ -48,7 +47,7 @@ public class GameEngineController extends BasicGame {
     public GameEngineController(String title, int loadMode, String[] paras) {
         super(title);
         buildKeyModel();
-        buildPhysicsWorld();
+        //buildPhysicsWorld();
         game = loadGameData(loadMode, paras);
     }
 
@@ -124,23 +123,45 @@ public class GameEngineController extends BasicGame {
         return gamePackage;
     }
 
+    public void initSpriteImageMapping() throws IOException {
+        allSpriteModels = game.getSpriteList();
+        imagesOfSprites = new HashMap<String, Image>();
+
+        for (SpriteModel sprite : allSpriteModels) {
+
+            SpriteList.getInstance().addSprite(sprite);
+
+            String rid = sprite.getImageUrlString();
+            Resources r = ClientHandler.loadResource(rid, Constants.HOST, Constants.PATH + "/loadResource", new Exception[1]);
+
+            byte[] imageData = r.getResource();
+            Image image = getImageFromBytes(imageData, r.getResourceName());
+
+            if (image == null) {
+                continue;
+            }
+
+            imagesOfSprites.put(sprite.getId(), image);
+            //initSpriteBodyMapping(sprite);
+
+        }
+
+    }
+
     @Override
     public void init(GameContainer gc) throws SlickException {
-
         try {
-
             initSpriteImageMapping();
         } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(GameEngineController.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error(ex);
         }
         initActionEvents();
-
     }
 
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
 
-        updateKeyEventBinding(gc);
+        checkEvents(gc);
         //physicsComponent.inputLogic();
 
     }
@@ -163,7 +184,7 @@ public class GameEngineController extends BasicGame {
     }
 
     public void initActionEvents() {
-
+        eventsForGameController = game.getEventsForGameController();
         keyEvents = game.getEventsForKeyController();
         for (EventListener keyevent : keyEvents) {
             KeyPressedEventListener key = (KeyPressedEventListener) keyevent;
@@ -181,62 +202,60 @@ public class GameEngineController extends BasicGame {
             imagesOfSprites.put(gid, entityImage);
         }
 
+        for (EventListener event : eventsForGameController) {
+            GameAction action = event.getGameAction();
+
+            if (action != null) {
+                if (action instanceof ActionPlaySound) {
+                    ActionPlaySound playSound = (ActionPlaySound) action;
+                    String soundFileName = playSound.getSoundFile();
+                    if (SoundRepo.getSounds().containsKey(soundFileName)) {
+                        continue;
+                    }
+                    try {
+                        Sound cache = new Sound("temp/resources/" + soundFileName);
+                        SoundRepo.getSounds().put(soundFileName, cache);
+                        
+                        LOG.info("======================== new sound: " +  soundFileName);
+                    } catch (SlickException ex) {
+                        LOG.warn(ex);
+                    }
+                }
+            }
+        }
+
     }
 
     public void renderSpriteImageDraw() {
         for (SpriteModel sprite : SpriteList.getInstance().getSpriteList()) {
-            if (!sprite.isVisible()) {
+            if (SpriteList.getInstance().getToBeRemovedSpriteModels().contains(sprite)) {
+                SpriteList.getInstance().removeSprite(sprite);
+                SpriteList.getInstance().getToBeRemovedSpriteModels().remove(sprite);
                 continue;
             }
 
             if (!imagesOfSprites.containsKey(sprite.getId())) {
                 if (imagesOfSprites.containsKey(sprite.getGroupId())) {
-                    imageDraw(sprite);
+                    imageDraw(sprite, sprite.getGroupId());
                     continue;
                 }
             }
 
-            imageDraw(sprite);
+            imageDraw(sprite, sprite.getId());
 
         }
 
 
     }
 
-    public void imageDraw(SpriteModel sprite) {
+    public void imageDraw(SpriteModel sprite, String id) {
 
-       // Vec2 bodyPostion = physicsComponent.bodies.get(sprite.getId()).getPosition();
-       // sprite.setPosX((double) bodyPostion.x * 30);
-       // sprite.setPosY((double) bodyPostion.y * 30);
-        imagesOfSprites.get(sprite.getId()).setRotation(physicsComponent.bodies.get(sprite.getId()).getAngle());
-        imagesOfSprites.get(sprite.getId()).draw((float) sprite.getPosX(), (float) sprite.getPosY(), (float) sprite.getWidth(), (float) sprite.getHeight());//(float) bodyPostion.x * 30, (float) bodyPostion.y * 30, (float) sprite.getWidth(), (float) sprite.getHeight());
+        // Vec2 bodyPostion = physicsComponent.bodies.get(sprite.getId()).getPosition();
+        // sprite.setPosX((double) bodyPostion.x * 30);
+        // sprite.setPosY((double) bodyPostion.y * 30);
+        //imagesOfSprites.get(id).setRotation(physicsComponent.bodies.get(sprite.getId()).getAngle());
+        imagesOfSprites.get(id).draw((float) sprite.getPosX(), (float) sprite.getPosY(), (float) sprite.getWidth(), (float) sprite.getHeight());//(float) bodyPostion.x * 30, (float) bodyPostion.y * 30, (float) sprite.getWidth(), (float) sprite.getHeight());
         //   Log.info("Sprite X : "+sprite.getPosX());
-    }
-
-    public void initSpriteImageMapping() throws IOException {
-        allSpriteModels = game.getSpriteList();
-        eventsForGameController = game.getEventsForGameController();
-        imagesOfSprites = new HashMap<String, Image>();
-
-        for (SpriteModel sprite : allSpriteModels) {
-
-            SpriteList.getInstance().addSprite(sprite);
-
-            String rid = sprite.getImageUrlString();
-            Resources r = ClientHandler.loadResource(rid, Constants.HOST, Constants.PATH + "/loadResource", new Exception[1]);
-
-            byte[] imageData = r.getResource();
-            Image image = getImageFromBytes(imageData, r.getResourceName());
-
-            if (image == null) {
-                continue;
-            }
-
-            imagesOfSprites.put(sprite.getId(), image);
-            initSpriteBodyMapping(sprite);
-
-        }
-
     }
 
     public void initSpriteBodyMapping(SpriteModel sprite) {
@@ -247,11 +266,11 @@ public class GameEngineController extends BasicGame {
         }
     }
 
-    public void updateKeyEventBinding(GameContainer gc) {
+    public void checkEvents(GameContainer gc) {
         for (EventListener event : eventsForGameController) {
             event.checkEvent(null);
         }
-        
+
         for (Integer keycode : keyReg.keySet()) {
             try {
                 if (gc.getInput().isKeyDown(key2key.get(keycode.intValue()))) {
