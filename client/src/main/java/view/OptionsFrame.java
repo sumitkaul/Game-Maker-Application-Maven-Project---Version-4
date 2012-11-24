@@ -21,7 +21,7 @@ public class OptionsFrame implements ActionListener {
     private static final org.apache.log4j.Logger LOG =
             org.apache.log4j.Logger.getLogger(OptionsFrame.class);
     private JFrame optionFrame;
-    private JButton makerButton, playerButton, gamestartButton, gamestopButton, gamepauseButton, gameresumeButton,gamerestartButton;
+    private JButton makerButton, playerButton, gamestartButton;
     private GameEnginePanel te;
  
 
@@ -33,24 +33,12 @@ public class OptionsFrame implements ActionListener {
         playerButton.addActionListener(this);
         gamestartButton = new JButton("Start GE Testing");
         gamestartButton.addActionListener(this);
-        gamestopButton = new JButton("Stop GE Testing");
-        gamestopButton.addActionListener(this);
-        gamepauseButton = new JButton("Pause GE Testing");
-        gamepauseButton.addActionListener(this);
-        gameresumeButton = new JButton("resume GE Testing");
-        gameresumeButton.addActionListener(this);
-        gamerestartButton = new JButton("restart GE Testing");
-        gamerestartButton.addActionListener(this);
 
 
         optionFrame.setLayout(new MigLayout("center,center"));
         optionFrame.add(makerButton, "wmin 100, hmin 150");
         optionFrame.add(playerButton, "wmin 100, hmin 150");
         optionFrame.add(gamestartButton, "wmin 100, hmin 150");
-        optionFrame.add(gamestopButton, "wmin 100, hmin 150");
-        optionFrame.add(gamepauseButton, "wmin 100, hmin 150");
-        optionFrame.add(gameresumeButton, "wmin 100, hmin 150");
-        optionFrame.add(gamerestartButton, "wmin 100, hmin 150");
         
 
         optionFrame.setSize(800, 500);
@@ -94,22 +82,6 @@ public class OptionsFrame implements ActionListener {
            }}.start();
                          
         }
-        
-        if (e.getSource() == gamestopButton){
-            te.exitGame();
-        }
-        
-        if (e.getSource() == gamepauseButton){
-            te.pauseGame();
-        }
-        
-        if (e.getSource() == gameresumeButton){
-            te.resumeGame();
-        }
-        if (e.getSource() == gamerestartButton){
-            te.restartGame();
-        }
-        
         
 
     }
