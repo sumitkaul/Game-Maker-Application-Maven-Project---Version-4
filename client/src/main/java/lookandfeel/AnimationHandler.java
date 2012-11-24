@@ -18,7 +18,8 @@ import org.jdesktop.animation.transitions.effects.Scale;
 
 public class AnimationHandler {
 
-    private static final Logger LOG = Logger.getLogger(AnimationHandler.class.getName());
+    @SuppressWarnings("unused")
+	private static final Logger LOG = Logger.getLogger(AnimationHandler.class.getName());
 
     public static void FadeIn(JComponent jc, JComponent container, int duration) {
         Animator animator = new Animator(duration);

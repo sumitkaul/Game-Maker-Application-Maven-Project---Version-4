@@ -2,6 +2,7 @@ package model;
 
 public class Resources implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
     private int resourceNumber;
     private String resourceName;
     private String resourceType;

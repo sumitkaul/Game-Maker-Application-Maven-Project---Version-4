@@ -7,10 +7,8 @@ import controller.GameController;
 import controller.KeyListenerController;
 import eventlistener.EventListener;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import model.SpriteModel;
 import org.apache.log4j.Logger;
 

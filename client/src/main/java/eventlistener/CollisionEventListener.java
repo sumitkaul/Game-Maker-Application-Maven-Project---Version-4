@@ -12,7 +12,9 @@ import utility.SpriteList;
 import model.SpriteModel;
 
 public class CollisionEventListener implements EventListener,Serializable {
-    private GameAction action;
+	private static final long serialVersionUID = 1L;
+	
+	private GameAction action;
     private String registeredObjectId1, registeredObjectId2, registeredGroupId1, registeredGroupId2;
    
     

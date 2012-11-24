@@ -11,8 +11,9 @@ import utility.SpriteList;
 import model.SpriteModel;
 
 public class NewFrameEventListener implements EventListener,Serializable {
-    
-    private String registeredObjectId;
+	private static final long serialVersionUID = 1L;
+	
+	private String registeredObjectId;
     private String registeredGroupId;
     private GameAction action;
     
@@ -29,7 +30,6 @@ public class NewFrameEventListener implements EventListener,Serializable {
     		}
     	}
     }
-    
   
     public GameAction getAction() {
 		return action;
@@ -57,7 +57,6 @@ public class NewFrameEventListener implements EventListener,Serializable {
     
 	@Override
 	public int getEventId() {
-		// TODO Auto-generated method stub
 		return this.hashCode();
 	}
 }

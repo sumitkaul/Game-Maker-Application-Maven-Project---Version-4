@@ -1,6 +1,4 @@
 package imagewizard;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -10,16 +8,16 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
-import utility.ClockDisplay;
 
 import jwizardcomponent.JWizardComponents;
 import jwizardcomponent.JWizardPanel;
 import net.miginfocom.swing.MigLayout;
 
 public class ChooserWizardPanel extends JWizardPanel {
+	private static final long serialVersionUID = 1L;
+	
 	private JButton browse;
 	private JFileChooser jFileChooser;
-	private Graphics graphics;
 	private PreviewPanel previewPanel;
 	private File file = null;
 	private static final org.apache.log4j.Logger LOG = 
