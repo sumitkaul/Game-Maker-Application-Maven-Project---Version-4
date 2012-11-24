@@ -2,7 +2,7 @@ package model;
 
 public class Resources implements java.io.Serializable {
 
-    private Integer reourceNumber;
+    private int resourceNumber;
     private String resourceName;
     private String resourceType;
     private byte[] resource;
@@ -18,12 +18,12 @@ public class Resources implements java.io.Serializable {
         this.username = username;
     }
 
-    public Integer getReourceNumber() {
-        return this.reourceNumber;
+    public int getResourceNumber() {
+        return this.resourceNumber;
     }
 
-    public void setReourceNumber(Integer reourceNumber) {
-        this.reourceNumber = reourceNumber;
+    public void setResourceNumber(int resourceNumber) {
+        this.resourceNumber = resourceNumber;
     }
 
     public String getResourceName() {
