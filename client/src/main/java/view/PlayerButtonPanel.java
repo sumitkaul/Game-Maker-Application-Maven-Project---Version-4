@@ -3,7 +3,9 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collection;
 import java.util.List;
+import java.util.Queue;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -85,11 +87,12 @@ public class PlayerButtonPanel implements ActionListener{
 
 				LOG.debug("load done");
 
-				List<SpriteModel> allSpriteModels = game.getSpriteList();
+				Collection<SpriteModel> allSpriteModels = game.getSpriteList();
 				List<String> layers = game.getLayers();
 				ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
 				// SpriteList.getInstance().setSpriteList(allSpriteModels);
-				SpriteList.getInstance().setSelectedSpriteModel(allSpriteModels.get(0));
+                                SpriteModel m = (SpriteModel) ((Queue)allSpriteModels).peek();
+				SpriteList.getInstance().setSelectedSpriteModel(m);
 
 				Helper.getsharedHelper().getGamePlayerView().getFacade().getGameController().setEvents(game.getEventsForGameController());
 				Helper.getsharedHelper().getGamePlayerView().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
@@ -120,11 +123,12 @@ public class PlayerButtonPanel implements ActionListener{
 
 				LOG.debug("load done");
 
-				List<SpriteModel> allSpriteModels = game.getSpriteList();
+				Collection<SpriteModel> allSpriteModels = game.getSpriteList();
 				List<String> layers = game.getLayers();
 				ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
 				// SpriteList.getInstance().setSpriteList(allSpriteModels);
-				SpriteList.getInstance().setSelectedSpriteModel(allSpriteModels.get(0));
+                                SpriteModel m = (SpriteModel) ((Queue)allSpriteModels).peek();
+				SpriteList.getInstance().setSelectedSpriteModel(m);
 
 				GameMakerView.getInstance().getFacade().getGameController().setEvents(game.getEventsForGameController());
 				GameMakerView.getInstance().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());

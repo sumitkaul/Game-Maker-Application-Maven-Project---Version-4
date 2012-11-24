@@ -213,10 +213,14 @@ public class GameEngineController extends BasicGame {
                         continue;
                     }
                     try {
-                        Sound cache = new Sound("temp/resources/" + soundFileName);
+//                        Sound cache = new Sound("temp/resources/" + soundFileName);
+//                        SoundRepo.getSounds().put(soundFileName, cache);
+//                        
+//                        LOG.info("======================== new sound: " +  soundFileName);
+                        Sound cache = new Sound("data/" + soundFileName);
                         SoundRepo.getSounds().put(soundFileName, cache);
-                        
-                        LOG.info("======================== new sound: " +  soundFileName);
+
+                        LOG.info("======================== new sound: " + soundFileName);
                     } catch (SlickException ex) {
                         LOG.warn(ex);
                     }

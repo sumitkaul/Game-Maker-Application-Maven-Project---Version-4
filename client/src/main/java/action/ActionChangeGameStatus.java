@@ -2,14 +2,11 @@ package action;
 
 import java.awt.Rectangle;
 import java.io.Serializable;
-import java.util.List;
-
+import java.util.Collection;
 import javax.swing.JOptionPane;
-
+import model.SpriteModel;
 import utility.SpriteList;
 import view.GameMakerView;
-
-import model.SpriteModel;
 
 public class ActionChangeGameStatus implements GameAction,Serializable {
 
@@ -36,11 +33,11 @@ public class ActionChangeGameStatus implements GameAction,Serializable {
 	double xSpeed = model.getSpeedX();
 	double ySpeed = model.getSpeedY();
 
-	Rectangle xReversed = (Rectangle) model.getBoundingBox();
-	Rectangle yReversed = (Rectangle) model.getBoundingBox();
+	Rectangle xReversed = model.getBoundingBox();
+	Rectangle yReversed = model.getBoundingBox();
 	xReversed.x -= xSpeed;
 	yReversed.y -= ySpeed;
-	List<SpriteModel> spriteModels = SpriteList.getInstance().getSpriteList();
+	Collection<SpriteModel> spriteModels = SpriteList.getInstance().getSpriteList();
 	for (SpriteModel obj : spriteModels) {
 		if(obj.getClass().equals(spriteModels.getClass()))
 		continue;

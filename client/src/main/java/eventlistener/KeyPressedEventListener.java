@@ -1,21 +1,18 @@
 package eventlistener;
 
 import action.GameAction;
-
-
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
-
+import model.SpriteModel;
+import multiplayer.Sender;
 import utility.Constants;
 import utility.SpriteList;
 import utility.enums.playerModes;
 
-import model.SpriteModel;
-import multiplayer.Sender;
+public class KeyPressedEventListener implements EventListener, Serializable {
 
-public class KeyPressedEventListener implements EventListener,Serializable {
-
+    private static final long serialVersionUID = 1L;
     private int keyRegistered;
     private double xSpeed;
     private double ySpeed;
@@ -24,32 +21,28 @@ public class KeyPressedEventListener implements EventListener,Serializable {
     private GameAction action;
 
     @Override
-    public void checkEvent(HashMap<String,Object> map) {
-    	
-    	Integer keyPressed = (Integer) map.get("keypressed");
-    	if(keyRegistered != keyPressed.intValue())
-			return;
-    	
-    	List<SpriteModel> allSpriteModel =  SpriteList.getInstance().getSpriteList();
-    	for(int i=0;i<allSpriteModel.size();i++){
-    		
-    		if((allSpriteModel.get(i).getId().equalsIgnoreCase(registeredObjectId)) ||
-    				(allSpriteModel.get(i).getGroupId().equalsIgnoreCase(registeredGroupId))){
-    					allSpriteModel.get(i).setSpeedX(getxSpeed());
-    					allSpriteModel.get(i).setSpeedY(getySpeed());
-    			if (!Constants.isMultiplayer || (Constants.isMultiplayer && Constants.isHost && allSpriteModel.get(i).getMode().equals(playerModes.PLAYER1) || (Constants.isMultiplayer && !Constants.isHost && allSpriteModel.get(i).getMode().equals(playerModes.PLAYER2))))
-    				{
-    				action.doAction(allSpriteModel.get(i));
-//    				}
-//    			if (Constants.isMultiplayer)
-//    			{
-    				Sender sender = new Sender();
-    				//sender.sendAsClient(action, allSpriteModel.get(i));
-    			}
-    		}	
-    	}
-    }
+    public void checkEvent(HashMap<String, Object> map) {
 
+        Integer keyPressed = (Integer) map.get("keypressed");
+        if (keyRegistered != keyPressed.intValue()) {
+            return;
+        }
+
+        Collection<SpriteModel> allSpriteModel = SpriteList.getInstance().getSpriteList();
+        for (SpriteModel sprite : allSpriteModel) {
+
+            if ((sprite.getId().equalsIgnoreCase(registeredObjectId))
+                    || (sprite.getGroupId().equalsIgnoreCase(registeredGroupId))) {
+                sprite.setSpeedX(getxSpeed());
+                sprite.setSpeedY(getySpeed());
+                if (!Constants.isMultiplayer || (Constants.isMultiplayer && Constants.isHost && sprite.getMode().equals(playerModes.PLAYER1) || (Constants.isMultiplayer && !Constants.isHost && sprite.getMode().equals(playerModes.PLAYER2)))) {
+                    action.doAction(sprite);
+                    // This next line seems to do nothing
+                    Sender sender = new Sender();
+                }
+            }
+        }
+    }
 
     public int getKeyRegistered() {
         return keyRegistered;
@@ -74,37 +67,38 @@ public class KeyPressedEventListener implements EventListener,Serializable {
     public void setRegisteredObjectId(String registeredObjectId) {
         this.registeredObjectId = registeredObjectId;
     }
-    
+
     @Override
-	public int getEventId() {
-		return this.hashCode();
-	}
+    public int getEventId() {
+        return this.hashCode();
+    }
 
-	public GameAction getAction() {
-		return action;
-	}
+    public GameAction getAction() {
+        return action;
+    }
 
-	public void setAction(GameAction action) {
-		this.action = action;
-	}
+    public void setAction(GameAction action) {
+        this.action = action;
+    }
 
+    public double getySpeed() {
+        return ySpeed;
+    }
 
-	public double getySpeed() {
-		return ySpeed;
-	}
+    public void setySpeed(double ySpeed) {
+        this.ySpeed = ySpeed;
+    }
 
+    public double getxSpeed() {
+        return xSpeed;
+    }
 
-	public void setySpeed(double ySpeed) {
-		this.ySpeed = ySpeed;
-	}
+    public void setxSpeed(double xSpeed) {
+        this.xSpeed = xSpeed;
+    }
 
-
-	public double getxSpeed() {
-		return xSpeed;
-	}
-
-
-	public void setxSpeed(double xSpeed) {
-		this.xSpeed = xSpeed;
-	}
+    @Override
+    public GameAction getGameAction() {
+        return action;
+    }
 }

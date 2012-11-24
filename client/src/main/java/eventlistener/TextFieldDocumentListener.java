@@ -1,15 +1,11 @@
 package eventlistener;
 
+import facade.Facade;
 import javax.swing.DefaultListModel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
 import model.SpriteModel;
-
-import facade.Facade;
-
-import utility.Helper;
 import utility.SpriteList;
 import utility.enums.PropertyField;
 import view.GameMakerView;

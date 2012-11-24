@@ -10,6 +10,8 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
@@ -19,6 +21,8 @@ public class HttpUtil {
         Logger.getLogger(HttpUtil.class).debug("requesting: " + uri);
 
         DefaultHttpClient httpclient = new DefaultHttpClient();
+        HttpParams paras = httpclient.getParams();
+        HttpConnectionParams.setConnectionTimeout(paras, 10000);
 
         HttpGet httpGet = new HttpGet(uri);
         HttpResponse response = httpclient.execute(httpGet);
@@ -46,6 +50,8 @@ public class HttpUtil {
         Logger.getLogger(HttpUtil.class).debug("requesting: " + uri);
 
         DefaultHttpClient httpclient = new DefaultHttpClient();
+        HttpParams paras = httpclient.getParams();
+        HttpConnectionParams.setConnectionTimeout(paras, 10000);
 
         HttpPost httpPost = new HttpPost(uri);
         httpPost.setEntity(new UrlEncodedFormEntity(params));

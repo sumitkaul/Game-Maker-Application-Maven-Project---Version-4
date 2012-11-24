@@ -1,8 +1,4 @@
-
 package view;
-
-
-
 
 import facade.Facade;
 import interfaces.Drawable;
@@ -17,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -35,7 +32,7 @@ import view.imagePanel.ImagePanel;
 public class GamePanel extends JPanel implements KeyListener{
 
 	private static final org.apache.log4j.Logger LOG = 
-			org.apache.log4j.Logger.getLogger(SpriteList.class);
+			org.apache.log4j.Logger.getLogger(GamePanel.class);
     private static final long serialVersionUID = 1L;
     private Image image;
     private Graphics graphic;
@@ -132,7 +129,7 @@ public class GamePanel extends JPanel implements KeyListener{
 	    	y = event.getY();
 
 	    	boolean foundObject = false;
-	    	List<SpriteModel> spriteModels = SpriteList.getInstance().getSpriteList();
+	    	Collection<SpriteModel> spriteModels = SpriteList.getInstance().getSpriteList();
 	    	List<SpriteModel> selectedSpriteModels = new ArrayList<SpriteModel>();
 	    	SpriteModel selectedSpriteModel = null;
 
@@ -226,7 +223,7 @@ public class GamePanel extends JPanel implements KeyListener{
 	        double tempwidth;
 	        if (e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) 
 	        {
-	        	List<SpriteModel> gameObjects = SpriteList.getInstance().getSpriteList();
+	        	Collection<SpriteModel> gameObjects = SpriteList.getInstance().getSpriteList();
 	        	SpriteModel topSpriteModel = null;
 	    		for(SpriteModel gameObject:gameObjects){
 	    			if (gameObject.getBoundingBox().contains(x, y)) {
@@ -290,7 +287,7 @@ public class GamePanel extends JPanel implements KeyListener{
 	}
 
 	public void reset() {
-		List<SpriteModel> allSpriteModels = SpriteList.getInstance().getSpriteList();
+		Collection<SpriteModel> allSpriteModels = SpriteList.getInstance().getSpriteList();
 		for (SpriteModel model : allSpriteModels) {
 			unregisterModel(model);
 		}

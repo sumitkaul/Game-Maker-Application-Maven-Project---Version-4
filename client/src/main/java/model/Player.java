@@ -5,9 +5,6 @@ public class Player {
     private String username, password, usertype;
     private static Player player;
 
-    private Player() {
-    }
-
     public static Player getInstance() {
         if (player == null) {
             player = new Player();
@@ -39,7 +36,8 @@ public class Player {
         this.usertype = usertype;
     }
 
-    public static void setInstanceNull() {
+    public static Player setInstanceNull() {
         player = null;
+        return player;
     }
 }
