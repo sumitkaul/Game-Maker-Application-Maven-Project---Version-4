@@ -1,11 +1,10 @@
 package facade;
 
-import java.util.List;
-import javax.swing.Timer;
-
-import model.SpriteModel;
 import controller.GameController;
 import controller.KeyListenerController;
+import java.util.Collection;
+import javax.swing.Timer;
+import model.SpriteModel;
 import utility.ClockDisplay;
 import view.GameMakerView;
 import view.GamePanel;
@@ -13,8 +12,7 @@ import view.SpriteView;
 
 public class Facade {
 
-
-	private GamePanel gamePanel;
+    private GamePanel gamePanel;
     private KeyListenerController keyListenerController;
     private GameController gameController;
     private Timer timer;
@@ -32,7 +30,7 @@ public class Facade {
 
     }
 
-	public void startGame() {
+    public void startGame() {
         this.timer.start();
         ClockDisplay.getInstance().setEnabled(true);
         this.gamePanel.repaint();
@@ -45,69 +43,66 @@ public class Facade {
         this.gamePanel.requestFocusInWindow();
 
     }
-    
+
     public void createDuplicateSpriteModel(SpriteModel model) {
 
-		SpriteModel spriteModel = new SpriteModel(model.getPosX() + model.getWidth() / 2, model.getPosY() + model.getHeight() / 2, model.getSpeedX(), model.getSpeedY(), model.getWidth(), model.getHeight(), 
-				model.getImageUrlString(), model.getLayer(), model.getImageId());
-		GameMakerView.getInstance().getActionEventPanel().updateSpriteList(spriteModel);
-		GameMakerView.getInstance().updateProperties();
-		addSpriteModelToView(spriteModel);
-		gamePanel.repaint();
-	}
-    
+        SpriteModel spriteModel = new SpriteModel(model.getPosX() + model.getWidth() / 2, model.getPosY() + model.getHeight() / 2, model.getSpeedX(), model.getSpeedY(), model.getWidth(), model.getHeight(),
+                model.getImageUrlString(), model.getLayer(), model.getImageId());
+        GameMakerView.getInstance().getActionEventPanel().updateSpriteList(spriteModel);
+        GameMakerView.getInstance().updateProperties();
+        addSpriteModelToView(spriteModel);
+        gamePanel.repaint();
+    }
+
     public void addSpriteModelToView(SpriteModel spriteModel) {
-       
+
         SpriteView spriteView = new SpriteView(spriteModel);
         gamePanel.registerDrawable(spriteView);
         this.gamePanel.repaint();
         this.gamePanel.requestFocusInWindow();
     }
-    
-    public void createViewsForModels(List<SpriteModel> spriteModels) {
-        for(SpriteModel model : spriteModels){
-        	addSpriteModelToView(model);
+
+    public void createViewsForModels(Collection<SpriteModel> spriteModels) {
+        for (SpriteModel model : spriteModels) {
+            addSpriteModelToView(model);
         }
     }
 
-	public GameController getGameController() {
-		return this.gameController;
-	}
-	
-	public void setGameController(GameController gameController) {
-		this.gameController = gameController;
-	}
-	
-	public KeyListenerController getKeyListenerController() {
-		return keyListenerController;
-	}
+    public GameController getGameController() {
+        return this.gameController;
+    }
 
-	public void setKeyListenerController(KeyListenerController keyListenerController) {
-		this.keyListenerController = keyListenerController;
-	}
+    public void setGameController(GameController gameController) {
+        this.gameController = gameController;
+    }
 
-	public GamePanel getGamePanel() {
-		return gamePanel;
-	}
+    public KeyListenerController getKeyListenerController() {
+        return keyListenerController;
+    }
 
-	public void setGamePanel(GamePanel gamePanel) {
-		this.gamePanel = gamePanel;
-	}
+    public void setKeyListenerController(KeyListenerController keyListenerController) {
+        this.keyListenerController = keyListenerController;
+    }
 
-	public Timer getTimer() {
-		return timer;
-	}
+    public GamePanel getGamePanel() {
+        return gamePanel;
+    }
 
-	public void setTimer(Timer timer) {
-		this.timer = timer;
-	}
+    public void setGamePanel(GamePanel gamePanel) {
+        this.gamePanel = gamePanel;
+    }
 
-	public void reset() {
-		getGameController().getEvents().clear();
-		getKeyListenerController().getKeyEvents().clear();
-		
-	}
+    public Timer getTimer() {
+        return timer;
+    }
 
-	
+    public void setTimer(Timer timer) {
+        this.timer = timer;
+    }
 
+    public void reset() {
+        getGameController().getEvents().clear();
+        getKeyListenerController().getKeyEvents().clear();
+
+    }
 }

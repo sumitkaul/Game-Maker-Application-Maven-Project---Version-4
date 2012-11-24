@@ -1,25 +1,26 @@
 package loader;
 
 import eventlistener.EventListener;
-
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import model.SpriteModel;
 
 public class GamePackage implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
-	private List<SpriteModel> spriteList;
+
+    private static final long serialVersionUID = 1L;
+    private Collection<SpriteModel> spriteList;
     private List<EventListener> eventsForGameController;
     private List<EventListener> eventsForKeyController;
     private List<String> layers;
     private boolean isClockDisplayable;
-    public GamePackage(List<SpriteModel> spriteList, List<EventListener> eventsForGameController, List<EventListener> eventsForKeyController, List<String> layers, boolean isDisplayable) {
+
+    public GamePackage(Collection<SpriteModel> spriteList, List<EventListener> eventsForGameController, List<EventListener> eventsForKeyController, List<String> layers, boolean isDisplayable) {
         this.spriteList = spriteList;
         this.eventsForGameController = eventsForGameController;
         this.eventsForKeyController = eventsForKeyController;
-        this.layers=layers;
-        this.isClockDisplayable= isDisplayable;
+        this.layers = layers;
+        this.isClockDisplayable = isDisplayable;
     }
 
     public List<EventListener> getEventsForGameController() {
@@ -38,27 +39,27 @@ public class GamePackage implements Serializable {
         this.eventsForKeyController = eventsForKeyController;
     }
 
-    public List<SpriteModel> getSpriteList() {
+    public Collection<SpriteModel> getSpriteList() {
         return spriteList;
     }
 
-    public void setSpriteList(List<SpriteModel> spriteList) {
+    public void setSpriteList(Collection<SpriteModel> spriteList) {
         this.spriteList = spriteList;
     }
 
-	public List<String> getLayers() {
-		return layers;
-	}
+    public List<String> getLayers() {
+        return layers;
+    }
 
-	public void setLayers(List<String> layers) {
-		this.layers = layers;
-	}
+    public void setLayers(List<String> layers) {
+        this.layers = layers;
+    }
 
-	public boolean isClockDisplayable() {
-		return isClockDisplayable;
-	}
+    public boolean isClockDisplayable() {
+        return isClockDisplayable;
+    }
 
-	public void setClockDisplayable(boolean isClockDisplayable) {
-		this.isClockDisplayable = isClockDisplayable;
-	}
+    public void setClockDisplayable(boolean isClockDisplayable) {
+        this.isClockDisplayable = isClockDisplayable;
+    }
 }

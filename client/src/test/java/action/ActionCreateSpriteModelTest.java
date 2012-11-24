@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import eventlistener.EventListener;
 import eventlistener.NewFrameEventListener;
+import java.util.Collection;
 
 import utility.ResizeHelper;
 import utility.SpriteList;
@@ -36,7 +37,7 @@ public class ActionCreateSpriteModelTest {
       	selectedSpriteModel.setGroupId("Group1");
       	GameAction action = new ActionCreateSpriteModel();
         action.doAction(selectedSpriteModel);
-		List<SpriteModel> allSpriteList = SpriteList.getInstance().getSpriteList();
+		Collection<SpriteModel> allSpriteList = SpriteList.getInstance().getSpriteList();
 		SpriteModel newModel =null;
 		
 		for(SpriteModel sm : allSpriteList){

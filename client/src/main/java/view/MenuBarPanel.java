@@ -31,6 +31,8 @@ import javax.swing.SwingUtilities;
 import chat.AuthReceiver;
 
 import facade.Facade;
+import java.util.Collection;
+import java.util.Queue;
 
 import loader.GameDataPackageIO;
 import loader.GamePackage;
@@ -309,11 +311,12 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 
 		LOG.debug("load done");
 
-		List<SpriteModel> allSpriteModels = game.getSpriteList();
+		Collection<SpriteModel> allSpriteModels = game.getSpriteList();
 		List<String> layers = game.getLayers();
 		ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
 		// SpriteList.getInstance().setSpriteList(allSpriteModels);
-		SpriteList.getInstance().setSelectedSpriteModel(allSpriteModels.get(0));
+                SpriteModel m = (SpriteModel) ((Queue)allSpriteModels).peek();
+		SpriteList.getInstance().setSelectedSpriteModel(m);
 		for (SpriteModel model : allSpriteModels) {
 			SpriteList.getInstance().addSprite(model);
 			SpriteList.getInstance().setSelectedSpriteModel(model);
