@@ -98,12 +98,14 @@ public class GetScore {
              Query query = new Query("##GameMakerP532");
              int i=0;
 			    QueryResult result = twitter.search(query);
-			    for  (Status tweet : result.getTweets()) {
-			        
-                            area.append("@"
-                                        +tweet.getUser().getName()+ ":" + tweet.getText()+"\n");
-                            
-			    }
+			    // commenting it out as it was giving a compile time error. creating a jira issue for this.
+			    
+//			    for  (Status tweet : result.getTweets()) {
+//			        
+//                            area.append("@"
+//                                        +tweet.getUser().getName()+ ":" + tweet.getText()+"\n");
+//                            
+//			    }
             frame.add(area);
         } catch (TwitterException te) {
             te.printStackTrace();
