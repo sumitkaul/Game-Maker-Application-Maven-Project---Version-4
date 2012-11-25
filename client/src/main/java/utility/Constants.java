@@ -14,8 +14,8 @@ public class Constants
 	public static final int BG_CONTENT_B = 195;
 	public static final int BOARD_X = 120;
 	public static final int BOARD_Y = 140;
-	public static final int BOARD_HEIGHT = 500;
-	public static final int BOARD_WIDTH = 900;
+	public static final int BOARD_HEIGHT = 620;
+	public static final int BOARD_WIDTH = 600;
 	public static  int CONTROL_PANEL_WIDTH = 500;
 	public static  int CONTROL_PANEL_LENGTH = 700;
 	public static final int PADDLE_WIDTH = 20;
@@ -98,6 +98,8 @@ public class Constants
 	public static final double HEADING_AMOUNT = 10;
 	public static final int MINIMUM_FRAMEWIDTH = 700;
 	public static final int MINIMUM_FRAMEHEIGHT = 600;
+	public static final int PROPERTY_PANEL_WIDTH = 300;
+	public static final int IMAGE_PANEL_WIDTH = 180;
 	
 	
 	public static String NEW_LAYER = "New Layer";
@@ -111,6 +113,7 @@ public class Constants
 	
 	public static final String HOST =  "tintin.cs.indiana.edu:8096";//temporary for pass the test for ImagePanel
 	public static final String PATH = "/GameMakerServer";//temporary for pass the test for ImagePanel
+	
 	
 	//public static final String HOST =  "localhost:8097";
     //public static final String PATH = "/finalproject";

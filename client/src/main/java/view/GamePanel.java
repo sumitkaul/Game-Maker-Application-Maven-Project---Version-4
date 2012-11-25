@@ -4,6 +4,7 @@ import facade.Facade;
 import interfaces.Drawable;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -44,7 +45,7 @@ public class GamePanel extends JPanel implements KeyListener{
 	ResizeHandler gameobjectResize = new ResizeHandler();
 
     public GamePanel(int width, int height) {
-        this.setSize(width, height);
+        this.setPreferredSize(new Dimension(width, height));
         this.drawables = new ArrayList<Drawable>(10);
         this.currentLayer=Constants.ALL_LAYERS;
         addMouseMotionListener(movingAdapt);
