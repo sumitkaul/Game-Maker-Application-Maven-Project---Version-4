@@ -17,6 +17,8 @@ import java.sql.Time;
 import java.util.List;
 import java.util.Random;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
@@ -39,7 +41,9 @@ import loader.GamePackage;
 import lookandfeel.AnimationHandler;
 import lookandfeel.ThemeHandler;
 import model.SpriteModel;
+import twitter.GetScore;
 import twitter.UpdateStatus;
+import twitter4j.TwitterException;
 import utility.ClockDisplay;
 import utility.Constants;
 import utility.Helper;
@@ -147,7 +151,20 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 			public void actionPerformed(ActionEvent e) {
 				
 		
-				LOG.debug("works");
+				GetScore getScore=new GetScore();
+                try {
+                    boolean result=getScore.getTwitterScores();
+                    if(result)
+                    {
+                        LOG.debug("receiving scores from twitter");
+                    }
+                    else
+                        LOG.debug("error in receiving scores from twitter");
+                } catch (TwitterException ex) {
+                    Logger.getLogger(MenuBarPanel.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(MenuBarPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
 			
 			}
 		});
@@ -159,7 +176,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		
 				try {
 					UpdateStatus updateStatus=new UpdateStatus();
-					boolean result=updateStatus.execute("Test Message from GameMaker");
+					boolean result=updateStatus.execute("Test Message from GameMaker #GameMakerP532");
 					if(result){
 						JOptionPane.showMessageDialog (null, "Posted Score succesfully to Twitter", "Twitter Post Confirmation", JOptionPane.PLAIN_MESSAGE);
 					}
