@@ -14,6 +14,8 @@ public class ChatReceiver implements Runnable {
 
 	private MessageConsumer consumer;
 	private ChatPanel chatPanel;
+	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger
+			.getLogger(ChatReceiver.class);
 
 	public ChatReceiver(ChatPanel chatPanel) {
 		try {
@@ -40,7 +42,7 @@ public class ChatReceiver implements Runnable {
 			this.chatPanel=chatPanel;
 			chatReceiverThread.start();
 		} catch (Exception ex) {
-
+			LOG.debug(ex.getMessage());
 		}
 
 	}
@@ -64,6 +66,7 @@ public class ChatReceiver implements Runnable {
 					chatPanel.updateChatWindow(message.toString());
 				}
 			} catch (Exception e) {
+				LOG.debug(e.getMessage());
 			}
 		}
 	}
