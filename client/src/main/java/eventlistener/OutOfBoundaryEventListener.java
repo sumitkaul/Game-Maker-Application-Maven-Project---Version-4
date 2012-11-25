@@ -38,7 +38,7 @@ public class OutOfBoundaryEventListener implements EventListener, Serializable {
                     }
                 }
                 if (speedY > 0) {
-                    if ((posY - model.getHeight()) > GameMakerView.getInstance().getGamePanel().getWidth()) {
+                    if ((posY - model.getHeight()) > GameMakerView.getInstance().getGamePanel().getHeight()) {
                         action.doAction(model);
                     }
                 } else {
@@ -46,7 +46,6 @@ public class OutOfBoundaryEventListener implements EventListener, Serializable {
                         action.doAction(model);
                     }
                 }
-
 
             }
         }

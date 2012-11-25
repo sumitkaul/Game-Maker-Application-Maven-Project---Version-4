@@ -6,9 +6,9 @@ import model.SpriteModel;
 
 public class ActionChangeSpeed implements GameAction,Serializable {
 
-    private int newSpeedX, newSpeedY;
+    private double newSpeedX, newSpeedY;
 
-    public ActionChangeSpeed(int newSpeedX, int newSpeedY) {
+    public ActionChangeSpeed(double newSpeedX, double newSpeedY) {
         super();
         this.newSpeedX = newSpeedX;
         this.newSpeedY = newSpeedY;
