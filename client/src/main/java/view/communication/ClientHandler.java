@@ -456,6 +456,7 @@ public class ClientHandler {
             URIBuilder ub = new URIBuilder();
             ub.setScheme("http").setHost(host).setPath(path);
             URI uri = ub.build();
+            
 
             String jsonId = HttpUtil.httpGet(uri);
 
