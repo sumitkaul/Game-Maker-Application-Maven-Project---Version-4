@@ -1,6 +1,7 @@
 package view.imagePanel;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import utility.Helper;
 import utility.Layers;
 import utility.enums.PropertyField;
 import view.GameMakerView;
+import view.GamePanel;
 import view.PropertyPanel;
 
 public class ImageActionListener implements ActionListener {
@@ -84,16 +86,22 @@ public class ImageActionListener implements ActionListener {
 				ex.printStackTrace();
 			}
 			
-            SpriteModel spriteModel = new SpriteModel(100, 100, speedX, speedY, sizeX, sizeY, btn.getName(), layer, imageId);
+            SpriteModel spriteModel = new SpriteModel(Constants.SPRITE_X, Constants.SPRITE_Y, speedX, speedY, sizeX, sizeY, btn.getName(), layer, imageId);
             gameMakerView.getActionEventPanel().updateSpriteList(spriteModel);
             gameMakerView.updateProperties();
             gameMakerView.getFacade().addSpriteModelToView(spriteModel);
             gameMakerView.getGamePanel().repaint();
             
-//            Helper.getsharedHelper().setCurrentMessageNumber(1);
-//            int x = (int)spriteModel.getPosX();
-//            int y = (int)spriteModel.getPosY();
-//            GameMakerView.getInstance().showInfoPanel(Helper.getsharedHelper().getMessage(1),x,y);
+            GameMakerView.getInstance().removeInfoPanel();
+            
+            Helper.getsharedHelper().setCurrentMessageNumber(1);
+            
+            GamePanel gamePanel = GameMakerView.getInstance().getGamePanel();
+            Rectangle rect = gamePanel.getBounds();
+            int x = (int)spriteModel.getPosX()+rect.x;
+            int y = (int)spriteModel.getPosY()+rect.y;
+            
+            GameMakerView.getInstance().showInfoPanel(Helper.getsharedHelper().getMessage(1),x,y);
         }
 
 	}

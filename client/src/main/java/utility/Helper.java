@@ -46,6 +46,7 @@ public class Helper {
 	private GamePlayerView gamePlayerView;
 	private int currentMessageNumber;
 	private HashMap<Integer,String> messages;
+	private Rectangle originalPopupRect;
 	
 	
 	public static Helper getsharedHelper(){
@@ -267,6 +268,14 @@ public class Helper {
 
 	public void setMessages(HashMap<Integer,String> messages) {
 		this.messages = messages;
+	}
+
+	public Rectangle getOriginalPopupRect() {
+		return originalPopupRect;
+	}
+
+	public void setOriginalPopupRect(Rectangle originalPopupRect) {
+		this.originalPopupRect = originalPopupRect;
 	}
 
 }

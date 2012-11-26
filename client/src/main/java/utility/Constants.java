@@ -100,6 +100,8 @@ public class Constants
 	public static final int MINIMUM_FRAMEHEIGHT = 600;
 	public static final int PROPERTY_PANEL_WIDTH = 300;
 	public static final int IMAGE_PANEL_WIDTH = 180;
+	public static final double SPRITE_X = 200;
+	public static final double SPRITE_Y = 200;
 	
 	
 	public static String NEW_LAYER = "New Layer";
@@ -122,5 +124,7 @@ public class Constants
 
 
     public static final String PATH = "/finalproject";
+    
+	
 
 }

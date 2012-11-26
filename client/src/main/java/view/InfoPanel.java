@@ -36,6 +36,8 @@ public class InfoPanel extends JPanel implements ActionListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private int originalX;
+	private int originalY;
 	
 	public InfoPanel(String message) {
 
@@ -77,7 +79,7 @@ public class InfoPanel extends JPanel implements ActionListener{
 		backButton.addActionListener(this);
 		controlPanel.add(backButton);
 		
-		JButton closeButton = new JButton("Close");
+		JButton closeButton = new JButton("X");
 		closeButton.addActionListener(this);
 		controlPanel.add(closeButton);
 		
@@ -91,20 +93,56 @@ public class InfoPanel extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		Rectangle currentBounds =  getBounds();
+		int x = currentBounds.x+currentBounds.width;
+		int y = currentBounds.y+currentBounds.height;
+		
 		GameMakerView.getInstance().removeInfoPanel();
+		
 		JButton button = (JButton) arg0.getSource();
 		int currentMessageNumber = Helper.getsharedHelper().getCurrentMessageNumber();
+		if(currentMessageNumber == 1){
+			Helper.getsharedHelper().setOriginalPopupRect(new Rectangle(x,y,0,0));
+		}
 		
 		if(button.getText().equalsIgnoreCase("<")){
-			if(currentMessageNumber <= 1)
+			if(currentMessageNumber <= 1){
 				currentMessageNumber = 7;
-			GameMakerView.getInstance().showInfoPanel(Helper.getsharedHelper().getMessage(--currentMessageNumber),0,0);
+			}
+			--currentMessageNumber;
 		}
 		else if(button.getText().equalsIgnoreCase(">")){
-			if(currentMessageNumber >= 6)
+			if(currentMessageNumber >= 6){
 				currentMessageNumber = 0;
-			GameMakerView.getInstance().showInfoPanel(Helper.getsharedHelper().getMessage(++currentMessageNumber),0,0);
+			}
+			++currentMessageNumber;
 		}
+		
+		if(currentMessageNumber >4 && currentMessageNumber <7){
+			JPanel rightPanel = GameMakerView.getInstance().getRightPanel();
+			Rectangle rightPanelBounds = rightPanel.getBounds();
+			
+			JPanel subPanel = null; 
+			if(currentMessageNumber == 5){
+				subPanel = GameMakerView.getInstance().getPropertyPanel();	
+			}
+			else if(currentMessageNumber == 6){
+				subPanel = GameMakerView.getInstance().getActionEventPanel().getPanel();
+			}
+			
+			Rectangle subPanelBounds = subPanel.getBounds();
+			
+			x = rightPanelBounds.x + subPanelBounds.x;
+			y = rightPanelBounds.y + subPanelBounds.y+(int)(subPanelBounds.height*0.75);
+		}
+		else{
+			x = Helper.getsharedHelper().getOriginalPopupRect().x;
+			y = Helper.getsharedHelper().getOriginalPopupRect().y;
+		}
+		
+		
+		if(!button.getText().equalsIgnoreCase("X"))	
+			GameMakerView.getInstance().showInfoPanel(Helper.getsharedHelper().getMessage(currentMessageNumber),x,y);
 		Helper.getsharedHelper().setCurrentMessageNumber(currentMessageNumber);
 	}
 		
