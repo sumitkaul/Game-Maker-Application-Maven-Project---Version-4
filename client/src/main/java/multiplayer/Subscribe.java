@@ -8,6 +8,8 @@ import javax.jms.ObjectMessage;
 import javax.jms.Queue;
 import javax.jms.Topic;
 
+import org.newdawn.slick.util.Log;
+
 public  final class Subscribe {
 
 	private String name;
@@ -30,22 +32,30 @@ public  final class Subscribe {
 	public void setQueue(String name) throws JMSException {
 		// TODO Auto-generated method stub
 		this.name=name;
-		this.queueName = (Destination) SessionFactory.getInstanceOf().getSession().createQueue(name);
+		this.queueName = (Destination) SessionFactory.getInstanceOf().getSession().createQueue(this.name);
+		Log.debug("Queue name is --------------------"+name);
+		Receiver.getInstanceOf().setQueueName(queueName);
+		
 		
 	}
 	
-	public Message receiveData()
+	public MessageConsumer receiveData()
 	{
 		Message message = null;
+		
 		try {
 			consumer = SessionFactory.getInstanceOf().getSession().createConsumer(queueName);
-			//message =  consumer.receive(1000);
+			
+			
+			//Receiver.getInstanceOf().onMessage(message);
+			Log.info("6666666666666666666666666666666666666666666666666666666666666 in receive data");
 			setMessageListener();
+			
 			
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
-       return message;
+       return consumer;
 	}
 
 
