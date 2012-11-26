@@ -124,11 +124,14 @@ public class MultiPlayerOption{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(Player.getInstance().getUsername()!=null)
+		        {
 				Constants.isHost = false;
 				
 				JoinGame p = new JoinGame(GameMakerView.getInstance().getGamePanel());
-				p.displayJoinGames();
+				String gameName = p.displayJoinGames();
 				//Should be supported with a GUI displaying a list of games available to 
+				//Below line gets replaced with the GUI as mentioned above
 				String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the game you want to join");
 				setSendingQueueName(queueName);
 				setReceivingQueueName(queueName);
@@ -143,8 +146,13 @@ public class MultiPlayerOption{
 				}
 				Receiver.getInstanceOf().runGame();
 			}
+				else
+				{
+					JFrame frame=new JFrame();
+			        JOptionPane.showMessageDialog(frame,"Please login");
+				}
 				
-		});
+		}});
 		
 		options.setSize(200, 200);
 		options.setLocationRelativeTo(rootComp);

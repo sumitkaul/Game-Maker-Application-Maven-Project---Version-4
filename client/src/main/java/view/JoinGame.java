@@ -3,6 +3,7 @@ package view;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
+import loader.GameDataPackageIO;
 import model.GameProgressSaveInfo;
 import utility.Constants;
 import view.communication.ClientHandler;
@@ -47,8 +48,8 @@ public class JoinGame {
         }
 
         GameProgressSaveInfo.getInstance().setLoadedGameName(chosen);
-
-        return gameData;
+        GameDataPackageIO.loadGamePackageFromFile(gameData);
+        return chosen;
 		
 	}
 	
