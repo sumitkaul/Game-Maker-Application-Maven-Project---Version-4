@@ -5,6 +5,9 @@ import facade.Facade;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import org.apache.commons.lang.Validate;
+
 import utility.*;
 import view.imagePanel.ImagePanel;
 import view.PropertyPanel;
@@ -29,6 +32,8 @@ public class GameMakerView {
 	private Facade facade;
 	private JComboBox layerBox;
 	private boolean shouldDisplayScore = false;
+	private InfoPanel infoPanel;
+	private JPanel basePanel;
 	
 	
 	public static GameMakerView getInstance() {
@@ -66,7 +71,7 @@ public class GameMakerView {
 		layeredPane = new JLayeredPane();
 		baseFrame.getContentPane().add(layeredPane);
 		
-		JPanel basePanel = new JPanel();
+		basePanel = new JPanel();
 		basePanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
 
 		basePanel.add(leftPanel);
@@ -74,22 +79,8 @@ public class GameMakerView {
 		basePanel.add(rightPanel);
 
 		basePanel.setBounds(0,0,Constants.FRAME_WIDTH,Constants.FRAME_HEIGHT);
-		layeredPane.add(basePanel);
+		layeredPane.add(basePanel,new Integer(0));
 
-		
-		InfoPanel infoPanel = new InfoPanel();
-		infoPanel.setOpaque(false);
-		//infoPanel.setBounds(150, 0, 200, 200);
-		Rectangle rect = propertyPanel.getBounds();
-		double x = 200;//rect.getX();
-		double y = 100;//rect.getY();
-		Rectangle bounds = infoPanel.getBounds();
-		bounds.setLocation((int)x, (int)y);
-		infoPanel.setBounds(bounds);
-		
-		layeredPane.add(infoPanel,new Integer(1));
-	
-		
 		
 		layerBox = new JComboBox(Layers.getInstance().getLayers().toArray());
 		layerBox.addItemListener(new ItemListener() {
@@ -120,6 +111,35 @@ public class GameMakerView {
 		facade.reset();
 		actionEventPanel.reset();
 		updateProperties();
+	}
+	
+	public void showInfoPanel(String message){
+		
+		/*
+		 * Will uncomment once the functionality is completely done
+		 */
+		
+		
+//		infoPanel = new InfoPanel(message);
+//		infoPanel.setOpaque(false);
+//		Rectangle rect = propertyPanel.getBounds();
+//		double x = 200;//rect.getX();
+//		double y = 100;//rect.getY();
+//		Rectangle bounds = infoPanel.getBounds();
+//		bounds.setLocation((int)x, (int)y);
+//		infoPanel.setBounds(bounds);
+//		
+//		layeredPane.add(infoPanel,new Integer(1));
+//		baseFrame.getContentPane().validate();
+	}
+	
+	public void removeInfoPanel() {
+		/*
+		 * Will uncomment once the functionality is completely done
+		 */
+//		infoPanel.setBounds(0,0,0,0);
+//		infoPanel.removeAll();
+//		baseFrame.getContentPane().validate();
 	}
 
 	/****************** GETTERS & SETTERS **********************************/

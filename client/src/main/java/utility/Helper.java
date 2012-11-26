@@ -9,6 +9,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -43,13 +44,28 @@ public class Helper {
 	private boolean isPlayerMode;
 	private JFrame optionsFrame;
 	private GamePlayerView gamePlayerView;
-
+	private int currentMessageNumber;
+	private HashMap<Integer,String> messages;
 	
 	
 	public static Helper getsharedHelper(){
 		if(sharedHelper == null)
 			sharedHelper = new Helper();
 		return sharedHelper;
+	}
+
+	public Helper() {
+		messages = new HashMap<Integer, String>();
+		messages.put(new Integer(1), "You just added a sprite here.");
+		messages.put(new Integer(2), "You can drag it around.");
+		messages.put(new Integer(3), "Scroll the object resize.");
+		messages.put(new Integer(4), "Right click on the object to get more options.");
+		messages.put(new Integer(5), "Change the properties of the selected object here.");
+		messages.put(new Integer(6), "Add event and actions to the object here.");
+	}
+	
+	public String getMessage(int messageNumber){
+		return messages.get(messageNumber);
 	}
 	
 	public GameAction getActionForString(String actionString, SpriteModel model){
@@ -235,6 +251,22 @@ public class Helper {
 
 	public void setPlayerMode(boolean isPlayerMode) {
 		this.isPlayerMode = isPlayerMode;
+	}
+
+	public int getCurrentMessageNumber() {
+		return currentMessageNumber;
+	}
+
+	public void setCurrentMessageNumber(int currentMessageNumber) {
+		this.currentMessageNumber = currentMessageNumber;
+	}
+
+	public HashMap<Integer,String> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(HashMap<Integer,String> messages) {
+		this.messages = messages;
 	}
 
 }

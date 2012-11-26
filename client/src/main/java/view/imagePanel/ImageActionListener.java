@@ -12,6 +12,7 @@ import javax.swing.JButton;
 
 import model.SpriteModel;
 import utility.Constants;
+import utility.Helper;
 import utility.Layers;
 import utility.enums.PropertyField;
 import view.GameMakerView;
@@ -88,6 +89,9 @@ public class ImageActionListener implements ActionListener {
             gameMakerView.updateProperties();
             gameMakerView.getFacade().addSpriteModelToView(spriteModel);
             gameMakerView.getGamePanel().repaint();
+            
+            Helper.getsharedHelper().setCurrentMessageNumber(1);
+            GameMakerView.getInstance().showInfoPanel(Helper.getsharedHelper().getMessage(1));
         }
 
 	}
