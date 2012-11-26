@@ -27,7 +27,7 @@ public class SpriteModel implements Serializable {
     private playerModes mode=playerModes.PLAYER1;
 
     public playerModes getMode() {
-        return mode;
+        return this.mode;
     }
 
     public void setMode(playerModes mode) {
