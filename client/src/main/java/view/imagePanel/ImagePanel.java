@@ -2,6 +2,7 @@ package view.imagePanel;
 
 import imagewizard.MyFilter;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -69,19 +70,17 @@ public class ImagePanel implements ActionListener, ChangeListener {
         populatePaginationPanel();
         imagePanel = new JPanel();
         imagePanel.setLayout(new BoxLayout(imagePanel, BoxLayout.PAGE_AXIS));
-        propertiesPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+       
         imagePanel.add(propertiesPanel);
-        imagePanel.add(imageTilesScrollPane, "span");
-        imagePanel.add(paginationPanel, "span");
-        JButton upload = new JButton("Upload Images");
-        upload.addActionListener(this);
-        imagePanel.add(upload);
-        imagePanel.setSize(200, 400);
+        imagePanel.add(imageTilesScrollPane);
+        imagePanel.add(paginationPanel);
+        JSlider imageResizeSlider = new JSlider(JSlider.HORIZONTAL, 10, 100, 50);
+        imageResizeSlider.addChangeListener(this);
+        imagePanel.add(imageResizeSlider);
     }
 
     private JPanel createPropertiesPanel() {
-        MigLayout migLayout = new MigLayout();
-        JPanel propPanel = new JPanel(migLayout);
+        JPanel propPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,5));
 
         JLabel tags = new JLabel("Image Tags");
         propPanel.add(tags);
@@ -91,7 +90,13 @@ public class ImagePanel implements ActionListener, ChangeListener {
         }
         imageTags = new JComboBox(tagNames);
         imageTags.addActionListener(this);
-        propPanel.add(imageTags, "wrap");
+        propPanel.add(imageTags);
+        
+        JButton upload = new JButton("Upload Images");
+        upload.addActionListener(this);
+        propPanel.add(upload);
+        
+        
         return propPanel;
     }
 
@@ -113,11 +118,8 @@ public class ImagePanel implements ActionListener, ChangeListener {
     }
 
     private void populatePaginationPanel() {
-        int size = totalImages;
         paginationPanel.removeAll();
-        JSlider imageResizeSlider = new JSlider(JSlider.HORIZONTAL, 10, 100, 50);
-        imageResizeSlider.addChangeListener(this);
-        paginationPanel.add(imageResizeSlider);
+        
         JButton first = new JButton("<<");
         first.addActionListener(this);
         JButton prev = new JButton("<");
@@ -128,12 +130,6 @@ public class ImagePanel implements ActionListener, ChangeListener {
         last.addActionListener(this);
         paginationPanel.add(first);
         paginationPanel.add(prev);
-        int noOfPages = (int) Math.ceil((double) size / (double) imagesPerPage);
-        for (int i = 1; i <= noOfPages; i++) {
-            JButton b = new JButton(String.valueOf(i));
-            b.addActionListener(this);
-            paginationPanel.add(b);
-        }
         paginationPanel.add(next);
         paginationPanel.add(last);
 
