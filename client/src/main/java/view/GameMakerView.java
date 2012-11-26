@@ -113,33 +113,25 @@ public class GameMakerView {
 		updateProperties();
 	}
 	
-	public void showInfoPanel(String message){
+	public void showInfoPanel(String message,int posX, int posY){
+		infoPanel = new InfoPanel(message);
+		infoPanel.setOpaque(false);
+		Rectangle bounds = infoPanel.getBounds();
 		
-		/*
-		 * Will uncomment once the functionality is completely done
-		 */
+		posX -= bounds.width;
+		posY -= bounds.height;
 		
+		bounds.setLocation(posX, posY);
+		infoPanel.setBounds(bounds);
 		
-//		infoPanel = new InfoPanel(message);
-//		infoPanel.setOpaque(false);
-//		Rectangle rect = propertyPanel.getBounds();
-//		double x = 200;//rect.getX();
-//		double y = 100;//rect.getY();
-//		Rectangle bounds = infoPanel.getBounds();
-//		bounds.setLocation((int)x, (int)y);
-//		infoPanel.setBounds(bounds);
-//		
-//		layeredPane.add(infoPanel,new Integer(1));
-//		baseFrame.getContentPane().validate();
+		layeredPane.add(infoPanel,new Integer(1));
+		baseFrame.getContentPane().validate();
 	}
 	
 	public void removeInfoPanel() {
-		/*
-		 * Will uncomment once the functionality is completely done
-		 */
-//		infoPanel.setBounds(0,0,0,0);
-//		infoPanel.removeAll();
-//		baseFrame.getContentPane().validate();
+		infoPanel.setBounds(0,0,0,0);
+		infoPanel.removeAll();
+		baseFrame.getContentPane().validate();
 	}
 
 	/****************** GETTERS & SETTERS **********************************/

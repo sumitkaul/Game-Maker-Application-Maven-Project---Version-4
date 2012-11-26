@@ -98,12 +98,12 @@ public class InfoPanel extends JPanel implements ActionListener{
 		if(button.getText().equalsIgnoreCase("<")){
 			if(currentMessageNumber <= 1)
 				currentMessageNumber = 7;
-			GameMakerView.getInstance().showInfoPanel(Helper.getsharedHelper().getMessage(--currentMessageNumber));
+			GameMakerView.getInstance().showInfoPanel(Helper.getsharedHelper().getMessage(--currentMessageNumber),0,0);
 		}
 		else if(button.getText().equalsIgnoreCase(">")){
 			if(currentMessageNumber >= 6)
 				currentMessageNumber = 0;
-			GameMakerView.getInstance().showInfoPanel(Helper.getsharedHelper().getMessage(++currentMessageNumber));
+			GameMakerView.getInstance().showInfoPanel(Helper.getsharedHelper().getMessage(++currentMessageNumber),0,0);
 		}
 		Helper.getsharedHelper().setCurrentMessageNumber(currentMessageNumber);
 	}

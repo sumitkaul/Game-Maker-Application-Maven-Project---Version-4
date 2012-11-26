@@ -90,8 +90,10 @@ public class ImageActionListener implements ActionListener {
             gameMakerView.getFacade().addSpriteModelToView(spriteModel);
             gameMakerView.getGamePanel().repaint();
             
-            Helper.getsharedHelper().setCurrentMessageNumber(1);
-            GameMakerView.getInstance().showInfoPanel(Helper.getsharedHelper().getMessage(1));
+//            Helper.getsharedHelper().setCurrentMessageNumber(1);
+//            int x = (int)spriteModel.getPosX();
+//            int y = (int)spriteModel.getPosY();
+//            GameMakerView.getInstance().showInfoPanel(Helper.getsharedHelper().getMessage(1),x,y);
         }
 
 	}
