@@ -10,6 +10,8 @@ import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
+import view.MultiPlayerOption;
+
 import loader.GamePackage;
 import model.SpriteModel;
 import action.GameAction;
@@ -89,9 +91,16 @@ public class Receiver implements MessageListener{
 			else if ( data instanceof String)
 			{
 				String textMessage = (String) data;
+				LOG.info("The text recieved is "+ textMessage);
 				String joinee = textMessage.substring(0, textMessage.indexOf("+")-1);
 				String gameName = textMessage.substring(textMessage.indexOf("+")+1,textMessage.length());
-				
+				if (joinee != null && gameName != null )
+				{
+					MultiPlayerOption.getInstanceOf().acceptUserFrame(joinee, gameName);
+				}
+				else{
+					LOG.info("Noise data received");
+				}
 			}
 		
 		//		SessionFactory.getInstanceOf().closeSession();

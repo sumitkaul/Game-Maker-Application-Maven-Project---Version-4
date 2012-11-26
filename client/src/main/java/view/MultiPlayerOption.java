@@ -210,5 +210,19 @@ public final class MultiPlayerOption{
 		joinWaitFrame.setFocusable(true);
 		joinWaitFrame.requestFocus();
 	}
+	
+	public void acceptUserFrame(String user, String game)
+	{
+		joinWaitFrame.dispose();
+		JFrame acceptUserFrame = new JFrame();
+		acceptUserFrame.setLayout(new MigLayout("center,center"));
+		acceptUserFrame.setSize(200, 200);
+		JLabel label = new JLabel(user+" wants to join your game "+game);
+		JButton allowButton = new JButton("Allow");
+		JButton kickButton = new JButton("Kick");
+		acceptUserFrame.add(label,"wrap,wmin 100, hmin 50");
+		acceptUserFrame.add(allowButton,"wmin 50, hmin 50");
+		acceptUserFrame.add(kickButton,"wmin 50, hmin 50");
+	}
 
 }
