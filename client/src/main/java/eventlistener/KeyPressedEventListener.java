@@ -40,9 +40,10 @@ public class KeyPressedEventListener implements EventListener, Serializable {
                 sprite.setSpeedY(getySpeed());
                 if (!Constants.isMultiplayer || (Constants.isMultiplayer && Constants.isHost && sprite.getMode().equals(playerModes.PLAYER1) || (Constants.isMultiplayer && !Constants.isHost && sprite.getMode().equals(playerModes.PLAYER2)))) {
                     action.doAction(sprite);
+                    Log.debug("Before sending :action = "+ action.toString()+"sprite is" + sprite.getId());
                     // This next line seems to do nothing
                     Sender sender = new Sender();
-                    sender.sendAsClient(action, sprite);
+                    //sender.sendAsClient(action, sprite);
                     Log.info("In key pressed event listener");
                     Log.debug("action = "+ action.toString()+"sprite is" + sprite.getId());
                 }

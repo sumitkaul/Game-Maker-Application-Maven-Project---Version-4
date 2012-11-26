@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Queue;
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
+
+import org.newdawn.slick.util.Log;
+
 import loader.GamePackage;
 import model.SpriteModel;
 import utility.ClockDisplay;
@@ -38,7 +41,7 @@ public class Protocol {
 
         try {
 
-
+        	Log.info("In create Data");
             msg = SessionFactory.getInstanceOf().getSession().createObjectMessage();
             msg.setObject(map);
             msg.setJMSType("Sending Actions");
