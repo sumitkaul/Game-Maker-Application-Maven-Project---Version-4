@@ -54,13 +54,13 @@ public class Protocol {
         }
         return msg;
     }
-    public TextMessage createAcknowledgement(String data) {
+    public ObjectMessage createAcknowledgement(String data) {
         try {
-            text = SessionFactory.getInstanceOf().getSession().createTextMessage(data);
+            msg = SessionFactory.getInstanceOf().getSession().createObjectMessage(data);
         } catch (JMSException e) {
             LOG.info("creating Acknowledgement failed");
         }
-        return text;
+        return msg;
     }
 
     public void setGameState(GamePackage game) {

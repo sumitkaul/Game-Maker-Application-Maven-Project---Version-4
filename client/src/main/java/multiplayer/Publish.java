@@ -72,8 +72,8 @@ public final class Publish{
 	{
 		Protocol protocol = new Protocol();
 		String data = playerName + "+" + this.getTopic();
-		message = protocol.createAcknowledgement(data);
-		producer.send(message);
+		objectMessage = protocol.createAcknowledgement(data);
+		producer.send(objectMessage);
 	}
 
 
