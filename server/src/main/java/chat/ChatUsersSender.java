@@ -58,4 +58,28 @@ public class ChatUsersSender implements Runnable {
 
 	}
 
+	public MessageProducer getProducer() {
+		return producer;
+	}
+
+	public void setProducer(MessageProducer producer) {
+		this.producer = producer;
+	}
+
+	public Session getSession() {
+		return session;
+	}
+
+	public void setSession(Session session) {
+		this.session = session;
+	}
+
+	public ChatUsersReceiver getChatUsersReceiver() {
+		return chatUsersReceiver;
+	}
+
+	public void setChatUsersReceiver(ChatUsersReceiver chatUsersReceiver) {
+		this.chatUsersReceiver = chatUsersReceiver;
+	}
+
 }

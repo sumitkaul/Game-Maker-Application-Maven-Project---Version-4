@@ -28,4 +28,20 @@ public class ChatUsersMonitor {
 		return chatUsersReceiver.getActiveUsers();
 	}
 
+	public ChatUsersSender getChatUsersSender() {
+		return chatUsersSender;
+	}
+
+	public void setChatUsersSender(ChatUsersSender chatUsersSender) {
+		this.chatUsersSender = chatUsersSender;
+	}
+
+	public ChatUsersReceiver getChatUsersReceiver() {
+		return chatUsersReceiver;
+	}
+
+	public void setChatUsersReceiver(ChatUsersReceiver chatUsersReceiver) {
+		this.chatUsersReceiver = chatUsersReceiver;
+	}
+
 }

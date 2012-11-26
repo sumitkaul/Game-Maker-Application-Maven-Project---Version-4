@@ -79,7 +79,18 @@ public class ChatUsersReceiver implements Runnable {
 	public void clearActiveUsers(){
 		activeUsers.clear();
 	}
-	
+
+	public MessageConsumer getConsumer() {
+		return consumer;
+	}
+
+	public void setConsumer(MessageConsumer consumer) {
+		this.consumer = consumer;
+	}
+
+	public void setActiveUsers(List<String> activeUsers) {
+		this.activeUsers = activeUsers;
+	}
 	
 
 }
