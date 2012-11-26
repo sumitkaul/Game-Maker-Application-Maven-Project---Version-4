@@ -491,6 +491,7 @@ public class ClientHandler {
             Gson gson = new Gson();
 
             String[] gameNames = gson.fromJson(jsonGameList, String[].class);
+            log.info("Success in loading games for multiplayer join");
 
             return gameNames;
         } catch (Exception ex) {
