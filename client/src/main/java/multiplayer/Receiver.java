@@ -2,6 +2,7 @@ package multiplayer;
 
 import java.util.HashMap;
 
+import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
@@ -9,10 +10,9 @@ import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
-import action.GameAction;
-
 import loader.GamePackage;
 import model.SpriteModel;
+import action.GameAction;
 
 public class Receiver implements MessageListener{
 
@@ -23,6 +23,7 @@ public class Receiver implements MessageListener{
 
 	private boolean receiveStatus = true;
 	private Message message;
+	private Destination queueName;
 
 
 	public static Receiver getInstanceOf()
@@ -30,42 +31,12 @@ public class Receiver implements MessageListener{
 		return receiver;
 	}
 	
-
-
-	public  void receiveFromHost(String topic) throws JMSException{
-
-		SessionFactory.getInstanceOf().createConnection();
-		Subscribe.getInstanceOf().setQueue(topic);
-		Message message= Subscribe.getInstanceOf().receiveData();
-
-		if (message instanceof TextMessage) {
-			TextMessage textMessage = (TextMessage) message;
-			String text = textMessage.getText();
-			LOG.info("The text is " +text);
-
-		} else 
-		{
-
-		}
-	}
-	//	public static void main(String[] args0)
-	//	{
-	//		while(true)
-	//		{
-	//			try {
-	//				receiveData();
-	//			} catch (JMSException e) {
-	//				// TODO Auto-generated catch block
-	//				e.printStackTrace();
-	//			}
-	//		}
-	//	}
+	
 
 	private void receiveData() throws JMSException
 	{
 		SessionFactory.getInstanceOf().createConnection();
-		Subscribe.getInstanceOf().setQueue("TEST2");
-		message=  Subscribe.getInstanceOf().receiveData();
+		consumer=  Subscribe.getInstanceOf().receiveData();
 
 	}
 
@@ -88,10 +59,12 @@ public class Receiver implements MessageListener{
 	public void setReceiveStatus(boolean receiveStatus) {
 		this.receiveStatus = receiveStatus;
 	}
-	@Override
-	public void onMessage(Message arg0) {
+
+	public void onMessage(Message message) {
 		// TODO Auto-generated method stub
 		
+		LOG.info("-------------------------------------------------------------------------------------in on message");
+	
 		ObjectMessage objectMessage = (ObjectMessage) message;
 		LOG.info("object message is" +message);
 		
@@ -114,7 +87,11 @@ public class Receiver implements MessageListener{
 				LOG.info("The data is HashMap type" + objectMessage.getObject());
 			}
 		
-				SessionFactory.getInstanceOf().closeSession();
+		//		SessionFactory.getInstanceOf().closeSession();
+			
+		// Come back to this.This is very important in multiplayer!!!!!	
+			
+			
 		}
 		catch ( NullPointerException ne)
 		{
@@ -127,6 +104,13 @@ public class Receiver implements MessageListener{
 	
 	
 	}
+	
+	
+	public void setQueueName(Destination queueName){
+		
+		this.queueName=queueName;
+	}
+	
 
 
 

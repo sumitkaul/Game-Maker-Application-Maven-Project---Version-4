@@ -24,10 +24,10 @@ public class SpriteModel implements Serializable {
     private HashMap<String, Integer> stringToEventMap;
     private String layer;
     private String soundFile;
-    private playerModes mode;
+    private playerModes mode=playerModes.PLAYER1;
 
     public playerModes getMode() {
-        return mode;
+        return this.mode;
     }
 
     public void setMode(playerModes mode) {

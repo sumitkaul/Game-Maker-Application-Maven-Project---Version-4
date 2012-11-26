@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Queue;
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
+
+import org.newdawn.slick.util.Log;
+
 import loader.GamePackage;
 import model.SpriteModel;
 import utility.ClockDisplay;
@@ -24,7 +27,6 @@ public class Protocol {
         try {
             msg = SessionFactory.getInstanceOf().getSession().createObjectMessage();
             msg.setObject(game);
-            LOG.debug(game.getEventsForGameController().get(0));
             msg.setJMSType("Sending as Host");
         } catch (JMSException e) {
             LOG.info("sending falied as host");
@@ -39,7 +41,7 @@ public class Protocol {
 
         try {
 
-
+        	Log.info("In create Data");
             msg = SessionFactory.getInstanceOf().getSession().createObjectMessage();
             msg.setObject(map);
             msg.setJMSType("Sending Actions");

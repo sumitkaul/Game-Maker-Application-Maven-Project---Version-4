@@ -64,7 +64,7 @@ public final class Publish{
 			  // Tell the producer to send the message
 			LOG.debug("S is -------------------"+objectMessage.getObject());
 	        producer.send(objectMessage);
-	        SessionFactory.getInstanceOf().closeSession();
+	        //SessionFactory.getInstanceOf().closeSession();
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
