@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.jms.JMSException;
+import javax.jms.Session;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -14,6 +15,7 @@ import utility.Constants;
 
 import multiplayer.Receiver;
 import multiplayer.Sender;
+import multiplayer.SessionFactory;
 import net.miginfocom.swing.MigLayout;
 
 
@@ -52,11 +54,11 @@ public class MultiPlayerOption{
 	public void setReceivingQueueName(String receivingQueueName) {
 		if (Constants.isHost)
 		{
-		this.sendingQueueName = sendingQueueName +"#receiver";
+		this.receivingQueueName = receivingQueueName +"#receiver";
 		}
 		else
 		{
-			this.sendingQueueName = sendingQueueName +"#sender";
+			this.receivingQueueName = receivingQueueName +"#sender";
 		}
 	}
 
@@ -81,8 +83,8 @@ public class MultiPlayerOption{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Constants.isHost = true;
-				HostGame p = new HostGame(rootComp);
-				p.displayHostedGames();
+//				HostGame p = new HostGame(rootComp);
+//				p.displayHostedGames();
 				String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the name of the hosted game");
 				setSendingQueueName(queueName);
 				setReceivingQueueName(queueName);
@@ -91,10 +93,9 @@ public class MultiPlayerOption{
 				try {
 					Receiver.getInstanceOf().subscribe(getReceivingQueueName());
 				} catch (JMSException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					LOG.info("Receiver failed");
 				}
-				Receiver.getInstanceOf().runGame();
+					Receiver.getInstanceOf().runGame();
 				
 
 			}
@@ -116,6 +117,7 @@ public class MultiPlayerOption{
 				Sender sender=new Sender();
 				sender.sendAsHost(getSendingQueueName());
 				try {
+					SessionFactory.getInstanceOf().createConnection();
 					Receiver.getInstanceOf().subscribe(getReceivingQueueName());
 				} catch (JMSException e1) {
 					// TODO Auto-generated catch block
