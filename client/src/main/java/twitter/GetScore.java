@@ -21,6 +21,7 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -95,17 +96,22 @@ public class GetScore {
                 	return false;
                 }
             }
-             Query query = new Query("##GameMakerP532");
-             int i=0;
+             Query query = new Query("#GameMakerP532");
+            
 			    QueryResult result = twitter.search(query);
 			    // commenting it out as it was giving a compile time error. creating a jira issue for this.
 			    
-//			    for  (Status tweet : result.getTweets()) {
-//			        
-//                            area.append("@"
-//                                        +tweet.getUser().getName()+ ":" + tweet.getText()+"\n");
-//                            
-//			    }
+			   // for  (Status tweet : result.getTweets()) {
+			        
+                          // area.append("@"+tweet.getUser().getName()+ ":" + tweet.getText()+"\n");
+                            
+			    //}
+                            
+                            
+                            List <Status> status=result.getTweets();
+                            for(Status st:status)
+                              area.append("@"+st.getUser().getName()+ ":" + st.getText()+"\n");
+
             frame.add(area);
         } catch (TwitterException te) {
             te.printStackTrace();

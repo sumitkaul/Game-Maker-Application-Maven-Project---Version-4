@@ -129,9 +129,11 @@ public class GameMakerView {
 	}
 	
 	public void removeInfoPanel() {
-		infoPanel.setBounds(0,0,0,0);
-		infoPanel.removeAll();
-		baseFrame.getContentPane().validate();
+		if(infoPanel!= null){
+			infoPanel.setBounds(0,0,0,0);
+			infoPanel.removeAll();
+			baseFrame.getContentPane().validate();	
+		}
 	}
 
 	/****************** GETTERS & SETTERS **********************************/
@@ -205,5 +207,9 @@ public class GameMakerView {
 	
 	public Facade getFacade() {
 		return facade;
+	}
+	
+	public JPanel getRightPanel(){
+		return rightPanel;
 	}
 }

@@ -48,6 +48,7 @@ import utility.ClockDisplay;
 import utility.Constants;
 import utility.Helper;
 import utility.Layers;
+import utility.Score;
 import utility.SpriteList;
 import view.companels.GameBaseLoadPanel;
 import view.companels.GameBaseSavePanel;
@@ -176,7 +177,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 		
 				try {
 					UpdateStatus updateStatus=new UpdateStatus();
-					boolean result=updateStatus.execute("Test Message from GameMaker #GameMakerP532");
+					boolean result=updateStatus.execute("Score "+Score.getInstance().getScore()+" from GameMaker #GameMakerP532");
 					if(result){
 						JOptionPane.showMessageDialog (null, "Posted Score succesfully to Twitter", "Twitter Post Confirmation", JOptionPane.PLAIN_MESSAGE);
 					}
