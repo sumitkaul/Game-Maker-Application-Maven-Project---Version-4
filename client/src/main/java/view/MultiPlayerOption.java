@@ -213,6 +213,7 @@ public final class MultiPlayerOption{
 	
 	public void acceptUserFrame(String user, String game)
 	{
+		LOG.info("In accept user Frame");
 		joinWaitFrame.dispose();
 		JFrame acceptUserFrame = new JFrame();
 		acceptUserFrame.setLayout(new MigLayout("center,center"));
