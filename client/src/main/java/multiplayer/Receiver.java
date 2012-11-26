@@ -31,24 +31,6 @@ public class Receiver implements MessageListener{
 		return receiver;
 	}
 	
-
-
-	public  void receiveFromHost(String topic) throws JMSException{
-
-		SessionFactory.getInstanceOf().createConnection();
-		Subscribe.getInstanceOf().setQueue(topic);
-		consumer= Subscribe.getInstanceOf().receiveData();
-
-		if (message instanceof TextMessage) {
-			TextMessage textMessage = (TextMessage) message;
-			String text = textMessage.getText();
-			LOG.info("The text is " +text);
-
-		} else 
-		{
-
-		}
-	}
 	
 
 	private void receiveData() throws JMSException
