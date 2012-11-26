@@ -3,6 +3,8 @@ package action;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 import model.SpriteModel;
 import utility.SpriteList;
 
@@ -12,7 +14,7 @@ public class ActionRandomChangeDirection implements GameAction, Serializable {
     }
 
     private boolean isColliding(SpriteModel spriteModel) {
-        ArrayList<SpriteModel> spriteModels = (ArrayList<SpriteModel>) SpriteList.getInstance().getSpriteList();
+    	ConcurrentLinkedQueue<SpriteModel> spriteModels = (ConcurrentLinkedQueue<SpriteModel>) SpriteList.getInstance().getSpriteList();
         for (SpriteModel model : spriteModels) {
             if (model.equals(spriteModel)) {
                 continue;

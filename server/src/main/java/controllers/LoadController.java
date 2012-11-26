@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -179,23 +180,32 @@ public class LoadController {
 		
 		@RequestMapping(value = "/getHostedGameBaseId", method = RequestMethod.GET)
 		@ResponseBody
-		public int getHostedGameBaseId(@RequestParam("hostname") String hostName,@RequestParam("gamebasename") String gameBaseName,
-				@RequestParam("savegamebasename") String saveGameBaseName) {
+		public String getHostedGameBaseId(@RequestParam("hostname") String hostName,
+				@RequestParam("gamebasename") String gameBaseName,
+				@RequestParam("save_gamebasename") String saveGameBaseName){
 
-				//int isMultiplayer=1;
+			Gson gson = new Gson();
+			String result = gson.toJson(-1);
 
-				//String sql = "select game_name from GameBase where IsMultiplayer="+isMultiplayer;
-				String sql = "select id from HostedGameBases where hostname=" + hostName + 
-							 "and gamebasename=" + gameBaseName + "and savegamebasename=" + saveGameBaseName;
-				List<String> ids = DatabaseHandler.Query(sql);
+			if (hostName != null && gameBaseName != null && saveGameBaseName != null) {
 
-				Gson gson = new Gson();
-	            String json = gson.toJson(ids.get(0));
-	            
-	    		return Integer.valueOf(json);
+				String sql = "select id FROM HostedGameBases where hostname=" + 
+						hostName + " and gamebasename=" + gameBaseName + 
+						" and save_gamebasename=" + saveGameBaseName;
 
-			
-	}
+				List<BigInteger> ids = DatabaseHandler.Query(sql);
+				log.info("HERE"+ids.get(0));
+
+
+				try {
+					result = gson.toJson(ids.get(0));
+				} catch (Exception e) {
+					log.info(e);
+					result = gson.toJson(-1);
+				}
+			}
+			return result;
+		}
 
 
 }

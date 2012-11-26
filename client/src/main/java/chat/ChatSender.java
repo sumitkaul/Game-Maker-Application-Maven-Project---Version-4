@@ -20,6 +20,9 @@ public class ChatSender implements Runnable, Sender {
 	private static boolean messagePresent = false;
 	private static String message;
 	private Session session;
+	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger
+			.getLogger(ChatSender.class);
+			
 	public ChatSender() {
 		try {
 			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(Constants.ActiveMQConnect);
@@ -40,7 +43,7 @@ public class ChatSender implements Runnable, Sender {
 			Thread chatSenderThread=new Thread(this);
 			chatSenderThread.start();
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.debug(e.getMessage());
 		}
 	}
 
@@ -56,8 +59,7 @@ public class ChatSender implements Runnable, Sender {
 				}
 				Thread.sleep(200);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOG.debug(e.getMessage());
 			}
 		}
 

@@ -8,6 +8,7 @@ import javax.swing.*;
 import utility.*;
 import view.imagePanel.ImagePanel;
 import view.PropertyPanel;
+import view.imagePanel.ImageActionListener;
 
 public class GameMakerView {
 
@@ -22,8 +23,7 @@ public class GameMakerView {
 	
 	private ButtonPanel buttonPanel;			//The panel with buttons at the top right corner		
 	private PropertyPanel propertyPanel;		//Panel where width, height etc are changed.
-	private ActionEventPanel actionEventPanel;	//Can add action and events to game objects from this panel
-	private ImagePanel extendedImagePanel;		//The image panel that is present in the left panel	
+	private ActionEventPanel actionEventPanel;	//Can add action and events to game objects from this panel	
 	
 	private String userName = "";				
 	private Facade facade;
@@ -43,10 +43,11 @@ public class GameMakerView {
 		baseFrame = Helper.getsharedHelper().createBaseFrame(frameWidth,frameHeight);
 		baseFrame.setJMenuBar(new MenuBarPanel().getMenuBar());
 		
-		leftPanel = new JPanel(new FlowLayout());
-		view.imagePanel.ImageActionListener imageActionListener = new view.imagePanel.ImageActionListener();
-		extendedImagePanel = new ImagePanel(imageActionListener);
-		leftPanel.add(extendedImagePanel.getImagePanel());
+		
+		ImageActionListener imageActionListener = new ImageActionListener();
+		ImagePanel extendedImagePanel = new ImagePanel(imageActionListener);
+		leftPanel = extendedImagePanel.getImagePanel();
+		leftPanel.setPreferredSize(new Dimension(Constants.IMAGE_PANEL_WIDTH, Constants.BOARD_HEIGHT));
 		
 		gamePanel = new GamePanel(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT);
 		facade = new Facade(gamePanel);
@@ -60,18 +61,21 @@ public class GameMakerView {
 		rightPanel.add(buttonPanel.getPanel());
 		rightPanel.add(propertyPanel);
 		rightPanel.add(actionEventPanel.getPanel());
+		rightPanel.setPreferredSize(new Dimension(Constants.PROPERTY_PANEL_WIDTH, Constants.BOARD_HEIGHT));
 		
 		layeredPane = new JLayeredPane();
 		baseFrame.getContentPane().add(layeredPane);
 		
 		JPanel basePanel = new JPanel();
-		basePanel.setLayout(new GridLayout(1, 3));
-		basePanel.add(leftPanel, new Integer(0));
-		basePanel.add(gamePanel, new Integer(0));
-		basePanel.add(rightPanel, new Integer(0));
-		
+		basePanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
+
+		basePanel.add(leftPanel);
+		basePanel.add(gamePanel);
+		basePanel.add(rightPanel);
+
 		basePanel.setBounds(0,0,Constants.FRAME_WIDTH,Constants.FRAME_HEIGHT);
 		layeredPane.add(basePanel);
+
 		
 //		InfoPanel infoPanel = new InfoPanel();
 //		infoPanel.setBackground(Color.RED);

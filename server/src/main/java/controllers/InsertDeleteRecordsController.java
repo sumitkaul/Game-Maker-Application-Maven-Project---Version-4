@@ -26,13 +26,13 @@ import db.User;
 public class InsertDeleteRecordsController {
 
 	private static Logger log = Logger.getLogger(InsertDeleteRecordsController.class);
-	
+
 	@RequestMapping(value = "/deleteHostedGameBaseRecord", method = RequestMethod.GET)
 	@ResponseBody
 	public String deleteHostedGameBaseRecord(@RequestParam("gameId") String gameId) {
 
 		Gson gson = new Gson();
-		
+
 		boolean deleteOK = false;
 
 		if (gameId != null) {
@@ -57,12 +57,12 @@ public class InsertDeleteRecordsController {
 		}
 
 	}
-	
+
 	@RequestMapping(value = "/insertHostedGameBaseRecord", method = RequestMethod.GET)
 	@ResponseBody
 	public String insertHostedGameBaseRecord(@RequestParam("hostname") String hostName,
-											 @RequestParam("gamebasename") String gameBaseName,
-											 @RequestParam("save_gamebasename") String saveGameBaseName){
+			@RequestParam("gamebasename") String gameBaseName,
+			@RequestParam("save_gamebasename") String saveGameBaseName){
 		Gson gson = new Gson();
 		Session session = DatabaseHandler.getDatabaseHandlerInstance().getHibernateSession();
 		Transaction t = session.beginTransaction();
@@ -75,5 +75,4 @@ public class InsertDeleteRecordsController {
 		return gson.toJson(true);
 
 	}
-
 }
