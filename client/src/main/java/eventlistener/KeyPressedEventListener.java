@@ -39,6 +39,7 @@ public class KeyPressedEventListener implements EventListener, Serializable {
                     action.doAction(sprite);
                     // This next line seems to do nothing
                     Sender sender = new Sender();
+                    sender.sendAsClient(action, sprite);
                 }
             }
         }
