@@ -91,6 +91,7 @@ public class Receiver implements MessageListener{
 				String textMessage = (String) data;
 				String joinee = textMessage.substring(0, textMessage.indexOf("+")-1);
 				String gameName = textMessage.substring(textMessage.indexOf("+")+1,textMessage.length());
+				
 			}
 		
 		//		SessionFactory.getInstanceOf().closeSession();
