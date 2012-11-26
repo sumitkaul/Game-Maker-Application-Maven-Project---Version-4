@@ -98,13 +98,33 @@
 				</configuration>
 			</plugin>
 			<plugin>
-        	<groupId>org.mortbay.jetty</groupId>
-        	<artifactId>maven-jetty-plugin</artifactId>
-        	<version>6.1.10</version>
-        	<configuration>
-          	<stopPort>8097</stopPort>
-          <stopKey>foo</stopKey>
-        	</configuration>
+        		<groupId>org.mortbay.jetty</groupId>
+        		<artifactId>maven-jetty-plugin</artifactId>
+        		<version>6.1.10</version>
+        		<configuration>
+          		<stopPort>8097</stopPort>
+          		<stopKey>foo</stopKey>
+        		</configuration>
+        	<executions>
+          		<execution>
+            		<id>start-jetty</id>
+            		<phase>pre-integration-test</phase>
+            		<goals>
+              		<goal>run</goal>
+  		          </goals>
+            <configuration>
+              <scanIntervalSeconds>0</scanIntervalSeconds>
+              <daemon>true</daemon>
+            </configuration>
+          </execution>
+          <execution>
+            <id>stop-jetty</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>stop</goal>
+            </goals>
+          </execution>
+        </executions>
 			</plugin>
 			 <plugin>
                 <groupId>org.codehaus.mojo</groupId>
