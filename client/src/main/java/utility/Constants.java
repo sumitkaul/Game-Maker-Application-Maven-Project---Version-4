@@ -114,6 +114,13 @@ public class Constants
 	public static final String HOST =  "tintin.cs.indiana.edu:8097";//temporary for pass the test for ImagePanel
 	public static final String PATH = "/finalproject";//temporary for pass the test for ImagePanel
 	
+	public static final String spriteAddedText1 = "You just added a sprite here.";
+	public static final String spriteAddedText2 = "You can drag it around.";
+	public static final String spriteAddedText3 = "Scroll the object resize.";
+	public static final String spriteAddedText4 = "Right click on the object to get more options.";
+	public static final String propertyText = "Change the properties of the selected object here.";
+	public static final String eventActionText = "Add event and actions to the object here.";
+	
 	
 	//public static final String HOST =  "localhost:8097";
     //public static final String PATH = "/finalproject";
