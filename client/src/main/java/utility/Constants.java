@@ -111,8 +111,8 @@ public class Constants
 	public static boolean isGamePlayer = false;
 	public static boolean isHost = false;
 	
-	public static final String HOST =  "tintin.cs.indiana.edu:8096";//temporary for pass the test for ImagePanel
-	public static final String PATH = "/GameMakerServer";//temporary for pass the test for ImagePanel
+	public static final String HOST =  "tintin.cs.indiana.edu:8097";//temporary for pass the test for ImagePanel
+	public static final String PATH = "/finalproject";//temporary for pass the test for ImagePanel
 	
 	
 	//public static final String HOST =  "localhost:8097";
