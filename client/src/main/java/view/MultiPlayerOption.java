@@ -89,7 +89,7 @@ public class MultiPlayerOption{
 			public void actionPerformed(ActionEvent e) {
 				if(Player.getInstance().getUsername()!=null)
 		        {
-					Constants.isHost = false;
+					Constants.isHost = true;
 					HostGame p = new HostGame(rootComp);
 					String gameName = p.displayHostedGames();
 					String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the name of the hosted game");
