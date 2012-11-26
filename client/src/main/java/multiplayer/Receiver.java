@@ -49,23 +49,11 @@ public class Receiver implements MessageListener{
 
 		}
 	}
-	//	public static void main(String[] args0)
-	//	{
-	//		while(true)
-	//		{
-	//			try {
-	//				receiveData();
-	//			} catch (JMSException e) {
-	//				// TODO Auto-generated catch block
-	//				e.printStackTrace();
-	//			}
-	//		}
-	//	}
+	
 
 	private void receiveData() throws JMSException
 	{
 		SessionFactory.getInstanceOf().createConnection();
-		//Subscribe.getInstanceOf().setQueue("queuer");
 		consumer=  Subscribe.getInstanceOf().receiveData();
 
 	}
