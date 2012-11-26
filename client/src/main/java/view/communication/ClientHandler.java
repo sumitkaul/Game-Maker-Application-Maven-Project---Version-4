@@ -506,36 +506,6 @@ public class ClientHandler {
             return false;
         }
     }
-    	
-    	
-    	
-    	
-    	
-    	
-//        try {
-//            if (username.isEmpty()) {
-//                exception[0] = new Exception("Required information is empty");
-//                return false;
-//            }
-//
-//            URIBuilder ub = new URIBuilder();
-//            ub.setScheme("http").setHost(host).setPath(path)
-//                    .setParameter("username", username)
-//                    .setParameter("password", password);
-//            URI uri = ub.build();
-//
-//            String json = HttpUtil.httpGet(uri);
-//
-//            Gson gson = new Gson();
-//            Boolean loginOK = gson.fromJson(json, Boolean.class);
-//
-//            return loginOK.booleanValue();
-//        } catch (Exception ex) {
-//            log.error(ex);
-//            exception[0] = ex;
-//            return false;
-//        }
-//    }
 
     public static String[] loadHostGames(String host, String path,
             Exception[] exception) {
