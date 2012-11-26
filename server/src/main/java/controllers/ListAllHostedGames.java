@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.List;
 
+import org.jboss.logging.Logger;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import db.DatabaseHandler;
 @Controller
 public class ListAllHostedGames {
 	
+	private static Logger log = Logger.getLogger(ListAllHostedGames.class);
 	@RequestMapping(value = "/loadHostGames", method = RequestMethod.GET)
 	@ResponseBody
 	public List<String> loadHostGames(HttpEntity<byte[]> requestEntity) {
@@ -24,7 +26,8 @@ public class ListAllHostedGames {
 		String sql = "select gamebasename from HostedGameBases";
 		@SuppressWarnings("unchecked")
 		List<String> game = DatabaseHandler.Query(sql);
-
+		log.debug("Inside loadhosted games" + game);
+		
 		if (game.isEmpty()) {
 			return null;
 		}
