@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 
 import utility.Constants;
 
+import model.Player;
 import multiplayer.Receiver;
 import multiplayer.Sender;
 import multiplayer.SessionFactory;
@@ -85,15 +86,19 @@ public class MultiPlayerOption{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				if(Player.getInstance().getUsername()!=null)
+		        {
 				Constants.isHost = true;
-//				HostGame p = new HostGame(rootComp);
-//				p.displayHostedGames();
+				HostGame p = new HostGame(rootComp);
+				String gameName = p.displayHostedGames();
 				String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the name of the hosted game");
+				
+				String playerName = Player.getInstance().getUsername();
 				setSendingQueueName(queueName);
 				setReceivingQueueName(queueName);
 				Sender sender=new Sender();
 				sender.sendAsHost(getSendingQueueName());
+				
 				try {
 					SessionFactory.getInstanceOf().createConnection();
 					Receiver.getInstanceOf().subscribe(getReceivingQueueName());
@@ -104,7 +109,13 @@ public class MultiPlayerOption{
 				
 
 			}
+			else
+			{
+				JFrame frame=new JFrame();
+		        JOptionPane.showMessageDialog(frame,"Please login");
+			}
 				
+		}
 		});
 		
 		joinButton.addActionListener(new ActionListener() {
