@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Queue;
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
+import javax.jms.TextMessage;
 
 import facade.Facade;
 import loader.GamePackage;
@@ -20,6 +21,7 @@ import view.GamePlayerView;
 public class Protocol {
 
     private ObjectMessage msg;
+    private TextMessage text;
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ButtonPanel.class);
 
     public ObjectMessage createDataAsHost() {
@@ -51,6 +53,14 @@ public class Protocol {
             LOG.info("sending Actions");
         }
         return msg;
+    }
+    public TextMessage createAcknowledgement(String data) {
+        try {
+            text = SessionFactory.getInstanceOf().getSession().createTextMessage(data);
+        } catch (JMSException e) {
+            LOG.info("creating Acknowledgement failed");
+        }
+        return text;
     }
 
     public void setGameState(GamePackage game) {

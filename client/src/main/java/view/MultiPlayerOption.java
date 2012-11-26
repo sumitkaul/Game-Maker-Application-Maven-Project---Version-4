@@ -133,10 +133,17 @@ public class MultiPlayerOption{
 				//Should be supported with a GUI displaying a list of games available to 
 				//Below line gets replaced with the GUI as mentioned above
 				String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the game you want to join");
+				String playerName = Player.getInstance().getUsername();
 				setSendingQueueName(queueName);
 				setReceivingQueueName(queueName);
 				Sender sender=new Sender();
-				sender.sendAsHost(getSendingQueueName());
+				try {
+					sender.sendAcknowledgement(getSendingQueueName(),playerName);
+				} catch (JMSException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				//sender.sendAsHost(getSendingQueueName());
 				try {
 					SessionFactory.getInstanceOf().createConnection();
 					Receiver.getInstanceOf().subscribe(getReceivingQueueName());

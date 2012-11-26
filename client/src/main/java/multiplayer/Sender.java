@@ -2,6 +2,8 @@ package multiplayer;
 
 import java.awt.Toolkit;
 
+import javax.jms.JMSException;
+
 import model.SpriteModel;
 import action.GameAction;
 
@@ -23,6 +25,12 @@ public class Sender {
 		SessionFactory.getInstanceOf().createConnection();
 		Publish.getInstanceOf().sendGameAction(action, spriteModel);
 	
+	}
+	public void sendAcknowledgement(String queue, String playerName) throws JMSException
+	{
+		SessionFactory.getInstanceOf().createConnection();
+		Publish.getInstanceOf().setTopic(queue);
+		Publish.getInstanceOf().sendAcknowledgement(playerName);
 	}
 
 }
