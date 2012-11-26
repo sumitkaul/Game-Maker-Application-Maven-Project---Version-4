@@ -18,7 +18,7 @@ public class ResourcesTest {
 	@Before
 	public void setUp() throws Exception {
 		testerResources = new Resources();
-		testerResources.setResourceNumber(testResourceNumber);
+		testerResources.setReourceNumber(testResourceNumber);
 		testerResources.setResource(testresource);
 		testerResources.setResourceName(testresourceName);
 		testerResources.setResourceType(testresourceType);
@@ -44,13 +44,13 @@ public class ResourcesTest {
 	@Test
 	public void testGetReourceNumber() {
 		int testNumber = 45;
-		testerResources.setResourceNumber(testNumber);
-		assertEquals("Get Resource number is working",testNumber,testerResources.getResourceNumber());
+		testerResources.setReourceNumber(testNumber);
+		assertEquals("Get Resource number is working",testNumber,testerResources.getReourceNumber());
 	}
 
 	@Test
 	public void testSetReourceNumber() {
-		assertEquals("Set Resource number is working",testResourceNumber,testerResources.getResourceNumber());
+		assertEquals("Set Resource number is working",testResourceNumber,testerResources.getReourceNumber());
 	}
 
 	@Test

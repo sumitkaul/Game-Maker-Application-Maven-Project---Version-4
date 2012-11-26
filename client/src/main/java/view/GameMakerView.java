@@ -77,10 +77,19 @@ public class GameMakerView {
 		layeredPane.add(basePanel);
 
 		
-//		InfoPanel infoPanel = new InfoPanel();
-//		infoPanel.setBackground(Color.RED);
-//		infoPanel.setBounds(150, 0, 200, 200);
-//		layeredPane.add(infoPanel,new Integer(1));
+		InfoPanel infoPanel = new InfoPanel();
+		infoPanel.setOpaque(false);
+		//infoPanel.setBounds(150, 0, 200, 200);
+		Rectangle rect = propertyPanel.getBounds();
+		double x = 200;//rect.getX();
+		double y = 100;//rect.getY();
+		Rectangle bounds = infoPanel.getBounds();
+		bounds.setLocation((int)x, (int)y);
+		infoPanel.setBounds(bounds);
+		
+		layeredPane.add(infoPanel,new Integer(1));
+	
+		
 		
 		layerBox = new JComboBox(Layers.getInstance().getLayers().toArray());
 		layerBox.addItemListener(new ItemListener() {

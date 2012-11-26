@@ -180,7 +180,7 @@ public class ImagePanel implements ActionListener, ChangeListener {
                 tag, Constants.HOST, Constants.PATH + "/listPageResources", exceptions);
         for (int i = 0; i < images.length; i++) {
             Image image = Util.convertByteArraytoImage(images[i].getResource(), "jpg");
-            ImageProperties im = new ImageProperties(String.valueOf(images[i].getResourceNumber()),
+            ImageProperties im = new ImageProperties(String.valueOf(images[i].getReourceNumber()),
                     images[i].getResourceName(), image);
             allImages.add(im);
         }

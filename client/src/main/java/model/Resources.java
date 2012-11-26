@@ -3,7 +3,7 @@ package model;
 public class Resources implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
-    private int resourceNumber;
+    private int reourceNumber;
     private String resourceName;
     private String resourceType;
     private byte[] resource;
@@ -19,13 +19,7 @@ public class Resources implements java.io.Serializable {
         this.username = username;
     }
 
-    public int getResourceNumber() {
-        return this.resourceNumber;
-    }
-
-    public void setResourceNumber(int resourceNumber) {
-        this.resourceNumber = resourceNumber;
-    }
+   
 
     public String getResourceName() {
         return this.resourceName;
@@ -58,4 +52,12 @@ public class Resources implements java.io.Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
+
+	public int getReourceNumber() {
+		return reourceNumber;
+	}
+
+	public void setReourceNumber(int reourceNumber) {
+		this.reourceNumber = reourceNumber;
+	}
 }
