@@ -98,13 +98,14 @@
 				</configuration>
 			</plugin>
 			<plugin>
-        	<groupId>org.mortbay.jetty</groupId>
-        	<artifactId>maven-jetty-plugin</artifactId>
-        	<version>6.1.10</version>
-        	<configuration>
-          	<stopPort>8097</stopPort>
-          <stopKey>foo</stopKey>
-        	</configuration>
+        		<groupId>org.mortbay.jetty</groupId>
+        		<artifactId>maven-jetty-plugin</artifactId>
+        		<version>6.1.10</version>
+        		<configuration>
+          		<stopPort>8097</stopPort>
+          		<stopKey>foo</stopKey>
+        		</configuration>
+        	
 			</plugin>
 			 <plugin>
                 <groupId>org.codehaus.mojo</groupId>
