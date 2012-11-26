@@ -86,6 +86,12 @@ public class Receiver implements MessageListener{
 				//LOG.info("-----------------"+data.getS());
 				LOG.info("The data is HashMap type" + objectMessage.getObject());
 			}
+			else if ( data instanceof String)
+			{
+				String textMessage = (String) data;
+				String joinee = textMessage.substring(0, textMessage.indexOf("+")-1);
+				String gameName = textMessage.substring(textMessage.indexOf("+")+1,textMessage.length());
+			}
 		
 		//		SessionFactory.getInstanceOf().closeSession();
 			

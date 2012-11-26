@@ -24,7 +24,7 @@ import multiplayer.SessionFactory;
 import net.miginfocom.swing.MigLayout;
 
 
-public class MultiPlayerOption{
+public final class MultiPlayerOption{
 
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(MultiPlayerOption.class);
 	private JComponent rootComp;
@@ -34,8 +34,27 @@ public class MultiPlayerOption{
 	private JLabel optionLabel;
 	private String sendingQueueName;
 	private String receivingQueueName;
+	private final static MultiPlayerOption instance= new MultiPlayerOption();
+	
+	private MultiPlayerOption()
+	{
+		
+	}
+	
+	public static MultiPlayerOption getInstanceOf()
+	{
+		return instance;
+	}
 	
 	
+	public JComponent getRootComp() {
+		return rootComp;
+	}
+
+	public void setRootComp(JComponent rootComp) {
+		this.rootComp = rootComp;
+	}
+
 	public String getSendingQueueName() {
 		return sendingQueueName;
 	}
@@ -67,9 +86,9 @@ public class MultiPlayerOption{
 		}
 	}
 
-	public MultiPlayerOption(JComponent rootComp) {
-        this.rootComp = rootComp;
-    }
+//	public MultiPlayerOption(JComponent rootComp) {
+//        this.rootComp = rootComp;
+//    }
 	
 	public void selectOption(){
 		LOG.info("i m in multiplayer class");
