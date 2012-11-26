@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import loader.GameDataPackageIO;
 import model.GameProgressSaveInfo;
 
 import utility.Constants;
@@ -53,10 +54,11 @@ public class HostGame {
 	            JOptionPane.showMessageDialog(rootComp, exceptions[0].toString());
 	            return null;
 	        }
+	        GameDataPackageIO.loadGamePackageFromFile(gameData);
 
 	        GameProgressSaveInfo.getInstance().setLoadedGameName(chosen);
 
-	        return gameData;
+	        return chosen;
 		
 		
 		

@@ -24,7 +24,7 @@ public class SpriteModel implements Serializable {
     private HashMap<String, Integer> stringToEventMap;
     private String layer;
     private String soundFile;
-    private playerModes mode=playerModes.PLAYER1;
+    private playerModes mode;//=playerModes.PLAYER1;
 
     public playerModes getMode() {
         return this.mode;
@@ -70,6 +70,7 @@ public class SpriteModel implements Serializable {
         this.heading = 0;
         this.layer = layer;
         this.imageId = imageId;
+        this.mode = playerModes.PLAYER1;
 
         int spriteCount = SpriteList.getInstance().getSpriteList().size();
         setId("Untitled " + spriteCount);
@@ -90,6 +91,7 @@ public class SpriteModel implements Serializable {
         this.visible = true;
         this.heading = 0;
         this.layer = layer;
+        this.mode = playerModes.PLAYER1;
 
         int spriteCount = SpriteList.getInstance().getSpriteList().size();
         setId("Untitled " + spriteCount);

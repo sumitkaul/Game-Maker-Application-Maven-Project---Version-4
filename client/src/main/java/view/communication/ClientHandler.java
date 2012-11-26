@@ -478,6 +478,34 @@ public class ClientHandler {
 
 
     }
+    
+    public static boolean insertHostedGame(String hostName, String gameBaseName, String saveGameBaseName,
+            String host, String path, Exception[] exception) {
+    	
+        try {
+            URIBuilder ub = new URIBuilder();
+            ub.setScheme("http").
+            setHost(host).
+            setPath(path).
+            setParameter("hostname", hostName).
+            setParameter("gamebasename", gameBaseName).
+            setParameter("save_gamebasename", saveGameBaseName);
+            URI uri = ub.build();
+            
+
+            String jsonOK = HttpUtil.httpGet(uri);
+
+            Gson gson = new Gson();
+
+            boolean insertOK = gson.fromJson(jsonOK, boolean.class);
+
+            return insertOK;
+        } catch (Exception ex) {
+            log.error(ex);
+            exception[0] = ex;
+            return false;
+        }
+    }
 
     public static String[] loadHostGames(String host, String path,
             Exception[] exception) {
@@ -491,7 +519,6 @@ public class ClientHandler {
             Gson gson = new Gson();
 
             String[] gameNames = gson.fromJson(jsonGameList, String[].class);
-            log.info("Success in loading games for multiplayer join");
 
             return gameNames;
         } catch (Exception ex) {
