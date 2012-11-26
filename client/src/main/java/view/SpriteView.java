@@ -14,6 +14,7 @@ import utility.Constants;
 import utility.ResizeHelper;
 import utility.Util;
 import view.communication.ClientHandler;
+import view.imagePanel.ImageProperties;
 
 public class SpriteView implements Drawable {
 	private static final org.apache.log4j.Logger LOG = 
@@ -24,9 +25,8 @@ public class SpriteView implements Drawable {
 
 	public SpriteView(SpriteModel model) {
 		try {
-			image = (BufferedImage) getImageFromDb(model.getImageId());
-
 			this.model = model;
+			image = (BufferedImage) getImageFromDb(model.getImageId());
 		} catch (Exception e) {
 			LOG.error(e);
 		}
@@ -57,7 +57,10 @@ public class SpriteView implements Drawable {
 
 	@Override
 	public boolean isVisible() {
-		return model.isVisible();
+		if(model != null)
+			return model.isVisible();
+		else
+			return false;
 	}
 
 	public SpriteModel getModel() {
@@ -73,6 +76,7 @@ public class SpriteView implements Drawable {
 		return this.model.getLayer();
 	}
 
+         
 	public Image getImageFromDb(int id) {
 		Resources resource = ClientHandler.loadResource(String.valueOf(id),
 				Constants.HOST, Constants.PATH + "/loadResource",

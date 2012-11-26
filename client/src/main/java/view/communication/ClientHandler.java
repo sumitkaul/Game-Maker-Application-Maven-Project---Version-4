@@ -454,8 +454,14 @@ public class ClientHandler {
             String saveGameBaseName, String host, String path, Exception[] exception) {
         try {
             URIBuilder ub = new URIBuilder();
-            ub.setScheme("http").setHost(host).setPath(path);
+            ub.setScheme("http").
+            setHost(host).
+            setPath(path).
+            setParameter("hostname", hostName).
+            setParameter("gamebasename", gameBaseName).
+            setParameter("save_gamebasename", saveGameBaseName);
             URI uri = ub.build();
+            
 
             String jsonId = HttpUtil.httpGet(uri);
 
