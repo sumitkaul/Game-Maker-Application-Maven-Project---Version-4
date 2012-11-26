@@ -13,6 +13,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import utility.Constants;
 import view.communication.ClientHandler;
@@ -34,11 +35,11 @@ public final class MultiPlayerOption{
 	private JLabel optionLabel;
 	private String sendingQueueName;
 	private String receivingQueueName;
+	private JFrame joinWaitFrame;
 	private final static MultiPlayerOption instance= new MultiPlayerOption();
 	
 	private MultiPlayerOption()
 	{
-		
 	}
 	
 	public static MultiPlayerOption getInstanceOf()
@@ -86,9 +87,6 @@ public final class MultiPlayerOption{
 		}
 	}
 
-//	public MultiPlayerOption(JComponent rootComp) {
-//        this.rootComp = rootComp;
-//    }
 	
 	public void selectOption(){
 		LOG.info("i m in multiplayer class");
@@ -96,7 +94,6 @@ public final class MultiPlayerOption{
 		hostButton = new JButton("Host");
 		joinButton = new JButton("Join");
 		optionLabel = new JLabel("Would you like to:");
-		
 		options.setLayout(new MigLayout("center,center"));
 		options.add(optionLabel,"wrap,wmin 100, hmin 50");
 		options.add(hostButton,"wmin 50, hmin 50");
@@ -112,7 +109,6 @@ public final class MultiPlayerOption{
 					HostGame p = new HostGame(rootComp);
 					String gameName = p.displayHostedGames();
 					String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the name of the hosted game");
-
 					String playerName = Player.getInstance().getUsername();
 					setSendingQueueName(queueName);
 					setReceivingQueueName(queueName);
@@ -120,6 +116,8 @@ public final class MultiPlayerOption{
 					ClientHandler.insertHostedGame(playerName, gameName, queueName, Constants.HOST, Constants.PATH+"/insertHostedGameBaseRecord", exception);
 					Sender sender=new Sender();
 					sender.sendAsHost(getSendingQueueName());
+					joinWaitFrame();
+					
 				try {
 					SessionFactory.getInstanceOf().createConnection();
 					Receiver.getInstanceOf().subscribe(getReceivingQueueName());
@@ -167,7 +165,6 @@ public final class MultiPlayerOption{
 					SessionFactory.getInstanceOf().createConnection();
 					Receiver.getInstanceOf().subscribe(getReceivingQueueName());
 				} catch (JMSException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				Receiver.getInstanceOf().runGame();
@@ -185,5 +182,33 @@ public final class MultiPlayerOption{
 		options.setVisible(true);
 		
 		}
+	
+	public void joinWaitFrame()
+	{
+		joinWaitFrame = new JFrame();
+		joinWaitFrame.setLayout(new MigLayout("center,center"));
+		joinWaitFrame.setSize(200, 200);
+		JLabel label = new JLabel("Waiting for joinee");
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.setSize(50, 20);
+		cancelButton.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				joinWaitFrame.dispose();
+				return;
+				
+			}
+			
+		});
+		joinWaitFrame.add(label,"wrap,wmin 100, hmin 50");
+		joinWaitFrame.add(cancelButton,"wmin 50, hmin 50");
+		LOG.info("In Join Frame");
+		joinWaitFrame.setLocationRelativeTo(rootComp);
+		joinWaitFrame.setVisible(true);
+		joinWaitFrame.setFocusable(true);
+		joinWaitFrame.requestFocus();
+	}
 
 }
