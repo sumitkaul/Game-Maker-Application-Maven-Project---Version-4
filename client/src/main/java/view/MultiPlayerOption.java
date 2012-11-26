@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import utility.Constants;
+import view.communication.ClientHandler;
 
 import model.Player;
 import multiplayer.Receiver;
@@ -88,17 +89,18 @@ public class MultiPlayerOption{
 			public void actionPerformed(ActionEvent e) {
 				if(Player.getInstance().getUsername()!=null)
 		        {
-				Constants.isHost = true;
-				HostGame p = new HostGame(rootComp);
-				String gameName = p.displayHostedGames();
-				String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the name of the hosted game");
-				
-				String playerName = Player.getInstance().getUsername();
-				setSendingQueueName(queueName);
-				setReceivingQueueName(queueName);
-				Sender sender=new Sender();
-				sender.sendAsHost(getSendingQueueName());
-				
+					Constants.isHost = true;
+					HostGame p = new HostGame(rootComp);
+					String gameName = p.displayHostedGames();
+					String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the name of the hosted game");
+
+					String playerName = Player.getInstance().getUsername();
+					setSendingQueueName(queueName);
+					setReceivingQueueName(queueName);
+					Exception[] exception=new Exception[1];
+					ClientHandler.insertHostedGame(playerName, gameName, queueName, Constants.HOST, Constants.PATH+"/insertHostedGameBaseRecord", exception);
+					Sender sender=new Sender();
+					sender.sendAsHost(getSendingQueueName());
 				try {
 					SessionFactory.getInstanceOf().createConnection();
 					Receiver.getInstanceOf().subscribe(getReceivingQueueName());

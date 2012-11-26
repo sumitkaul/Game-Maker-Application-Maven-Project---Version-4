@@ -8,7 +8,7 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
-import view.PlayerButtonPanel;
+
 import utility.Constants;
 public class AuthReceiver implements Runnable {
 
