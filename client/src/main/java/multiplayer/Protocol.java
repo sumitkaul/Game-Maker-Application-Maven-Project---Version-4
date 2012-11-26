@@ -7,15 +7,15 @@ import java.util.Queue;
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
 
-import org.newdawn.slick.util.Log;
-
+import facade.Facade;
 import loader.GamePackage;
 import model.SpriteModel;
 import utility.ClockDisplay;
+import utility.Helper;
 import utility.Layers;
 import utility.SpriteList;
 import view.ButtonPanel;
-import view.GameMakerView;
+import view.GamePlayerView;
 
 public class Protocol {
 
@@ -23,10 +23,13 @@ public class Protocol {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ButtonPanel.class);
 
     public ObjectMessage createDataAsHost() {
-        GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), GameMakerView.getInstance().getFacade().getGameController().getEvents(), GameMakerView.getInstance().getFacade().getKeyListenerController().getKeyEvents(), Layers.getInstance().getLayers(), ClockDisplay.getInstance().isVisible());
+    	GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
+    	Facade facade = gamePlayerView.getFacade();
+        GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), facade.getGameController().getEvents(), facade.getKeyListenerController().getKeyEvents(), Layers.getInstance().getLayers(), ClockDisplay.getInstance().isVisible());
         try {
             msg = SessionFactory.getInstanceOf().getSession().createObjectMessage();
             msg.setObject(game);
+            LOG.debug(game.getEventsForGameController().get(0));
             msg.setJMSType("Sending as Host");
         } catch (JMSException e) {
             LOG.info("sending falied as host");
@@ -41,7 +44,7 @@ public class Protocol {
 
         try {
 
-        	Log.info("In create Data");
+
             msg = SessionFactory.getInstanceOf().getSession().createObjectMessage();
             msg.setObject(map);
             msg.setJMSType("Sending Actions");
@@ -59,16 +62,18 @@ public class Protocol {
         // SpriteList.getInstance().setSpriteList(allSpriteModels);
         SpriteModel m = (SpriteModel) ((Queue) allSpriteModels).peek();
         SpriteList.getInstance().setSelectedSpriteModel(m);
-        GameMakerView.getInstance().getFacade().getGameController().setEvents(game.getEventsForGameController());
-        GameMakerView.getInstance().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
-        GameMakerView.getInstance().getFacade().createViewsForModels(game.getSpriteList());
+        
+        GamePlayerView gamePlayerView = (GamePlayerView)Helper.getsharedHelper().getGamePlayerView();
+        Facade facade = gamePlayerView.getFacade();
+        
+        facade.getGameController().setEvents(game.getEventsForGameController());
+        facade.getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
+        facade.createViewsForModels(game.getSpriteList());
         for (SpriteModel model : allSpriteModels) {
             SpriteList.getInstance().addSprite(model);
             SpriteList.getInstance().setSelectedSpriteModel(model);
             LOG.info("The id of the object is " + model.getId());
         }
-        GameMakerView.getInstance().updateProperties();
-
     }
 
     public void setMultiplayerAction(HashMap<GameAction, SpriteModel> map) {
