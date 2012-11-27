@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 
 import loader.GameDataPackageIO;
 import model.GameProgressSaveInfo;
+import multiplayer.Receiver;
 import utility.Constants;
 import view.communication.ClientHandler;
 
@@ -15,7 +16,8 @@ public class JoinGame {
     private final String path = Constants.PATH;
     private final String urlListAllHostGames = "/listAllHostGames";
     private final String urlloadHostGames = "/loadHostGames";
-	
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(JoinGame.class);
+
 	public JoinGame (JComponent rootComp){
 		
 		this.rootComp= rootComp;
@@ -27,7 +29,7 @@ public class JoinGame {
 		
 		Exception[] exceptions = new Exception[1];
 		String[] gameNames = ClientHandler.loadHostGames(host, path + urlListAllHostGames, exceptions);
-		
+		LOG.info("The gamenames are "+gameNames);
 		String chosen = (String) JOptionPane.showInputDialog(
                 rootComp,
                 "List of join games :",
@@ -41,7 +43,7 @@ public class JoinGame {
         }
 
         String gameData = ClientHandler.loadGameBase(chosen, host, path + urlloadHostGames, exceptions);
-
+        
         if (exceptions[0] != null) {
             JOptionPane.showMessageDialog(rootComp, exceptions[0].toString());
             return null;
