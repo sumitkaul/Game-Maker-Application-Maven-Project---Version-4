@@ -1,5 +1,7 @@
 package view;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -13,56 +15,56 @@ import view.communication.ClientHandler;
 import view.communication.protocol.GameHostInfo;
 
 public class HostGame {
-	
+
     private JComponent rootComp;
     private final String host = Constants.HOST;
     private final String path = Constants.PATH;
     private final String urlListMultiPlayerGameBases = "/listMultiPlayerGameBases";
     private final String urlLoadGameBase = "/loadGameBase";
-	
-	public HostGame (JComponent rootComp){
-		
-		this.rootComp= rootComp;
 
-	}
-	
-	
-	public String displayHostedGames(){
-		   Exception[] exceptions = new Exception[1];
-	        String[] gameNames = ClientHandler.listAllMultiPlayerGameBases(host, path + urlListMultiPlayerGameBases, exceptions);
+    public HostGame(JComponent rootComp) {
 
-	        if (exceptions[0] != null) {
-	            JOptionPane.showMessageDialog(rootComp, exceptions[0].toString());
-	            return null;
-	        }
+        this.rootComp = rootComp;
 
-	        String chosen = (String) JOptionPane.showInputDialog(
-	                rootComp,
-	                "Select Game Base from " + host,
-	                "Load Game Base",
-	                JOptionPane.PLAIN_MESSAGE,
-	                null, gameNames,
-	                null);
+    }
 
-	        if (chosen == null) {
-	            return null;
-	        }
+    public String displayHostedGames() {
+        String[] gameNames = ClientHandler.listAllMultiPlayerGameBases(host, path + urlListMultiPlayerGameBases, null);
 
-	        String gameData = ClientHandler.loadGameBase(chosen, host, path + urlLoadGameBase, exceptions);
 
-	        if (exceptions[0] != null) {
-	            JOptionPane.showMessageDialog(rootComp, exceptions[0].toString());
-	            return null;
-	        }
-	        GameDataPackageIO.loadGamePackageFromFile(gameData);
+        //JOptionPane.showMessageDialog(rootComp, exceptions[0].toString());
+        //return null;
 
-	        GameProgressSaveInfo.getInstance().setLoadedGameName(chosen);
 
-	        return chosen;
-		
-		
-		
+        String chosen = (String) JOptionPane.showInputDialog(
+                rootComp,
+                "Select Game Base from " + host,
+                "Load Game Base",
+                JOptionPane.PLAIN_MESSAGE,
+                null, gameNames,
+                null);
 
-	}
-	
+        if (chosen == null) {
+            return null;
+        }
+
+        String gameData;
+        try {
+            gameData = ClientHandler.loadGameBase(chosen, host, path + urlLoadGameBase);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootComp, ex.toString());
+            return null;
+        }
+
+
+        GameDataPackageIO.loadGamePackageFromFile(gameData);
+
+        GameProgressSaveInfo.getInstance().setLoadedGameName(chosen);
+
+        return chosen;
+
+
+
+
+    }
 }

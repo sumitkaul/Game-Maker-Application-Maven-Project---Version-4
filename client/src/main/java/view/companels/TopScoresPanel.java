@@ -1,5 +1,7 @@
 package view.companels;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -21,11 +23,11 @@ public class TopScoresPanel {
     }
 
     public void readGameScoresFromRemoteList() {
-        Exception[] exceptions = new Exception[1];
-        String[] gameNames = ClientHandler.listAllGameBases(host, path + urlListAllGameBases, exceptions);
-
-        if (exceptions[0] != null) {
-            JOptionPane.showMessageDialog(rootComp, exceptions[0].toString());
+        String[] gameNames;
+        try {
+            gameNames = ClientHandler.listAllGameBases(host, path + urlListAllGameBases);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootComp, ex.toString());
             return;
         }
 
@@ -41,13 +43,9 @@ public class TopScoresPanel {
             return;
         }
 
-     //   GameHostInfo[] gameSaves = ClientHandler.listTopScores(chosen, host, path + urlListTopScores, exceptions);
-        String[] gameSaves={"aaaaaa","bbbbbb"};
+        //   GameHostInfo[] gameSaves = ClientHandler.listTopScores(chosen, host, path + urlListTopScores, exceptions);
+        String[] gameSaves = {"aaaaaa", "bbbbbb"};
         
-        if (exceptions[0] != null) {
-            JOptionPane.showMessageDialog(rootComp, exceptions[0].toString());
-            return;
-        }
 
         if (gameSaves.length == 0) {
             JOptionPane.showMessageDialog(rootComp, "There is no records for this game yet");
@@ -58,8 +56,8 @@ public class TopScoresPanel {
 
         Object[][] data = new Object[gameSaves.length][];
         for (int i = 0; i < gameSaves.length; i++) {
-           // data[i] = new Object[]{gameSaves[i].getRank(), gameSaves[i].getGamePlayer(), gameSaves[i].getGameScore()};
-        	 data[i] = new Object[]{gameSaves[i]};
+            // data[i] = new Object[]{gameSaves[i].getRank(), gameSaves[i].getGamePlayer(), gameSaves[i].getGameScore()};
+            data[i] = new Object[]{gameSaves[i]};
         }
 
         JTable table = new JTable(data, columnNames);
