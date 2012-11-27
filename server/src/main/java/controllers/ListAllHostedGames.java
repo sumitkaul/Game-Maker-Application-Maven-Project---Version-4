@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.logging.Logger;
@@ -16,37 +17,22 @@ import db.DatabaseHandler;
 
 @Controller
 public class ListAllHostedGames {
-	
-//	private static Logger log = Logger.getLogger(ListAllHostedGames.class);
-//	@RequestMapping(value = "/loadHostGames", method = RequestMethod.GET)
-//	@ResponseBody
-//	public List<String> loadHostGames(HttpEntity<byte[]> requestEntity) {
-//
-//		//HttpHeaders requestHeaders = requestEntity.getHeaders();
-//		//String gameName = requestHeaders.get("game_name").get(0);
-//
-//		String sql = "select gamebasename from HostedGameBases";
-//		@SuppressWarnings("unchecked")
-//		List<String> game = DatabaseHandler.Query(sql);
-//		log.debug("Inside loadhosted games" + game);
-//		
-//		if (game.isEmpty()) {
-//			return null;
-//		}
-//
-//		return game;
-//	}
-	
+
 	private static Logger log = Logger.getLogger(ListAllHostedGames.class);
 	@RequestMapping(value = "/loadHostGames", method = RequestMethod.GET)
 	@ResponseBody
-	public List<String> loadHostGames() {
-		String sql = "select gamebasename from HostedGameBases";
-		List<String> gameBaseNames = DatabaseHandler.Query(sql);
-		return gameBaseNames;
-//        Gson gson = new Gson();
-//        String json = gson.toJson(gameBaseNames);            
-//        return json;
-	}
+	public String loadHostGames() {
 
+		String sql = "select gamebasename from HostedGameBases";
+		List<String> game = DatabaseHandler.Query(sql);
+		log.debug("Inside loadhosted games" + game);
+
+		List<String> result = new ArrayList<String>();
+		result.add("hello");
+
+		Gson gson = new Gson();
+		String json = gson.toJson(game);            
+		return json;		
+	}
 }
+
