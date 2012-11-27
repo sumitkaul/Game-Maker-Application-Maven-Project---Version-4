@@ -1,4 +1,4 @@
-package game.engine.slick2d.player;
+package jbox2d;
 
 import java.io.IOException;
 import java.util.logging.Level;
