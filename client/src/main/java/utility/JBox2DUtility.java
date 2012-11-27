@@ -41,6 +41,7 @@ public final class JBox2DUtility {
 		return instance;
 	}
 	
+
 	public Body getBody(SpriteModel model) throws IOException
 	{
 		String id = model.getId();
@@ -94,7 +95,16 @@ public final class JBox2DUtility {
 
         
         
-   
+ 
+	public float pixelToCentimeters(double pixels)
+	{
+		return (float) (pixels * Constants.PIXEL_TO_CENTIMERTER_PARAM);
+	}
+	
+	public double centimetersToPixels(float centimerters)
+	{
+		return centimerters * Constants.CENTIMERTER_TO_PIXEL_PARAM;
+	}
 
 
 }

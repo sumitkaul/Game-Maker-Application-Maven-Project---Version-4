@@ -2,7 +2,6 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,8 +9,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
 import model.Player;
+import org.apache.log4j.Logger;
 import utility.Constants;
 import view.communication.ClientHandler;
 
@@ -102,31 +101,38 @@ public class LoginFrame extends JFrame {
             GameMakerView d = GameMakerView.getInstance();
             String result = null;
             if (e.getSource() == login) {
-            	if(username.getText().equalsIgnoreCase("") || password.getText().equalsIgnoreCase("")){
-  				  JOptionPane.showMessageDialog(loginPanel,"UserName and Password can not be empty");
-  			  }else{
-  				setVisible(false);
-                String user_name = username.getText();
-                String pass_word = password.getText();
-
-                boolean loginok = ClientHandler.userLogin(user_name, pass_word, Constants.HOST, Constants.PATH+"/loginUser", new Exception[1]);
-
-                if (loginok) {
-                    d.getButtonPanel().getUserName().setText("Welcome " + user_name);
-                    Player.getInstance().setUsername(user_name);
-                    Player.getInstance().setPassword(pass_word);
-                    JFrame frame = new JFrame();
-                    JOptionPane.showMessageDialog(frame,
-                            "login successful");
+                if (username.getText().equalsIgnoreCase("") || password.getText().equalsIgnoreCase("")) {
+                    JOptionPane.showMessageDialog(loginPanel, "UserName and Password can not be empty");
                 } else {
-                    d.getButtonPanel().getUserName().setText("invalid username and password");
-                    JFrame frame = new JFrame();
-                    JOptionPane.showMessageDialog(frame,
-                            "login invalid");
-                    Player.setInstanceNull();
+                    setVisible(false);
+                    String user_name = username.getText();
+                    String pass_word = password.getText();
+
+                    boolean loginok;
+                    try {
+                        loginok = ClientHandler.userLogin(user_name, pass_word, Constants.HOST, Constants.PATH + "/loginUser");
+                    } catch (Exception ex) {
+                        LOG.error(ex);
+                        loginok = false;
+                    }
+
+                    if (loginok) {
+                        d.getButtonPanel().getUserName().setText("Welcome " + user_name);
+                        Player.getInstance().setUsername(user_name);
+                        Player.getInstance().setPassword(pass_word);
+                        JFrame frame = new JFrame();
+                        JOptionPane.showMessageDialog(frame,
+                                "login successful");
+                    } else {
+                        d.getButtonPanel().getUserName().setText("invalid username and password");
+                        JFrame frame = new JFrame();
+                        JOptionPane.showMessageDialog(frame,
+                                "login invalid");
+                        Player.setInstanceNull();
+                    }
                 }
-  			  }
             }
         }
     }
+    private static final Logger LOG = Logger.getLogger(LoginFrame.class.getName());
 }

@@ -2,7 +2,6 @@ package view.companels;
 
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-
 import model.GameProgressSaveInfo;
 import utility.Constants;
 import view.communication.ClientHandler;
@@ -20,11 +19,11 @@ public class GameBaseLoadPanel {
     }
 
     public String readGameDataFromRemoteList() {
-        Exception[] exceptions = new Exception[1];
-        String[] gameNames = ClientHandler.listAllGameBases(host, path + urlListAllGameBases, exceptions);
-
-        if (exceptions[0] != null) {
-            JOptionPane.showMessageDialog(rootComp, exceptions[0].toString());
+        String[] gameNames = null;
+        try {
+            gameNames = ClientHandler.listAllGameBases(host, path + urlListAllGameBases);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootComp, ex.toString());
             return null;
         }
 
@@ -40,10 +39,11 @@ public class GameBaseLoadPanel {
             return null;
         }
 
-        String gameData = ClientHandler.loadGameBase(chosen, host, path + urlLoadGameBase, exceptions);
-
-        if (exceptions[0] != null) {
-            JOptionPane.showMessageDialog(rootComp, exceptions[0].toString());
+        String gameData;
+        try {
+            gameData = ClientHandler.loadGameBase(chosen, host, path + urlLoadGameBase);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootComp, ex.toString());
             return null;
         }
 
