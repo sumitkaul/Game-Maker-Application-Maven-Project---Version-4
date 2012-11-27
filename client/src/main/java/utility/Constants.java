@@ -129,6 +129,6 @@ public class Constants
 //	public static final String HOST =  "localhost:8097";
 //	public static final String PATH = "/finalproject";
     
-	public static final double PIXEL_TO_CENTIMERTER_PARAM = 0.026458333 ;
-	public static final double CENTIMERTER_TO_PIXEL_PARAM = 37.795275591 ;
+	public static final double PIXEL_TO_CENTIMETER_PARAM = 0.026458333 ;
+	public static final double CENTIMETER_TO_PIXEL_PARAM = 37.795275591 ;
 }

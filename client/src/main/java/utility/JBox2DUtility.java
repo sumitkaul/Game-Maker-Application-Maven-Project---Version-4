@@ -98,12 +98,12 @@ public final class JBox2DUtility {
  
 	public float pixelToCentimeters(double pixels)
 	{
-		return (float) (pixels * Constants.PIXEL_TO_CENTIMERTER_PARAM);
+		return (float) (pixels * Constants.PIXEL_TO_CENTIMETER_PARAM);
 	}
 	
-	public double centimetersToPixels(float centimerters)
+	public double centimetersToPixels(float centimeters)
 	{
-		return centimerters * Constants.CENTIMERTER_TO_PIXEL_PARAM;
+		return centimeters * Constants.CENTIMETER_TO_PIXEL_PARAM;
 	}
 
 
