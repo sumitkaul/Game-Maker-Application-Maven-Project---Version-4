@@ -27,8 +27,8 @@ public class ListAllHostedGames {
 		List<String> game = DatabaseHandler.Query(sql);
 		log.debug("Inside loadhosted games" + game);
 
-		List<String> result = new ArrayList<String>();
-		result.add("hello");
+/*		List<String> result = new ArrayList<String>();
+		result.add("hello");*/
 
 		Gson gson = new Gson();
 		String json = gson.toJson(game);            
