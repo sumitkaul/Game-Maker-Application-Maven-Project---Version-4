@@ -38,7 +38,7 @@ public class LoginFrame extends JFrame {
         passwordLabel.setBounds(20, 60, 100, 30);
 
         this.login = new JButton("Login");
-        login.setBounds(20, 120, 100, 30);
+        login.setBounds(70, 120, 100, 30);
 
         this.errorLabel = new JLabel();
         errorLabel.setBounds(220, 20, 100, 30);
@@ -55,10 +55,11 @@ public class LoginFrame extends JFrame {
         this.loginPanel.add(password);
         this.loginPanel.add(login);
         this.loginPanel.add(errorLabel);
+        this.setLocationRelativeTo(null);
 
         this.add(loginPanel);
         this.setVisible(true);
-        this.setSize(400, 300);
+        this.setSize(240, 200);
 
     }
 
