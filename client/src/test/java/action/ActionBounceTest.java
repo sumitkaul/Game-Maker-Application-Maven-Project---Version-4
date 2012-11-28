@@ -19,7 +19,7 @@ public class ActionBounceTest {
 
     @Before
     public void setUp() throws Exception {
-        GameMakerView.getInstance().reset();
+    	SpriteList.getInstance().getSpriteList().clear();
         ResizeHelper.getInstance().reset();
         selectedSpriteModel = new SpriteModel(190, 190, 10, 10, 100, 100, "", "");
         secondarySpriteModel = new SpriteModel(100, 100, 10, 10, 100, 200, "", "");
@@ -48,6 +48,7 @@ public class ActionBounceTest {
 
     @After
     public void tearDown() throws Exception {
-        GameMakerView.getInstance().reset();
+    	SpriteList.getInstance().getSpriteList().clear();
+
     }
 }

@@ -27,20 +27,50 @@ public class InsertDeleteRecordsController {
 
 	private static Logger log = Logger.getLogger(InsertDeleteRecordsController.class);
 
+//	@RequestMapping(value = "/deleteHostedGameBaseRecord", method = RequestMethod.GET)
+//	@ResponseBody
+//	public String deleteHostedGameBaseRecord(@RequestParam("gameId") String gameId) {
+//
+//		Gson gson = new Gson();
+//
+//		boolean deleteOK = false;
+//
+//		if (gameId != null) {
+//
+//			String sql = "select count(*) FROM HostedGameBases where id=" + gameId;
+//			String sql1 = "delete from HostedGameBases where id="+gameId;
+//
+//			List<BigInteger> count = DatabaseHandler.Query(sql);
+//			log.info(count);
+//
+//			if (count.get(0).intValue() < 1) {
+//				deleteOK = false;
+//			} else {
+//				DatabaseHandler.ExecuteQuery(sql1);
+//				deleteOK = true;
+//			}
+//
+//			log.info("deleted entry id: " + gameId);
+//			return gson.toJson(deleteOK);
+//		} else {
+//			return gson.toJson(false);
+//		}
+//
+//	}
 	@RequestMapping(value = "/deleteHostedGameBaseRecord", method = RequestMethod.GET)
 	@ResponseBody
-	public String deleteHostedGameBaseRecord(@RequestParam("gameId") String gameId) {
+	public String deleteHostedGameBaseRecord(@RequestParam("hostname") String hostName) {
 
 		Gson gson = new Gson();
 
 		boolean deleteOK = false;
 
-		if (gameId != null) {
+		if (hostName != null) {
 
-			String sql = "select count(*) FROM HostedGameBases where id=" + gameId;
-			String sql1 = "delete from HostedGameBases where id="+gameId;
+			//String sql = "select count(*) FROM HostedGameBases where id=" + gameId;
+			String sql1 = "delete from HostedGameBases where hostname="+hostName;
 
-			List<BigInteger> count = DatabaseHandler.Query(sql);
+			List<BigInteger> count = DatabaseHandler.Query(sql1);
 			log.info(count);
 
 			if (count.get(0).intValue() < 1) {
@@ -50,7 +80,7 @@ public class InsertDeleteRecordsController {
 				deleteOK = true;
 			}
 
-			log.info("deleted entry id: " + gameId);
+			log.info("deleted entry name: " + hostName);
 			return gson.toJson(deleteOK);
 		} else {
 			return gson.toJson(false);

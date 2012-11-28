@@ -9,6 +9,7 @@ import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
 import facade.Facade;
+import game.engine.slick2d.player.GameEngineController;
 import loader.GamePackage;
 import model.SpriteModel;
 import utility.ClockDisplay;
@@ -26,8 +27,8 @@ public class Protocol {
 
     public ObjectMessage createDataAsHost() {
     	GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
-    	Facade facade = gamePlayerView.getFacade();
-        GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), facade.getGameController().getEvents(), facade.getKeyListenerController().getKeyEvents(), Layers.getInstance().getLayers(), ClockDisplay.getInstance().isVisible());
+    	GameEngineController gameEngine = gamePlayerView.getGameEnginePanel().getGame();
+        GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), gameEngine.getEventsForGameController(), gameEngine.getKeyEvents(), null, false);
         try {
             msg = SessionFactory.getInstanceOf().getSession().createObjectMessage();
             msg.setObject(game);
@@ -73,11 +74,14 @@ public class Protocol {
         SpriteList.getInstance().setSelectedSpriteModel(m);
         
         GamePlayerView gamePlayerView = (GamePlayerView)Helper.getsharedHelper().getGamePlayerView();
-        Facade facade = gamePlayerView.getFacade();
-        
-        facade.getGameController().setEvents(game.getEventsForGameController());
-        facade.getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
-        facade.createViewsForModels(game.getSpriteList());
+//        Facade facade = gamePlayerView.getFacade();
+//        
+//        facade.getGameController().setEvents(game.getEventsForGameController());
+//        facade.getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
+//        facade.createViewsForModels(game.getSpriteList());
+        GameEngineController gameEngine = gamePlayerView.getGameEnginePanel().getGame();
+        gameEngine.setEventsForGameController(game.getEventsForGameController());
+        gameEngine.setKeyEvents(game.getEventsForKeyController());
         for (SpriteModel model : allSpriteModels) {
             SpriteList.getInstance().addSprite(model);
             SpriteList.getInstance().setSelectedSpriteModel(model);

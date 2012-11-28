@@ -22,13 +22,13 @@ public class ActionCreateSpriteModelTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		GameMakerView.getInstance().reset();
+		SpriteList.getInstance().getSpriteList().clear();
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		GameMakerView.getInstance().reset();
-	}
+		SpriteList.getInstance().getSpriteList().clear();
+   	}
 
 	@Test
 	public void testDoAction() {
@@ -49,19 +49,9 @@ public class ActionCreateSpriteModelTest {
        }
 	 if (newModel == null)
 			assertTrue(false);
-	 
-	 boolean foundBombMoveListener = false;
-	 List<EventListener> listenerList = GameMakerView.getInstance().getFacade().getGameController().getEvents();
-		for(EventListener listener : listenerList){
-			if(listener instanceof NewFrameEventListener){
-				NewFrameEventListener newFrameListerner = (NewFrameEventListener)listener;
-				String groupId = newFrameListerner.getRegisteredGroupId();
-				if(groupId.equalsIgnoreCase("Bomb"))
-					foundBombMoveListener = true;
-			   } 
-
-        }
-		assertTrue(foundBombMoveListener);			
-		
+	 else 
+			assertTrue(true);
+		 
+	 		
 	}	
 }

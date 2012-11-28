@@ -22,20 +22,20 @@ public class RemoveActionTest {
 
 	@Before
 	public void setUp() throws Exception {
-		GameMakerView.getInstance().reset();
-		actualModel1 = new SpriteModel(100, 100, 5, 5,30,30, "","");
-		actualModel2 = new SpriteModel(150, 200, 10, 0,35,35, "","");
-		action = new RemoveAction();
-		toBeRemovedSpriteModelsList = new ArrayList<SpriteModel>();
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		GameMakerView.getInstance().reset();
 	}
 
 	@Test
 	public void testDoAction() {
+		
+		actualModel1 = new SpriteModel(100, 100, 5, 5,30,30, "","");
+		actualModel2 = new SpriteModel(150, 200, 10, 0,35,35, "","");
+		action = new RemoveAction();
+		toBeRemovedSpriteModelsList = new ArrayList<SpriteModel>();
+
 		/*
 		 * the returned list of to be removed models should contains exactly 2 elements and each element should be the same 
 		 * as that entered by doAction

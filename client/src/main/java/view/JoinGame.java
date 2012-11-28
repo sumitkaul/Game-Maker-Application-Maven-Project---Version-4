@@ -16,8 +16,8 @@ public class JoinGame {
     private JComponent rootComp;
     private final String host = Constants.HOST;
     private final String path = Constants.PATH;
-    private final String urlListAllHostGames = "/listAllHostGames";
-    private final String urlloadHostGames = "/loadHostGames";
+    private final String urlListAllHostGames = "/loadHostGames";
+    private final String urlloadHostGames = "/loadGameBase";
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(JoinGame.class);
 
     public JoinGame(JComponent rootComp) {

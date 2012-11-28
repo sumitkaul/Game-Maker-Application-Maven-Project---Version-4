@@ -27,12 +27,6 @@ public class NewFrameEventListenerTest {
 	 * @throws java.lang.Exception
 	 */
 
-    private  SpriteModel selectedSpriteModel;
-    private  NewFrameEventListener newFrameListener;
-    private  SpriteModel selectedSpriteModelTest;
-
-	private  GameAction action;
-
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -45,19 +39,7 @@ public class NewFrameEventListenerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		GameMakerView.getInstance().reset();
-		selectedSpriteModel = new SpriteModel(100, 100, 20, 20, 100, 100, "","");
-		selectedSpriteModelTest = new SpriteModel(190, 190, 20, 20, 100, 100, "","");
-
-		SpriteList.getInstance().addSprite(selectedSpriteModel);
-		SpriteList.getInstance().addSprite(selectedSpriteModelTest);
-
-		newFrameListener = new NewFrameEventListener();
-		newFrameListener.setRegisteredGroupId(selectedSpriteModel.getGroupId());
-		newFrameListener.setRegisteredObjectId(selectedSpriteModel.getId()); 
-		GameAction action = new ActionMove();
-		newFrameListener.setAction(action);
-
+		
 	}
 
 	/**
@@ -65,7 +47,6 @@ public class NewFrameEventListenerTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
-		GameMakerView.getInstance().reset();
 	}
 
 	/**
@@ -73,6 +54,19 @@ public class NewFrameEventListenerTest {
 	 */
 	@Test
 	public void testCheckEvent() {
+		
+		SpriteModel selectedSpriteModel = new SpriteModel(100, 100, 20, 20, 100, 100, "","");
+		SpriteModel selectedSpriteModelTest = new SpriteModel(190, 190, 20, 20, 100, 100, "","");
+
+		SpriteList.getInstance().addSprite(selectedSpriteModel);
+		SpriteList.getInstance().addSprite(selectedSpriteModelTest);
+
+		NewFrameEventListener newFrameListener = new NewFrameEventListener();
+		newFrameListener.setRegisteredGroupId(selectedSpriteModel.getGroupId());
+		newFrameListener.setRegisteredObjectId(selectedSpriteModel.getId()); 
+		GameAction action = new ActionMove();
+		newFrameListener.setAction(action);
+
 		
 		double previousX = selectedSpriteModel.getPosX();
 		double previousY = selectedSpriteModel.getPosY();

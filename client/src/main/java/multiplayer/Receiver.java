@@ -93,7 +93,7 @@ public class Receiver implements MessageListener{
 				String textMessage = (String) data;
 				LOG.info("The text recieved is "+ textMessage);
 				String joinee = textMessage.substring(0, textMessage.indexOf("+")-1);
-				String gameName = textMessage.substring(textMessage.indexOf("+")+1,textMessage.length());
+				String gameName = textMessage.substring(textMessage.indexOf("+")+1,textMessage.indexOf("#")-1);
 				if (joinee != null && gameName != null )
 				{
 					MultiPlayerOption.getInstanceOf().acceptUserFrame(joinee, gameName);

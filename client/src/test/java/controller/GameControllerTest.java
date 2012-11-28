@@ -51,9 +51,11 @@ public class GameControllerTest{
 	private GameController gameControllerTest;
 	private  CollisionEventListener collisionListener;
 	private  GameAction action;
+	
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		//SpriteList spriteList= new SpriteList();
+
 		
 	}
 
@@ -69,11 +71,13 @@ public class GameControllerTest{
 	 */
 	@Before
 	public void setUp() throws Exception {
-	    GameMakerView.getInstance().reset();
-//        setAdapter(new MainClassAdapter(gameMaker.class, new String[0]));        
+	   // GameMakerView.getInstance().reset();
+		
+		SpriteList.getInstance().getSpriteList().clear();
+//      setAdapter(new MainClassAdapter(gameMaker.class, new String[0]));        
         gamePanel=new GamePanel(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT);
         selectedSpriteModel = new SpriteModel(100, 100, 10, 10, 100, 100, "","");
-		secondarySpriteModel= new SpriteModel(190, 190, 10, 10, 100, 100, "","");
+        secondarySpriteModel= new SpriteModel(190, 190, 10, 10, 100, 100, "","");
 		secondarySpriteModel.setGroupId("Group1");
 		SpriteList.getInstance().addSprite(selectedSpriteModel);
 		SpriteList.getInstance().addSprite(secondarySpriteModel);
@@ -85,14 +89,16 @@ public class GameControllerTest{
 		gameControllerTest = new GameController();
 		gameControllerTest.registerListener(collisionListener);
 		gameControllerTest.setGamePanel(gamePanel);
-	}
+		gameControllerTest.getEvents().clear();
+		}
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@After
 	public void tearDown() throws Exception {
-		GameMakerView.getInstance().reset();
+		SpriteList.getInstance().getSpriteList().clear();
+		gameControllerTest.getEvents().clear();
 	}
 
 
@@ -103,7 +109,7 @@ public class GameControllerTest{
 	public void testRegisterListener() {
 		gameControllerTest.registerListener(collisionListener);
 		List<EventListener> events =gameControllerTest.getEvents();
-		if(events.get(1).equals(collisionListener))
+		if(events.get(0).equals(collisionListener))
 			assertTrue(true);
 		else
 			assertTrue(false);
@@ -114,6 +120,7 @@ public class GameControllerTest{
 //	 */
 	@Test
 	public void testUnregisterListener() {
+		gameControllerTest.registerListener(collisionListener);
 		gameControllerTest.unregisterListener(collisionListener);
 		List<EventListener> events =gameControllerTest.getEvents();
 		if(events.isEmpty())

@@ -79,11 +79,12 @@ public final class MultiPlayerOption {
         options.add(optionLabel, "wrap,wmin 100, hmin 50");
         options.add(hostButton, "wmin 50, hmin 50");
         options.add(joinButton, "wmin 50, hmin 50");
-
+        LOG.info("In hos button pressed");
         hostButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (Player.getInstance().getUsername() != null) {
+                	LOG.info("In hos button pressed");
                     Constants.isHost = true;
                     HostGame p = new HostGame(rootComp);
                     String gameName = p.displayHostedGames();
@@ -97,8 +98,7 @@ public final class MultiPlayerOption {
                         LOG.error(ex);
                         return;
                     }
-                    Sender sender = new Sender();
-                    sender.sendAsHost(getSendingQueueName());
+                    
                     joinWaitFrame();
 
                     try {
@@ -162,6 +162,7 @@ public final class MultiPlayerOption {
     }
 
     public void joinWaitFrame() {
+    	LOG.info("in join");
         joinWaitFrame = new JFrame();
         joinWaitFrame.setLayout(new MigLayout("center,center"));
         joinWaitFrame.setSize(200, 200);
@@ -188,14 +189,35 @@ public final class MultiPlayerOption {
     public void acceptUserFrame(String user, String game) {
         LOG.info("In accept user Frame");
         joinWaitFrame.dispose();
-        JFrame acceptUserFrame = new JFrame();
+        final JFrame acceptUserFrame = new JFrame();
         acceptUserFrame.setLayout(new MigLayout("center,center"));
         acceptUserFrame.setSize(200, 200);
         JLabel label = new JLabel(user + " wants to join your game " + game);
         JButton allowButton = new JButton("Allow");
+        allowButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Sender sender = new Sender();
+                sender.sendAsHost(getSendingQueueName());
+			}
+        	
+        });
         JButton kickButton = new JButton("Kick");
+        kickButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				acceptUserFrame.dispose();
+				joinWaitFrame();
+				
+			}
+        	
+        });
         acceptUserFrame.add(label, "wrap,wmin 100, hmin 50");
         acceptUserFrame.add(allowButton, "wmin 50, hmin 50");
         acceptUserFrame.add(kickButton, "wmin 50, hmin 50");
+        acceptUserFrame.setLocationRelativeTo(rootComp);
+        acceptUserFrame.setVisible(true);
+        acceptUserFrame.setFocusable(true);
+        acceptUserFrame.requestFocus();
     }
 }
