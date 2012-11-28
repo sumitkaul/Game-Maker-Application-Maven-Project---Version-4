@@ -51,10 +51,11 @@ public class ImagePanel implements ActionListener, ChangeListener {
     private JComboBox imageTags;
     private ImageActionListener imageActionListener;
     private int totalImages;
+    private JPanel propertiesPanel;
 
     public ImagePanel(ImageActionListener imageActionListener) throws Exception {
         this.imageActionListener = imageActionListener;
-        JPanel propertiesPanel = createPropertiesPanel();
+        propertiesPanel = createPropertiesPanel();
         getImages(); // change this
         totalImages = ClientHandler.countTag(null, Constants.HOST,
                 Constants.PATH + "/countTag");
@@ -224,6 +225,7 @@ public class ImagePanel implements ActionListener, ChangeListener {
             } else if (e.getActionCommand().equalsIgnoreCase("Upload Images")) {
                 handleUpload();
                 getImages();
+                propertiesPanel=createPropertiesPanel();
                 updateImageTiles();
                 populatePaginationPanel();
                 paginationPanel.revalidate();
