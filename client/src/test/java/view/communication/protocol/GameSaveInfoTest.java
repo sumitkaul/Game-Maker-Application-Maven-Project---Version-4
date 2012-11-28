@@ -139,6 +139,102 @@ public class GameSaveInfoTest {
 
 		assertEquals("", result);
 	}
+	
+	/**
+	 * Run the String getGamePlayer() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetGamePlayer_1()
+		throws Exception {
+		GameSaveInfo fixture = new GameSaveInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+
+		String result = fixture.getGamePlayer();
+
+		assertEquals("", result);
+	}
+
+	/**
+	 * Run the int getGameScore() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetGameScore_1()
+		throws Exception {
+		GameSaveInfo fixture = new GameSaveInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+
+		int result = fixture.getGameScore();
+
+		assertEquals(1, result);
+	}
+
+	/**
+	 * Run the int getId() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetId_1()
+		throws Exception {
+		GameSaveInfo fixture = new GameSaveInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+
+		int result = fixture.getId();
+
+		assertEquals(1, result);
+	}
+
+	/**
+	 * Run the int getRank() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetRank_1()
+		throws Exception {
+		GameSaveInfo fixture = new GameSaveInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+
+		int result = fixture.getRank();
+
+		assertEquals(1, result);
+	}
+
+	/**
+	 * Run the String getSaveName() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetSaveName_1()
+		throws Exception {
+		GameSaveInfo fixture = new GameSaveInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+
+		String result = fixture.getSaveName();
+
+		assertEquals("", result);
+	}
+
+	/**
+	 * Run the void setGameData(String) method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetGameData_1()
+		throws Exception {
+		GameSaveInfo fixture = new GameSaveInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+		String gameData = "";
+
+		fixture.setGameData(gameData);
+
+	}
 
 	/**
 	 * Perform pre-test initialization.
