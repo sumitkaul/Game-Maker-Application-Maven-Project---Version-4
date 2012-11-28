@@ -41,8 +41,7 @@ public class SpriteModelTest {
 	
 	
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		
+	public static void setUpBeforeClass() throws Exception {		
 	}
 
 	/**
@@ -57,7 +56,7 @@ public class SpriteModelTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		GameMakerView.getInstance().reset();
+	/*	
 		double xSpeed = 10;
 		double ySpeed = 10;
 		double initialPosX = 100;
@@ -78,7 +77,7 @@ public class SpriteModelTest {
 		spriteModels= new ArrayList();
 		
 		spriteModels.add(model);
-		spriteModels.add(testModel);		
+		spriteModels.add(testModel);*/		
 	}
 
 	/**
@@ -86,7 +85,7 @@ public class SpriteModelTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
-		GameMakerView.getInstance().reset();
+		//GameMakerView.getInstance().reset();
 	}
 
 	/**
@@ -94,7 +93,7 @@ public class SpriteModelTest {
 	 */
 	@Test
 	public void testSpriteModel() {
-		model = new SpriteModel(5, 5,10,10,100, 100,"","");
+		SpriteModel model = new SpriteModel(5, 5,10,10,100, 100,"","");
 		
 		model.setHeading(0);
 		model.setPreviousX(1);
@@ -102,6 +101,8 @@ public class SpriteModelTest {
         model.setLayer("layer1");
         String urlString = "/images/closed.png";
         model.setImageUrlString(urlString);
+       
+		EventListener listener = Helper.getsharedHelper().getEventListenerForString("Input", "Change Speed", model,null);
 
         model.setEventListenerList(new ArrayList<EventListener>());
 		model.getEventListenerList().add(listener);
@@ -127,6 +128,7 @@ public class SpriteModelTest {
 //	 */
 	@Test
 	public void testGetBoundingBox() {
+		SpriteModel model = new SpriteModel(5, 5,10,10,100, 100,"","");
 		Rectangle spriteRectangle = model.getBoundingBox();
 		if(spriteRectangle.contains(model.getPosX(), model.getPosY(),model.getWidth(), model.getHeight()))
 			 assertTrue(true);
@@ -139,6 +141,19 @@ public class SpriteModelTest {
 //	 */
 	@Test
 	public void testIntersects() {
+		double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		int incrementXSpeedValue = 20;
+		int incrementYSpeedValue = 20;
+		//Creating a model
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+		SpriteModel testModel= new SpriteModel(190, 190, 10, 10, 100, 100, "","");
+
+		
 		if(model.intersects(testModel.getBoundingBox()) )
 			 assertTrue(true);
 		else
@@ -151,6 +166,23 @@ public class SpriteModelTest {
 //	 */
 	@Test
 	public void testIntersectsAny() {
+		
+		double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		int incrementXSpeedValue = 20;
+		int incrementYSpeedValue = 20;
+		//Creating a model
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+		SpriteModel testModel= new SpriteModel(190, 190, 10, 10, 100, 100, "","");
+
+		List<SpriteModel> spriteModels= new ArrayList();		
+		spriteModels.add(model);
+		spriteModels.add(testModel);		
+
 		
 		if(model.intersectsAny(spriteModels,"Default Group 0") )
 			 assertTrue(true);
@@ -165,6 +197,14 @@ public class SpriteModelTest {
 	@Test
 	public void testGetWidth() {
 		
+		double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+		
 		if(model.getWidth() == 100 )
 			 assertTrue(true);
 		else
@@ -177,6 +217,14 @@ public class SpriteModelTest {
 //	 */
 	@Test
 	public void testGetHeight() {
+		double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+
 		if(model.getHeight() == 100 )
 			 assertTrue(true);
 		else
@@ -188,6 +236,14 @@ public class SpriteModelTest {
 //	 */
 	@Test
 	public void testGetPosX() {
+		double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+
 		if(model.getPosX() == 100 )
 			 assertTrue(true);
 		else
@@ -199,6 +255,14 @@ public class SpriteModelTest {
 //	 */
 	@Test
 	public void testSetPosX() {
+		double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+
 		model.setPosX(10);
 		if(model.getPosX() == 10 )
 			 assertTrue(true);
@@ -211,6 +275,14 @@ public class SpriteModelTest {
 //	 */
 	@Test
 	public void testGetPosY() {
+		double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+
 		if(model.getPosY() == 100 )
 			 assertTrue(true);
 		else
@@ -222,6 +294,14 @@ public class SpriteModelTest {
 //	 */
 	@Test
 	public void testSetPosY() {
+		double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+
 		model.setPosY(10);
 		if(model.getPosY() == 10 )
 			 assertTrue(true);
@@ -234,6 +314,14 @@ public class SpriteModelTest {
 //	 */
 	@Test
 	public void testGetSpeedX() {
+		double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+
 		
 		if(model.getSpeedX() == 10 )
 			 assertTrue(true);
@@ -247,6 +335,14 @@ public class SpriteModelTest {
 //	 */
 	@Test
 	public void testSetSpeedX() {
+		double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+
 		model.setSpeedX(3);
 		if(model.getSpeedX() == 3 )
 			 assertTrue(true);
@@ -259,6 +355,13 @@ public class SpriteModelTest {
 	 */
 	@Test
 	public void testGetSpeedY() {
+		double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
 		
 		
 		if(model.getSpeedY() == 10 )
@@ -273,6 +376,14 @@ public class SpriteModelTest {
 //	 */
 	@Test
 	public void testSetSpeedY() {
+		double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+
 		model.setSpeedY(3);
 		if(model.getSpeedY() == 3 )
 			 assertTrue(true);
@@ -285,6 +396,14 @@ public class SpriteModelTest {
 //	 */
 	@Test
 	public void testSetWidth() {
+		double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+
 		model.setWidth(5);
 		if(model.getWidth() == 5 )
 			 assertTrue(true);
@@ -297,6 +416,14 @@ public class SpriteModelTest {
 //	 */
 	@Test
 	public void testSetHeight() {
+		double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+
 		model.setHeight(5);
 		if(model.getHeight() == 5 )
 			 assertTrue(true);
@@ -310,6 +437,14 @@ public class SpriteModelTest {
 //	 */
 	@Test
 	public void testGetImageUrlString() {
+		double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+
 		model.setImageUrlString("imagepath");
         if(model.getImageUrlString().equals("imagepath")){
         	assertTrue(true);
@@ -323,6 +458,14 @@ public class SpriteModelTest {
 //	 */
 	@Test
 	public void testSetImageUrlString() {
+		double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+
 		model.setImageUrlString("imagepath");
         if(model.getImageUrlString().equals("imagepath")){
         	assertTrue(true);
@@ -365,6 +508,14 @@ public class SpriteModelTest {
 //	}
 	@Test
 	public void isVisible() {
+		double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+
 		model.setVisible(true);
         if(model.isVisible()){
         	assertTrue(true);
@@ -375,6 +526,14 @@ public class SpriteModelTest {
 
 	@Test
     public void setVisible() {
+		double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+
         model.setVisible(true);
         if(model.isVisible()){
         	assertTrue(true);
@@ -386,6 +545,14 @@ public class SpriteModelTest {
 
     
     public void getGroupId() {
+    	double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+
     	model.setGroupId("Group1");
         if(model.getGroupId().equals("Group1")){
         	assertTrue(true);
@@ -396,6 +563,14 @@ public class SpriteModelTest {
 
     
     public void setGroupId(String groupId) {
+    	double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+
     	model.setVisible(true);
         if(model.isVisible()){
         	assertTrue(true);
@@ -406,6 +581,14 @@ public class SpriteModelTest {
 
     
     public void getId() {
+    	double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+
     	model.setId("Group1");
         if(model.getId().equals("Group1")){
         	assertTrue(true);
@@ -416,6 +599,14 @@ public class SpriteModelTest {
 
     
     public void setId(String id) {
+    	double xSpeed = 10;
+		double ySpeed = 10;
+		double initialPosX = 100;
+		double initialPosY = 100;
+		double width = 100;
+		double height = 100;
+		SpriteModel model = new SpriteModel(initialPosX, initialPosY, xSpeed, ySpeed, width, height, "","");
+
     	model.setId("Group1");
         if(model.getId().equals("Group1")){
         	assertTrue(true);
