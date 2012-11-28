@@ -6,6 +6,9 @@ import javax.jms.MessageConsumer;
 import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TextMessage;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import model.Player;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
@@ -48,17 +51,22 @@ public class AuthReceiver implements Runnable {
 	public void run() {
 		while (true) {
 			try {
-				// Wait for a message
+				// Wait for authentication
 				
 				Message message = consumer.receive();
 				if (message instanceof TextMessage) {
 					TextMessage textMessage = (TextMessage) message;
 					String text = textMessage.getText();
-					
-					//TODO received messgage Authentivated:username . Do login 
-				
-					//Design.getInstance().updateChatWindow(text);
-
+                                        String token="Authenticated:";
+                                        if(text.startsWith(token))
+                                        {
+                                            Player.getInstance().setFacebookLogin(true);
+                                            Player.getInstance().setUsername(text.substring(token.length(), text.length()));
+                                            Player.getInstance().setAvatarURL("https://graph.facebook.com/"+Player.getInstance().getUsername()+"/picture");
+                                            JFrame frame = new JFrame();
+                                            JOptionPane.showMessageDialog(frame,"Login with facebook successful");
+                                            break;
+                                        }
 				}
 			} catch (Exception e) {
 			}

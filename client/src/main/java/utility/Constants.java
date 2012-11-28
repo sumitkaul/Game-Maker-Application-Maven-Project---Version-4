@@ -103,7 +103,10 @@ public class Constants
 	public static final double SPRITE_X = 200;
 	public static final double SPRITE_Y = 200;
 	
-	
+
+        public static String DefaultAvatar = "http://fluency.knownspace.org/student-files/fall2012/a10/team-all/server/facebook/default_user.jpg";
+        public static String FacebookServer = "http://mayurmasrani.com/facebook"; // to be changed to fluency server below. 
+       	//public static String FacebookServer = "http://fluency.knownspace.org/student-files/fall2012/a10/team-all/server/facebook";
 	public static String NEW_LAYER = "New Layer";
 	public static String ALL_LAYERS = "All Layers";
 	public static String SELECT_LAYER="Please select the layer";

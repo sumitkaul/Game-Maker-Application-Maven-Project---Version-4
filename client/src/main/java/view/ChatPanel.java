@@ -46,7 +46,6 @@ public class ChatPanel {
 	private JPanel colorPanel;
 	private  HTMLEditorKit kit;
     private  HTMLDocument doc;
-    private String playerAvatarUrl;
     private Sender sender;
 	
 	public ChatPanel(Sender sender){
@@ -55,8 +54,7 @@ public class ChatPanel {
 		sendPanel = new JPanel();
 		colorPanel = new JPanel();
 		userColor=Color.BLUE;
-		textColor=Color.BLACK;
-		playerAvatarUrl="http://www.mayurmasrani.com/default_user.jpg"; //to be changed later according to users avatar
+		textColor=Color.BLACK;	
 		textPane = new JTextPane();
 		textPane.setEditable(false);
 		textPane.setContentType("text/html");
@@ -193,7 +191,7 @@ public class ChatPanel {
 			Integer textColorHashNumber=textColor.hashCode();
 			String textColorHash=Integer.toHexString(textColorHashNumber);
 			//ChatSender.sendMessage("<b style=\"color:#"+d.substring(2)+"\">"+Player.getInstance().getUsername()+"</b>: <a style=\"color:#"+d1.substring(2)+"\">"+textSend.getText()+"</a>");
-			sender.sendMessage("<img src=\""+playerAvatarUrl+"\" width=\"25\" height=\"25\"><b style=\"color:#"+userColorHash.substring(2)+"\">"+Player.getInstance().getUsername()+"</b>: <a style=\"color:#"+textColorHash.substring(2)+"\">"+textSend.getText()+"</a>");
+			sender.sendMessage("<img src=\""+Player.getInstance().getAvatarURL()+"\" width=\"25\" height=\"25\"><b style=\"color:#"+userColorHash.substring(2)+"\">"+Player.getInstance().getUsername()+"</b>: <a style=\"color:#"+textColorHash.substring(2)+"\">"+textSend.getText()+"</a>");
 			textSend.setText("");	
 			send.setEnabled(false);
 		}
