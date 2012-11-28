@@ -70,16 +70,8 @@ public class InsertDeleteRecordsController {
 			//String sql = "select count(*) FROM HostedGameBases where id=" + gameId;
 			String sql1 = "delete from HostedGameBases where hostname="+hostName;
 
-			List<BigInteger> count = DatabaseHandler.Query(sql1);
-			log.info(count);
-
-			if (count.get(0).intValue() < 1) {
-				deleteOK = false;
-			} else {
-				DatabaseHandler.ExecuteQuery(sql1);
-				deleteOK = true;
-			}
-
+			DatabaseHandler.ExecuteQuery(sql1);
+			
 			log.info("deleted entry name: " + hostName);
 			return gson.toJson(deleteOK);
 		} else {
