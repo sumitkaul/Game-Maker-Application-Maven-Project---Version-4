@@ -1,6 +1,8 @@
 package view;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import chat.StatusReceiver;
 import chat.StatusSender;
 import facade.Facade;
@@ -47,6 +49,8 @@ public class GamePlayerView {
                     
                     try {
          ClientHandler.deleteHostedGameBase(playerName,host, path+urldeleteHostedGameBaseRecord);
+         JFrame frame = new JFrame();
+         JOptionPane.showMessageDialog(frame, "Hosted game is exited.");
         } catch (Exception e1) {
          // TODO Auto-generated catch block
          e1.printStackTrace();
