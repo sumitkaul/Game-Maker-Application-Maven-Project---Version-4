@@ -14,6 +14,7 @@ import multiplayer.Sender;
 import multiplayer.SessionFactory;
 import net.miginfocom.swing.MigLayout;
 import utility.Constants;
+import utility.Helper;
 import view.communication.ClientHandler;
 
 public final class MultiPlayerOption {
@@ -76,9 +77,9 @@ public final class MultiPlayerOption {
         joinButton = new JButton("Join");
         optionLabel = new JLabel("Would you like to:");
         options.setLayout(new MigLayout("center,center"));
-        options.add(optionLabel, "wrap,wmin 100, hmin 50");
-        options.add(hostButton, "wmin 50, hmin 50");
-        options.add(joinButton, "wmin 50, hmin 50");
+        options.add(optionLabel, "wrap,wmin 80, hmin 50");
+        options.add(hostButton, "wmin 30, hmin 30");
+        options.add(joinButton, "wmin 30, hmin 30");
         LOG.info("In hos button pressed");
         hostButton.addActionListener(new ActionListener() {
             @Override
@@ -166,9 +167,9 @@ public final class MultiPlayerOption {
         joinWaitFrame = new JFrame();
         joinWaitFrame.setLayout(new MigLayout("center,center"));
         joinWaitFrame.setSize(200, 200);
-        JLabel label = new JLabel("Waiting for joinee");
+        JLabel label = new JLabel("Waiting for joinee...");
         JButton cancelButton = new JButton("Cancel");
-        cancelButton.setSize(50, 20);
+        cancelButton.setSize(30, 20);
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
@@ -178,7 +179,7 @@ public final class MultiPlayerOption {
             }
         });
         joinWaitFrame.add(label, "wrap,wmin 100, hmin 50");
-        joinWaitFrame.add(cancelButton, "wmin 50, hmin 50");
+        joinWaitFrame.add(cancelButton, "wmin 50, hmin 30");
         LOG.info("In Join Frame");
         joinWaitFrame.setLocationRelativeTo(rootComp);
         joinWaitFrame.setVisible(true);
@@ -199,6 +200,7 @@ public final class MultiPlayerOption {
 			public void actionPerformed(ActionEvent arg0) {
 				Sender sender = new Sender();
                 sender.sendAsHost(getSendingQueueName());
+                startGameFrame();
 			}
         	
         });
@@ -212,12 +214,44 @@ public final class MultiPlayerOption {
 			}
         	
         });
-        acceptUserFrame.add(label, "wrap,wmin 100, hmin 50");
-        acceptUserFrame.add(allowButton, "wmin 50, hmin 50");
-        acceptUserFrame.add(kickButton, "wmin 50, hmin 50");
+        acceptUserFrame.add(label, "wrap,wmin 100, hmin 30");
+        acceptUserFrame.add(allowButton, "wmin 50, hmin 30");
+        acceptUserFrame.add(kickButton, "wmin 50, hmin 30");
         acceptUserFrame.setLocationRelativeTo(rootComp);
         acceptUserFrame.setVisible(true);
         acceptUserFrame.setFocusable(true);
         acceptUserFrame.requestFocus();
+    }
+    
+    public void startGameFrame()
+    {
+    	JFrame startGameFrame = new JFrame();
+    	startGameFrame.setLayout(new MigLayout("center,center"));
+    	startGameFrame.setSize(200, 200);
+        JLabel label = new JLabel();
+        JButton startButton = new JButton("Start Game");
+        startButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
+				gamePlayerView.getGameEnginePanel().startGame();
+				Sender sender = new Sender();
+				try {
+					sender.sendStartSignal();
+				} catch (JMSException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+        	
+        });
+        startGameFrame.add(label, "wrap,wmin 100, hmin 30");
+        startGameFrame.add(startButton, "wmin 50, hmin 30");
+        startGameFrame.setLocationRelativeTo(rootComp);
+        startGameFrame.setVisible(true);
+        startGameFrame.setFocusable(true);
+        startGameFrame.requestFocus();
     }
 }

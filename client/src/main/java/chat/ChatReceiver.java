@@ -7,8 +7,11 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
 
+import model.Player;
+
 import org.apache.activemq.ActiveMQConnectionFactory;
 import view.ChatPanel;
+import view.ChatViewPanel;
 import utility.Constants;
 public class ChatReceiver implements Runnable {
 
@@ -57,6 +60,9 @@ public class ChatReceiver implements Runnable {
 					TextMessage textMessage = (TextMessage) message;
 					String text = textMessage.getText();
 					if(text.charAt(0)==':') {
+						String requestor = text.substring(text.lastIndexOf(':')+1);
+						String topic = Player.getInstance().getUsername()+":"+requestor;
+						ChatViewPanel.createChatTab(topic);
 						
 					}
 					else

@@ -10,6 +10,8 @@ import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
+import utility.Helper;
+import view.GamePlayerView;
 import view.MultiPlayerOption;
 
 import loader.GamePackage;
@@ -92,6 +94,13 @@ public class Receiver implements MessageListener{
 			{
 				String textMessage = (String) data;
 				LOG.info("The text recieved is "+ textMessage);
+				if (textMessage.equals("startgame__^^"))
+				{
+					GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
+					gamePlayerView.getGameEnginePanel().startGame();
+				}
+				else
+				{
 				String joinee = textMessage.substring(0, textMessage.indexOf("+")-1);
 				String gameName = textMessage.substring(textMessage.indexOf("+")+1,textMessage.indexOf("#")-1);
 				if (joinee != null && gameName != null )
@@ -100,6 +109,7 @@ public class Receiver implements MessageListener{
 				}
 				else{
 					LOG.info("Noise data received");
+				}
 				}
 			}
 		

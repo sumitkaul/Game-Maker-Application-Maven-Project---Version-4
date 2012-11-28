@@ -1,6 +1,7 @@
 package view;
 
 import game.engine.slick2d.player.GameEngineController;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -58,7 +60,13 @@ public class PlayerButtonPanel implements ActionListener {
             }
         });
 
-        newButton = new JButton("New");
+        newButton = new JButton();//new
+        newButton.setSize(30, 30);
+        ImageIcon newicon = new ImageIcon(getClass().getResource("assets/new.png"));
+        Image newimage = newicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        newicon.setImage(newimage);
+        newButton.setIcon(newicon);
+
         newButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,7 +75,13 @@ public class PlayerButtonPanel implements ActionListener {
             }
         });
 
-        loadButton = new JButton("Load");
+        loadButton = new JButton();//load
+        loadButton.setSize(30, 30);
+        ImageIcon loadicon = new ImageIcon(getClass().getResource("assets/load.png"));
+        Image loadimage = loadicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        loadicon.setImage(loadimage);
+        loadButton.setIcon(loadicon);
+        
         loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -111,7 +125,13 @@ public class PlayerButtonPanel implements ActionListener {
         });
 
 
-        share = new JButton("Share");
+        share = new JButton();//share
+        share.setSize(30, 30);
+        ImageIcon shareicon = new ImageIcon(getClass().getResource("assets/share.png"));
+        Image shareimage = shareicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        shareicon.setImage(shareimage);
+        share.setIcon(shareicon);
+        
         share.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
@@ -122,7 +142,13 @@ public class PlayerButtonPanel implements ActionListener {
 
 
 
-        saveButton = new JButton("Save");
+        saveButton = new JButton();//save
+        saveButton.setSize(30, 30);
+        ImageIcon saveicon = new ImageIcon(getClass().getResource("assets/save.png"));
+        Image saveimage = saveicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        saveicon.setImage(saveimage);
+        saveButton.setIcon(saveicon);
+        
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

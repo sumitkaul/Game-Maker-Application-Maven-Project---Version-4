@@ -3,9 +3,12 @@ package chat;
 import javax.jms.Connection;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
+import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
+
+import model.Player;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
@@ -15,6 +18,8 @@ import utility.Constants;
 public class StatusReceiver implements Runnable {
 
 	private MessageConsumer consumer;
+	private MessageProducer producer;
+	private Session session;
 
 	public StatusReceiver() {
 		try {
@@ -29,7 +34,7 @@ public class StatusReceiver implements Runnable {
 			// connection.setExceptionListener((ExceptionListener) this);
 
 			// Create a Session
-			Session session = connection.createSession(false,
+			session = connection.createSession(false,
 					Session.AUTO_ACKNOWLEDGE);
 
 			// Create the destination (Topic or Queue)
@@ -37,6 +42,7 @@ public class StatusReceiver implements Runnable {
 			Topic topic= session.createTopic("STATUS");
 			// Create a MessageConsumer from the Session to the Topic or Queue
 			consumer = session.createConsumer(topic);
+			producer = session.createProducer(topic);
 			Thread ststusReceiverThread=new Thread(this);
 			ststusReceiverThread.start();
 		} catch (Exception ex) {
@@ -55,9 +61,17 @@ public class StatusReceiver implements Runnable {
 					TextMessage textMessage = (TextMessage) message;
 
 					String text = textMessage.getText();
-					String[] onlineUsers=text.split(",");
-					for(String i:onlineUsers) {
-						//Users online
+//					String[] onlineUsers=text.split(",");
+//					for(String i:onlineUsers) {
+//						//Users online
+//					}
+					if(text.equals("ALIVE?")){
+						if(!(Player.getInstance().getUsername()==null)) {
+							String messageUsername="Online:"+Player.getInstance().getUsername();
+							TextMessage textMessageUsername = session.createTextMessage(messageUsername);
+							producer.send(textMessageUsername);
+							
+						}
 					}
 				}
 			} catch (Exception e) {
