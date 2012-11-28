@@ -172,6 +172,84 @@ public class GameHostInfoTest {
 	}
 
 	/**
+	 * Run the int getId() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetId_1()
+		throws Exception {
+		GameHostInfo fixture = new GameHostInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+
+		int result = fixture.getId();
+
+		assertEquals(1, result);
+	}
+
+	/**
+	 * Run the int getRank() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetRank_1()
+		throws Exception {
+		GameHostInfo fixture = new GameHostInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+
+		int result = fixture.getRank();
+
+		assertEquals(1, result);
+	}
+
+	/**
+	 * Run the String getSaveName() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetSaveName_1()
+		throws Exception {
+		GameHostInfo fixture = new GameHostInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+
+		String result = fixture.getSaveName();
+
+		assertEquals("", result);
+	}
+
+	/**
+	 * Run the void setGameData(String) method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetGameData_1()
+		throws Exception {
+		GameHostInfo fixture = new GameHostInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+		String gameData = "";
+
+		fixture.setGameData(gameData);
+	}
+
+	/**
+	 * Run the void setGameName(String) method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetGameName_1()
+		throws Exception {
+		GameHostInfo fixture = new GameHostInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+		String gameName = "";
+
+		fixture.setGameName(gameName);
+	}
+
+	/**
 	 * Perform pre-test initialization.
 	 *
 	 * @throws Exception
