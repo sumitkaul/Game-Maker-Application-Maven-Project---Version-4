@@ -18,8 +18,8 @@ import utility.Constants;
 public class StatusSender implements Runnable {
 
 	private MessageProducer producer;
-	private static String message;
 	private Session session;
+	public static boolean sendStatus = false;
 
 	public StatusSender() {
 		try {
@@ -52,12 +52,12 @@ public class StatusSender implements Runnable {
 		while (true) {
 			try {
 				if(!(Player.getInstance().getUsername()==null)) {
-					message="Online:"+Player.getInstance().getUsername();
-					TextMessage textMessage = session.createTextMessage(message);
-					producer.send(textMessage);
+					String message="Online:"+Player.getInstance().getUsername();
+					//TextMessage textMessage = session.createTextMessage(message);
+					//producer.send(textMessage);
 					
 				}
-				Thread.sleep(10000);
+				Thread.sleep(1000);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
