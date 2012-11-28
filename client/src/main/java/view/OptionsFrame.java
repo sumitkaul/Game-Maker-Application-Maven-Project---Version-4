@@ -1,19 +1,14 @@
 package view;
 
-import game.engine.slick2d.player.GameEngineController;
 import game.engine.slick2d.player.GameEnginePanel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import org.newdawn.slick.SlickException;
 import utility.Constants;
 import utility.Helper;
 import net.miginfocom.swing.MigLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.CanvasGameContainer;
-import org.newdawn.slick.GameContainer;
 
 
 public class OptionsFrame implements ActionListener {
@@ -21,7 +16,7 @@ public class OptionsFrame implements ActionListener {
     private static final org.apache.log4j.Logger LOG =
             org.apache.log4j.Logger.getLogger(OptionsFrame.class);
     private JFrame optionFrame;
-    private JButton makerButton, playerButton, gamestartButton;
+    private JButton makerButton, playerButton;
     private GameEnginePanel te;
  
 
@@ -31,17 +26,12 @@ public class OptionsFrame implements ActionListener {
         makerButton.addActionListener(this);
         playerButton = new JButton("Play Game");
         playerButton.addActionListener(this);
-        gamestartButton = new JButton("Start GE Testing");
-        gamestartButton.addActionListener(this);
-
 
         optionFrame.setLayout(new MigLayout("center,center"));
-        optionFrame.add(makerButton, "wmin 100, hmin 150");
-        optionFrame.add(playerButton, "wmin 100, hmin 150");
-        optionFrame.add(gamestartButton, "wmin 100, hmin 150");
+        optionFrame.add(makerButton, "wmin 100, hmin 100");
+        optionFrame.add(playerButton, "wmin 100, hmin 100");
         
-
-        optionFrame.setSize(500, 500);
+        optionFrame.setSize(300, 300);
         optionFrame.setFocusable(true);
         optionFrame.setLocationRelativeTo(null);
         optionFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,22 +57,7 @@ public class OptionsFrame implements ActionListener {
         	Helper.getsharedHelper().setGamePlayerView(gamePlayerView);
         	Helper.getsharedHelper().setPlayerMode(true);
             optionFrame.setVisible(false);
-        }
-
-        if (e.getSource() == gamestartButton) {
-           new Thread(){public void run(){
-             try {
-                GameEngineController game = new GameEngineController("test", GameEngineController.LOAD_MODE_REMOTE, new String[]{"/game/engine/slick2d/player/testing_game.xml"});
-                CanvasGameContainer app = new CanvasGameContainer(game);
-                te = new GameEnginePanel(app); 
-                te.startGame();
-            } catch (Exception ex) {
-                LOG.error(ex);
-            }
-           }}.start();
-                         
-        }
-        
+        }        
 
     }
 

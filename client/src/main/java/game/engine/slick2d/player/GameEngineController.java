@@ -169,7 +169,7 @@ public class GameEngineController extends BasicGame {
 
         checkEvents(gc);
         //physicsComponent.inputLogic();
-
+ 
     }
 
     @Override
@@ -295,4 +295,21 @@ public class GameEngineController extends BasicGame {
         }
 
     }
+
+    public List<EventListener> getEventsForGameController() {
+        return eventsForGameController;
+    }
+
+    public void setEventsForGameController(List<EventListener> eventsForGameController) {
+        this.eventsForGameController = eventsForGameController;
+    }
+
+    public List<EventListener> getKeyEvents() {
+        return keyEvents;
+    }
+
+    public void setKeyEvents(List<EventListener> keyEvents) {
+        this.keyEvents = keyEvents;
+    }
+    
 }
