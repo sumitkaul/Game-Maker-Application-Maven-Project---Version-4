@@ -6,13 +6,11 @@ import action.GameAction;
 import eventlistener.EventListener;
 import eventlistener.KeyPressedEventListener;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.logging.Level;
 import javax.swing.JFrame;
 import loader.GameDataPackageIO;
 import loader.GamePackage;
@@ -41,7 +39,6 @@ public class GameEngineController extends BasicGame {
     private Map<String, Image> imagesOfSprites;
     private List<EventListener> eventsForGameController;
     private List<EventListener> keyEvents;
-    private PhysicsComponent physicsComponent;
     private HashMap<Integer, KeyPressedEventListener> keyReg;
     private HashMap<Integer, Integer> key2key;
     private AtomicBoolean gamePaused;
@@ -52,14 +49,6 @@ public class GameEngineController extends BasicGame {
         //buildPhysicsWorld();
         game = loadGameData(loadMode, paras);
         gamePaused = new AtomicBoolean(false);
-    }
-
-    private void buildPhysicsWorld() {
-        try {
-            physicsComponent = new PhysicsComponent();
-        } catch (IOException ex) {
-            LOG.error(ex);
-        }
     }
 
     private void buildKeyModel() {
@@ -231,10 +220,6 @@ public class GameEngineController extends BasicGame {
                         continue;
                     }
                     try {
-//                        Sound cache = new Sound("temp/resources/" + soundFileName);
-//                        SoundRepo.getSounds().put(soundFileName, cache);
-//                        
-//                        LOG.info("======================== new sound: " +  soundFileName);
                         Sound cache = new Sound("data/" + soundFileName);
                         SoundRepo.getSounds().put(soundFileName, cache);
 
@@ -278,14 +263,6 @@ public class GameEngineController extends BasicGame {
         //imagesOfSprites.get(id).setRotation(physicsComponent.bodies.get(sprite.getId()).getAngle());
         imagesOfSprites.get(id).draw((float) sprite.getPosX(), (float) sprite.getPosY(), (float) sprite.getWidth(), (float) sprite.getHeight());//(float) bodyPostion.x * 30, (float) bodyPostion.y * 30, (float) sprite.getWidth(), (float) sprite.getHeight());
         //   Log.info("Sprite X : "+sprite.getPosX());
-    }
-
-    public void initSpriteBodyMapping(SpriteModel sprite) {
-        try {
-            physicsComponent.bodies.put(sprite.getId().toString(), physicsComponent.createBody(sprite.getId(), "polygon", "Dynamic", (float) sprite.getPosX(), (float) sprite.getPreviousY(), (float) sprite.getWidth(), (float) sprite.getHeight(), 0.0f));
-        } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(GameEngineController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     public void checkEvents(GameContainer gc) {
