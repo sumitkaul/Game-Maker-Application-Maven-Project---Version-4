@@ -40,6 +40,7 @@ import loader.GameDataPackageIO;
 import loader.GamePackage;
 import lookandfeel.AnimationHandler;
 import lookandfeel.ThemeHandler;
+import model.Player;
 import model.SpriteModel;
 import twitter.GetScore;
 import twitter.UpdateStatus;
@@ -50,6 +51,7 @@ import utility.Helper;
 import utility.Layers;
 import utility.Score;
 import utility.SpriteList;
+import view.communication.ClientHandler;
 import view.companels.GameBaseLoadPanel;
 import view.companels.GameBaseSavePanel;
 
@@ -58,6 +60,9 @@ public class MenuBarPanel implements ActionListener, ItemListener {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(GameMakerView.class);
     private JMenuBar menuBar = new JMenuBar();
     private JMenuItem[] modes = new JMenuItem[2];
+    private final String host = Constants.HOST;
+    private final String path = Constants.PATH;
+    private final String urldeleteHostedGameBaseRecord = "/deleteHostedGameBaseRecord";
 
     public MenuBarPanel() {
 
@@ -259,6 +264,28 @@ public class MenuBarPanel implements ActionListener, ItemListener {
         modes[1] = new JRadioButtonMenuItem("Multi Player");
         modes[0].setSelected(true);
         //modes[0].addItemListener(this);
+        
+        if (Constants.isGamePlayer) {
+            modes[0].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                	if(Constants.isMultiplayer){
+                	 Constants.isMultiplayer = false;
+                	 String playerName = Player.getInstance().getUsername();
+                     
+                     try {
+                    	 	ClientHandler.deleteHostedGameBase(playerName,host, path+urldeleteHostedGameBaseRecord);
+                    	 	JFrame frame = new JFrame();
+                    	 	JOptionPane.showMessageDialog(frame, "Hosted game is exited.");
+                     	 } catch (Exception e1) {
+                     		 // TODO Auto-generated catch block
+                     		 e1.printStackTrace();
+                     	 }
+                	}
+                }
+            });
+        }
+        
         if (Constants.isGamePlayer) {
             modes[1].addActionListener(new ActionListener() {
                 @Override
