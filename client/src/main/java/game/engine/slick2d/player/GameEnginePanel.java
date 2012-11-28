@@ -1,19 +1,7 @@
 package game.engine.slick2d.player;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.CanvasGameContainer;
 import org.newdawn.slick.SlickException;
 import utility.Constants;
@@ -71,17 +59,6 @@ public class GameEnginePanel extends JPanel {
         app.requestFocusInWindow();
     }
 
-    public void pauseGame() {
-        app.getContainer().setPaused(!app.getContainer().isPaused());
-        //app.getContainer().pause();
-        app.requestFocusInWindow();
-    }
-
-    public void resumeGame() {
-        app.getContainer().resume();
-        app.requestFocusInWindow();
-    }
-
     public void restartGame() {
         try {
             app.getContainer().reinit();
@@ -106,5 +83,5 @@ public class GameEnginePanel extends JPanel {
     public void setGame(GameEngineController game) {
         this.game = game;
     }
-    
+
 }
