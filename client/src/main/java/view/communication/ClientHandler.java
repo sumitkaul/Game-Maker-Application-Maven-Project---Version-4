@@ -11,7 +11,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
-import utility.Constants;
 import view.communication.protocol.GameSaveInfo;
 import view.utils.HttpUtil;
 
@@ -34,26 +33,18 @@ public class ClientHandler {
 
     }
 
-    public static String[] listAllMultiPlayerGameBases(String host, String path,
-            Exception[] exception) {
-        try {
-            URIBuilder ub = new URIBuilder();
-            ub.setScheme("http").setHost(host).setPath(path);
-            URI uri = ub.build();
+    public static String[] listAllMultiPlayerGameBases(String host, String path) throws Exception {
+        URIBuilder ub = new URIBuilder();
+        ub.setScheme("http").setHost(host).setPath(path);
+        URI uri = ub.build();
 
-            String jsonGameList = HttpUtil.httpGet(uri);
+        String jsonGameList = HttpUtil.httpGet(uri);
 
-            Gson gson = new Gson();
+        Gson gson = new Gson();
 
-            String[] gameNames = gson.fromJson(jsonGameList, String[].class);
+        String[] gameNames = gson.fromJson(jsonGameList, String[].class);
 
-            return gameNames;
-        } catch (Exception ex) {
-            log.error(ex);
-            exception[0] = ex;
-            return null;
-        }
-
+        return gameNames;
     }
 
     public static String loadGameBase(String gameName, String host, String path) throws Exception {
@@ -91,7 +82,7 @@ public class ClientHandler {
 
         Gson gson = new Gson();
         Boolean saveOK = gson.fromJson(json, Boolean.class);
-        log.info("Save check" + saveOK);
+        log.info("Save check " + saveOK);
         return saveOK.booleanValue();
 
 
@@ -221,10 +212,16 @@ public class ClientHandler {
         return loginOK.booleanValue();
     }
 
-    public static Resources[] listPageResources(String pageNumber,
-            String pageLength, String resourceName, String host, String path) throws Exception {
+    public static Resources[] listPageResources(String pageNumber, String pageLength, String resourceName, String host, String path) throws Exception {
         if (pageNumber.isEmpty() || pageLength.isEmpty()) {
             throw new Exception("Required information is empty");
+        }
+
+        try {
+            Integer.parseInt(pageNumber);
+            Integer.parseInt(pageLength);
+        } catch (Exception ex) {
+            throw ex;
         }
 
         URIBuilder ub = new URIBuilder();
@@ -244,9 +241,7 @@ public class ClientHandler {
         return resources;
     }
 
-    public static boolean saveResource(Resources resource, String host,
-            String path) throws Exception {
-
+    public static boolean saveResource(Resources resource, String host, String path) throws Exception {
         if (resource == null) {
             throw new Exception("Required information is empty");
         }
@@ -267,12 +262,7 @@ public class ClientHandler {
         return saveOK.booleanValue();
     }
 
-    public static Resources loadResource(String resourceId, String host,
-            String path) throws Exception {
-        if (resourceId.equals("no tags")) {
-            return null;
-        }
-
+    public static Resources loadResource(String resourceId, String host, String path) throws Exception {
         if (resourceId.isEmpty()) {
             throw new Exception("Required information is empty");
         }
@@ -330,7 +320,7 @@ public class ClientHandler {
         //TODO: figure out an id based on hostname, gamebasename, savegamebasename
         //parameters: (null, Constants.HOST, Constants.PATH+"/countTag", new Exception[1])
         //int id = 2;
-    	URIBuilder ub = new URIBuilder();
+        URIBuilder ub = new URIBuilder();
         ub.setScheme("http").setHost(host).setPath(path).setParameter("hostname", hostName);
         URI uri = ub.build();
 
@@ -343,8 +333,7 @@ public class ClientHandler {
         return deleteOK.booleanValue();
     }
 
-    public static int getHostedGameBaseId(String hostName, String gameBaseName,
-            String saveGameBaseName, String host, String path) throws Exception {
+    public static int getHostedGameBaseId(String hostName, String gameBaseName, String saveGameBaseName, String host, String path) throws Exception {
         URIBuilder ub = new URIBuilder();
         ub.setScheme("http").
                 setHost(host).

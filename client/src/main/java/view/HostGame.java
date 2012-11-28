@@ -1,18 +1,11 @@
 package view;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-
 import loader.GameDataPackageIO;
 import model.GameProgressSaveInfo;
-
 import utility.Constants;
 import view.communication.ClientHandler;
-import view.communication.protocol.GameHostInfo;
 
 public class HostGame {
 
@@ -29,12 +22,13 @@ public class HostGame {
     }
 
     public String displayHostedGames() {
-        String[] gameNames = ClientHandler.listAllMultiPlayerGameBases(host, path + urlListMultiPlayerGameBases, null);
-
-
-        //JOptionPane.showMessageDialog(rootComp, exceptions[0].toString());
-        //return null;
-
+        String[] gameNames;
+        try {
+            gameNames = ClientHandler.listAllMultiPlayerGameBases(host, path + urlListMultiPlayerGameBases);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootComp, ex.toString());
+            return null;
+        }
 
         String chosen = (String) JOptionPane.showInputDialog(
                 rootComp,
