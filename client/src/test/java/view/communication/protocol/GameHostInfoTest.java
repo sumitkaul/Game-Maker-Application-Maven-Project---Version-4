@@ -34,8 +34,6 @@ public class GameHostInfoTest {
 	 * Run the GameHostInfo(String,String,String,String) constructor test.
 	 *
 	 * @throws Exception
-	 *
-	 *  
 	 */
 	@Test
 	public void testGameHostInfo_2()
@@ -61,8 +59,6 @@ public class GameHostInfoTest {
 	 * Run the GameHostInfo(String,String,String,int,int) constructor test.
 	 *
 	 * @throws Exception
-	 *
-	 *  
 	 */
 	@Test
 	public void testGameHostInfo_3()
@@ -89,8 +85,6 @@ public class GameHostInfoTest {
 	 * Run the GameHostInfo(String,String,String,int,int,String) constructor test.
 	 *
 	 * @throws Exception
-	 *
-	 *  
 	 */
 	@Test
 	public void testGameHostInfo_4()
@@ -112,6 +106,69 @@ public class GameHostInfoTest {
 		assertEquals(1, result.getGameScore());
 		assertEquals("", result.getGameData());
 		assertEquals("", result.getGamePlayer());
+	}
+	/**
+	 * Run the String getGameData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetGameData_1()
+		throws Exception {
+		GameHostInfo fixture = new GameHostInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+
+		String result = fixture.getGameData();
+		 
+		assertEquals("", result);
+	}
+
+	/**
+	 * Run the String getGameName() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetGameName_1()
+		throws Exception {
+		GameHostInfo fixture = new GameHostInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+
+		String result = fixture.getGameName();
+		 
+		assertEquals("", result);
+	}
+
+	/**
+	 * Run the String getGamePlayer() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetGamePlayer_1()
+		throws Exception {
+		GameHostInfo fixture = new GameHostInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+
+		String result = fixture.getGamePlayer();
+		 
+		assertEquals("", result);
+	}
+
+	/**
+	 * Run the int getGameScore() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetGameScore_1()
+		throws Exception {
+		GameHostInfo fixture = new GameHostInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+
+		int result = fixture.getGameScore();
+
+		assertEquals(1, result);
 	}
 
 	/**
