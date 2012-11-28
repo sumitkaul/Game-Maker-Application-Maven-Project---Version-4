@@ -68,7 +68,7 @@ public class InsertDeleteRecordsController {
 		if (hostName != null) {
 
 			//String sql = "select count(*) FROM HostedGameBases where id=" + gameId;
-			String sql1 = "delete from HostedGameBases where hostname="+hostName;
+			String sql1 = "delete from HostedGameBases where hostname='" + hostName + "'";
 
 			DatabaseHandler.ExecuteQuery(sql1);
 			
