@@ -1,4 +1,4 @@
-package jbox2d;
+package jbox2d;;
 
 import java.io.IOException;
 import java.util.logging.Level;
