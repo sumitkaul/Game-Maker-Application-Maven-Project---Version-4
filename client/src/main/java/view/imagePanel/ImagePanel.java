@@ -223,6 +223,11 @@ public class ImagePanel implements ActionListener, ChangeListener {
                 return;
             } else if (e.getActionCommand().equalsIgnoreCase("Upload Images")) {
                 handleUpload();
+                getImages();
+                updateImageTiles();
+                populatePaginationPanel();
+                paginationPanel.revalidate();
+                paginationPanel.repaint();
             } else if (e.getSource() == imageTags) {
                 presentPage = 1;
                 imageSize = 50;
