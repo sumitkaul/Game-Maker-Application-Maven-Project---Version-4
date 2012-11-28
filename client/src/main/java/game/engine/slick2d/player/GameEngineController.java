@@ -18,6 +18,7 @@ import model.Resources;
 import model.SpriteModel;
 import org.apache.log4j.Logger;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -50,8 +51,8 @@ public class GameEngineController extends BasicGame {
         game = loadGameData(loadMode, paras);
         gamePaused = new AtomicBoolean(false);
     }
-    
-    public GameEngineController(String title, GamePackage game){
+
+    public GameEngineController(String title, GamePackage game) {
         super(title);
         buildKeyModel();
         //buildPhysicsWorld();
@@ -148,8 +149,6 @@ public class GameEngineController extends BasicGame {
             }
 
             imagesOfSprites.put(sprite.getId(), image);
-            //initSpriteBodyMapping(sprite);
-
         }
 
     }
@@ -172,18 +171,29 @@ public class GameEngineController extends BasicGame {
             gamePaused.set(false);
         }
 
-        if (gamePaused.get()) {
-            return;
+        boolean paused = gamePaused.get();
+
+        if (!paused) {
+            checkEvents(gc);
+        } else {
+            //only work for CanvasGameContainer
+            if (lastGraphics != null) {
+                LOG.debug("draw pause");
+                lastGraphics.setColor(Color.white);
+                lastGraphics.drawString("GamePaused", Constants.BOARD_WIDTH / 2, Constants.BOARD_HEIGHT / 2);
+                lastGraphics = null;
+            }
         }
-
-        checkEvents(gc);
-        //physicsComponent.inputLogic();
-
     }
+    private Graphics lastGraphics;
 
     @Override
     public void render(GameContainer gc, Graphics grphcs) throws SlickException {
-        //physicsComponent.moveLogic();
+        //LOG.debug("render");
+        
+        //accomodate CanvasGameContainer
+        lastGraphics = grphcs;
+
         renderSpriteImageDraw();
     }
 
