@@ -1,6 +1,7 @@
 package view;
 
 
+import game.engine.slick2d.player.GameEngineController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
@@ -16,6 +17,7 @@ import net.miginfocom.swing.MigLayout;
 import loader.GameDataPackageIO;
 import loader.GamePackage;
 import model.SpriteModel;
+import org.newdawn.slick.CanvasGameContainer;
 import utility.ClockDisplay;
 import utility.Helper;
 import utility.Layers;
@@ -54,8 +56,8 @@ public class PlayerButtonPanel implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
-				gamePlayerView.getFacade().startGame();
-				gamePlayerView.getGamePanel().requestFocusInWindow();
+//				gamePlayerView.getFacade().startGame();
+//				gamePlayerView.getGamePanel().requestFocusInWindow();
 			}
 		});
 		pauseButton = new JButton("Pause");
@@ -64,7 +66,7 @@ public class PlayerButtonPanel implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
-				gamePlayerView.getFacade().stopGame();
+//				gamePlayerView.getFacade().stopGame();
 				// ScoreDialog.showScoreDialog();
 				JOptionPane.showMessageDialog(GameMakerView.getInstance().getBaseFrame(), "Your Score is " + Score.getInstance().getScore());
 			}
@@ -75,34 +77,38 @@ public class PlayerButtonPanel implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GameMakerView.getInstance().reset();
-				GameBaseLoadPanel p = new GameBaseLoadPanel(GameMakerView.getInstance().getGamePanel());
+                            GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
+                            gamePlayerView.getGameEnginePanel().newGame();
 
-				String gameData = p.readGameDataFromRemoteList();
-				if (gameData == null) {
-					return;
-				}
-
-				GamePackage game = GameDataPackageIO.loadGamePackageFromFile(gameData);
-
-				LOG.debug("load done");
-
-				Collection<SpriteModel> allSpriteModels = game.getSpriteList();
-				List<String> layers = game.getLayers();
-				ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
-				// SpriteList.getInstance().setSpriteList(allSpriteModels);
-                                SpriteModel m = (SpriteModel) ((Queue)allSpriteModels).peek();
-				SpriteList.getInstance().setSelectedSpriteModel(m);
-
-				Helper.getsharedHelper().getGamePlayerView().getFacade().getGameController().setEvents(game.getEventsForGameController());
-				Helper.getsharedHelper().getGamePlayerView().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
-
-				Helper.getsharedHelper().getGamePlayerView().getFacade().createViewsForModels(game.getSpriteList());
-
-				for (SpriteModel model : allSpriteModels) {
-					SpriteList.getInstance().addSprite(model);
-					SpriteList.getInstance().setSelectedSpriteModel(model);
-				}
+                                                                 
+//				GameMakerView.getInstance().reset();
+//				GameBaseLoadPanel p = new GameBaseLoadPanel(GameMakerView.getInstance().getGamePanel());
+//
+//				String gameData = p.readGameDataFromRemoteList();
+//				if (gameData == null) {
+//					return;
+//				}
+//
+//				GamePackage game = GameDataPackageIO.loadGamePackageFromFile(gameData);
+//
+//				LOG.debug("load done");
+//
+//				Collection<SpriteModel> allSpriteModels = game.getSpriteList();
+//				List<String> layers = game.getLayers();
+//				ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
+//				// SpriteList.getInstance().setSpriteList(allSpriteModels);
+//                                SpriteModel m = (SpriteModel) ((Queue)allSpriteModels).peek();
+//				SpriteList.getInstance().setSelectedSpriteModel(m);
+//
+//				Helper.getsharedHelper().getGamePlayerView().getFacade().getGameController().setEvents(game.getEventsForGameController());
+//				Helper.getsharedHelper().getGamePlayerView().getFacade().getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
+//
+//				Helper.getsharedHelper().getGamePlayerView().getFacade().createViewsForModels(game.getSpriteList());
+//
+//				for (SpriteModel model : allSpriteModels) {
+//					SpriteList.getInstance().addSprite(model);
+//					SpriteList.getInstance().setSelectedSpriteModel(model);
+//				}
 			}
 		});
 
