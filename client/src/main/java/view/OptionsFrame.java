@@ -43,6 +43,7 @@ public class OptionsFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == makerButton) {
         	Constants.isGameMaker=true;
+                Constants.isGamePlayer=false;
             GameMakerView.getInstance();
             GameMakerView.getInstance().getBaseFrame().setVisible(true);
 
@@ -52,7 +53,7 @@ public class OptionsFrame implements ActionListener {
 
         if (e.getSource() == playerButton) {
         	Constants.isGamePlayer = true;
-
+                Constants.isGameMaker = false;
         	GamePlayerView gamePlayerView = new GamePlayerView(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
         	Helper.getsharedHelper().setGamePlayerView(gamePlayerView);
         	Helper.getsharedHelper().setPlayerMode(true);
