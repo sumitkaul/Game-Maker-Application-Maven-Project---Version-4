@@ -6,6 +6,7 @@ import java.util.List;
 import junit.framework.Assert;
 
 import org.jboss.logging.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Matchers;
@@ -21,7 +22,12 @@ import db.DatabaseHandler;
 @PrepareForTest({ DatabaseHandler.class })
 public class ListAllHostedGamesTest {
 
-	ListAllHostedGames listAllHostedGames = new ListAllHostedGames();
+	ListAllHostedGames listAllHostedGames;
+
+	@Before
+	public void setUp() {
+		listAllHostedGames = new ListAllHostedGames();
+	}
 
 	@Test
 	public void testLoadHostGames() {
