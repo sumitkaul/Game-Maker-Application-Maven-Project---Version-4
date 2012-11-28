@@ -2,6 +2,8 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -124,6 +126,7 @@ public class LoginFrame extends JFrame {
                         JFrame frame = new JFrame();
                         JOptionPane.showMessageDialog(frame,
                                 "login successful");
+                        setOnlineChatUsers();
                     } else {
                         d.getButtonPanel().getUserName().setText("invalid username and password");
                         JFrame frame = new JFrame();
@@ -135,5 +138,16 @@ public class LoginFrame extends JFrame {
             }
         }
     }
+    
+    private void setOnlineChatUsers() {
+		try {
+			List<String> users = ClientHandler.getActiveUsers(Constants.HOST,
+					Constants.PATH+"/getActiveUsers");
+			ChatViewPanel.setOnlineUsersList(users);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
     private static final Logger LOG = Logger.getLogger(LoginFrame.class.getName());
 }
