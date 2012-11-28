@@ -5,6 +5,8 @@ import JBox2d.main.JBoxSpriteModel;
 import JBox2d.main.PhysicsComponent;
 import java.io.IOException;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
@@ -28,7 +30,17 @@ public class JboxCollisionListener implements ContactListener{
           Log.debug("Fresh Contact Handle");
           for(JBoxSpriteModel jboxSprite:PhysicsComponent.getInstance().getJboxObjectList().getListJBoxSpriteModel())
            {
-               Log.error("Check Body");
+               if(jboxSprite.getBody().getType()==BodyType.DYNAMIC)
+               {
+                   if (bodyA==jboxSprite.getBody())
+                   {
+                       
+                   }
+                   if(bodyB==jboxSprite.getBody())
+                   {
+                       
+                   }
+               }
                  
            }
              
@@ -38,7 +50,11 @@ public class JboxCollisionListener implements ContactListener{
     
     @Override
     public void beginContact(Contact cntct) {
-        
+        try {
+            handleContact(cntct.getFixtureA().getBody(), cntct.getFixtureB().getBody());
+        } catch (IOException ex) {
+            Logger.getLogger(JboxCollisionListener.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
