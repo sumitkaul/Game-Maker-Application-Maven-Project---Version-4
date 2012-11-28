@@ -50,6 +50,14 @@ public class GameEngineController extends BasicGame {
         game = loadGameData(loadMode, paras);
         gamePaused = new AtomicBoolean(false);
     }
+    
+    public GameEngineController(String title, GamePackage game){
+        super(title);
+        buildKeyModel();
+        //buildPhysicsWorld();
+        this.game = game;
+        gamePaused = new AtomicBoolean(false);
+    }
 
     private void buildKeyModel() {
         keyReg = new HashMap<Integer, KeyPressedEventListener>(10);

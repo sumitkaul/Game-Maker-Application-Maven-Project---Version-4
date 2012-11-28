@@ -71,7 +71,7 @@ public class ChatViewPanel {
 		commonChatPanel = commChatPanel.getChatPanel();
 		new ChatReceiver(commChatPanel);
 		
-		commonChat.setLayout(new GridLayout(1,2));
+		commonChat.setLayout(new GridLayout(2,1));
 		commonChat.add(buddyScroll);
 		commonChat.add(commonChatPanel);
 	
@@ -80,7 +80,7 @@ public class ChatViewPanel {
 		gameChatPannel = gameChatPanel.getChatPanel();
 		//new OneToOneReceiver(topicName, gameChatPanel)
 		
-		gameChat.setLayout(new GridLayout(1,2));
+		gameChat.setLayout(new GridLayout(2,1));
 		gameChat.add(gameBuddyScroll);
 		gameChat.add(gameChatPannel);
 		

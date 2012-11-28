@@ -28,7 +28,7 @@ public class GameProgressLoadPanel {
         this.rootComp = rootComp;
     }
 
-    public String readGameDataFromRemoteList() {
+    public String readGameDataFromRemoteList(String gamename[]) {
         JTextField playerNameField = new JTextField();
         Object[] message = new Object[]{"Player Name:", playerNameField};
         LOG.debug(Player.getInstance().getUsername());
@@ -68,6 +68,7 @@ public class GameProgressLoadPanel {
 
             String gameData = null;
             try {
+                gamename[0]= gameSaves[saveIndex].getGameName();
                 gameData = ClientHandler.loadGamePlay(gameSaves[saveIndex].getId(), host, path + urlLoadGameProgress);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(rootComp, ex.toString());

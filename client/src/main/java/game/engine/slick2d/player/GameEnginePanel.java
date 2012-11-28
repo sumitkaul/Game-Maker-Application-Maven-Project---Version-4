@@ -22,6 +22,7 @@ public class GameEnginePanel extends JPanel {
 
     public void addGame(CanvasGameContainer app) {
         this.app = app;
+        app.getContainer().setTargetFrameRate(60);
         app.setPreferredSize(new Dimension(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT));
         add(app);
         app.requestFocusInWindow();
