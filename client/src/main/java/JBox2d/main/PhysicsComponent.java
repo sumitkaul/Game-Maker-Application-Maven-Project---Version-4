@@ -1,4 +1,4 @@
-package jbox2d;
+package JBox2d.main;
 
 
 
@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
-import jbox2d.Actions.ActionMoveLeft;
+import JBox2d.Actions.ActionMoveLeft;
 import model.SpriteModel;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.collision.shapes.*;
@@ -20,24 +20,24 @@ import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.util.Log;
 import utility.SpriteList;
 
-public class PhysicsComponent implements ContactListener{
+public class PhysicsComponent {
 
 
 	private static World world;
 	public static LinkedHashMap<String,Body> bodies;
-	private CreateWall createWall;
+	
                 private ActionMoveLeft left;
                 private static PhysicsComponent instance = null;        
                 private JBoxObjectList jboxObjectList;
-        
+                private CreateWall createWall;
 	public PhysicsComponent() throws IOException
 	{
             
 		this.world=new World(new Vec2(0,0.3f),false);
 		this.bodies=new LinkedHashMap<String,Body>();
-                                this.world.setContactListener(this);
                                 this.jboxObjectList=new JBoxObjectList();
-                                
+                               //Subject to Change
+                                this.createWall=new CreateWall();
 	}
         
         public static PhysicsComponent getInstance() throws IOException {
@@ -56,10 +56,17 @@ public class PhysicsComponent implements ContactListener{
 
       public void initSpriteBodyMapping() throws IOException
       {
+          
           for(SpriteModel sprite:SpriteList.getInstance().getSpriteList())
           {
               JBoxSpriteModel jboxmodel=new JBoxSpriteModel(sprite);
               jboxObjectList.registerSpriteModel(jboxmodel.createJBoxSpriteModel(sprite,"Polygon","Dynamic"));
+          }
+          
+          for(SpriteModel sprite:createWall.getWallList())
+          {
+              JBoxSpriteModel jboxmodel=new JBoxSpriteModel(sprite);
+              jboxObjectList.registerSpriteModel(jboxmodel.createJBoxSpriteModel(sprite,"Polygon","Static"));
           }
           
       }
@@ -90,56 +97,23 @@ public class PhysicsComponent implements ContactListener{
                 }
                 
 	}
+
+   
+      
+    public JBoxObjectList getJboxObjectList() {
+        return jboxObjectList;
+    }
+
+    public void setJboxObjectList(JBoxObjectList jboxObjectList) {
+        this.jboxObjectList = jboxObjectList;
+    }
        
       
       
-     public void handleContact(Body bodyA,Body bodyB)
-     {
-          Log.debug("Fresh Contact Handle");
-         if(bodyA.getType()==BodyType.DYNAMIC && bodyB.getType()==BodyType.DYNAMIC)
-         {
-             for(Entry<String,Body>body:bodies.entrySet())
-             {
-                 if(body.getValue()==bodyA )
-                 {
-                     Log.info(body.getKey());
-                 }
-                 if(body.getValue()==bodyB )
-                 {
-                     Log.info(body.getKey());
-                 }
-                 
-                 
-             }
-             
-         }
-     }
         
         
         
-    @Override
-    public void beginContact(Contact con) {
-         
-         handleContact(con.m_fixtureA.getBody(), con.m_fixtureB.getBody());
-         
-        
-    }
-
-    @Override
-    public void endContact(Contact cntct) {
-        
-    }
-
-    @Override
-    public void preSolve(Contact cntct, Manifold mnfld) {
-        
-    }
-
-    @Override
-    public void postSolve(Contact cntct, ContactImpulse ci) {
-        
-    }
-    
+       
     public static World getWorld()
     {
         return world;

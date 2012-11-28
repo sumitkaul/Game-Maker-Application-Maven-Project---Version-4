@@ -1,4 +1,4 @@
-package jbox2d;
+package JBox2d.main;
 
 import action.ActionCreateSpriteModel;
 import eventlistener.EventListener;

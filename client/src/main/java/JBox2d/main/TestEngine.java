@@ -1,5 +1,10 @@
-package jbox2d;;
+package JBox2d.main;;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.SlickException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
