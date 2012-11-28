@@ -1,6 +1,7 @@
 #!/bin/bash
 
-PIDFILE="/u/kspace/www/fluency/student-files/fall2012/a10/team-all/gameserverpid"
+#PIDFILE="/u/kspace/www/fluency/student-files/fall2012/a10/team-all/gameserverpid"
+PIDFILE="/u/softeng/gameserverpid"
 LOGFILE="/u/kspace/www/fluency/student-files/fall2012/a10/team-all/gameServer.log"
 if [ -s $PIDFILE ] 
 then
@@ -10,8 +11,17 @@ fi
 
 server_processid=`ps aux | awk '/8097/ {print $2}' | grep -v awk | head -1`;
 kill -9 $server_processid;
-cargo_processid=`ps aux | awk '/cargo:run/ {print $2}' | grep -v awk | head -1`;
-kill -9 $cargo_processid;
+
+count=`ps aux | awk '/cargo:run/ {print $2}' | wc -l`;
+while [ $count != 1 ]
+do
+        process_id=`ps aux | awk '/cargo:run/ {print $2}' | tail -1`;
+        kill -9 $process_id;
+        count=`ps aux | awk '/cargo:run/ {print $2}' | wc -l`;
+done
+
+# cargo_processid=`ps aux | awk '/cargo:run/ {print $2}' | grep -v awk | head -1`;
+# kill -9 $cargo_processid;
 
 kill 381
 kill 9982
