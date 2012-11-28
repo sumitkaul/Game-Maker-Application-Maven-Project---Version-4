@@ -23,7 +23,7 @@ public class ListAllHostedGames {
 	@ResponseBody
 	public String loadHostGames() {
 
-		String sql = "select gamebasename from HostedGameBases";
+		String sql = "select save_gamebasename from HostedGameBases";
 		List<String> game = DatabaseHandler.Query(sql);
 		log.debug("Inside loadhosted games" + game);
 
