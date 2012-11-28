@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.net.URI;
 
-import org.apache.log4j.Logger;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,12 +18,14 @@ import view.utils.HttpUtil;
 
 import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
+import java.util.logging.Logger;
+import org.junit.Assert;
 
 @RunWith( PowerMockRunner.class )
 @PrepareForTest( HttpUtil.class )
 
 public class ClientHandlerTest {
-	private final static Logger log = Logger.getLogger(ClientHandlerTest.class);
+	private final static Logger log = Logger.getLogger(ClientHandlerTest.class.getName());
 
 	@Before
 	public void setUp() throws Exception {
@@ -43,14 +45,15 @@ public class ClientHandlerTest {
 			String gameListJson = g.toJson(values);				
 			PowerMockito.when(HttpUtil.class, HttpUtil.httpGet((URI)(Matchers.any()))).thenReturn(gameListJson);
 
-			String[] value = ClientHandler.listAllGameBases("testserver:1000", "/listGames", new Exception[1]);
-			log.debug("first game name="+value[0]);
+			String[] value = ClientHandler.listAllGameBases("test:100", "/123");
+			log.info("first game name="+value[0]);
 			assertEquals(value[0], "Game1");
 			assertEquals(value[1], "Game2");
 			assertEquals(value[2], "Game3");
 
 		} catch (Exception e1) {
 			e1.printStackTrace();
+                        Assert.fail(e1.toString());
 		}
 	}
 
@@ -67,11 +70,10 @@ public class ClientHandlerTest {
 			String gameDataXML = xStream.toXML(gameData);
 			PowerMockito.when(HttpUtil.class, HttpUtil.httpGet((URI) (Matchers.any()))).thenReturn(gameDataXML);
 
-			String actualResult = ClientHandler.loadGameBase("testgame", "testhost:8080", "/loadGameBase",
-					new Exception[1]);
+			String actualResult = ClientHandler.loadGameBase("testgame", "testhost:8080", "/loadGameBase");
 			assertEquals(gameDataXML, actualResult);
 		} catch (Exception e) {
-			log.debug("Test failed");
+			log.info("Test failed");
 		}
 	}
 }

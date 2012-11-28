@@ -116,14 +116,20 @@ public class GameEngineController extends BasicGame {
             String gameData = gb.readGameDataFromRemoteList();
             gamePackage = GameDataPackageIO.loadGamePackageFromFile(gameData);
         } else if (loadMode == LOAD_MODE_REMOTE_NO_UI) {
-            String gameData = ClientHandler.loadGameBase(paras[0], paras[1], paras[2], new Exception[1]);
+            String gameData;
+            try {
+                gameData = ClientHandler.loadGameBase(paras[0], paras[1], paras[2]);
+            } catch (Exception ex) {
+                LOG.error(ex);
+                return null;
+            }
             gamePackage = GameDataPackageIO.loadGamePackageFromFile(gameData);
         }
 
         return gamePackage;
     }
 
-    public void initSpriteImageMapping() throws IOException {
+    public void initSpriteImageMapping() throws Exception {
         allSpriteModels = game.getSpriteList();
         imagesOfSprites = new HashMap<String, Image>();
 
@@ -132,7 +138,7 @@ public class GameEngineController extends BasicGame {
             SpriteList.getInstance().addSprite(sprite);
 
             String rid = sprite.getImageUrlString();
-            Resources r = ClientHandler.loadResource(rid, Constants.HOST, Constants.PATH + "/loadResource", new Exception[1]);
+            Resources r = ClientHandler.loadResource(rid, Constants.HOST, Constants.PATH + "/loadResource");
 
             byte[] imageData = r.getResource();
             Image image = getImageFromBytes(imageData, r.getResourceName());
@@ -152,7 +158,7 @@ public class GameEngineController extends BasicGame {
     public void init(GameContainer gc) throws SlickException {
         try {
             initSpriteImageMapping();
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             LOG.error(ex);
         }
         initActionEvents();
