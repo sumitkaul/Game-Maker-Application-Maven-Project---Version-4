@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import javax.swing.JFrame;
 import loader.GameDataPackageIO;
@@ -43,12 +44,14 @@ public class GameEngineController extends BasicGame {
     private PhysicsComponent physicsComponent;
     private HashMap<Integer, KeyPressedEventListener> keyReg;
     private HashMap<Integer, Integer> key2key;
+    private AtomicBoolean gamePaused;
 
     public GameEngineController(String title, int loadMode, String[] paras) {
         super(title);
         buildKeyModel();
         //buildPhysicsWorld();
         game = loadGameData(loadMode, paras);
+        gamePaused = new AtomicBoolean(false);
     }
 
     private void buildPhysicsWorld() {
@@ -166,10 +169,19 @@ public class GameEngineController extends BasicGame {
 
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
+        if (!gc.hasFocus()) {
+            gamePaused.set(true);
+        } else {
+            gamePaused.set(false);
+        }
+
+        if (gamePaused.get()) {
+            return;
+        }
 
         checkEvents(gc);
         //physicsComponent.inputLogic();
- 
+
     }
 
     @Override
@@ -311,5 +323,4 @@ public class GameEngineController extends BasicGame {
     public void setKeyEvents(List<EventListener> keyEvents) {
         this.keyEvents = keyEvents;
     }
-    
 }

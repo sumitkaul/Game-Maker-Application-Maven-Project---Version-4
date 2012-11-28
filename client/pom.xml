@@ -91,6 +91,13 @@
             <version>1</version>
             <type>jar</type>
         </dependency>
+        
+          <dependency>
+            <groupId>local.jars</groupId>
+            <artifactId>jbox2d-serialization</artifactId>
+            <version>1</version>
+            <type>jar</type>
+        </dependency>
 	   
 	    <dependency>
             <groupId>local.jars</groupId>

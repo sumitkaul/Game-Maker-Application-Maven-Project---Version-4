@@ -88,7 +88,7 @@ public class JBoxSpriteModel {
 		bodyDef.position.set(new Vec2(x/30,y/30));
 		bodyDef.type=BodyType.DYNAMIC;
                                 bodyDef.bullet=true;
-                
+                                
 		return bodyDef;
 	}
 
