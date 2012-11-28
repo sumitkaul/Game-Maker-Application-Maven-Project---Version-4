@@ -66,6 +66,7 @@ public class PlayerButtonPanel implements ActionListener {
         Image newimage = newicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         newicon.setImage(newimage);
         newButton.setIcon(newicon);
+        newButton.setToolTipText("New Game");
 
         newButton.addActionListener(new ActionListener() {
             @Override
@@ -81,6 +82,7 @@ public class PlayerButtonPanel implements ActionListener {
         Image loadimage = loadicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         loadicon.setImage(loadimage);
         loadButton.setIcon(loadicon);
+        loadButton.setToolTipText("Load Game");
         
         loadButton.addActionListener(new ActionListener() {
             @Override
@@ -131,6 +133,7 @@ public class PlayerButtonPanel implements ActionListener {
         Image shareimage = shareicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         shareicon.setImage(shareimage);
         share.setIcon(shareicon);
+        share.setToolTipText("Share Game");
         
         share.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -148,6 +151,7 @@ public class PlayerButtonPanel implements ActionListener {
         Image saveimage = saveicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         saveicon.setImage(saveimage);
         saveButton.setIcon(saveicon);
+        saveButton.setToolTipText("Save Game");
         
         saveButton.addActionListener(new ActionListener() {
             @Override
