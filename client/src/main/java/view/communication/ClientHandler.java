@@ -326,16 +326,21 @@ public class ClientHandler {
         return deleteOK.booleanValue();
     }
 
-    public static boolean deleteHostedGameBase(String hostName, String gameBaseName,
-            String saveGameBaseName, String host, String path) throws Exception {
+    public static boolean deleteHostedGameBase(String hostName, String host, String path) throws Exception {
         //TODO: figure out an id based on hostname, gamebasename, savegamebasename
         //parameters: (null, Constants.HOST, Constants.PATH+"/countTag", new Exception[1])
         //int id = 2;
+    	URIBuilder ub = new URIBuilder();
+        ub.setScheme("http").setHost(host).setPath(path).setParameter("hostname", hostName);
+        URI uri = ub.build();
 
-        int id = ClientHandler.getHostedGameBaseId(hostName, gameBaseName, saveGameBaseName,
-                host, Constants.PATH + "/getHostedGameBaseId");
-        return ClientHandler.deleteHostedGameBase(id, host, path);
+        //should be using deleteHostedGameBaseRecord
+        String response = HttpUtil.httpGet(uri);
 
+        Gson gson = new Gson();
+        Boolean deleteOK = gson.fromJson(response, Boolean.class);
+
+        return deleteOK.booleanValue();
     }
 
     public static int getHostedGameBaseId(String hostName, String gameBaseName,
