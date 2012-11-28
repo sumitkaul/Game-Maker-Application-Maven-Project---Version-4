@@ -28,7 +28,7 @@ public class JboxCollisionListener implements ContactListener{
           Log.debug("Fresh Contact Handle");
           for(JBoxSpriteModel jboxSprite:PhysicsComponent.getInstance().getJboxObjectList().getListJBoxSpriteModel())
            {
-               
+               Log.error("Check Body");
                  
            }
              
