@@ -6,15 +6,23 @@ import chat.StatusSender;
 import facade.Facade;
 import game.engine.slick2d.player.GameEnginePanel;
 import java.awt.Dimension;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JPanel;
+
+import model.Player;
 
 import utility.Constants;
 import utility.Helper;
+import view.communication.ClientHandler;
 
 public class GamePlayerView {
 
     private JFrame baseFrame;
     private GameEnginePanel gameenginePanel;
+    private final String host = Constants.HOST;
+    private final String path = Constants.PATH;
+    private final String urldeleteHostedGameBaseRecord = "/deleteHostedGameBaseRecord";
     //private Facade facade;
 
     public GamePlayerView(int frameWidth, int frameHeight) {
@@ -30,6 +38,23 @@ public class GamePlayerView {
         baseFrame.add(playerButtonPanel.getPlayerButtonPanel());
         baseFrame.add(gameenginePanel);
         baseFrame.setVisible(true);
+        
+        baseFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(WindowEvent winEvt) {
+                // Call for deleting the hosted games.
+            	if(Constants.isMultiplayer){
+                    String playerName = Player.getInstance().getUsername();
+                    
+                    try {
+         ClientHandler.deleteHostedGameBase(playerName,host, path+urldeleteHostedGameBaseRecord);
+        } catch (Exception e1) {
+         // TODO Auto-generated catch block
+         e1.printStackTrace();
+        }
+                   }
+            	
+            }
+        });
 
         new StatusSender();
         new StatusReceiver();
