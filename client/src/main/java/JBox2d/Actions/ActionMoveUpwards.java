@@ -14,7 +14,7 @@ public class ActionMoveUpwards implements JBoxGameAction{
   public void doAction(Body body) {
        
         Vec2 bodyPosition=body.getPosition();
-        bodyPosition.y-=1f;
+        bodyPosition.y=-1;
         body.setLinearVelocity(bodyPosition);
        }
     

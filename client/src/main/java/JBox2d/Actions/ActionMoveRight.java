@@ -3,9 +3,9 @@ package JBox2d.Actions;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 
-public class ActionMoveLeft implements JBoxGameAction{
+public class ActionMoveRight implements JBoxGameAction{
     
-    public ActionMoveLeft()
+    public ActionMoveRight()
     {
               
     }
@@ -14,7 +14,7 @@ public class ActionMoveLeft implements JBoxGameAction{
   public void doAction(Body body) {
        
         Vec2 bodyPosition=body.getPosition();
-        bodyPosition.x=-1;
+        bodyPosition.x=+1;
         body.setLinearVelocity(bodyPosition);
        }
     
