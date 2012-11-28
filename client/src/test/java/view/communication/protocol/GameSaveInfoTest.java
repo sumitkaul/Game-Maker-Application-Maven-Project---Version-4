@@ -236,6 +236,96 @@ public class GameSaveInfoTest {
 	}
 
 	/**
+	 * Run the void setGameName(String) method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetGameName_1()
+		throws Exception {
+		GameSaveInfo fixture = new GameSaveInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+		String gameName = "";
+
+		fixture.setGameName(gameName);
+	}
+
+	/**
+	 * Run the void setGamePlayer(String) method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetGamePlayer_1()
+		throws Exception {
+		GameSaveInfo fixture = new GameSaveInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+		String gamePlayer = "";
+
+		fixture.setGamePlayer(gamePlayer);
+	}
+
+	/**
+	 * Run the void setGameScore(int) method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetGameScore_1()
+		throws Exception {
+		GameSaveInfo fixture = new GameSaveInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+		int gameScore = 1;
+
+		fixture.setGameScore(gameScore);
+	}
+
+	/**
+	 * Run the void setId(int) method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetId_1()
+		throws Exception {
+		GameSaveInfo fixture = new GameSaveInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+		int id = 1;
+
+		fixture.setId(id);
+	}
+
+	/**
+	 * Run the void setRank(int) method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetRank_1()
+		throws Exception {
+		GameSaveInfo fixture = new GameSaveInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+		int rank = 1;
+
+		fixture.setRank(rank);
+	}
+
+	/**
+	 * Run the void setSaveName(String) method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetSaveName_1()
+		throws Exception {
+		GameSaveInfo fixture = new GameSaveInfo("", "", "", 1, 1, "");
+		fixture.setId(1);
+		String saveName = "";
+
+		fixture.setSaveName(saveName);
+	}
+
+	/**
 	 * Perform pre-test initialization.
 	 *
 	 * @throws Exception
