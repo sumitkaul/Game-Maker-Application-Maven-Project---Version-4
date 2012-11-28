@@ -30,10 +30,8 @@ public class KeyPressedEventListenerTest {
 	/**
 	 * @throws java.lang.Exception
 	 */
-	 	private ArrayList<EventListener> events;
-	    private static SpriteModel selectedSpriteModel;
-	    private KeyPressedEventListener keyListener;
-		private GameAction action;
+
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 			}
@@ -50,11 +48,26 @@ public class KeyPressedEventListenerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		GameMakerView.getInstance().reset();
-		selectedSpriteModel = new SpriteModel(100, 100, 20, 20, 100, 100, "","");
-		selectedSpriteModel.setGroupId("Group1");
+		SpriteList.getInstance().getSpriteList().clear();
+			}
+
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@After
+	public void tearDown() throws Exception {
+		SpriteList.getInstance().getSpriteList().clear();
+	}
+
+	/**
+	 * Test method for {@link eventlistener.KeyPressedEventListener#checkEvent(java.util.HashMap)}.
+	 */
+	@Test
+	public void testCheckEvent() {
+		SpriteModel selectedSpriteModel = new SpriteModel(100, 100, 20, 20, 100, 100, "","");
+		 selectedSpriteModel.setGroupId("Group1");
 		SpriteList.getInstance().addSprite(selectedSpriteModel);
-		keyListener = new KeyPressedEventListener();
+		KeyPressedEventListener keyListener = new KeyPressedEventListener();
 		keyListener.setRegisteredGroupId(selectedSpriteModel.getGroupId());
 		keyListener.setRegisteredObjectId(selectedSpriteModel.getId()); 
 		
@@ -65,22 +78,7 @@ public class KeyPressedEventListenerTest {
 		
 		GameAction action = new ActionMove();
 		keyListener.setAction(action);
-
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-		GameMakerView.getInstance().reset();
-	}
-
-	/**
-	 * Test method for {@link eventlistener.KeyPressedEventListener#checkEvent(java.util.HashMap)}.
-	 */
-	@Test
-	public void testCheckEvent() {
+		
 		int pressed = KeyEvent.VK_SHIFT;
 		HashMap<String,Object> map = new HashMap<String,Object>();
         map.put("keypressed", new Integer(pressed));

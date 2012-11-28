@@ -9,18 +9,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import utility.Score;
+import utility.SpriteList;
 import view.GameMakerView;
 
 public class ActionIncreaseScoreTest {
 
 	@Before
 	public void setUp() throws Exception {
-		GameMakerView.getInstance().reset();
+	   SpriteList.getInstance().getSpriteList().clear();
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		GameMakerView.getInstance().reset();
+		SpriteList.getInstance().getSpriteList().clear();
 	}
 	
 	@Test
