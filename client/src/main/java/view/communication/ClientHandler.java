@@ -1,8 +1,10 @@
 package view.communication;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import java.io.StringReader;
+import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -290,6 +292,17 @@ public class ClientHandler {
         String data = HttpUtil.httpGet(uri);
         int count = Integer.parseInt(data);
         return count;
+    }
+    
+    public static List<String> getActiveUsers(String host, String path) throws Exception{
+    	URIBuilder ub = new URIBuilder();
+        ub.setScheme("http").setHost(host).setPath(path);
+        URI uri = ub.build();
+        String json = HttpUtil.httpGet(uri);
+        Gson gson = new Gson();
+        Type type = new TypeToken<ArrayList<String>>(){}.getType();
+        ArrayList<String> users = gson.fromJson(json, type);
+        return users;
     }
 
     public static String[] listTags(String host, String path) throws Exception {
