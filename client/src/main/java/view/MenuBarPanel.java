@@ -307,7 +307,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
             modes[0].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (Constants.isMultiplayer) {
+                    if (Constants.isMultiplayer && Constants.isHost) {
                         Constants.isMultiplayer = false;
                         String playerName = Player.getInstance().getUsername();
 
