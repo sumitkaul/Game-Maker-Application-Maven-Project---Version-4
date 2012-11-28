@@ -1,6 +1,7 @@
 #!/bin/bash
 
-PIDFILE="/u/kspace/www/fluency/student-files/fall2012/a10/team-all/gameserverpid"
+#PIDFILE="/u/kspace/www/fluency/student-files/fall2012/a10/team-all/gameserverpid"
+PIDFILE="/u/softeng/gameserverpid"
 LOGFILE="/u/kspace/www/fluency/student-files/fall2012/a10/team-all/gameServer.log"
 if [ -s $PIDFILE ] 
 then
