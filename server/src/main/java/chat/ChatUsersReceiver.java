@@ -19,6 +19,7 @@ public class ChatUsersReceiver implements Runnable {
 	private MessageConsumer consumer;
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ChatUsersReceiver.class);
 	private static final String ActiveMQConnect = "tcp://129.79.247.5:61616";
+	private static final String statusTopic = "STATUS";
 	
 	public ChatUsersReceiver(){
 		activeUsers = new ArrayList<String>();
@@ -39,7 +40,7 @@ public class ChatUsersReceiver implements Runnable {
 
 			// Create the destination (Topic or Queue)
 			//Destination destination = session.createQueue("CHAT");
-			Topic topic= session.createTopic("BROADCAST");
+			Topic topic= session.createTopic(statusTopic);
 			// Create a MessageConsumer from the Session to the Topic or Queue
 			consumer = session.createConsumer(topic);
 			
@@ -57,10 +58,10 @@ public class ChatUsersReceiver implements Runnable {
 				if (message instanceof TextMessage) {
 					TextMessage textMessage = (TextMessage) message;
 					String text = textMessage.getText();
-					//when the user replies back the message should be in the format "Alive:Username:Game"
-					if(text.startsWith("Alive")){
-						String requiredText = text.substring(text.indexOf(':'));
-						activeUsers.add(requiredText);
+					//when the user replies back the message should be in the format "Online:Username:Game"
+					if(text.startsWith("Online")){
+						String[] requiredText = text.split(":");
+						activeUsers.add(requiredText[1]);
 					}
 				}
 			} catch (Exception e) {
