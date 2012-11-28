@@ -112,4 +112,13 @@ public class Protocol {
         }
 
     }
+
+	public ObjectMessage createStartSignal(String data) {
+		try {
+            msg = SessionFactory.getInstanceOf().getSession().createObjectMessage(data);
+        } catch (JMSException e) {
+            LOG.info("creating start signal failed");
+        }
+        return msg;
+	}
 }

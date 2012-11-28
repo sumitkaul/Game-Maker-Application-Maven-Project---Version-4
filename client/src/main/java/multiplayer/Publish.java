@@ -94,4 +94,12 @@ public final class Publish{
 		}	
 	}
 
+	public void sendStartSignal() throws JMSException {
+		Protocol protocol = new Protocol();
+		String data =  "startgame__^^";
+		objectMessage = protocol.createStartSignal(data);
+		producer.send(objectMessage);
+		
+	}
+
 }
