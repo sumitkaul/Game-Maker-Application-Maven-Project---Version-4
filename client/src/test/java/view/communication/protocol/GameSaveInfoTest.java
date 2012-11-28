@@ -139,7 +139,7 @@ public class GameSaveInfoTest {
 
 		assertEquals("", result);
 	}
-	
+
 	/**
 	 * Run the String getGamePlayer() method test.
 	 *
@@ -233,7 +233,6 @@ public class GameSaveInfoTest {
 		String gameData = "";
 
 		fixture.setGameData(gameData);
-
 	}
 
 	/**
