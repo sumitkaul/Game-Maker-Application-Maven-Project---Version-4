@@ -4,64 +4,64 @@ import static org.junit.Assert.*;
 
 import org.junit.*;
 
-public class GameHostInfoTest {
+public class GameSaveInfoTest {
 	/**
-	 * Run the GameHostInfo(String,String,String,int) constructor test.
+	 * Run the GameSaveInfo(String,String,String,int) constructor test.
 	 *
 	 * @throws Exception
 	 */
 	@Test
-	public void testGameHostInfo_1()
+	public void testGameSaveInfo_1()
 		throws Exception {
 		String saveName = "";
 		String gameName = "";
 		String gamePlayer = "";
 		int id = 1;
 
-		GameHostInfo result = new GameHostInfo(saveName, gameName, gamePlayer, id);
+		GameSaveInfo result = new GameSaveInfo(saveName, gameName, gamePlayer, id);
 
 		assertNotNull(result);
 		assertEquals(1, result.getId());
 		assertEquals(0, result.getRank());
+		assertEquals(0, result.getGameScore());
 		assertEquals("", result.getSaveName());
 		assertEquals("", result.getGameName());
-		assertEquals(0, result.getGameScore());
 		assertEquals(null, result.getGameData());
 		assertEquals("", result.getGamePlayer());
 	}
 
 	/**
-	 * Run the GameHostInfo(String,String,String,String) constructor test.
+	 * Run the GameSaveInfo(String,String,String,String) constructor test.
 	 *
 	 * @throws Exception
 	 */
 	@Test
-	public void testGameHostInfo_2()
+	public void testGameSaveInfo_2()
 		throws Exception {
 		String saveName = "";
 		String gameName = "";
 		String gamePlayer = "";
 		String gameData = "";
 
-		GameHostInfo result = new GameHostInfo(saveName, gameName, gamePlayer, gameData);
+		GameSaveInfo result = new GameSaveInfo(saveName, gameName, gamePlayer, gameData);
 
 		assertNotNull(result);
 		assertEquals(0, result.getId());
 		assertEquals(0, result.getRank());
+		assertEquals(0, result.getGameScore());
 		assertEquals("", result.getSaveName());
 		assertEquals("", result.getGameName());
-		assertEquals(0, result.getGameScore());
 		assertEquals("", result.getGameData());
 		assertEquals("", result.getGamePlayer());
 	}
 
 	/**
-	 * Run the GameHostInfo(String,String,String,int,int) constructor test.
+	 * Run the GameSaveInfo(String,String,String,int,int) constructor test.
 	 *
 	 * @throws Exception
 	 */
 	@Test
-	public void testGameHostInfo_3()
+	public void testGameSaveInfo_3()
 		throws Exception {
 		String saveName = "";
 		String gameName = "";
@@ -69,25 +69,25 @@ public class GameHostInfoTest {
 		int id = 1;
 		int gameScore = 1;
 
-		GameHostInfo result = new GameHostInfo(saveName, gameName, gamePlayer, id, gameScore);
+		GameSaveInfo result = new GameSaveInfo(saveName, gameName, gamePlayer, id, gameScore);
 
 		assertNotNull(result);
 		assertEquals(1, result.getId());
 		assertEquals(0, result.getRank());
+		assertEquals(1, result.getGameScore());
 		assertEquals("", result.getSaveName());
 		assertEquals("", result.getGameName());
-		assertEquals(1, result.getGameScore());
 		assertEquals(null, result.getGameData());
 		assertEquals("", result.getGamePlayer());
 	}
 
 	/**
-	 * Run the GameHostInfo(String,String,String,int,int,String) constructor test.
+	 * Run the GameSaveInfo(String,String,String,int,int,String) constructor test.
 	 *
 	 * @throws Exception
 	 */
 	@Test
-	public void testGameHostInfo_4()
+	public void testGameSaveInfo_4()
 		throws Exception {
 		String saveName = "";
 		String gameName = "";
@@ -96,17 +96,18 @@ public class GameHostInfoTest {
 		int rank = 1;
 		String gameData = "";
 
-		GameHostInfo result = new GameHostInfo(saveName, gameName, gamePlayer, gameScore, rank, gameData);
+		GameSaveInfo result = new GameSaveInfo(saveName, gameName, gamePlayer, gameScore, rank, gameData);
 
 		assertNotNull(result);
 		assertEquals(0, result.getId());
 		assertEquals(1, result.getRank());
+		assertEquals(1, result.getGameScore());
 		assertEquals("", result.getSaveName());
 		assertEquals("", result.getGameName());
-		assertEquals(1, result.getGameScore());
 		assertEquals("", result.getGameData());
 		assertEquals("", result.getGamePlayer());
 	}
+
 	/**
 	 * Run the String getGameData() method test.
 	 *
@@ -115,11 +116,11 @@ public class GameHostInfoTest {
 	@Test
 	public void testGetGameData_1()
 		throws Exception {
-		GameHostInfo fixture = new GameHostInfo("", "", "", 1, 1, "");
+		GameSaveInfo fixture = new GameSaveInfo("", "", "", 1, 1, "");
 		fixture.setId(1);
 
 		String result = fixture.getGameData();
-		 
+
 		assertEquals("", result);
 	}
 
@@ -131,44 +132,12 @@ public class GameHostInfoTest {
 	@Test
 	public void testGetGameName_1()
 		throws Exception {
-		GameHostInfo fixture = new GameHostInfo("", "", "", 1, 1, "");
+		GameSaveInfo fixture = new GameSaveInfo("", "", "", 1, 1, "");
 		fixture.setId(1);
 
 		String result = fixture.getGameName();
-		 
+
 		assertEquals("", result);
-	}
-
-	/**
-	 * Run the String getGamePlayer() method test.
-	 *
-	 * @throws Exception
-	 */
-	@Test
-	public void testGetGamePlayer_1()
-		throws Exception {
-		GameHostInfo fixture = new GameHostInfo("", "", "", 1, 1, "");
-		fixture.setId(1);
-
-		String result = fixture.getGamePlayer();
-		 
-		assertEquals("", result);
-	}
-
-	/**
-	 * Run the int getGameScore() method test.
-	 *
-	 * @throws Exception
-	 */
-	@Test
-	public void testGetGameScore_1()
-		throws Exception {
-		GameHostInfo fixture = new GameHostInfo("", "", "", 1, 1, "");
-		fixture.setId(1);
-
-		int result = fixture.getGameScore();
-
-		assertEquals(1, result);
 	}
 
 	/**
@@ -180,7 +149,7 @@ public class GameHostInfoTest {
 	@Before
 	public void setUp()
 		throws Exception {
-		// Add additional set up code here
+		// add additional set up code here
 	}
 
 	/**
@@ -201,6 +170,6 @@ public class GameHostInfoTest {
 	 * @param args the command line arguments
 	 */
 	public static void main(String[] args) {
-		new org.junit.runner.JUnitCore().run(GameHostInfoTest.class);
+		new org.junit.runner.JUnitCore().run(GameSaveInfoTest.class);
 	}
 }
