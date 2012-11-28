@@ -72,22 +72,27 @@ public class MenuBarPanel implements ActionListener, ItemListener {
         menuBar.add(menuGame);
 
         // Create a menu item
-        JMenuItem loadItem = new JMenuItem("Load");
-        JMenuItem saveItem = new JMenuItem("Save");
-        loadItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                loadGame();
-            }
-        });
+        if (!Constants.isGamePlayer) {
+            JMenuItem loadItem = new JMenuItem("Load");
+            JMenuItem saveItem = new JMenuItem("Save");
+            loadItem.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    loadGame();
+                }
+            });
 
-        saveItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                saveGame();
-            }
-        });
+            saveItem.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    saveGame();
+                }
+            });
 
+            menuGame.add(loadItem);
+            menuGame.add(saveItem);
+            menuGame.add(new JSeparator());
+        }
         JMenuItem changeTheme = new JMenuItem("Change Theme");
         changeTheme.addActionListener(new ActionListener() {
             @Override
@@ -118,9 +123,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
             }
         });
 
-        menuGame.add(loadItem);
-        menuGame.add(saveItem);
-        menuGame.add(new JSeparator());
+
         menuGame.add(changeTheme);
         menuGame.add(new JSeparator());
         menuGame.add(exitItem);
@@ -148,11 +151,10 @@ public class MenuBarPanel implements ActionListener, ItemListener {
         JMenuItem login = new JMenuItem("Login");
         JMenuItem register = new JMenuItem("Register");
         JMenuItem facebookLogin = new JMenuItem("Login with Facebook");
-        JMenuItem postFacebookScore= new JMenuItem("Post Score to Facebook");
+        JMenuItem postFacebookScore = new JMenuItem("Post Score to Facebook");
         JMenuItem twitter = new JMenuItem("Post Score to Twitter");
         JMenuItem getTwitterScore = new JMenuItem("Get Score from Twitter");
         postFacebookScore.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 String message = "My new Score: " + Score.getInstance().getScore() + " from GameMaker";
@@ -170,7 +172,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
                     Logger.getLogger(MenuBarPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 try {
-                    uri = new URI(Constants.FacebookServer+ "?action=post&message=" + message + "&name=" + name + "&caption=" + caption + "&description=" + description);
+                    uri = new URI(Constants.FacebookServer + "?action=post&message=" + message + "&name=" + name + "&caption=" + caption + "&description=" + description);
                 } catch (URISyntaxException ex) {
                     Logger.getLogger(MenuBarPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -237,7 +239,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
                     Integer randomNumber = random.nextInt();
                     String queueName = currentTime.toString() + randomNumber.toString();
                     AuthReceiver authReceiver = new AuthReceiver(queueName);
-                    URI uri = new URI(Constants.FacebookServer+"?q="+queueName); 
+                    URI uri = new URI(Constants.FacebookServer + "?q=" + queueName);
                     Desktop.getDesktop().browse(uri);
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
@@ -300,28 +302,28 @@ public class MenuBarPanel implements ActionListener, ItemListener {
         modes[1] = new JRadioButtonMenuItem("Multi Player");
         modes[0].setSelected(true);
         //modes[0].addItemListener(this);
-        
+
         if (Constants.isGamePlayer) {
             modes[0].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                	if(Constants.isMultiplayer){
-                	 Constants.isMultiplayer = false;
-                	 String playerName = Player.getInstance().getUsername();
-                     
-                     try {
-                    	 	ClientHandler.deleteHostedGameBase(playerName,host, path+urldeleteHostedGameBaseRecord);
-                    	 	JFrame frame = new JFrame();
-                    	 	JOptionPane.showMessageDialog(frame, "Hosted game is exited.");
-                     	 } catch (Exception e1) {
-                     		 // TODO Auto-generated catch block
-                     		 e1.printStackTrace();
-                     	 }
-                	}
+                    if (Constants.isMultiplayer) {
+                        Constants.isMultiplayer = false;
+                        String playerName = Player.getInstance().getUsername();
+
+                        try {
+                            ClientHandler.deleteHostedGameBase(playerName, host, path + urldeleteHostedGameBaseRecord);
+                            JFrame frame = new JFrame();
+                            JOptionPane.showMessageDialog(frame, "Hosted game is exited.");
+                        } catch (Exception e1) {
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                        }
+                    }
                 }
             });
         }
-        
+
         if (Constants.isGamePlayer) {
             modes[1].addActionListener(new ActionListener() {
                 @Override
