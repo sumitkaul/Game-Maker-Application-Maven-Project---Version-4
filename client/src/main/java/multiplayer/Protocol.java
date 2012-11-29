@@ -19,6 +19,7 @@ import model.SpriteModel;
 import utility.ClockDisplay;
 import utility.Helper;
 import utility.SpriteList;
+import view.GameMakerView;
 import view.GamePlayerView;
 import view.PlayerButtonPanel;
 
@@ -103,9 +104,13 @@ public class Protocol {
         SpriteModel model = null;
         LOG.info("Setting multiplayer action");
         for (GameAction action : map.keySet()) {
+        	
             model = map.get(action);
             action.doAction(model);
-           
+            GameMakerView.getInstance().getGamePanel().repaint();
+            LOG.info("Event listener==========" + model.getEventListenerList().get(0));
+            LOG.info("Action is ============"+ action.toString());
+          LOG.info("The model id is =============="+  model.getId());  
         
         }
     }
