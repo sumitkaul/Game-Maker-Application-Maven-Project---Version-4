@@ -15,29 +15,29 @@ public class TestEngine {
     
     private static final org.apache.log4j.Logger LOG = 
 			org.apache.log4j.Logger.getLogger(TestEngine.class);
-    private AppGameContainer app;
+    public static AppGameContainer app;
     
 
     
-    public TestEngine(AppGameContainer app){
+    public static void main (String [] args){
         
         LOG.debug("This is Game Engine Test");
         //System.setProperty("org.lwjgl.librarypath", System.getProperty("user.dir") + "/target/natives/");
         //System.setProperty("net.java.games.input.librarypath", System.getProperty("org.lwjgl.librarypath"));
 
-        //GameEngineController game = new GameEngineController("test", GameEngineController.LOAD_MODE_REMOTE, null);
-        this.app = app;
+        JboxController game = new JboxController("test", JboxController.LOAD_MODE_REMOTE, null);
+        //this.app = app;
 
         try {
-            //app = new AppGameContainer(game);
+            app = new AppGameContainer(game);
             app.setTargetFrameRate(100);
             app.setDisplayMode(800, 600, false);
             app.setAlwaysRender(true);
             app.setForceExit(false);
-            //app.setClearEachFrame(true);
+            app.setClearEachFrame(true);
         
 
-            //app.start();
+            app.start();
         } catch (SlickException ex) {
             Logger.getLogger(TestEngine.class.getName()).log(Level.SEVERE, null, ex);
         }
