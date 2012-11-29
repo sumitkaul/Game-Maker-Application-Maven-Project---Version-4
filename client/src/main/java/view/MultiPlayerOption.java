@@ -1,3 +1,4 @@
+
 package view;
 
 import java.awt.event.ActionEvent;
@@ -96,14 +97,14 @@ public final class MultiPlayerOption {
                     try {
                         ClientHandler.insertHostedGame(playerName, gameName, queueName, Constants.HOST, Constants.PATH + "/insertHostedGameBaseRecord");
                         Constants.isHosted=true;
-                        System.out.println("in Host button"+Constants.isHosted);
+                        SessionFactory.getInstanceOf().createConnection();
+                        Receiver.getInstanceOf().subscribe(getReceivingQueueName()); 
                     } catch (Exception ex) {
                         LOG.error(ex);
                         return;
                     }
                     
                     joinWaitFrame();
-
                     options.setVisible(false);
                     try {
                         SessionFactory.getInstanceOf().createConnection();
@@ -118,6 +119,7 @@ public final class MultiPlayerOption {
                 	options.setVisible(false);
                     JFrame frame = new JFrame();
                     JOptionPane.showMessageDialog(frame, "Please login");
+                    
                 }
 
             }
@@ -130,10 +132,9 @@ public final class MultiPlayerOption {
                     Constants.isHost = false;
 
                     JoinGame p = new JoinGame(GameMakerView.getInstance().getGamePanel());
-                    String gameName = p.displayJoinGames();
+                    String queueName = p.displayJoinGames();
                     //Should be supported with a GUI displaying a list of games available to 
-                    //Below line gets replaced with the GUI as mentioned above
-                    String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the game you want to join");
+                    //Below line gets replaced with the GUI as mentioned above                 
                     String playerName = Player.getInstance().getUsername();
                     setSendingQueueName(queueName);
                     setReceivingQueueName(queueName);
@@ -256,5 +257,5 @@ public final class MultiPlayerOption {
         startGameFrame.setVisible(true);
         startGameFrame.setFocusable(true);
         startGameFrame.requestFocus();
-    }
-}
+    
+}}

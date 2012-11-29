@@ -55,7 +55,7 @@ public class GamePlayerView {
 						ClientHandler.deleteHostedGameBase(playerName, host,
 								path + urldeleteHostedGameBaseRecord);
 						Constants.isHosted=false;
-						System.out.println("in playerview"+Constants.isHosted);
+						
 						JFrame frame = new JFrame();
 						JOptionPane.showMessageDialog(frame,
 								"Hosted game is exited.");

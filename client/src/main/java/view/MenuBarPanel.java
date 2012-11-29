@@ -309,12 +309,12 @@ public class MenuBarPanel implements ActionListener, ItemListener {
                         String playerName = Player.getInstance().getUsername();
 
                         try {
-                        	System.out.println("in Singleplayer"+Constants.isHosted);
+                        	
                             ClientHandler.deleteHostedGameBase(playerName, host, path + urldeleteHostedGameBaseRecord);
                             JFrame frame = new JFrame();
                             JOptionPane.showMessageDialog(frame, "Hosted game is exited.");
                             Constants.isHosted=false;
-                            System.out.println("in Singleplayer"+Constants.isHosted);
+                            
                             
                         } catch (Exception e1) {
                         	LOG.error(e1);

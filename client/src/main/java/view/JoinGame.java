@@ -56,7 +56,7 @@ public class JoinGame {
         }
 
         GameProgressSaveInfo.getInstance().setLoadedGameName(chosen);
-        GameDataPackageIO.loadGamePackageFromFile(gameData);
+        //GameDataPackageIO.loadGamePackageFromFile(gameData);
         return chosen;
 
     }

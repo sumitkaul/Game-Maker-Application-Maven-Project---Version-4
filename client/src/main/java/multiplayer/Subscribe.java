@@ -37,7 +37,6 @@ public final class Subscribe {
 		try {
 			consumer = SessionFactory.getInstanceOf().getSession()
 					.createConsumer(queueName);
-			Log.info("6666666666666666666666666666666666666666666666666666666666666 in receive data");
 			setMessageListener();
 
 		} catch (JMSException e) {
