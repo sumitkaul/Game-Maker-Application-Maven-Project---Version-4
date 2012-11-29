@@ -4,9 +4,10 @@ import javax.jms.JMSException;
 import javax.jms.Session;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.broker.Connection;
 
 public final class SessionFactory {
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SessionFactory.class);
+
 	
 	private static SessionFactory instance= new SessionFactory();
 	private javax.jms.Connection connection;
@@ -44,8 +45,7 @@ public final class SessionFactory {
 			connection.start();
 			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		} catch (JMSException e1) {
-			// TODO Auto-generated catch block
-		//	e1.printStackTrace();
+			LOG.error(e1);
 		}
         
 		

@@ -3,38 +3,30 @@ package multiplayer;
 import action.GameAction;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
-import javax.jms.TextMessage;
 
 import org.newdawn.slick.CanvasGameContainer;
 import org.newdawn.slick.SlickException;
 
-import facade.Facade;
 import game.engine.slick2d.player.GameEngineController;
-import loader.GameDataPackageIO;
 import loader.GamePackage;
 import model.SpriteModel;
 import utility.ClockDisplay;
 import utility.Helper;
-import utility.Layers;
 import utility.SpriteList;
 import view.ButtonPanel;
-import view.GameMakerView;
 import view.GamePlayerView;
 import view.PlayerButtonPanel;
-import view.companels.GameProgressLoadPanel;
 
 public class Protocol {
 
     private ObjectMessage msg;
-    private TextMessage text;
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ButtonPanel.class);
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(Protocol.class);
 
     public ObjectMessage createDataAsHost() {
     	GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
@@ -91,7 +83,7 @@ public class Protocol {
         LOG.debug("load done");
 
         Collection<SpriteModel> allSpriteModels = game.getSpriteList();
-        List<String> layers = game.getLayers();
+        game.getLayers();
         ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
         // SpriteList.getInstance().setSpriteList(allSpriteModels);
         SpriteModel m = (SpriteModel) ((Queue) allSpriteModels).peek();
@@ -122,9 +114,7 @@ public class Protocol {
         for (GameAction action : map.keySet()) {
             model = map.get(action);
             action.doAction(model);
-
         }
-
     }
 
 	public ObjectMessage createStartSignal(String data) {
