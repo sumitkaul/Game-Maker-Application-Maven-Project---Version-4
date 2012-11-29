@@ -1,12 +1,13 @@
 package JBox2d.Actions;
 
-import java.io.IOException;
-
 import org.jbox2d.dynamics.Body;
 
 import JBox2d.main.PhysicsComponent;
 
 public class RemoveAction implements JBoxGameAction {
+	@SuppressWarnings("unused")
+	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger
+			.getLogger(RemoveAction.class);
 	
 	public RemoveAction()
 	{
@@ -15,13 +16,6 @@ public class RemoveAction implements JBoxGameAction {
 
 	@Override
 	public void doAction(Body body) {
-		try {
-			PhysicsComponent.getInstance().getWorld().destroyBody(body);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+			PhysicsComponent.getWorld().destroyBody(body);
 	}
-
 }
