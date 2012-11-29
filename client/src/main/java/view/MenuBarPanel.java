@@ -109,7 +109,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
                 GameMakerView.getInstance().getGamePanel().updateUI();
                 GameMakerView.getInstance().getActionEventPanel().getPanel().updateUI();
                 //pack the frame
-                frame.pack();
+                //frame.pack();
 
             }
         });
