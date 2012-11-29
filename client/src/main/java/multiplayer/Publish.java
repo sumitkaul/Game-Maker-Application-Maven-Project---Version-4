@@ -35,6 +35,7 @@ public final class Publish {
 	public void setTopic(String topic) {
 		this.topic = topic;
 
+		LOG.info("The TOPIC is-------------- "+topic);
 		try {
 			topic1 = (Destination) SessionFactory.getInstanceOf().getSession()
 					.createQueue(topic);

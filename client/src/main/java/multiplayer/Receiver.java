@@ -35,7 +35,6 @@ public class Receiver implements MessageListener {
 
 	public void runGame() {
 		try {
-			LOG.debug("in run ???????????????????????");
 			receiveData();
 		} catch (JMSException e) {
 			LOG.error(e);
@@ -53,7 +52,7 @@ public class Receiver implements MessageListener {
 
 	public void onMessage(Message message) {
 		ObjectMessage objectMessage = (ObjectMessage) message;
-		LOG.info("object message is" + message);
+		LOG.info("object message issssssssssssssss" + message);
 
 		try {
 			Object data = objectMessage.getObject();
