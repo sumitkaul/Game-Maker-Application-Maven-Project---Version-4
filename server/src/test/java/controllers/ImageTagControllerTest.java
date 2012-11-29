@@ -19,7 +19,8 @@ import db.DatabaseHandler;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(DatabaseHandler.class)
 public class ImageTagControllerTest {
-	private static final Logger LOG = Logger.getLogger(ImageTagControllerTest.class);
+	private static final Logger LOG = Logger
+			.getLogger(ImageTagControllerTest.class);
 
 	ImageTagController itc;
 
@@ -31,17 +32,18 @@ public class ImageTagControllerTest {
 	@Test
 	public void testCountTag() {
 		PowerMockito.mockStatic(DatabaseHandler.class);
-		
+
 		try {
 			List returnedValue = new ArrayList();
 			returnedValue.add(5);
-			PowerMockito.when(DatabaseHandler.class, DatabaseHandler.listQuery(
-					(String) Matchers.any())).thenReturn(returnedValue);
+			PowerMockito.when(DatabaseHandler.class,
+					DatabaseHandler.listQuery((String) Matchers.any()))
+					.thenReturn(returnedValue);
 			Integer count = Integer.parseInt(itc.countTag(null));
-			
-			assert(count==5);
+
+			assert (count == 5);
 			Integer countBall = Integer.parseInt(itc.countTag("ball"));
-			assert(countBall==5);
+			assert (countBall == 5);
 		} catch (Exception e) {
 			LOG.error(e.getMessage());
 		}
@@ -55,9 +57,23 @@ public class ImageTagControllerTest {
 
 	@Test
 	public void testGetAllTagNames() {
-		String tagNames = itc.getAllTagNames();
-		assertNotNull(tagNames);
-		assert (tagNames.contains("alien") && tagNames.contains("pacman"));
+		PowerMockito.mockStatic(DatabaseHandler.class);
+
+		try {
+			List returnedValue = new ArrayList();
+			returnedValue.add("alien");
+			returnedValue.add("pacman");
+			PowerMockito.when(DatabaseHandler.class,
+					DatabaseHandler.listQuery((String) Matchers.any()))
+					.thenReturn(returnedValue);
+
+			String tagNames = itc.getAllTagNames();
+			assertNotNull(tagNames);
+			assert (tagNames.contains("alien") && tagNames.contains("pacman"));
+		} catch (Exception e) {
+			LOG.error(e.getMessage());
+		}
+
 	}
 
 }
