@@ -24,7 +24,7 @@ public class ListAllHostedGames {
 	public String loadHostGames() {
 
 		String sql = "select save_gamebasename from HostedGameBases";
-		List<String> game = DatabaseHandler.Query(sql);
+		List<String> game = DatabaseHandler.listQuery(sql);
 		log.debug("Inside loadhosted games" + game);
 
 /*		List<String> result = new ArrayList<String>();
