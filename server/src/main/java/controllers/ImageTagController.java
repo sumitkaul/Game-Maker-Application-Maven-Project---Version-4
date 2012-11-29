@@ -76,7 +76,7 @@ public class ImageTagController {
 	@ResponseBody
 	public String getAllTagNames() {
 
-		String sql = "SELECT resource_name FROM Resources";
+		String sql = "SELECT DISTINCT resource_name FROM Resources";
 		@SuppressWarnings("unchecked")
 		List<String> tagNames = DatabaseHandler.listQuery(sql);
 		Gson gson = new Gson();
