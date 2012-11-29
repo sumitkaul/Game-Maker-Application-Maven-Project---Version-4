@@ -7,10 +7,12 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.log4j.Logger;
 
 import utility.Constants;
 
 public class OneToOneSender implements Runnable, Sender {
+	private static final Logger LOG = Logger.getLogger(OneToOneSender.class);
 
 	private MessageProducer producer;
 	private static boolean messagePresent = false;
@@ -38,7 +40,7 @@ public class OneToOneSender implements Runnable, Sender {
 			Thread senderThread=new Thread(this);
 			senderThread.start();
 		} catch (Exception e) {
-
+			LOG.error(e);
 		}
 	}
 
@@ -54,8 +56,7 @@ public class OneToOneSender implements Runnable, Sender {
 				}
 				Thread.sleep(100);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOG.error(e);
 			}
 		}
 

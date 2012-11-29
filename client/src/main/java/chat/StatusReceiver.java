@@ -11,11 +11,13 @@ import javax.jms.Topic;
 import model.Player;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.log4j.Logger;
 
 import utility.Constants;
 
 
 public class StatusReceiver implements Runnable {
+	private static final Logger LOG = Logger.getLogger(StatusReceiver.class);
 
 	private MessageConsumer consumer;
 	private MessageProducer producer;
@@ -46,7 +48,7 @@ public class StatusReceiver implements Runnable {
 			Thread ststusReceiverThread=new Thread(this);
 			ststusReceiverThread.start();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			LOG.error(ex);
 		}
 
 	}
@@ -61,10 +63,7 @@ public class StatusReceiver implements Runnable {
 					TextMessage textMessage = (TextMessage) message;
 
 					String text = textMessage.getText();
-//					String[] onlineUsers=text.split(",");
-//					for(String i:onlineUsers) {
-//						//Users online
-//					}
+					
 					if(text.equals("ALIVE?")){
 						if(!(Player.getInstance().getUsername()==null)) {
 							String messageUsername="Online:"+Player.getInstance().getUsername();
@@ -75,7 +74,7 @@ public class StatusReceiver implements Runnable {
 					}
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				LOG.error(e);
 			}
 		}
 	}

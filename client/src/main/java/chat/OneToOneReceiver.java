@@ -8,11 +8,13 @@ import javax.jms.TextMessage;
 import javax.jms.Topic;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.log4j.Logger;
 
 import utility.Constants;
 import view.ChatPanel;
 
 public class OneToOneReceiver implements Runnable {
+	private static final Logger LOG = Logger.getLogger(OneToOneReceiver.class);
 
 	private MessageConsumer consumer;
 	private ChatPanel chatPanel;
@@ -58,13 +60,12 @@ public class OneToOneReceiver implements Runnable {
 					String text = textMessage.getText();
 
 					chatPanel.updateChatWindow(text);
-					//System.out.println("r"+ text);
-					//Design.getInstance().updateChatWindow(text);
 
 				} else {
 					chatPanel.updateChatWindow(message.toString());
 				}
 			} catch (Exception e) {
+				LOG.error(e);
 			}
 		}
 	}

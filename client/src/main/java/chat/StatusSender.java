@@ -5,6 +5,8 @@ import javax.jms.DeliveryMode;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.Topic;
+import org.apache.log4j.Logger;
+
 
 import model.Player;
 
@@ -13,6 +15,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import utility.Constants;
 
 public class StatusSender implements Runnable {
+	private static final Logger LOG = Logger.getLogger(StatusSender.class);
 
 	private MessageProducer producer;
 	private Session session;
@@ -40,7 +43,7 @@ public class StatusSender implements Runnable {
 			Thread senderThread=new Thread(this);
 			senderThread.start();
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 	}
 
@@ -56,7 +59,7 @@ public class StatusSender implements Runnable {
 				}
 				Thread.sleep(1000);
 			} catch (Exception e) {
-				e.printStackTrace();
+				LOG.error(e);
 			}
 		}
 

@@ -12,6 +12,8 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JPanel;
 
+import org.apache.log4j.Logger;
+
 import model.Player;
 
 import utility.Constants;
@@ -19,68 +21,74 @@ import utility.Helper;
 import view.communication.ClientHandler;
 
 public class GamePlayerView {
+	private static final Logger LOG = Logger.getLogger(GamePlayerView.class);
 
-    private JFrame baseFrame;
-    private GameEnginePanel gameenginePanel;
-    private final String host = Constants.HOST;
-    private final String path = Constants.PATH;
-    private final String urldeleteHostedGameBaseRecord = "/deleteHostedGameBaseRecord";
-    //private Facade facade;
+	private JFrame baseFrame;
+	private GameEnginePanel gameenginePanel;
+	private final String host = Constants.HOST;
+	private final String path = Constants.PATH;
+	private final String urldeleteHostedGameBaseRecord = "/deleteHostedGameBaseRecord";
 
-    public GamePlayerView(int frameWidth, int frameHeight) {
-        //Create  a base frame to hold all the other panels
-        baseFrame = Helper.getsharedHelper().createBaseFrame(frameWidth, frameHeight);
-        baseFrame.setJMenuBar(new MenuBarPanel().getMenuBar());
+	// private Facade facade;
 
-        //Create a game engine panel. This is where all the game objects are rendered and the game is played.
-        gameenginePanel = new GameEnginePanel();
+	public GamePlayerView(int frameWidth, int frameHeight) {
+		// Create a base frame to hold all the other panels
+		baseFrame = Helper.getsharedHelper().createBaseFrame(frameWidth,
+				frameHeight);
+		baseFrame.setJMenuBar(new MenuBarPanel().getMenuBar());
 
-        //Create a button panel where the controls to play/pause etc the game and chat window is present.
-        PlayerButtonPanel playerButtonPanel = new PlayerButtonPanel();
-        baseFrame.add(playerButtonPanel.getPlayerButtonPanel());
-        baseFrame.add(gameenginePanel);
-        baseFrame.setVisible(true);
-        
-        baseFrame.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(WindowEvent winEvt) {
-                // Call for deleting the hosted games.
-            	if(Constants.isMultiplayer){
-                    String playerName = Player.getInstance().getUsername();
-                    
-                    try {
-         ClientHandler.deleteHostedGameBase(playerName,host, path+urldeleteHostedGameBaseRecord);
-         JFrame frame = new JFrame();
-         JOptionPane.showMessageDialog(frame, "Hosted game is exited.");
-        } catch (Exception e1) {
-         // TODO Auto-generated catch block
-         e1.printStackTrace();
-        }
-                   }
-            	
-            }
-        });
+		// Create a game engine panel. This is where all the game objects are
+		// rendered and the game is played.
+		gameenginePanel = new GameEnginePanel();
 
-        new StatusSender();
-        new StatusReceiver();
-    }
+		// Create a button panel where the controls to play/pause etc the game
+		// and chat window is present.
+		PlayerButtonPanel playerButtonPanel = new PlayerButtonPanel();
+		baseFrame.add(playerButtonPanel.getPlayerButtonPanel());
+		baseFrame.add(gameenginePanel);
+		baseFrame.setVisible(true);
 
-    /*
-     * Getter and Setter methods
-     */
-    public GameEnginePanel getGameEnginePanel() {
-        return gameenginePanel;
-    }
+		baseFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+			public void windowClosing(WindowEvent winEvt) {
+				// Call for deleting the hosted games.
+				if (Constants.isMultiplayer) {
+					String playerName = Player.getInstance().getUsername();
 
-    public void setGameEnginePanel(GameEnginePanel gamePanel) {
-        this.gameenginePanel = gamePanel;
-    }
+					try {
+						ClientHandler.deleteHostedGameBase(playerName, host,
+								path + urldeleteHostedGameBaseRecord);
+						JFrame frame = new JFrame();
+						JOptionPane.showMessageDialog(frame,
+								"Hosted game is exited.");
+					} catch (Exception e1) {
+						LOG.error(e1);
+					}
+				}
 
-    public JFrame getBaseFrame() {
-        return baseFrame;
-    }
+			}
+		});
 
-    public void setBaseFrame(JFrame baseFrame) {
-        this.baseFrame = baseFrame;
-    }
-    
+		new StatusSender();
+		new StatusReceiver();
+	}
+
+	/*
+	 * Getter and Setter methods
+	 */
+	public GameEnginePanel getGameEnginePanel() {
+		return gameenginePanel;
+	}
+
+	public void setGameEnginePanel(GameEnginePanel gamePanel) {
+		this.gameenginePanel = gamePanel;
+	}
+
+	public JFrame getBaseFrame() {
+		return baseFrame;
+	}
+
+	public void setBaseFrame(JFrame baseFrame) {
+		this.baseFrame = baseFrame;
+	}
+
 }
