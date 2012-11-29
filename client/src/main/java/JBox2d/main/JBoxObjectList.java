@@ -5,7 +5,11 @@
 package JBox2d.main;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import model.SpriteModel;
+import org.jbox2d.dynamics.Body;
 
 /**
  *
@@ -13,28 +17,28 @@ import java.util.List;
  */
 public class JBoxObjectList {
 
-    public static List<JBoxSpriteModel>listJBoxSpriteModel;
+    public static Map<String,Body>mapJBoxSpriteModel;
 
     public JBoxObjectList() 
     {
     
-        listJBoxSpriteModel=new ArrayList<JBoxSpriteModel>();
+        mapJBoxSpriteModel=new LinkedHashMap<String,Body>();
         
     }
     
     public void registerSpriteModel(JBoxSpriteModel sprite)
     {
-        listJBoxSpriteModel.add(sprite);
+        mapJBoxSpriteModel.put(sprite.getSpriteModel().getId(), sprite.getBody());
     }
 
-    public static List<JBoxSpriteModel> getListJBoxSpriteModel() {
-        return listJBoxSpriteModel;
+    public static Map<String,Body> getListJBoxSpriteModel() {
+        return mapJBoxSpriteModel;
     }
 
-    public static void setListJBoxSpriteModel(List<JBoxSpriteModel> listJBoxSpriteModel) {
-        JBoxObjectList.listJBoxSpriteModel = listJBoxSpriteModel;
+    public void setListJBoxSpriteModel(Map mapJBoxSpriteModel)
+    {
+        this.mapJBoxSpriteModel=mapJBoxSpriteModel;
     }
-    
     
     
     

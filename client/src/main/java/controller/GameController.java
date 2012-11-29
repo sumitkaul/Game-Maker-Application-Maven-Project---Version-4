@@ -1,5 +1,6 @@
 package controller;
 
+import eventlistener.CollisionEventListener;
 import eventlistener.EventListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.SpriteModel;
+import org.newdawn.slick.util.Log;
 import utility.SpriteList;
 import view.GamePanel;
 
@@ -22,6 +24,7 @@ public class GameController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent arg0) {
         for (EventListener event : events) {
+            
             event.checkEvent(null);
         }
         
@@ -58,5 +61,18 @@ public class GameController implements ActionListener {
 	
     public void setEvents(List<EventListener> events) {
         this.events = (ArrayList<EventListener>) events;
+    }
+    
+    public  ArrayList<CollisionEventListener> getCollisionEvents()
+    {
+        ArrayList<CollisionEventListener> collisionEventListener=new ArrayList<CollisionEventListener>();
+       for(EventListener e :events)
+       {
+           if (e   instanceof CollisionEventListener)
+           {
+               collisionEventListener.add((CollisionEventListener)e);
+           }
+       }
+       return collisionEventListener;
     }
 }
