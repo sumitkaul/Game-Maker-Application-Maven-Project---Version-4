@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.SpriteModel;
-import org.newdawn.slick.util.Log;
 import utility.SpriteList;
 import view.GamePanel;
 

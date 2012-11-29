@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import model.SpriteModel;
 
+@SuppressWarnings("serial")
 public class ActionMove implements GameAction,Serializable {
     
     @Override

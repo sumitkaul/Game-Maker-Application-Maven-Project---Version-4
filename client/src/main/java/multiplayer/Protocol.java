@@ -19,7 +19,6 @@ import model.SpriteModel;
 import utility.ClockDisplay;
 import utility.Helper;
 import utility.SpriteList;
-import view.ButtonPanel;
 import view.GamePlayerView;
 import view.PlayerButtonPanel;
 
@@ -68,24 +67,14 @@ public class Protocol {
     }
 
     public void setGameState(GamePackage game) {
-//        LOG.debug("load done");
-//        GameProgressLoadPanel p = new GameProgressLoadPanel(GameMakerView.getInstance().getGamePanel());
         GamePlayerView gamePlayerView = (GamePlayerView) Helper.getsharedHelper().getGamePlayerView();
-//        String gamename[] = new String[1];
-//        String gameData = p.readGameDataFromRemoteList(gamename);
-//
-//        if (gameData == null) {
-//            return;
-//        }
-
-       // GamePackage game = GameDataPackageIO.loadGamePackageFromFile(gameData);
 
         LOG.debug("load done");
 
         Collection<SpriteModel> allSpriteModels = game.getSpriteList();
         game.getLayers();
         ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
-        // SpriteList.getInstance().setSpriteList(allSpriteModels);
+        
         SpriteModel m = (SpriteModel) ((Queue) allSpriteModels).peek();
         SpriteList.getInstance().setSelectedSpriteModel(m);
         gamePlayerView.getGameEnginePanel().removeGame();

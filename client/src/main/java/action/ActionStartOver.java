@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import model.SpriteModel;
 
+@SuppressWarnings("serial")
 public class ActionStartOver implements GameAction,Serializable {
 	
 	private double startX, startY;

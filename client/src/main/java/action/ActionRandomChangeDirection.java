@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import model.SpriteModel;
 import utility.SpriteList;
 
+@SuppressWarnings("serial")
 public class ActionRandomChangeDirection implements GameAction, Serializable {
 
     public ActionRandomChangeDirection(SpriteModel object) {
