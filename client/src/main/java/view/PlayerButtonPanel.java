@@ -1,6 +1,7 @@
 package view;
 
 import game.engine.slick2d.player.GameEngineController;
+
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,28 +10,26 @@ import java.util.List;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import net.miginfocom.swing.MigLayout;
 
 import loader.GameDataPackageIO;
 import loader.GamePackage;
 import model.SpriteModel;
+import net.miginfocom.swing.MigLayout;
+
 import org.newdawn.slick.CanvasGameContainer;
 import org.newdawn.slick.SlickException;
+
 import utility.ClockDisplay;
 import utility.Helper;
-import utility.Layers;
-import utility.Score;
 import utility.SpriteList;
-import view.companels.GameBaseLoadPanel;
 import view.companels.GameProgressLoadPanel;
 import view.companels.GameProgressSavePanel;
-import view.companels.TopScoresPanel;
 
 public class PlayerButtonPanel implements ActionListener {
 
@@ -62,10 +61,10 @@ public class PlayerButtonPanel implements ActionListener {
 
         newButton = new JButton();//new
         newButton.setSize(30, 30);
-        ImageIcon newicon = new ImageIcon(this.getClass().getClassLoader().getResource("new.png"));
-        Image newimage = newicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        newicon.setImage(newimage);
-        newButton.setIcon(newicon);
+//        ImageIcon newicon = new ImageIcon(this.getClass().getClassLoader().getResource("new.png"));
+//        Image newimage = newicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+//        newicon.setImage(newimage);
+//        newButton.setIcon(newicon);
         newButton.setToolTipText("New Game");
 
         newButton.addActionListener(new ActionListener() {
@@ -78,11 +77,11 @@ public class PlayerButtonPanel implements ActionListener {
 
         loadButton = new JButton();//load
         loadButton.setSize(30, 30);
-        ImageIcon loadicon = new ImageIcon(this.getClass().getClassLoader().getResource("load.png"));
-        Image loadimage = loadicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        loadicon.setImage(loadimage);
-        loadButton.setIcon(loadicon);
-        loadButton.setToolTipText("Load Game");
+//        ImageIcon loadicon = new ImageIcon(this.getClass().getClassLoader().getResource("load.png"));
+//        Image loadimage = loadicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+//        loadicon.setImage(loadimage);
+//        loadButton.setIcon(loadicon);
+       loadButton.setToolTipText("Load Game");
         
         loadButton.addActionListener(new ActionListener() {
             @Override
@@ -129,10 +128,10 @@ public class PlayerButtonPanel implements ActionListener {
 
         share = new JButton();//share
         share.setSize(30, 30);
-        ImageIcon shareicon = new ImageIcon(this.getClass().getClassLoader().getResource("share.png"));
-        Image shareimage = shareicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        shareicon.setImage(shareimage);
-        share.setIcon(shareicon);
+//        ImageIcon shareicon = new ImageIcon(this.getClass().getClassLoader().getResource("share.png"));
+//        Image shareimage = shareicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+//        shareicon.setImage(shareimage);
+//        share.setIcon(shareicon);
         share.setToolTipText("Share Game");
         
         share.addActionListener(new ActionListener() {
@@ -147,10 +146,10 @@ public class PlayerButtonPanel implements ActionListener {
 
         saveButton = new JButton();//save
         saveButton.setSize(30, 30);
-        ImageIcon saveicon = new ImageIcon(this.getClass().getClassLoader().getResource("save.png"));
-        Image saveimage = saveicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        saveicon.setImage(saveimage);
-        saveButton.setIcon(saveicon);
+//        ImageIcon saveicon = new ImageIcon(this.getClass().getClassLoader().getResource("save.png"));
+//        Image saveimage = saveicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+//        saveicon.setImage(saveimage);
+//        saveButton.setIcon(saveicon);
         saveButton.setToolTipText("Save Game");
         
         saveButton.addActionListener(new ActionListener() {

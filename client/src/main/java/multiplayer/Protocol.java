@@ -105,6 +105,8 @@ public class Protocol {
         for (GameAction action : map.keySet()) {
             model = map.get(action);
             action.doAction(model);
+           
+        
         }
     }
 

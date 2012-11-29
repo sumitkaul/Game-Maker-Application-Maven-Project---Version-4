@@ -48,12 +48,14 @@ public class GamePlayerView {
 		baseFrame.addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowClosing(WindowEvent winEvt) {
 				// Call for deleting the hosted games.
-				if (Constants.isMultiplayer) {
+				if (Constants.isMultiplayer&& Constants.isHosted) {
 					String playerName = Player.getInstance().getUsername();
 
 					try {
 						ClientHandler.deleteHostedGameBase(playerName, host,
 								path + urldeleteHostedGameBaseRecord);
+						Constants.isHosted=false;
+						
 						JFrame frame = new JFrame();
 						JOptionPane.showMessageDialog(frame,
 								"Hosted game is exited.");
