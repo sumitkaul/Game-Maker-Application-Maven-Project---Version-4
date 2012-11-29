@@ -81,7 +81,9 @@ public class PlayerButtonPanel implements ActionListener {
         Image loadimage = loadicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         loadicon.setImage(loadimage);
         loadButton.setIcon(loadicon);
+
         loadButton.setToolTipText("Load Game");
+
         
         loadButton.addActionListener(new ActionListener() {
             @Override

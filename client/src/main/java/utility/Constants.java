@@ -115,6 +115,7 @@ public class Constants
 	public static boolean isGameMaker = false;
 	public static boolean isGamePlayer = false;
 	public static boolean isHost = false;
+	public static boolean isHosted = false;
 	
 
 	

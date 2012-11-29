@@ -1,3 +1,4 @@
+
 package view;
 
 import java.awt.event.ActionEvent;
@@ -8,6 +9,8 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
+import lookandfeel.AnimationHandler;
 import model.Player;
 import multiplayer.Receiver;
 import multiplayer.Sender;
@@ -28,7 +31,9 @@ public final class MultiPlayerOption {
     private String sendingQueueName;
     private String receivingQueueName;
     private JFrame joinWaitFrame;
-    private final static MultiPlayerOption instance = new MultiPlayerOption();
+    
+
+	private final static MultiPlayerOption instance = new MultiPlayerOption();
 
     private MultiPlayerOption() {
     }
@@ -48,7 +53,14 @@ public final class MultiPlayerOption {
     public String getSendingQueueName() {
         return sendingQueueName;
     }
+    
+    public JFrame getJoinWaitFrame() {
+		return joinWaitFrame;
+	}
 
+	public void setJoinWaitFrame(JFrame joinWaitFrame) {
+		this.joinWaitFrame = joinWaitFrame;
+	}
     public void setSendingQueueName(String sendingQueueName) {
         if (Constants.isHost) {
             this.sendingQueueName = sendingQueueName + "#sender";
@@ -95,6 +107,7 @@ public final class MultiPlayerOption {
                     setReceivingQueueName(queueName);
                     try {
                         ClientHandler.insertHostedGame(playerName, gameName, queueName, Constants.HOST, Constants.PATH + "/insertHostedGameBaseRecord");
+                        Constants.isHosted=true;
                         SessionFactory.getInstanceOf().createConnection();
                         Receiver.getInstanceOf().subscribe(getReceivingQueueName()); 
                     } catch (Exception ex) {
@@ -103,7 +116,7 @@ public final class MultiPlayerOption {
                     }
                     
                     joinWaitFrame();
-                   
+                    options.setVisible(false);
                     
                     try {
                         SessionFactory.getInstanceOf().createConnection();
@@ -115,8 +128,11 @@ public final class MultiPlayerOption {
 
 
                 } else {
-                    JFrame frame = new JFrame();
-                    JOptionPane.showMessageDialog(frame, "Please login");
+                	options.setVisible(false);
+                	LoginFrame f = new LoginFrame();
+                    AnimationHandler.RotateIn(f.getLogin(), f.getLoginPanel(), 1000, 360, f.getLogin().getWidth() / 2, f.getLogin().getHeight() / 2);
+//                    JFrame frame = new JFrame();
+//                    JOptionPane.showMessageDialog(frame, "Please login");
                 }
 
             }
@@ -151,8 +167,10 @@ public final class MultiPlayerOption {
                     options.dispose();
                     Receiver.getInstanceOf().runGame();
                 } else {
-                    JFrame frame = new JFrame();
-                    JOptionPane.showMessageDialog(frame, "Please login");
+//                    JFrame frame = new JFrame();
+//                    JOptionPane.showMessageDialog(frame, "Please login");
+                	  LoginFrame f = new LoginFrame();
+                      AnimationHandler.RotateIn(f.getLogin(), f.getLoginPanel(), 1000, 360, f.getLogin().getWidth() / 2, f.getLogin().getHeight() / 2);
                 }
 
             }

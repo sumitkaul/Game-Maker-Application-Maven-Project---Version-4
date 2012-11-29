@@ -12,6 +12,7 @@ import javax.jms.ObjectMessage;
 
 import org.newdawn.slick.CanvasGameContainer;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.util.Log;
 
 import game.engine.slick2d.player.GameEngineController;
 import loader.GamePackage;
@@ -107,12 +108,13 @@ public class Protocol {
         	
             model = map.get(action);
             action.doAction(model);
+
             GameMakerView.getInstance().getGamePanel().repaint();
             LOG.info("Event listener==========" + model.getEventListenerList().get(0));
             LOG.info("Action is ============"+ action.toString());
           LOG.info("The model id is =============="+  model.getId());  
         
-        }
+}
     }
 
 	public ObjectMessage createStartSignal(String data) {
