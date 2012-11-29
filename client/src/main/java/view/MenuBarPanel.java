@@ -471,9 +471,10 @@ public class MenuBarPanel implements ActionListener, ItemListener {
                 GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getComboBox().setVisible(false);
             }
 
-
+            
             GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getInputPanel().validate();
 
+		
         }
 
     }

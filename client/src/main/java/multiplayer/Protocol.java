@@ -30,7 +30,7 @@ public class Protocol {
     public ObjectMessage createDataAsHost() {
     	GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
     	GameEngineController gameEngine = gamePlayerView.getGameEnginePanel().getGame();
-    	
+    	if(!SpriteList.getInstance().getSpriteList().isEmpty()){
         GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), gameEngine.getEventsForGameController(), gameEngine.getKeyEvents(), null, false);
         try {
             msg = SessionFactory.getInstanceOf().getSession().createObjectMessage();
@@ -39,6 +39,7 @@ public class Protocol {
         } catch (JMSException e) {
             LOG.info("sending falied as host");
         }
+    	}
         return msg;
     	
     }
