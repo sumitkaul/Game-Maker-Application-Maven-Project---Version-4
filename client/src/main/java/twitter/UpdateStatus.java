@@ -16,18 +16,14 @@ package twitter;
 
 
 
-import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
-import view.ButtonPanel;
 
 import java.awt.Desktop;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -55,11 +51,9 @@ public  class UpdateStatus {
     					URI uri=new URI(requestToken.getAuthorizationURL());
     					Desktop.getDesktop().browse(uri);
     				} catch (IOException e) {
-    					// TODO Auto-generated catch block
-    					e.printStackTrace();
+    					LOG.error(e);
     				} catch (URISyntaxException e) {
-    					// TODO Auto-generated catch block
-    					e.printStackTrace();
+    					LOG.error(e);
     				}
 
                     JFrame frame = new JFrame("Twitter PIN verification");
@@ -79,7 +73,7 @@ public  class UpdateStatus {
                         if (401 == te.getStatusCode()) {
                             LOG.error("Unable to get the access token.");
                         } else {
-                            te.printStackTrace();
+                        	LOG.error(te);
                         }
                     }
                 }
@@ -92,11 +86,11 @@ public  class UpdateStatus {
                 	return false;
                 }
             }
-            Status status = twitter.updateStatus(statusMessage);
+            twitter.updateStatus(statusMessage);
             
         } catch (TwitterException te) {
-            te.printStackTrace();
-            return false;
+        	LOG.error(te);
+        	return false;
         }
         return true;
     }
