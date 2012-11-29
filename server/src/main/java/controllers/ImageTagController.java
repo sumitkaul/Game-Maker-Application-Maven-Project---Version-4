@@ -25,26 +25,16 @@ public class ImageTagController {
 	@RequestMapping(value = "/countTag", method = RequestMethod.GET)
 	@ResponseBody	
 	public String countTag(@RequestParam(value="tag", required=false) String tag){
-
 		Gson gson = new Gson();
-		Session session = DatabaseHandler.getDatabaseHandlerInstance()
-				.getHibernateSession();
-		Query query;
-		
-		System.out.println("***********************************servicing countTag request******************************************************");
+		String sql = "";
 		
 		if (tag == null) {
-			query = session
-					.createSQLQuery("SELECT COUNT(*) FROM Resources");
+			sql = "SELECT COUNT(*) FROM Resources";
 		} else {
-			query = session
-					.createSQLQuery("SELECT COUNT(*) FROM Resources WHERE resource_name='"
-							+ tag + "'");
+			sql = "SELECT COUNT(*) FROM Resources WHERE resource_name='"
+					+ tag + "'";
 		}
-		String count=gson.toJson(query.list().get(0));
-		session.close();
-		
-		
+		String count = gson.toJson(DatabaseHandler.listQuery(sql).get(0));
 		
 		return count;
 	}
