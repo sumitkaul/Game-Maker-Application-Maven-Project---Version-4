@@ -102,6 +102,7 @@ public final class MultiPlayerOption {
                     
                     joinWaitFrame();
 
+                    options.setVisible(false);
                     try {
                         SessionFactory.getInstanceOf().createConnection();
                         Receiver.getInstanceOf().subscribe(getReceivingQueueName());
@@ -162,6 +163,7 @@ public final class MultiPlayerOption {
     }
 
     public void joinWaitFrame() {
+    	options.setVisible(false);
     	LOG.info("in join");
         joinWaitFrame = new JFrame();
         joinWaitFrame.setLayout(new MigLayout("center,center"));
