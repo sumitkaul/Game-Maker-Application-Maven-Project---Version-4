@@ -1,3 +1,4 @@
+
 package view;
 
 import java.awt.event.ActionEvent;
@@ -95,6 +96,7 @@ public final class MultiPlayerOption {
                     setReceivingQueueName(queueName);
                     try {
                         ClientHandler.insertHostedGame(playerName, gameName, queueName, Constants.HOST, Constants.PATH + "/insertHostedGameBaseRecord");
+                        Constants.isHosted=true;
                         SessionFactory.getInstanceOf().createConnection();
                         Receiver.getInstanceOf().subscribe(getReceivingQueueName()); 
                     } catch (Exception ex) {
@@ -103,7 +105,7 @@ public final class MultiPlayerOption {
                     }
                     
                     joinWaitFrame();
-                   
+                    options.setVisible(false);
                     
                     try {
                         SessionFactory.getInstanceOf().createConnection();
@@ -115,6 +117,7 @@ public final class MultiPlayerOption {
 
 
                 } else {
+                	options.setVisible(false);
                     JFrame frame = new JFrame();
                     JOptionPane.showMessageDialog(frame, "Please login");
                 }
