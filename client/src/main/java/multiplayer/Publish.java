@@ -38,6 +38,7 @@ public final class Publish {
 		try {
 			topic1 = (Destination) SessionFactory.getInstanceOf().getSession()
 					.createQueue(topic);
+			LOG.info("sending queue name is"+topic);
 			producer = SessionFactory.getInstanceOf().getSession()
 					.createProducer(topic1);
 			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
