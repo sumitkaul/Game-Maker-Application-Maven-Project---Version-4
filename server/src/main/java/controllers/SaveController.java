@@ -72,9 +72,9 @@ public class SaveController {
             log.info(count);
 
             if (count.get(0).intValue() < 1) {
-                DatabaseHandler.ExecuteQuery(sql2);
+                DatabaseHandler.executeQuery(sql2);
             } else {
-                DatabaseHandler.ExecuteQuery(sql3);
+                DatabaseHandler.executeQuery(sql3);
             }
 
             log.info("added game: " + game_name);
@@ -102,9 +102,9 @@ public class SaveController {
 
 
             if (count.get(0).intValue() < 1) {
-                DatabaseHandler.ExecuteQuery(sql2);
+                DatabaseHandler.executeQuery(sql2);
             } else {
-                DatabaseHandler.ExecuteQuery(sql3);
+                DatabaseHandler.executeQuery(sql3);
             }
 
 

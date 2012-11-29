@@ -34,7 +34,7 @@ public class InsertDeleteRecordsControllerTest {
 
 		try {
 			int returnedValue = 1;
-			PowerMockito.when(DatabaseHandler.class, DatabaseHandler.ExecuteQuery((String) Matchers.any())).thenReturn(
+			PowerMockito.when(DatabaseHandler.class, DatabaseHandler.executeQuery((String) Matchers.any())).thenReturn(
 					returnedValue);
 			String value = gson.toJson(false);
 			String sqlQuery = "delete from HostedGameBases where hostname=\"m\"";
