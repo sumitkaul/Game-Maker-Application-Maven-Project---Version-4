@@ -53,18 +53,6 @@ public class GameControllerTest{
 	private  GameAction action;
 	
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-
-		
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
 
 	/**
 	 * @throws java.lang.Exception
@@ -128,5 +116,22 @@ public class GameControllerTest{
 		else
 			assertTrue(false);
 			}
+///**
+//* Test method for {@link controller.GameController#actionPerformed(ActionEvent arg0)}.
+//*/
+	@Test
+	public void testActionPerformed() {
+		List<SpriteModel> spriteArray = new ArrayList<SpriteModel> ();
+		spriteArray.add(0, selectedSpriteModel);
+		SpriteList.getInstance().setToBeRemovedSpriteModels(spriteArray);
+		gameControllerTest.actionPerformed(null);
+		if(SpriteList.getInstance().getToBeRemovedSpriteModels() == null){
+			assertTrue(false);
+		}
+		else
+			assertTrue(true);
+		spriteArray.clear();
+	}
 
 }
+

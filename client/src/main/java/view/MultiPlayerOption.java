@@ -130,8 +130,7 @@ public final class MultiPlayerOption {
                     JoinGame p = new JoinGame(GameMakerView.getInstance().getGamePanel());
                     String queueName = p.displayJoinGames();
                     //Should be supported with a GUI displaying a list of games available to 
-                    //Below line gets replaced with the GUI as mentioned above
-                    
+                    //Below line gets replaced with the GUI as mentioned above                 
                     String playerName = Player.getInstance().getUsername();
                     setSendingQueueName(queueName);
                     setReceivingQueueName(queueName);
