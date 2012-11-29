@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import org.jbox2d.dynamics.Body;
 
-import model.SpriteModel;
-
 public class ActionChangeVisibility implements JBoxGameAction,Serializable {
 
 	private static final long serialVersionUID = 1L;

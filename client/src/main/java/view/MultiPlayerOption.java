@@ -137,15 +137,14 @@ public final class MultiPlayerOption {
                     try {
                         sender.sendAcknowledgement(getSendingQueueName(), playerName);
                     } catch (JMSException e2) {
-                        // TODO Auto-generated catch block
-                        e2.printStackTrace();
+                    	LOG.error(e2);
                     }
-                    //sender.sendAsHost(getSendingQueueName());
+                    
                     try {
                         SessionFactory.getInstanceOf().createConnection();
                         Receiver.getInstanceOf().subscribe(getReceivingQueueName());
                     } catch (JMSException e1) {
-                        e1.printStackTrace();
+                    	LOG.error(e1);
                     }
                     Receiver.getInstanceOf().runGame();
                 } else {
@@ -240,8 +239,7 @@ public final class MultiPlayerOption {
 				try {
 					sender.sendStartSignal();
 				} catch (JMSException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					LOG.error(e1);
 				}
 				
 			}

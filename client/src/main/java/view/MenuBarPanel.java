@@ -59,7 +59,7 @@ import view.companels.GameBaseSavePanel;
 
 public class MenuBarPanel implements ActionListener, ItemListener {
 
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(GameMakerView.class);
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(MenuBarPanel.class);
     private JMenuBar menuBar = new JMenuBar();
     private JMenuItem[] modes = new JMenuItem[2];
     private final String host = Constants.HOST;
@@ -221,8 +221,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
                     }
 
                 } catch (IOException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
+                	LOG.error(e1);
                 }
 
             }
@@ -242,11 +241,9 @@ public class MenuBarPanel implements ActionListener, ItemListener {
                     URI uri = new URI(Constants.FacebookServer + "?q=" + queueName);
                     Desktop.getDesktop().browse(uri);
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                	LOG.error(e);
                 } catch (URISyntaxException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                	LOG.error(e);
                 }
 
             }
@@ -316,8 +313,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
                             JFrame frame = new JFrame();
                             JOptionPane.showMessageDialog(frame, "Hosted game is exited.");
                         } catch (Exception e1) {
-                            // TODO Auto-generated catch block
-                            e1.printStackTrace();
+                        	LOG.error(e1);
                         }
                     }
                 }
