@@ -4,7 +4,6 @@ import java.awt.Rectangle;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import eventlistener.EventListener;
 import java.util.Collection;
 import utility.ResizeHelper;
