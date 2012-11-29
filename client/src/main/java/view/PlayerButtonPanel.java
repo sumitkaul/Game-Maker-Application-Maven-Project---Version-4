@@ -62,7 +62,7 @@ public class PlayerButtonPanel implements ActionListener {
 
         newButton = new JButton();//new
         newButton.setSize(30, 30);
-        ImageIcon newicon = new ImageIcon(getClass().getResource("assets/new.png"));
+        ImageIcon newicon = new ImageIcon(this.getClass().getClassLoader().getResource("new.png"));
         Image newimage = newicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         newicon.setImage(newimage);
         newButton.setIcon(newicon);
@@ -78,7 +78,7 @@ public class PlayerButtonPanel implements ActionListener {
 
         loadButton = new JButton();//load
         loadButton.setSize(30, 30);
-        ImageIcon loadicon = new ImageIcon(getClass().getResource("assets/load.png"));
+        ImageIcon loadicon = new ImageIcon(this.getClass().getClassLoader().getResource("load.png"));
         Image loadimage = loadicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         loadicon.setImage(loadimage);
         loadButton.setIcon(loadicon);
@@ -129,7 +129,7 @@ public class PlayerButtonPanel implements ActionListener {
 
         share = new JButton();//share
         share.setSize(30, 30);
-        ImageIcon shareicon = new ImageIcon(getClass().getResource("assets/share.png"));
+        ImageIcon shareicon = new ImageIcon(this.getClass().getClassLoader().getResource("share.png"));
         Image shareimage = shareicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         shareicon.setImage(shareimage);
         share.setIcon(shareicon);
@@ -147,7 +147,7 @@ public class PlayerButtonPanel implements ActionListener {
 
         saveButton = new JButton();//save
         saveButton.setSize(30, 30);
-        ImageIcon saveicon = new ImageIcon(getClass().getResource("assets/save.png"));
+        ImageIcon saveicon = new ImageIcon(this.getClass().getClassLoader().getResource("save.png"));
         Image saveimage = saveicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         saveicon.setImage(saveimage);
         saveButton.setIcon(saveicon);
