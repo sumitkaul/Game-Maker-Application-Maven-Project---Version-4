@@ -77,7 +77,7 @@ public class GetScore {
 						if (401 == te.getStatusCode()) {
 							LOG.error("Unable to get the access token.");
 						} else {
-							te.printStackTrace();
+							LOG.error(te);
 						}
 					}
 				}
