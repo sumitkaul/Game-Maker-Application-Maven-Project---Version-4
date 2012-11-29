@@ -18,6 +18,7 @@ public class ChatUsersSender implements Runnable {
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger
 			.getLogger(ChatUsersSender.class);
 	private static final String ActiveMQConnect = "tcp://129.79.247.5:61616";
+	private static final String statusTopic = "STATUS";
 
 	public ChatUsersSender(ChatUsersReceiver receiver) {
 		try {
@@ -33,7 +34,7 @@ public class ChatUsersSender implements Runnable {
 			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
 			// Create the destination (Topic or Queue)
-			Topic topic = session.createTopic("BROADCAST");
+			Topic topic = session.createTopic(statusTopic);
 
 			// Create a MessageProducer from the Session to the Topic or Queue
 			producer = session.createProducer(topic);

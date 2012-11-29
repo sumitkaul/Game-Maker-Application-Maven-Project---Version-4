@@ -74,4 +74,13 @@ public class GamePlayerView {
     public void setGameEnginePanel(GameEnginePanel gamePanel) {
         this.gameenginePanel = gamePanel;
     }
+
+    public JFrame getBaseFrame() {
+        return baseFrame;
+    }
+
+    public void setBaseFrame(JFrame baseFrame) {
+        this.baseFrame = baseFrame;
+    }
+    
 }

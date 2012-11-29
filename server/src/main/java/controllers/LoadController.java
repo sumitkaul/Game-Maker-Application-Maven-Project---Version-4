@@ -39,7 +39,7 @@ public class LoadController {
 		String sql = "select game_data from GameBase where game_name='"
 				+ gameName + "'";
 		@SuppressWarnings("unchecked")
-		List<String> game = DatabaseHandler.Query(sql);
+		List<String> game = DatabaseHandler.listQuery(sql);
 
 		if (game.isEmpty()) {
 			return "";
@@ -58,7 +58,7 @@ public class LoadController {
 
 		String sql = "select game_data from InProgressGame where save_id="
 				+ gameSaveId;
-		List<String> gameData = DatabaseHandler.Query(sql);
+		List<String> gameData = DatabaseHandler.listQuery(sql);
 
 		if (gameData.isEmpty()) {
 			return " ";
@@ -91,7 +91,7 @@ public class LoadController {
 	public String  listAllGameBases(){
         
             String sql = "select game_name from GameBase";
-            List<String> gameNames = DatabaseHandler.Query(sql);
+            List<String> gameNames = DatabaseHandler.listQuery(sql);
             Gson gson = new Gson();
             String json = gson.toJson(gameNames);            
             return json;
@@ -112,7 +112,7 @@ public class LoadController {
 
 	            List<GameSaveInfo> saves = new LinkedList<GameSaveInfo>();
 
-	            List<Object[]> r = DatabaseHandler.Query(sql);
+	            List<Object[]> r = DatabaseHandler.listQuery(sql);
 
 	            int rank = 1;
 	            for (Object[] record : r) {
@@ -141,7 +141,7 @@ public class LoadController {
 	            List<GameSaveInfo> saves = new LinkedList<GameSaveInfo>();
 
 	            @SuppressWarnings("unchecked")
-				List<Object[]> r = DatabaseHandler.Query(sql);
+				List<Object[]> r = DatabaseHandler.listQuery(sql);
 
 	            for (Object[] record : r) {
 	                GameSaveInfo save = new GameSaveInfo((String) record[0], (String) record[1], (String) record[2], (Integer) record[3]);
@@ -167,7 +167,7 @@ public class LoadController {
 				//String sql = "select game_name from GameBase";
 				
 				@SuppressWarnings("unchecked")
-				List<String> names = DatabaseHandler.Query(sql);
+				List<String> names = DatabaseHandler.listQuery(sql);
 				log.info("*****************NAMES*********"+names);
 				
 				Gson gson = new Gson();
@@ -193,7 +193,7 @@ public class LoadController {
 						hostName + " and gamebasename=" + gameBaseName + 
 						" and save_gamebasename=" + saveGameBaseName;
 
-				List<BigInteger> ids = DatabaseHandler.Query(sql);
+				List<BigInteger> ids = DatabaseHandler.listQuery(sql);
 				log.info("HERE"+ids.get(0));
 
 

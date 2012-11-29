@@ -68,13 +68,13 @@ public class SaveController {
             String sql2 = "insert into GameBase (game_name, game_author, game_data,isMultiPlayer) VALUES ('" + game_name + "', '" + game_author + "', '" + game_data + "', " + isMultiPlayerValue + ")";
             String sql3 = "update GameBase set game_author = '" + game_author + "', game_data = '" + game_data + "' where game_name='" + game_name + "'";
 
-            List<BigInteger> count = DatabaseHandler.Query(sql);
+            List<BigInteger> count = DatabaseHandler.listQuery(sql);
             log.info(count);
 
             if (count.get(0).intValue() < 1) {
-                DatabaseHandler.ExecuteQuery(sql2);
+                DatabaseHandler.executeQuery(sql2);
             } else {
-                DatabaseHandler.ExecuteQuery(sql3);
+                DatabaseHandler.executeQuery(sql3);
             }
 
             log.info("added game: " + game_name);
@@ -98,13 +98,13 @@ public class SaveController {
             String sql2 = "insert into InProgressGame (game_name, player_name, score, game_data, save_name) VALUES ('" + game_name + "', '" + player_name + "'," + game_score + ",'" + game_data + "','" + save_name + "')";
             String sql3 = "update InProgressGame set game_data = '" + game_data + "',score = " + game_score + " where game_name='" + game_name + "' and save_name='" + save_name + "' and player_name='" + player_name + "'";
 
-            List<BigInteger> count = DatabaseHandler.Query(sql1);
+            List<BigInteger> count = DatabaseHandler.listQuery(sql1);
 
 
             if (count.get(0).intValue() < 1) {
-                DatabaseHandler.ExecuteQuery(sql2);
+                DatabaseHandler.executeQuery(sql2);
             } else {
-                DatabaseHandler.ExecuteQuery(sql3);
+                DatabaseHandler.executeQuery(sql3);
             }
 
 

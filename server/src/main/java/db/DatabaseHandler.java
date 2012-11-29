@@ -67,25 +67,25 @@ public class DatabaseHandler {
 
     }
 
-    public static List Query(String sql) {
+    public static List listQuery(String sql) {
         DatabaseHandler db = DatabaseHandler.getDatabaseHandlerInstance();
-        Session s = db.getHibernateSession();
-        Query q = s.createSQLQuery(sql);
-        List r = q.list();
-        s.close();
+        Session session = db.getHibernateSession();
+        Query query = session.createSQLQuery(sql);
+        List returnList = query.list();
+        session.close();
 
-        return r;
+        return returnList;
     }
 
-    public static int ExecuteQuery(String sql) {
+    public static int executeQuery(String sql) {
         DatabaseHandler db = DatabaseHandler.getDatabaseHandlerInstance();
-        Session s = db.getHibernateSession();
-        Query q = s.createSQLQuery(sql);
-        Transaction t = s.beginTransaction();
-        int r = q.executeUpdate();
-        t.commit();
-        s.close();
+        Session session = db.getHibernateSession();
+        Query query = session.createSQLQuery(sql);
+        Transaction transaction = session.beginTransaction();
+        int numRecordsUpdated = query.executeUpdate();
+        transaction.commit();
+        session.close();
 
-        return r;
+        return numRecordsUpdated;
     }
 }

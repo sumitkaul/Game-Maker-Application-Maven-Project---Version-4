@@ -22,24 +22,32 @@ public class GameEnginePanel extends JPanel {
 
     public void addGame(CanvasGameContainer app) {
         this.app = app;
-        app.setPreferredSize(new Dimension(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT));
-        add(app);
-        app.requestFocusInWindow();
+        this.app.getContainer().setTargetFrameRate(60);
+        this.app.setPreferredSize(new Dimension(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT));
+        add(this.app);
+        this.app.requestFocusInWindow();
     }
 
     public void removeGame() {
         if (app != null) {
+            app.getContainer().exit();
+            app.dispose();
             remove(app);
+            removeAll();
+            game = null;
         }
     }
 
     public void newGame() {
         try {
+            removeGame();
             game = new GameEngineController("test", GameEngineController.LOAD_MODE_REMOTE, new String[]{"/game/engine/slick2d/player/testing_game.xml"});
             CanvasGameContainer app = new CanvasGameContainer(game);
             app.getContainer().setTargetFrameRate(60);
+            app.getContainer().setForceExit(true);
             GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
             gamePlayerView.getGameEnginePanel().addGame(app);
+            gamePlayerView.getBaseFrame().pack();
             gamePlayerView.getGameEnginePanel().startGame();
         } catch (Exception ex) {
             LOG.error(ex);

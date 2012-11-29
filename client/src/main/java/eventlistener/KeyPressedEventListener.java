@@ -46,10 +46,10 @@ public class KeyPressedEventListener implements EventListener, Serializable {
             	   action.doAction(sprite);
                     Log.debug("Before sending :action = "+ action.toString()+"sprite is" + sprite.getId());
                     // This next line seems to do nothing
-                    Sender sender = new Sender();
-                   // sender.sendAsClient(action, sprite);
-                    Log.info("In key pressed event listener");
-                    Log.debug("action = "+ action.toString()+"sprite is" + sprite.getId());
+                   Sender sender = new Sender();
+                   sender.sendAsClient(action, sprite);
+                   Log.info("In key pressed event listener");
+                   Log.debug("action = "+ action.toString()+"sprite is" + sprite.getId());
                 }
             }
         }

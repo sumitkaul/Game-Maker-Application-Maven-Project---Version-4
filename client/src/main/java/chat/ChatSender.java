@@ -23,7 +23,7 @@ public class ChatSender implements Runnable, Sender {
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger
 			.getLogger(ChatSender.class);
 			
-	public ChatSender() {
+	public ChatSender(String topicName) {
 		try {
 			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(Constants.ActiveMQConnect);
 
@@ -35,7 +35,7 @@ public class ChatSender implements Runnable, Sender {
 			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
 			// Create the destination (Topic or Queue)
-			Topic topic= session.createTopic("CHAT");
+			Topic topic= session.createTopic(topicName);
 
 			// Create a MessageProducer from the Session to the Topic or Queue
 			producer = session.createProducer(topic);

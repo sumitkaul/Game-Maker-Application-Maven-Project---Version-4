@@ -3,13 +3,21 @@ package multiplayer;
 import action.GameAction;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
+import org.newdawn.slick.CanvasGameContainer;
+import org.newdawn.slick.SlickException;
+
 import facade.Facade;
 import game.engine.slick2d.player.GameEngineController;
+import loader.GameDataPackageIO;
 import loader.GamePackage;
 import model.SpriteModel;
 import utility.ClockDisplay;
@@ -17,7 +25,10 @@ import utility.Helper;
 import utility.Layers;
 import utility.SpriteList;
 import view.ButtonPanel;
+import view.GameMakerView;
 import view.GamePlayerView;
+import view.PlayerButtonPanel;
+import view.companels.GameProgressLoadPanel;
 
 public class Protocol {
 
@@ -65,29 +76,45 @@ public class Protocol {
     }
 
     public void setGameState(GamePackage game) {
+//        LOG.debug("load done");
+//        GameProgressLoadPanel p = new GameProgressLoadPanel(GameMakerView.getInstance().getGamePanel());
+        GamePlayerView gamePlayerView = (GamePlayerView) Helper.getsharedHelper().getGamePlayerView();
+//        String gamename[] = new String[1];
+//        String gameData = p.readGameDataFromRemoteList(gamename);
+//
+//        if (gameData == null) {
+//            return;
+//        }
+
+       // GamePackage game = GameDataPackageIO.loadGamePackageFromFile(gameData);
+
         LOG.debug("load done");
+
         Collection<SpriteModel> allSpriteModels = game.getSpriteList();
-        game.getLayers();
+        List<String> layers = game.getLayers();
         ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
         // SpriteList.getInstance().setSpriteList(allSpriteModels);
         SpriteModel m = (SpriteModel) ((Queue) allSpriteModels).peek();
         SpriteList.getInstance().setSelectedSpriteModel(m);
+        gamePlayerView.getGameEnginePanel().removeGame();
         
-        GamePlayerView gamePlayerView = (GamePlayerView)Helper.getsharedHelper().getGamePlayerView();
-//        Facade facade = gamePlayerView.getFacade();
-//        
-//        facade.getGameController().setEvents(game.getEventsForGameController());
-//        facade.getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
-//        facade.createViewsForModels(game.getSpriteList());
-        GameEngineController gameEngine = gamePlayerView.getGameEnginePanel().getGame();
+        GameEngineController gameEngine = new GameEngineController(Subscribe.getInstanceOf().getName(), game);
         gameEngine.setEventsForGameController(game.getEventsForGameController());
         gameEngine.setKeyEvents(game.getEventsForKeyController());
+        try {
+            CanvasGameContainer app = new CanvasGameContainer(gameEngine);
+            gamePlayerView.getGameEnginePanel().addGame(app);
+            gamePlayerView.getGameEnginePanel().startGame();
+        } catch (SlickException ex) {
+            Logger.getLogger(PlayerButtonPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         for (SpriteModel model : allSpriteModels) {
             SpriteList.getInstance().addSprite(model);
             SpriteList.getInstance().setSelectedSpriteModel(model);
-            LOG.info("The id of the object is " + model.getId());
         }
     }
+    
 
     public void setMultiplayerAction(HashMap<GameAction, SpriteModel> map) {
         SpriteModel model = null;
@@ -99,4 +126,13 @@ public class Protocol {
         }
 
     }
+
+	public ObjectMessage createStartSignal(String data) {
+		try {
+            msg = SessionFactory.getInstanceOf().getSession().createObjectMessage(data);
+        } catch (JMSException e) {
+            LOG.info("creating start signal failed");
+        }
+        return msg;
+	}
 }

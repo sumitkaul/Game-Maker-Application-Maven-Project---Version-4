@@ -149,8 +149,6 @@ public class GameEngineController extends BasicGame {
             }
 
             imagesOfSprites.put(sprite.getId(), image);
-            //initSpriteBodyMapping(sprite);
-
         }
 
     }

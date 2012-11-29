@@ -33,4 +33,11 @@ public class Sender {
 		Publish.getInstanceOf().sendAcknowledgement(playerName);
 	}
 
+	public void sendStartSignal() throws JMSException {
+		SessionFactory.getInstanceOf().createConnection();
+		//Publish.getInstanceOf().setTopic(queue);
+		Publish.getInstanceOf().sendStartSignal();
+		
+	}
+
 }

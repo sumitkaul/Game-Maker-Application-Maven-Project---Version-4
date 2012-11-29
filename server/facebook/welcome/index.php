@@ -26,7 +26,7 @@
         <p>&nbsp;</p>
         <p>&nbsp;</p>
 
-        <p style="text-align:center">Thank you for visiting Game Maker App. You can <a href="#">download</a> GameMaker App here.</p>
+        <p style="text-align:center">Thank you for visiting Game Maker App. You can <a href="http://fluency.knownspace.org/student-files/fall2012/a10/team-all/project.jnlp">download</a> GameMaker App here.</p>
           <p>&nbsp;</p>
            	</div>
 	</div>

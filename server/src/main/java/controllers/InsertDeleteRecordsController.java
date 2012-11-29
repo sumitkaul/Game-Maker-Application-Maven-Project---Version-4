@@ -70,7 +70,7 @@ public class InsertDeleteRecordsController {
 			//String sql = "select count(*) FROM HostedGameBases where id=" + gameId;
 			String sql1 = "delete from HostedGameBases where hostname='" + hostName + "'";
 
-			DatabaseHandler.ExecuteQuery(sql1);
+			DatabaseHandler.executeQuery(sql1);
 			
 			log.info("deleted entry name: " + hostName);
 			return gson.toJson(deleteOK);

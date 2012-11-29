@@ -2,7 +2,6 @@ package controllers;
 
 import java.util.List;
 
-
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -16,87 +15,73 @@ import com.google.gson.Gson;
 import db.DatabaseHandler;
 import db.Resources;
 
-
-
 @Controller
 public class ImageTagController {
-	
-	
-	@RequestMapping(value = "/countTag", method = RequestMethod.GET)
-	@ResponseBody	
-	public String countTag(@RequestParam(value="tag", required=false) String tag){
 
+	@RequestMapping(value = "/countTag", method = RequestMethod.GET)
+	@ResponseBody
+	public String countTag(
+			@RequestParam(value = "tag", required = false) String tag) {
 		Gson gson = new Gson();
-		Session session = DatabaseHandler.getDatabaseHandlerInstance()
-				.getHibernateSession();
-		Query query;
-		
-		System.out.println("***********************************servicing countTag request******************************************************");
-		
+		String sql = "";
+
 		if (tag == null) {
-			query = session
-					.createSQLQuery("SELECT COUNT(*) FROM Resources");
+			sql = "SELECT COUNT(*) FROM Resources";
 		} else {
-			query = session
-					.createSQLQuery("SELECT COUNT(*) FROM Resources WHERE resource_name='"
-							+ tag + "'");
+			sql = "SELECT COUNT(*) FROM Resources WHERE resource_name='" + tag
+					+ "'";
 		}
-		String count=gson.toJson(query.list().get(0));
-		session.close();
-		
-		
-		
+		String count = gson.toJson(DatabaseHandler.listQuery(sql).get(0));
+
 		return count;
 	}
-	
+
 	@RequestMapping(value = "/listPageResources", method = RequestMethod.GET)
-	@ResponseBody	
-	public String fetchImagesForAPage(@RequestParam("page_number") String pageNumbers,@RequestParam("page_length") String pageLengths , @RequestParam(value="resource_name", required=false) String resourceName){
-		
-		  Gson gson = new Gson();
-		  String json= null	;
-		  List<Resources> r=null;
-		  
-        if (pageNumbers != null && pageLengths != null) {
-            Session session = DatabaseHandler.getDatabaseHandlerInstance().getHibernateSession();
-            int pageNumber = Integer.parseInt(pageNumbers);
-            int pageLength = Integer.parseInt(pageLengths);
+	@ResponseBody
+	public String fetchImagesForAPage(
+			@RequestParam("page_number") String pageNumbers,
+			@RequestParam("page_length") String pageLengths,
+			@RequestParam(value = "resource_name", required = false) String resourceName) {
 
-            Criteria criteria = session.createCriteria(Resources.class);
+		Gson gson = new Gson();
+		String json = null;
+		List<Resources> r = null;
 
-            if (resourceName != null) {
-                criteria.add(Restrictions.eq("resourceName", resourceName));
-            }
+		if (pageNumbers != null && pageLengths != null) {
+			Session session = DatabaseHandler.getDatabaseHandlerInstance()
+					.getHibernateSession();
+			int pageNumber = Integer.parseInt(pageNumbers);
+			int pageLength = Integer.parseInt(pageLengths);
 
-            criteria.setFirstResult((pageNumber - 1) * pageLength);
-            criteria.setMaxResults(pageLength);
+			Criteria criteria = session.createCriteria(Resources.class);
 
-            @SuppressWarnings("unchecked")
-            List<Resources> resourcesList = criteria.list();
-            r=criteria.list();
-            json=gson.toJson(resourcesList);
-            session.close();
-        }
-            
-        
+			if (resourceName != null) {
+				criteria.add(Restrictions.eq("resourceName", resourceName));
+			}
+
+			criteria.setFirstResult((pageNumber - 1) * pageLength);
+			criteria.setMaxResults(pageLength);
+
+			@SuppressWarnings("unchecked")
+			List<Resources> resourcesList = criteria.list();
+			r = criteria.list();
+			json = gson.toJson(resourcesList);
+			session.close();
+		}
+
 		return gson.toJson(r);
 	}
-	
-	@RequestMapping(value = "/getAllTags", method = RequestMethod.GET)
-	@ResponseBody	
-	public String getAllTagNames() {
-		
-		  Session session = DatabaseHandler.getDatabaseHandlerInstance().getHibernateSession();
-	        Query query;
 
-	        query = session.createSQLQuery("SELECT resource_name FROM Resources");
-	        @SuppressWarnings("unchecked")
-	        List<String> list = query.list();
-	        Gson gson = new Gson();
-	        session.close();
-	        
-		 return gson.toJson(list);
+	@RequestMapping(value = "/getAllTags", method = RequestMethod.GET)
+	@ResponseBody
+	public String getAllTagNames() {
+
+		String sql = "SELECT DISTINCT resource_name FROM Resources";
+		@SuppressWarnings("unchecked")
+		List<String> tagNames = DatabaseHandler.listQuery(sql);
+		Gson gson = new Gson();
+
+		return gson.toJson(tagNames);
 	}
-	
-	
+
 }
