@@ -12,6 +12,7 @@ import javax.jms.ObjectMessage;
 
 import org.newdawn.slick.CanvasGameContainer;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.util.Log;
 
 import game.engine.slick2d.player.GameEngineController;
 import loader.GamePackage;
@@ -105,8 +106,8 @@ public class Protocol {
         for (GameAction action : map.keySet()) {
             model = map.get(action);
             action.doAction(model);
-           
-        
+            Log.info("action ======================== "+action);
+            Log.info("model =========================="+model.getEventListenerList().get(0));
         }
     }
 

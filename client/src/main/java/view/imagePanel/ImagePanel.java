@@ -286,7 +286,11 @@ public class ImagePanel implements ActionListener, ChangeListener {
                 JFrame frame = new JFrame();
                 JOptionPane.showMessageDialog(frame, "Image Upload successful");
             } catch (IOException e1) {
-                LOG.error("Unable to read the file");
+            	JFrame frame = new JFrame();
+				JOptionPane.showMessageDialog(frame,
+                        "Image Uploading Failed");
+				LOG.error("Unable to read the file");
+                
             }
         }
     }
