@@ -75,6 +75,82 @@ public class HostedGameBaseRecordTest {
 	}
 
 	/**
+	 * Run the String getSaveGameBaseName() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetSaveGameBaseName_1()
+		throws Exception {
+		HostedGameBaseRecord fixture = new HostedGameBaseRecord("", "", "");
+		fixture.setId(1);
+
+		String result = fixture.getSaveGameBaseName();
+
+		assertEquals("", result);
+	}
+
+	/**
+	 * Run the void setGameBaseName(String) method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetGameBaseName_1()
+		throws Exception {
+		HostedGameBaseRecord fixture = new HostedGameBaseRecord("", "", "");
+		fixture.setId(1);
+		String gameBaseName = "";
+
+		fixture.setGameBaseName(gameBaseName);
+	}
+
+	/**
+	 * Run the void setHostName(String) method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetHostName_1()
+		throws Exception {
+		HostedGameBaseRecord fixture = new HostedGameBaseRecord("", "", "");
+		fixture.setId(1);
+		String hostName = "";
+
+		fixture.setHostName(hostName);
+	}
+
+	/**
+	 * Run the void setId(int) method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetId_1()
+		throws Exception {
+		HostedGameBaseRecord fixture = new HostedGameBaseRecord("", "", "");
+		fixture.setId(1);
+		int id = 1;
+
+		fixture.setId(id);
+	}
+
+	/**
+	 * Run the void setSaveGameBaseName(String) method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetSaveGameBaseName_1()
+		throws Exception {
+		HostedGameBaseRecord fixture = new HostedGameBaseRecord("", "", "");
+		fixture.setId(1);
+		String saveGameBaseName = "";
+
+		fixture.setSaveGameBaseName(saveGameBaseName);
+	}
+
+	/**
 	 * Perform pre-test initialization.
 	 *
 	 * @throws Exception
