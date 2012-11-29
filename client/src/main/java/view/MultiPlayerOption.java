@@ -95,6 +95,8 @@ public final class MultiPlayerOption {
                     setReceivingQueueName(queueName);
                     try {
                         ClientHandler.insertHostedGame(playerName, gameName, queueName, Constants.HOST, Constants.PATH + "/insertHostedGameBaseRecord");
+                        Constants.isHosted=true;
+                        System.out.println("in Host button"+Constants.isHosted);
                     } catch (Exception ex) {
                         LOG.error(ex);
                         return;
@@ -113,6 +115,7 @@ public final class MultiPlayerOption {
 
 
                 } else {
+                	options.setVisible(false);
                     JFrame frame = new JFrame();
                     JOptionPane.showMessageDialog(frame, "Please login");
                 }

@@ -304,14 +304,18 @@ public class MenuBarPanel implements ActionListener, ItemListener {
             modes[0].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (Constants.isMultiplayer && Constants.isHost) {
+                    if (Constants.isMultiplayer && Constants.isHost && Constants.isHosted) {
                         Constants.isMultiplayer = false;
                         String playerName = Player.getInstance().getUsername();
 
                         try {
+                        	System.out.println("in Singleplayer"+Constants.isHosted);
                             ClientHandler.deleteHostedGameBase(playerName, host, path + urldeleteHostedGameBaseRecord);
                             JFrame frame = new JFrame();
                             JOptionPane.showMessageDialog(frame, "Hosted game is exited.");
+                            Constants.isHosted=false;
+                            System.out.println("in Singleplayer"+Constants.isHosted);
+                            
                         } catch (Exception e1) {
                         	LOG.error(e1);
                         }
@@ -324,12 +328,19 @@ public class MenuBarPanel implements ActionListener, ItemListener {
             modes[1].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Constants.isMultiplayer = true;
+                    if(Constants.isHosted){
+                    	JFrame frame = new JFrame();
+                        JOptionPane.showMessageDialog(frame, "You are presently hosting a game. You cannot host more than one game");                   	
+                    }
+                    else{
+                	
+                	Constants.isMultiplayer = true;
                     MultiPlayerOption.getInstanceOf().setRootComp(GameMakerView.getInstance().getGamePanel());
                     //MultiPlayerOption p = new MultiPlayerOption(GameMakerView.getInstance().getGamePanel());
                     LOG.info("in start action listener");
                     MultiPlayerOption.getInstanceOf().selectOption();
                     //p.selectOption();
+                    }
                 }
             });
         }
