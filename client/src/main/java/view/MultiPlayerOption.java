@@ -100,12 +100,13 @@ public final class MultiPlayerOption {
                         SessionFactory.getInstanceOf().createConnection();
                         Receiver.getInstanceOf().subscribe(getReceivingQueueName()); 
                     } catch (Exception ex) {
-                        LOG.error(ex);
-                        return;
+                      ex.printStackTrace();
+    
                     }
                     
                     joinWaitFrame();
                     options.setVisible(false);
+                    
                     try {
                         SessionFactory.getInstanceOf().createConnection();
                         Receiver.getInstanceOf().subscribe(getReceivingQueueName());
@@ -119,7 +120,6 @@ public final class MultiPlayerOption {
                 	options.setVisible(false);
                     JFrame frame = new JFrame();
                     JOptionPane.showMessageDialog(frame, "Please login");
-                    
                 }
 
             }
@@ -151,6 +151,7 @@ public final class MultiPlayerOption {
                     } catch (JMSException e1) {
                     	LOG.error(e1);
                     }
+                    options.dispose();
                     Receiver.getInstanceOf().runGame();
                 } else {
                     JFrame frame = new JFrame();
@@ -167,7 +168,7 @@ public final class MultiPlayerOption {
     }
 
     public void joinWaitFrame() {
-    	options.setVisible(false);
+    	options.dispose();
     	LOG.info("in join");
         joinWaitFrame = new JFrame();
         joinWaitFrame.setLayout(new MigLayout("center,center"));
@@ -203,8 +204,10 @@ public final class MultiPlayerOption {
         allowButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				
 				Sender sender = new Sender();
                 sender.sendAsHost(getSendingQueueName());
+                acceptUserFrame.dispose();
                 startGameFrame();
 			}
         	
@@ -230,7 +233,7 @@ public final class MultiPlayerOption {
     
     public void startGameFrame()
     {
-    	JFrame startGameFrame = new JFrame();
+    	final JFrame startGameFrame = new JFrame();
     	startGameFrame.setLayout(new MigLayout("center,center"));
     	startGameFrame.setSize(200, 200);
         JLabel label = new JLabel();
@@ -244,6 +247,7 @@ public final class MultiPlayerOption {
 				Sender sender = new Sender();
 				try {
 					sender.sendStartSignal();
+					startGameFrame.dispose();
 				} catch (JMSException e1) {
 					LOG.error(e1);
 				}
@@ -257,5 +261,5 @@ public final class MultiPlayerOption {
         startGameFrame.setVisible(true);
         startGameFrame.setFocusable(true);
         startGameFrame.requestFocus();
-    
-}}
+    }
+}
