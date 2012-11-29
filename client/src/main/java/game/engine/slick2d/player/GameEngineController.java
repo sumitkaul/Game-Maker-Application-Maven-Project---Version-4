@@ -238,7 +238,7 @@ public class GameEngineController extends BasicGame {
                         continue;
                     }
                     try {
-                        Sound cache = new Sound("data/" + soundFileName);
+                        Sound cache = new Sound(this.getClass().getClassLoader().getResource(soundFileName));
                         SoundRepo.getSounds().put(soundFileName, cache);
 
                         LOG.info("======================== new sound: " + soundFileName);
