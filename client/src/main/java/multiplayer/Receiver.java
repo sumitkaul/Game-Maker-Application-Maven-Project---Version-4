@@ -78,6 +78,7 @@ public class Receiver implements MessageListener {
 				}
 				else if (textMessage.equals("ready__^^")) {
 					MultiPlayerOption.getInstanceOf().setReady(true);
+					MultiPlayerOption.getInstanceOf().startGameFrame();
 				}
 				else {
 					String joinee = textMessage.substring(0,

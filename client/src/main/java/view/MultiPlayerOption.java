@@ -46,7 +46,7 @@ public final class MultiPlayerOption {
 	private final static MultiPlayerOption instance = new MultiPlayerOption();
 
     private MultiPlayerOption() {
-    	this.startButton = new JButton("Start Game");
+    	//this.startButton = new JButton("Start Game");
         
     }
 
@@ -235,7 +235,7 @@ public final class MultiPlayerOption {
 				Sender sender = new Sender();
                 sender.sendAsHost(getSendingQueueName());
                 acceptUserFrame.dispose();
-                startGameFrame();
+                
 			}
         	
         });
@@ -295,8 +295,8 @@ public final class MultiPlayerOption {
     	startGameFrame.setLayout(new MigLayout("center,center"));
     	startGameFrame.setSize(200, 200);
         JLabel label = new JLabel();
-        //this.startButton = new JButton("Start Game");
-        this.startButton.setEnabled(false);
+        this.startButton = new JButton("Start Game");
+        this.startButton.setEnabled(this.isReady());
         this.startButton.addActionListener(new ActionListener(){
 
 			@Override
