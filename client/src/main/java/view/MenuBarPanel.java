@@ -254,8 +254,15 @@ public class MenuBarPanel implements ActionListener, ItemListener {
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
+            	if(Player.getInstance().getUsername()==null){
                 LoginFrame f = new LoginFrame();
                 AnimationHandler.RotateIn(f.getLogin(), f.getLoginPanel(), 1000, 360, f.getLogin().getWidth() / 2, f.getLogin().getHeight() / 2);
+            	}
+            	else{
+            		JFrame frame = new JFrame();
+					JOptionPane.showMessageDialog(frame,
+							"You are already logged in.");
+            	}
 
             }
         });
