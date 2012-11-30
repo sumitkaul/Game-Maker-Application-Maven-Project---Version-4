@@ -3,38 +3,28 @@ package controller;
  
 //package controller;
 //
-import static org.junit.Assert.*;
-import org.uispec4j.UISpecTestCase;
-import org.uispec4j.Window;
-import org.uispec4j.interception.MainClassAdapter;
+import static org.junit.Assert.assertTrue;
 
-
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import junit.framework.Assert;
 import model.SpriteModel;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.uispec4j.UISpecTestCase;
-
-import action.ActionBounce;
-import action.ActionChangeSpeed;
-import action.GameAction;
-
-import eventlistener.CollisionEventListener;
-import eventlistener.EventListener;
-import gameMaker.gameMaker;
 
 import utility.Constants;
 import utility.SpriteList;
-import view.GameMakerView;
 import view.GamePanel;
+import action.ActionChangeSpeed;
+import action.GameAction;
+import eventlistener.CollisionEventListener;
+import eventlistener.EventListener;
+import eventlistener.KeyPressedEventListener;
+import eventlistener.NewFrameEventListener;
 
 
 public class GameControllerTest{
@@ -133,5 +123,20 @@ public class GameControllerTest{
 		spriteArray.clear();
 	}
 
+	@Test
+	public void testGetCollisionEvents() {
+		EventListener e1 = new CollisionEventListener();
+		EventListener e2 = new CollisionEventListener();
+		EventListener e3 = new NewFrameEventListener();
+		EventListener e4 = new NewFrameEventListener();
+		EventListener e5 = new KeyPressedEventListener();
+		gameControllerTest.registerListener(e3);
+		gameControllerTest.registerListener(e2);
+		gameControllerTest.registerListener(e1);
+		gameControllerTest.registerListener(e5);
+		gameControllerTest.registerListener(e4);
+		List<CollisionEventListener> list = gameControllerTest.getCollisionEvents();
+		Assert.assertEquals(2, list.size());
+	}
 }
 

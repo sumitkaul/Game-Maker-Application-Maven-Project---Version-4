@@ -1,40 +1,21 @@
 package utility;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 public class ClockDisplayTest {
 
-	ClockDisplay clockDisplay;
-
-	@Before
-	public void setUp() {
-		clockDisplay = new ClockDisplay();
-	}
-
-	@After
-	public void tearDown() {
-
-	}
-
-	@Test
-	public void testUpdateClock() {
-
-	}
-
 	@Test
 	public void testReset() {
-		clockDisplay.setHour(4);
-		clockDisplay.setMinute(24);
-		clockDisplay.setSecond(56);
-		Assert.assertEquals(clockDisplay.getHour(), 4);
-		Assert.assertEquals(clockDisplay.getMinute(), 24);
-		Assert.assertEquals(clockDisplay.getSecond(), 56);
-		clockDisplay.reset();
-		Assert.assertEquals(0, clockDisplay.getHour());
-		Assert.assertEquals(0, clockDisplay.getMinute());
-		Assert.assertEquals(0, clockDisplay.getSecond());
+		ClockDisplay.getInstance().setHour(4);
+		ClockDisplay.getInstance().setMinute(24);
+		ClockDisplay.getInstance().setSecond(56);
+		Assert.assertEquals(ClockDisplay.getInstance().getHour(), 4);
+		Assert.assertEquals(ClockDisplay.getInstance().getMinute(), 24);
+		Assert.assertEquals(ClockDisplay.getInstance().getSecond(), 56);
+		ClockDisplay.getInstance().reset();
+		Assert.assertEquals(0, ClockDisplay.getInstance().getHour());
+		Assert.assertEquals(0, ClockDisplay.getInstance().getMinute());
+		Assert.assertEquals(0, ClockDisplay.getInstance().getSecond());
 	}
 }
