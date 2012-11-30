@@ -44,6 +44,10 @@ public class GameEnginePanel extends JPanel {
         try {
             removeGame();
             game = new GameEngineController("test", GameEngineController.LOAD_MODE_REMOTE, new String[]{"/game/engine/slick2d/player/testing_game.xml"});
+            
+            //test
+            game.setPauseReporter(new TestingReporter());
+            
             CanvasGameContainer app = new CanvasGameContainer(game);
             GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
             gamePlayerView.getGameEnginePanel().addGame(app);
@@ -57,13 +61,8 @@ public class GameEnginePanel extends JPanel {
     }
 
     public void startGame() {
-        //try {           
-
         app.requestFocusInWindow();
         game.startGame();
-//        } catch (SlickException ex) {
-//            LOG.error(ex);
-//        }
     }
 
     public void exitGame() {

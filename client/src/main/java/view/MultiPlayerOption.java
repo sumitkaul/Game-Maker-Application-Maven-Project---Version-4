@@ -235,6 +235,7 @@ public final class MultiPlayerOption {
 				Sender sender = new Sender();
                 sender.sendAsHost(getSendingQueueName());
                 acceptUserFrame.dispose();
+                startGameFrame();
                 
 			}
         	
