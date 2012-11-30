@@ -45,6 +45,7 @@ public class GameEngineController extends BasicGame {
     private AtomicBoolean gamePaused;
     private AtomicBoolean gameStarted;
     private Graphics lastGraphics;
+    private GamePauseReporter pauseReporter;
 
     public GameEngineController(String title, int loadMode, String[] paras) {
         super(title);
@@ -168,6 +169,10 @@ public class GameEngineController extends BasicGame {
 
     }
 
+    public void setPauseReporter(GamePauseReporter pauseReporter) {
+        this.pauseReporter = pauseReporter;
+    }
+
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
         if (!gameStarted.get()) {
@@ -176,8 +181,10 @@ public class GameEngineController extends BasicGame {
 
         if (!gc.hasFocus()) {
             gamePaused.set(true);
+            pauseReporter.gamePaused();
         } else {
             gamePaused.set(false);
+            pauseReporter.gameResumed();
         }
 
         boolean paused = gamePaused.get();
