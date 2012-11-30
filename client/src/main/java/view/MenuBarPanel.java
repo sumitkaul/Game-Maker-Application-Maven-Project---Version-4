@@ -149,6 +149,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
         menuBar.add(user);
 
         JMenuItem login = new JMenuItem("Login");
+        JMenuItem logout = new JMenuItem("Logout");
         JMenuItem register = new JMenuItem("Register");
         JMenuItem facebookLogin = new JMenuItem("Login with Facebook");
         JMenuItem postFacebookScore = new JMenuItem("Post Score to Facebook");
@@ -266,6 +267,22 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 
             }
         });
+        
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+            	if(Player.getInstance().getUsername()!=null){
+            		Player.getInstance().setUsername(null);
+            	}
+            	else{
+            		JFrame frame = new JFrame();
+					JOptionPane.showMessageDialog(frame,
+							"Please log in to log out.");
+            	}
+
+            }
+        });
+
 
         register.addActionListener(new ActionListener() {
             @Override
@@ -277,6 +294,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
         });
 
         user.add(login);
+        user.add(logout);
         user.add(register);
         user.add(facebookLogin);
         user.add(postFacebookScore);
