@@ -49,7 +49,14 @@ public class PlayerButtonPanel implements ActionListener {
 //		userColor=Color.BLUE;
 //		textColor=Color.BLACK;
 //		playerAvatarUrl="http://www.mayurmasrani.com/default_user.jpg"; //to be changed later according to users avatar
-        startButton = new JButton("Start");
+        startButton = new JButton();//start
+        startButton.setSize(30, 30);
+        ImageIcon starticon = new ImageIcon(this.getClass().getClassLoader().getResource("start.png"));
+        Image startimage = starticon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        starticon.setImage(startimage);
+        startButton.setIcon(starticon);
+        startButton.setToolTipText("Start Game");
+        
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
