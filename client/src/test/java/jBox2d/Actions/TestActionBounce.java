@@ -11,9 +11,10 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
 
+import JBox2d.Actions.ActionBounce;
 import JBox2d.Actions.ActionMoveLeft;
 
-public class TestActionMoveLeft {
+public class TestActionBounce {
 
 	public static World world;
 	public static LinkedHashMap<String,Body> bodies;
@@ -31,16 +32,25 @@ public class TestActionMoveLeft {
 		world =new World(new Vec2(0,9.8f),false);
 		body = world.createBody(bodyDef);
 	}
-	
-	
 
 	@Test
 	public void testDoAction()
 	{
-		ActionMoveLeft action = new ActionMoveLeft();
+		ActionBounce action = new ActionBounce(false);
 		action.doAction(body);
 		assertNotNull(body);
-		assertEquals((int)-1.0 ,(int) body.getPosition().x);
+		assertEquals((int)0.0 ,(int) body.getPosition().x);
 		assertEquals((int)4.0 ,(int)body.getPosition().y);
+
+		//TODO test what force is applied
 	}
+
+	@Test
+	public void testRandomBounce()
+	{
+		ActionBounce action = new ActionBounce(false);
+		action.setRandomBounce(true);
+		assertTrue(action.isRandomBounce());
+	}
+
 }

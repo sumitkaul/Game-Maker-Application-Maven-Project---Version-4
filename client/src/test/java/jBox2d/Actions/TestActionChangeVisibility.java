@@ -1,4 +1,5 @@
 package jBox2d.Actions;
+
 import static org.junit.Assert.*;
 
 import java.util.LinkedHashMap;
@@ -11,9 +12,12 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
 
+import JBox2d.Actions.ActionChangeVisibility;
+import JBox2d.Actions.ActionMoveDownwards;
 import JBox2d.Actions.ActionMoveLeft;
 
-public class TestActionMoveLeft {
+public class TestActionChangeVisibility {
+
 
 	public static World world;
 	public static LinkedHashMap<String,Body> bodies;
@@ -25,22 +29,19 @@ public class TestActionMoveLeft {
 		bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DYNAMIC;
 		bodyDef.position.set(0.0f, 4.0f);
-
 		bodyDef.bullet=true;
 
 		world =new World(new Vec2(0,9.8f),false);
 		body = world.createBody(bodyDef);
 	}
-	
-	
 
 	@Test
 	public void testDoAction()
 	{
-		ActionMoveLeft action = new ActionMoveLeft();
+		assertEquals(world.getBodyCount(),1);
+		ActionChangeVisibility action = new ActionChangeVisibility(false);
 		action.doAction(body);
-		assertNotNull(body);
-		assertEquals((int)-1.0 ,(int) body.getPosition().x);
-		assertEquals((int)4.0 ,(int)body.getPosition().y);
+		assertEquals(world.getBodyCount(),0);
+		
 	}
 }

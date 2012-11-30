@@ -3,6 +3,7 @@ package multiplayer;
 import action.GameAction;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,9 +57,9 @@ public class Protocol {
     	
     }
 
-    public ObjectMessage createData(GameAction action, SpriteModel model) {
-        HashMap<GameAction, SpriteModel> map = new HashMap<GameAction, SpriteModel>();
-        map.put(action, model);
+    public ObjectMessage createData(GameAction action, String spriteID) {
+        HashMap<GameAction, String> map = new HashMap<GameAction, String>();
+        map.put(action, spriteID);
 
         try {
 
@@ -114,20 +115,37 @@ public class Protocol {
     }
     
 
-    public void setMultiplayerAction(HashMap<GameAction, SpriteModel> map) {
-        SpriteModel model = null;
-        LOG.info("Setting multiplayer action");
-        for (GameAction action : map.keySet()) {
-        	
-            model = map.get(action);
-            action.doAction(model);
+    public void setMultiplayerAction(HashMap<GameAction, String> map) {
+    	String id= null	;
+    	
+    	for (GameAction action : map.keySet()) {	
+            id = map.get(action);
+           
+    	}
+           // Helper.getsharedHelper().getGamePlayerView().getGameEnginePanel().repaint();
 
-            Helper.getsharedHelper().getGamePlayerView().getGameEnginePanel().repaint();
-            LOG.info("Event listener==========" + model.getEventListenerList().get(0));
+    	Collection<SpriteModel> collection = SpriteList.getInstance().getSpriteList();
+    	Iterator<SpriteModel> iterator = collection.iterator();
+    	SpriteModel actionModel = null;
+    	while (iterator.hasNext())
+    	{
+    		SpriteModel sprite = iterator.next();
+    		if (sprite.getId().equals(id)){
+    			actionModel = sprite;
+    			break;
+    		}
+    	}
+    	for (GameAction action : map.keySet()) {	
+            action.doAction(actionModel);
             LOG.info("Action is ============"+ action.toString());
-          LOG.info("The model id is =============="+  model.getId());  
+            LOG.info("The model id is =============="+  actionModel.getId()); 
+           
+    	}
+    	
+        LOG.info("Setting multiplayer action");
         
-}
+         
+        
     }
 
 	public ObjectMessage createStartSignal(String data) {
