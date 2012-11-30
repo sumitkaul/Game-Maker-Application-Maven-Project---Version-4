@@ -311,6 +311,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
                         try {
                         	
                             ClientHandler.deleteHostedGameBase(playerName, host, path + urldeleteHostedGameBaseRecord);
+                            MultiPlayerOption.getInstanceOf().getJoinWaitFrame().setVisible(false);
                             JFrame frame = new JFrame();
                             JOptionPane.showMessageDialog(frame, "Hosted game is exited.");
                             Constants.isHosted=false;
@@ -320,6 +321,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
                         	LOG.error(e1);
                         }
                     }
+                    
                 }
             });
         }
