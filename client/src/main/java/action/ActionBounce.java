@@ -1,12 +1,12 @@
 package action;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Queue;
 import utility.SpriteList;
 
 import model.SpriteModel;
 
+@SuppressWarnings("serial")
 public class ActionBounce implements GameAction, Serializable {
 
     private boolean randomBounce;

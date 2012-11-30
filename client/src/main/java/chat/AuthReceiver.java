@@ -11,9 +11,11 @@ import javax.swing.JOptionPane;
 import model.Player;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.log4j.Logger;
 
 import utility.Constants;
 public class AuthReceiver implements Runnable {
+	private static final Logger LOG = Logger.getLogger(AuthReceiver.class);
 
 	private MessageConsumer consumer;
 
@@ -42,7 +44,7 @@ public class AuthReceiver implements Runnable {
 			Thread chatReceiverThread=new Thread(this);
 			chatReceiverThread.start();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			LOG.error(ex);
 		}
 
 	}
@@ -69,6 +71,7 @@ public class AuthReceiver implements Runnable {
                                         }
 				}
 			} catch (Exception e) {
+				LOG.error(e);
 			}
 		}
 	}

@@ -8,10 +8,8 @@ import java.io.Serializable;
 import utility.Score;
 import model.SpriteModel;
 
-/**
- * @author Nikhil
- *
- */
+
+@SuppressWarnings("serial")
 public class ActionIncreaseScore implements GameAction,Serializable {
 
     /* (non-Javadoc)

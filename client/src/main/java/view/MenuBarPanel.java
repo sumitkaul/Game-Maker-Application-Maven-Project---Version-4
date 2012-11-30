@@ -59,7 +59,7 @@ import view.companels.GameBaseSavePanel;
 
 public class MenuBarPanel implements ActionListener, ItemListener {
 
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(GameMakerView.class);
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(MenuBarPanel.class);
     private JMenuBar menuBar = new JMenuBar();
     private JMenuItem[] modes = new JMenuItem[2];
     private final String host = Constants.HOST;
@@ -221,8 +221,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
                     }
 
                 } catch (IOException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
+                	LOG.error(e1);
                 }
 
             }
@@ -242,11 +241,9 @@ public class MenuBarPanel implements ActionListener, ItemListener {
                     URI uri = new URI(Constants.FacebookServer + "?q=" + queueName);
                     Desktop.getDesktop().browse(uri);
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                	LOG.error(e);
                 } catch (URISyntaxException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                	LOG.error(e);
                 }
 
             }
@@ -307,19 +304,24 @@ public class MenuBarPanel implements ActionListener, ItemListener {
             modes[0].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (Constants.isMultiplayer && Constants.isHost) {
+                    if (Constants.isMultiplayer && Constants.isHost && Constants.isHosted) {
                         Constants.isMultiplayer = false;
                         String playerName = Player.getInstance().getUsername();
 
                         try {
+                        	
                             ClientHandler.deleteHostedGameBase(playerName, host, path + urldeleteHostedGameBaseRecord);
+                            MultiPlayerOption.getInstanceOf().getJoinWaitFrame().setVisible(false);
                             JFrame frame = new JFrame();
                             JOptionPane.showMessageDialog(frame, "Hosted game is exited.");
+                            Constants.isHosted=false;
+                            
+                            
                         } catch (Exception e1) {
-                            // TODO Auto-generated catch block
-                            e1.printStackTrace();
+                        	LOG.error(e1);
                         }
                     }
+                    
                 }
             });
         }
@@ -328,12 +330,19 @@ public class MenuBarPanel implements ActionListener, ItemListener {
             modes[1].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Constants.isMultiplayer = true;
+                    if(Constants.isHosted){
+                    	JFrame frame = new JFrame();
+                        JOptionPane.showMessageDialog(frame, "You are presently hosting a game. You cannot host more than one game");                   	
+                    }
+                    else{
+                	
+                	Constants.isMultiplayer = true;
                     MultiPlayerOption.getInstanceOf().setRootComp(GameMakerView.getInstance().getGamePanel());
                     //MultiPlayerOption p = new MultiPlayerOption(GameMakerView.getInstance().getGamePanel());
                     LOG.info("in start action listener");
                     MultiPlayerOption.getInstanceOf().selectOption();
                     //p.selectOption();
+                    }
                 }
             });
         }
@@ -475,9 +484,10 @@ public class MenuBarPanel implements ActionListener, ItemListener {
                 GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getComboBox().setVisible(false);
             }
 
-
+            
             GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getInputPanel().validate();
 
+		
         }
 
     }

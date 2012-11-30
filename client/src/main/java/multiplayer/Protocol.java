@@ -3,42 +3,36 @@ package multiplayer;
 import action.GameAction;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
-import javax.jms.TextMessage;
 
 import org.newdawn.slick.CanvasGameContainer;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.util.Log;
 
-import facade.Facade;
 import game.engine.slick2d.player.GameEngineController;
-import loader.GameDataPackageIO;
 import loader.GamePackage;
 import model.SpriteModel;
 import utility.ClockDisplay;
 import utility.Helper;
-import utility.Layers;
 import utility.SpriteList;
-import view.ButtonPanel;
 import view.GameMakerView;
 import view.GamePlayerView;
 import view.PlayerButtonPanel;
-import view.companels.GameProgressLoadPanel;
 
 public class Protocol {
 
     private ObjectMessage msg;
-    private TextMessage text;
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ButtonPanel.class);
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(Protocol.class);
 
     public ObjectMessage createDataAsHost() {
     	GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
     	GameEngineController gameEngine = gamePlayerView.getGameEnginePanel().getGame();
+    	if(!SpriteList.getInstance().getSpriteList().isEmpty()){
         GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), gameEngine.getEventsForGameController(), gameEngine.getKeyEvents(), null, false);
         try {
             msg = SessionFactory.getInstanceOf().getSession().createObjectMessage();
@@ -47,8 +41,9 @@ public class Protocol {
         } catch (JMSException e) {
             LOG.info("sending falied as host");
         }
+    	}
         return msg;
-
+    	
     }
 
     public ObjectMessage createData(GameAction action, SpriteModel model) {
@@ -76,24 +71,14 @@ public class Protocol {
     }
 
     public void setGameState(GamePackage game) {
-//        LOG.debug("load done");
-//        GameProgressLoadPanel p = new GameProgressLoadPanel(GameMakerView.getInstance().getGamePanel());
         GamePlayerView gamePlayerView = (GamePlayerView) Helper.getsharedHelper().getGamePlayerView();
-//        String gamename[] = new String[1];
-//        String gameData = p.readGameDataFromRemoteList(gamename);
-//
-//        if (gameData == null) {
-//            return;
-//        }
-
-       // GamePackage game = GameDataPackageIO.loadGamePackageFromFile(gameData);
 
         LOG.debug("load done");
 
         Collection<SpriteModel> allSpriteModels = game.getSpriteList();
-        List<String> layers = game.getLayers();
+        game.getLayers();
         ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
-        // SpriteList.getInstance().setSpriteList(allSpriteModels);
+        
         SpriteModel m = (SpriteModel) ((Queue) allSpriteModels).peek();
         SpriteList.getInstance().setSelectedSpriteModel(m);
         gamePlayerView.getGameEnginePanel().removeGame();
@@ -120,11 +105,16 @@ public class Protocol {
         SpriteModel model = null;
         LOG.info("Setting multiplayer action");
         for (GameAction action : map.keySet()) {
+        	
             model = map.get(action);
             action.doAction(model);
 
-        }
-
+            GameMakerView.getInstance().getGamePanel().repaint();
+            LOG.info("Event listener==========" + model.getEventListenerList().get(0));
+            LOG.info("Action is ============"+ action.toString());
+          LOG.info("The model id is =============="+  model.getId());  
+        
+}
     }
 
 	public ObjectMessage createStartSignal(String data) {

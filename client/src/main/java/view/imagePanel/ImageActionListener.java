@@ -1,14 +1,11 @@
 package view.imagePanel;
 
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
 
 import model.SpriteModel;
@@ -69,21 +66,11 @@ public class ImageActionListener implements ActionListener {
             LOG.error("layer value not set", exception);
         }
         if (btn != null) {
-            // TO-DO : To get two images while importing objects. So
-            // that the second object can be used as a secondary image
-            // based on requirements.
-        	Image image = null;
-			/*try {
-				image = ImageIO.read(ImageActionListener.class.getResource(btn.getName()));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
-			int imageId = 0;
+            int imageId = 0;
 			try{
 				imageId = Integer.parseInt(btn.getName());
 			}catch (NumberFormatException ex){
-				ex.printStackTrace();
+				LOG.error(ex);
 			}
 			
             SpriteModel spriteModel = new SpriteModel(Constants.SPRITE_X, Constants.SPRITE_Y, speedX, speedY, sizeX, sizeY, btn.getName(), layer, imageId);

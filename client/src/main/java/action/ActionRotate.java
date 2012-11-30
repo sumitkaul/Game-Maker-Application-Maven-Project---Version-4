@@ -5,6 +5,7 @@ import java.io.Serializable;
 import utility.Constants;
 import model.SpriteModel;
 
+@SuppressWarnings("serial")
 public class ActionRotate implements GameAction,Serializable{
 
 	private String direction;

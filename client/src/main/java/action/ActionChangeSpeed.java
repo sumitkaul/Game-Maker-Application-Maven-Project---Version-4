@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import model.SpriteModel;
 
+@SuppressWarnings("serial")
 public class ActionChangeSpeed implements GameAction,Serializable {
 
     private double newSpeedX, newSpeedY;

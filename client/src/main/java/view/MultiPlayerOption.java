@@ -1,3 +1,4 @@
+
 package view;
 
 import java.awt.event.ActionEvent;
@@ -8,6 +9,8 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
+import lookandfeel.AnimationHandler;
 import model.Player;
 import multiplayer.Receiver;
 import multiplayer.Sender;
@@ -28,7 +31,9 @@ public final class MultiPlayerOption {
     private String sendingQueueName;
     private String receivingQueueName;
     private JFrame joinWaitFrame;
-    private final static MultiPlayerOption instance = new MultiPlayerOption();
+    
+
+	private final static MultiPlayerOption instance = new MultiPlayerOption();
 
     private MultiPlayerOption() {
     }
@@ -48,7 +53,14 @@ public final class MultiPlayerOption {
     public String getSendingQueueName() {
         return sendingQueueName;
     }
+    
+    public JFrame getJoinWaitFrame() {
+		return joinWaitFrame;
+	}
 
+	public void setJoinWaitFrame(JFrame joinWaitFrame) {
+		this.joinWaitFrame = joinWaitFrame;
+	}
     public void setSendingQueueName(String sendingQueueName) {
         if (Constants.isHost) {
             this.sendingQueueName = sendingQueueName + "#sender";
@@ -95,13 +107,17 @@ public final class MultiPlayerOption {
                     setReceivingQueueName(queueName);
                     try {
                         ClientHandler.insertHostedGame(playerName, gameName, queueName, Constants.HOST, Constants.PATH + "/insertHostedGameBaseRecord");
+                        Constants.isHosted=true;
+                        SessionFactory.getInstanceOf().createConnection();
+                        Receiver.getInstanceOf().subscribe(getReceivingQueueName()); 
                     } catch (Exception ex) {
-                        LOG.error(ex);
-                        return;
+                      ex.printStackTrace();
+    
                     }
                     
                     joinWaitFrame();
-
+                    options.setVisible(false);
+                    
                     try {
                         SessionFactory.getInstanceOf().createConnection();
                         Receiver.getInstanceOf().subscribe(getReceivingQueueName());
@@ -112,8 +128,11 @@ public final class MultiPlayerOption {
 
 
                 } else {
-                    JFrame frame = new JFrame();
-                    JOptionPane.showMessageDialog(frame, "Please login");
+                	options.setVisible(false);
+                	LoginFrame f = new LoginFrame();
+                    AnimationHandler.RotateIn(f.getLogin(), f.getLoginPanel(), 1000, 360, f.getLogin().getWidth() / 2, f.getLogin().getHeight() / 2);
+//                    JFrame frame = new JFrame();
+//                    JOptionPane.showMessageDialog(frame, "Please login");
                 }
 
             }
@@ -126,10 +145,9 @@ public final class MultiPlayerOption {
                     Constants.isHost = false;
 
                     JoinGame p = new JoinGame(GameMakerView.getInstance().getGamePanel());
-                    String gameName = p.displayJoinGames();
+                    String queueName = p.displayJoinGames();
                     //Should be supported with a GUI displaying a list of games available to 
-                    //Below line gets replaced with the GUI as mentioned above
-                    String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the game you want to join");
+                    //Below line gets replaced with the GUI as mentioned above                 
                     String playerName = Player.getInstance().getUsername();
                     setSendingQueueName(queueName);
                     setReceivingQueueName(queueName);
@@ -137,20 +155,22 @@ public final class MultiPlayerOption {
                     try {
                         sender.sendAcknowledgement(getSendingQueueName(), playerName);
                     } catch (JMSException e2) {
-                        // TODO Auto-generated catch block
-                        e2.printStackTrace();
+                    	LOG.error(e2);
                     }
-                    //sender.sendAsHost(getSendingQueueName());
+                    
                     try {
                         SessionFactory.getInstanceOf().createConnection();
                         Receiver.getInstanceOf().subscribe(getReceivingQueueName());
                     } catch (JMSException e1) {
-                        e1.printStackTrace();
+                    	LOG.error(e1);
                     }
+                    options.dispose();
                     Receiver.getInstanceOf().runGame();
                 } else {
-                    JFrame frame = new JFrame();
-                    JOptionPane.showMessageDialog(frame, "Please login");
+//                    JFrame frame = new JFrame();
+//                    JOptionPane.showMessageDialog(frame, "Please login");
+                	  LoginFrame f = new LoginFrame();
+                      AnimationHandler.RotateIn(f.getLogin(), f.getLoginPanel(), 1000, 360, f.getLogin().getWidth() / 2, f.getLogin().getHeight() / 2);
                 }
 
             }
@@ -163,6 +183,7 @@ public final class MultiPlayerOption {
     }
 
     public void joinWaitFrame() {
+    	options.dispose();
     	LOG.info("in join");
         joinWaitFrame = new JFrame();
         joinWaitFrame.setLayout(new MigLayout("center,center"));
@@ -198,8 +219,10 @@ public final class MultiPlayerOption {
         allowButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				
 				Sender sender = new Sender();
                 sender.sendAsHost(getSendingQueueName());
+                acceptUserFrame.dispose();
                 startGameFrame();
 			}
         	
@@ -225,7 +248,7 @@ public final class MultiPlayerOption {
     
     public void startGameFrame()
     {
-    	JFrame startGameFrame = new JFrame();
+    	final JFrame startGameFrame = new JFrame();
     	startGameFrame.setLayout(new MigLayout("center,center"));
     	startGameFrame.setSize(200, 200);
         JLabel label = new JLabel();
@@ -239,9 +262,9 @@ public final class MultiPlayerOption {
 				Sender sender = new Sender();
 				try {
 					sender.sendStartSignal();
+					startGameFrame.dispose();
 				} catch (JMSException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					LOG.error(e1);
 				}
 				
 			}

@@ -8,6 +8,7 @@ import model.SpriteModel;
 import utility.SpriteList;
 import view.GameMakerView;
 
+@SuppressWarnings("serial")
 public class ActionChangeGameStatus implements GameAction,Serializable {
 
     private final boolean YES = true;

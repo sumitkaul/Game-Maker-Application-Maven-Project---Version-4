@@ -5,10 +5,12 @@ import java.io.Serializable;
 import model.SpriteModel;
 import org.newdawn.slick.Sound;
 
+@SuppressWarnings("serial")
 public class ActionPlaySound implements GameAction, Serializable {
 
     private String soundFile;
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger
+    @SuppressWarnings("unused")
+	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger
             .getLogger(ActionPlaySound.class);
 
     public ActionPlaySound(String soundFile) {

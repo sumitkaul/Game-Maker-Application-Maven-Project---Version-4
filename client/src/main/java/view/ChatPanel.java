@@ -28,10 +28,11 @@ import javax.swing.text.html.HTMLEditorKit;
 
 
 import model.Player;
-import chat.ChatSender;
 import chat.Sender;
 
 public class ChatPanel {
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ChatPanel.class);
+
 	ChatViewPanel chatViewPanel;
 	private JButton send;
 	private JButton choose;
@@ -174,9 +175,9 @@ public class ChatPanel {
 				kit.insertHTML(doc, doc.getLength(),msg, 0, 0, null);
 				}
 				catch(IOException e) {
-					e.printStackTrace();
+					LOG.error(e);
 				} catch (BadLocationException e) {
-					e.printStackTrace();
+					LOG.error(e);
 				}
 				textPane.setCaretPosition(textPane.getDocument().getLength());
 				textScrollPane.getVerticalScrollBar().setValue(textScrollPane.getVerticalScrollBar().getMaximum());

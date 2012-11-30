@@ -34,19 +34,19 @@ public class OutOfBoundaryEventListenerTest {
 		double height = 100;
 		double xspeed = 20;
 		double yspeed = 20;
-		// to remove the dependancy on the GameMakerView - removing it
+		// to remove the dependency on the GameMakerView - removing it <---OutOfBoundaryEventListener still uses GameMakerView -Matt
 		//double posX = GameMakerView.getInstance().getGamePanel().getWidth() + width +10;
 		double posX = 800;
 		double posY = 100;
 		SpriteModel selectedSpriteModel = new SpriteModel( posX, posY, xspeed, yspeed, width, height, "","");
 		SpriteList.getInstance().addSprite(selectedSpriteModel);
-		OutOfBoundaryEventListener oOBEventListner = new OutOfBoundaryEventListener();
-		oOBEventListner.setRegisteredGroupId(selectedSpriteModel.getGroupId());
-		oOBEventListner.setRegisteredObjectId(selectedSpriteModel.getId()); 
+		OutOfBoundaryEventListener outOfBoundaryEventListener = new OutOfBoundaryEventListener();
+		outOfBoundaryEventListener.setRegisteredGroupId(selectedSpriteModel.getGroupId());
+		outOfBoundaryEventListener.setRegisteredObjectId(selectedSpriteModel.getId()); 
 		GameAction action = new ActionChangeSpeed(-xspeed, yspeed);
-		oOBEventListner.setAction(action);
-		oOBEventListner.checkEvent(null);
-		//accounting for floating point errors comparion errors
+		outOfBoundaryEventListener.setAction(action);
+		outOfBoundaryEventListener.checkEvent(null);
+		//accounting for floating point errors comparison errors
 		assertTrue(Math.abs(selectedSpriteModel.getSpeedX()+xspeed) < 10e-12);	
 		
 	}
@@ -61,13 +61,13 @@ public class OutOfBoundaryEventListenerTest {
 		double posY = 100;
 		SpriteModel selectedSpriteModel = new SpriteModel( posX, posY, xspeed, yspeed, width, height, "","");
 		SpriteList.getInstance().addSprite(selectedSpriteModel);
-		OutOfBoundaryEventListener oOBEventListner = new OutOfBoundaryEventListener();
-		oOBEventListner.setRegisteredGroupId(selectedSpriteModel.getGroupId());
-		oOBEventListner.setRegisteredObjectId(selectedSpriteModel.getId()); 
+		OutOfBoundaryEventListener outOfBoundaryEventListener = new OutOfBoundaryEventListener();
+		outOfBoundaryEventListener.setRegisteredGroupId(selectedSpriteModel.getGroupId());
+		outOfBoundaryEventListener.setRegisteredObjectId(selectedSpriteModel.getId()); 
 		GameAction action = new ActionChangeSpeed(-xspeed, yspeed);
-		oOBEventListner.setAction(action);
-		oOBEventListner.checkEvent(null);
-		//accounting for floating point errors comparion errors
+		outOfBoundaryEventListener.setAction(action);
+		outOfBoundaryEventListener.checkEvent(null);
+		//accounting for floating point errors comparison errors
 		assertTrue(Math.abs(selectedSpriteModel.getSpeedX()+xspeed) < 10e-12);		
 	}
 	
@@ -78,18 +78,18 @@ public class OutOfBoundaryEventListenerTest {
 		double xspeed = 20;
 		double yspeed = 20;
 		double posX = 100;
-		//to remove the dependancy on GameMakerView
+		//to remove the dependency on GameMakerView
 		//double posY = GameMakerView.getInstance().getGamePanel().getHeight() + height + 10;
 		double posY = 800;
 		SpriteModel selectedSpriteModel = new SpriteModel( posX, posY, xspeed, yspeed, width, height, "","");
 		SpriteList.getInstance().addSprite(selectedSpriteModel);
-		OutOfBoundaryEventListener oOBEventListner = new OutOfBoundaryEventListener();
-		oOBEventListner.setRegisteredGroupId(selectedSpriteModel.getGroupId());
-		oOBEventListner.setRegisteredObjectId(selectedSpriteModel.getId()); 
+		OutOfBoundaryEventListener outOfBoundaryEventListener = new OutOfBoundaryEventListener();
+		outOfBoundaryEventListener.setRegisteredGroupId(selectedSpriteModel.getGroupId());
+		outOfBoundaryEventListener.setRegisteredObjectId(selectedSpriteModel.getId());
 		GameAction action = new ActionChangeSpeed(xspeed, -yspeed);
-		oOBEventListner.setAction(action);
-		oOBEventListner.checkEvent(null);
-		//accounting for floating point errors comparsion errors
+		outOfBoundaryEventListener.setAction(action);
+		outOfBoundaryEventListener.checkEvent(null);
+		//accounting for floating point errors comparison errors
 		assertTrue(Math.abs(selectedSpriteModel.getSpeedY()+yspeed) < 10e-12);		
 	}
 	
@@ -103,16 +103,13 @@ public class OutOfBoundaryEventListenerTest {
 		double posY = -height -10;
 		SpriteModel selectedSpriteModel = new SpriteModel( posX, posY, xspeed, yspeed, width, height, "","");
 		SpriteList.getInstance().addSprite(selectedSpriteModel);
-		OutOfBoundaryEventListener oOBEventListner = new OutOfBoundaryEventListener();
-		oOBEventListner.setRegisteredGroupId(selectedSpriteModel.getGroupId());
-		oOBEventListner.setRegisteredObjectId(selectedSpriteModel.getId()); 
+		OutOfBoundaryEventListener outOfBounaryEventListener = new OutOfBoundaryEventListener();
+		outOfBounaryEventListener.setRegisteredGroupId(selectedSpriteModel.getGroupId());
+		outOfBounaryEventListener.setRegisteredObjectId(selectedSpriteModel.getId()); 
 		GameAction action = new ActionChangeSpeed(xspeed, -yspeed);
-		oOBEventListner.setAction(action);
-		oOBEventListner.checkEvent(null);
-		//accounting for floating point errors comparsion errors
+		outOfBounaryEventListener.setAction(action);
+		outOfBounaryEventListener.checkEvent(null);
+		//accounting for floating point errors comparison errors
 		assertTrue(Math.abs(selectedSpriteModel.getSpeedY()+yspeed) < 10e-12);		
 	}
-
-
-
 }

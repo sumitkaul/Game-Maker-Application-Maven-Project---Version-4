@@ -3,13 +3,13 @@ package action;
 import eventlistener.EventListener;
 import eventlistener.NewFrameEventListener;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import model.SpriteModel;
 import utility.Helper;
 import utility.SpriteList;
 import view.GameMakerView;
 
+@SuppressWarnings("serial")
 public class ActionCreateSpriteModel implements GameAction, Serializable {
 
     @Override
@@ -57,7 +57,6 @@ public class ActionCreateSpriteModel implements GameAction, Serializable {
         }
 
 
-        Collection<SpriteModel> allSpriteList = SpriteList.getInstance().getSpriteList();
         for (SpriteModel sprite : SpriteList.getInstance().getSpriteList()) {
 
             if (!sprite.getGroupId().equalsIgnoreCase("Bomb")) {

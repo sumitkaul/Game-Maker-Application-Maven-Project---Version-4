@@ -145,7 +145,7 @@ public class LoginFrame extends JFrame {
 					Constants.PATH+"/getActiveUsers");
 			ChatViewPanel.setOnlineUsersList(users);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		
 	}

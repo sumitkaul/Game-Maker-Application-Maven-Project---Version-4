@@ -8,6 +8,7 @@ import utility.Constants;
 import utility.Helper;
 import view.GamePlayerView;
 
+@SuppressWarnings("serial")
 public class GameEnginePanel extends JPanel {
 
     private static final org.apache.log4j.Logger LOG =
