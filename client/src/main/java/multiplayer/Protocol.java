@@ -94,11 +94,14 @@ public class Protocol {
         gamePlayerView.getGameEnginePanel().removeGame();
         
         GameEngineController gameEngine = new GameEngineController(Subscribe.getInstanceOf().getName(), game);
-        gameEngine.setEventsForGameController(game.getEventsForGameController());
-        gameEngine.setKeyEvents(game.getEventsForKeyController());
+        //gameEngine.setEventsForGameController(game.getEventsForGameController());
+        //gameEngine.setKeyEvents(game.getEventsForKeyController());
         try {
             CanvasGameContainer app = new CanvasGameContainer(gameEngine);
             gamePlayerView.getGameEnginePanel().addGame(app);
+            gamePlayerView.getBaseFrame().pack();
+            app.start();
+            app.requestFocusInWindow();
             //gamePlayerView.getGameEnginePanel().startGame();
         } catch (SlickException ex) {
             Logger.getLogger(PlayerButtonPanel.class.getName()).log(Level.SEVERE, null, ex);

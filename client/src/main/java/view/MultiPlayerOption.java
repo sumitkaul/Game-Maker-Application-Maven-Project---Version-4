@@ -297,7 +297,7 @@ public final class MultiPlayerOption {
     	startGameFrame.setSize(200, 200);
         JLabel label = new JLabel();
         this.startButton = new JButton("Start Game");
-        this.startButton.setEnabled(this.isReady());
+        this.startButton.setEnabled(true);
         this.startButton.addActionListener(new ActionListener(){
 
 			@Override
