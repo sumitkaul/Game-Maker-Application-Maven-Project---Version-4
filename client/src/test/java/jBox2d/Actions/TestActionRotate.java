@@ -1,22 +1,20 @@
 package jBox2d.Actions;
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.util.LinkedHashMap;
-
-import org.junit.Before;
-import org.junit.Test;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
+import org.junit.Before;
+import org.junit.Test;
 
-import JBox2d.Actions.ActionMoveLeft;
+import JBox2d.Actions.ActionRotate;
 
-public class TestActionMoveLeft {
-
+public class TestActionRotate {
 	public static World world;
-	public static LinkedHashMap<String,Body> bodies;
 	private BodyDef bodyDef;
 	private Body body;
 
@@ -32,15 +30,11 @@ public class TestActionMoveLeft {
 		body = world.createBody(bodyDef);
 	}
 	
-	
-
 	@Test
 	public void testDoAction()
 	{
-		ActionMoveLeft action = new ActionMoveLeft();
+		ActionRotate action = new ActionRotate(3.0f);
 		action.doAction(body);
-		assertNotNull(body);
-		assertEquals((int)-1.0 ,(int) body.getPosition().x);
-		assertEquals((int)4.0 ,(int)body.getPosition().y);
+		assertEquals((int) 3.0, (int) body.getAngle());
 	}
 }
