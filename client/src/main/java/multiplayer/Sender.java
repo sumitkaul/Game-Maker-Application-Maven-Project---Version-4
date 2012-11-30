@@ -20,10 +20,10 @@ public class Sender {
 		
 	}
 	
-	public void sendAsClient(GameAction action, SpriteModel spriteModel)
+	public void sendAsClient(GameAction action, String spriteID)
 	{
 		SessionFactory.getInstanceOf().createConnection();
-		Publish.getInstanceOf().sendGameAction(action, spriteModel);
+		Publish.getInstanceOf().sendGameAction(action, spriteID);
 	
 	}
 	public void sendAcknowledgement(String queue, String playerName) throws JMSException

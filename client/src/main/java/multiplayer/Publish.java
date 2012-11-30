@@ -78,11 +78,11 @@ public final class Publish {
 		producer.send(objectMessage);
 	}
 
-	public void sendGameAction(GameAction action, SpriteModel spriteModel) {
+	public void sendGameAction(GameAction action, String spriteID) {
 		try {
 			Protocol protocol = new Protocol();
 
-			objectMessage = protocol.createData(action, spriteModel);
+			objectMessage = protocol.createData(action, spriteID);
 			producer.send(objectMessage);
 
 		} catch (JMSException e) {
