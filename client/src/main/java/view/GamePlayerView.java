@@ -21,7 +21,7 @@ import view.communication.ClientHandler;
 public class GamePlayerView {
 	private static final Logger LOG = Logger.getLogger(GamePlayerView.class);
 
-	private JFrame baseFrame;
+	private static JFrame baseFrame;
 	private GameEnginePanel gameenginePanel;
 	private final String host = Constants.HOST;
 	private final String path = Constants.PATH;
@@ -83,7 +83,7 @@ public class GamePlayerView {
 		this.gameenginePanel = gamePanel;
 	}
 
-	public JFrame getBaseFrame() {
+	public static JFrame getBaseFrame() {
 		return baseFrame;
 	}
 

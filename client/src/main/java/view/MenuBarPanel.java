@@ -277,6 +277,14 @@ public class MenuBarPanel implements ActionListener, ItemListener {
             		JFrame frame = new JFrame();
 					JOptionPane.showMessageDialog(frame,
 							"You have logged out successfully.");
+					if(Constants.isGameMaker){
+						GameMakerView.getInstance().getBaseFrame().setVisible(false);
+						OptionsFrame.getOptionFrame().setVisible(true);
+					}
+					else{
+						GamePlayerView.getBaseFrame().setVisible(false);
+						OptionsFrame.getOptionFrame().setVisible(true);
+					}
             	}
             	else{
             		JFrame frame = new JFrame();

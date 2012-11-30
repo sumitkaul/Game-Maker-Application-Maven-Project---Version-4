@@ -15,7 +15,7 @@ public class OptionsFrame implements ActionListener {
 
     private static final org.apache.log4j.Logger LOG =
             org.apache.log4j.Logger.getLogger(OptionsFrame.class);
-    private JFrame optionFrame;
+    private static JFrame optionFrame;
     private JButton makerButton, playerButton;
     private GameEnginePanel te;
  
@@ -62,7 +62,7 @@ public class OptionsFrame implements ActionListener {
 
     }
 
-    public JFrame getOptionFrame() {
+    public static JFrame getOptionFrame() {
         return optionFrame;
     }
 
