@@ -54,6 +54,7 @@ public class PlayerButtonPanel implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
+                gamePlayerView.getGameEnginePanel().startGame();
 //				gamePlayerView.getFacade().startGame();
 //				gamePlayerView.getGamePanel().requestFocusInWindow();
             }
@@ -115,7 +116,7 @@ public class PlayerButtonPanel implements ActionListener {
                 try {
                     CanvasGameContainer app = new CanvasGameContainer(gameEngine);
                     gamePlayerView.getGameEnginePanel().addGame(app);
-                    gamePlayerView.getGameEnginePanel().startGame();
+                    //gamePlayerView.getGameEnginePanel().startGame();
                 } catch (SlickException ex) {
                     Logger.getLogger(PlayerButtonPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -172,6 +173,7 @@ public class PlayerButtonPanel implements ActionListener {
         playerButtonPanel = new JPanel(new MigLayout("center,center"));
         buttonPanel = new JPanel();
         
+        buttonPanel.add(startButton);
         buttonPanel.add(newButton);
         buttonPanel.add(loadButton);
         buttonPanel.add(saveButton);

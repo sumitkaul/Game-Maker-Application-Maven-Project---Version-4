@@ -30,10 +30,19 @@ public class Protocol {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(Protocol.class);
 
     public ObjectMessage createDataAsHost() {
-    	GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
+    	GamePlayerView gamePlayerView = (GamePlayerView) Helper.getsharedHelper().getGamePlayerView();
     	GameEngineController gameEngine = gamePlayerView.getGameEnginePanel().getGame();
-    	if(!SpriteList.getInstance().getSpriteList().isEmpty()){
+    	if (gameEngine != null)
+    	{
+    		LOG.info("Game engine is not nul =================================");
+    	}
+    	//if(!SpriteList.getInstance().getSpriteList().isEmpty()){
+    		LOG.info("Sprite list is not empty here -----------------");
         GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), gameEngine.getEventsForGameController(), gameEngine.getKeyEvents(), null, false);
+        if (game != null)
+    	{
+    		LOG.info("Game  is not nul =================================");
+    	}
         try {
             msg = SessionFactory.getInstanceOf().getSession().createObjectMessage();
             msg.setObject(game);
@@ -41,7 +50,7 @@ public class Protocol {
         } catch (JMSException e) {
             LOG.info("sending falied as host");
         }
-    	}
+    	//}
         return msg;
     	
     }
@@ -89,7 +98,7 @@ public class Protocol {
         try {
             CanvasGameContainer app = new CanvasGameContainer(gameEngine);
             gamePlayerView.getGameEnginePanel().addGame(app);
-            gamePlayerView.getGameEnginePanel().startGame();
+            //gamePlayerView.getGameEnginePanel().startGame();
         } catch (SlickException ex) {
             Logger.getLogger(PlayerButtonPanel.class.getName()).log(Level.SEVERE, null, ex);
         }

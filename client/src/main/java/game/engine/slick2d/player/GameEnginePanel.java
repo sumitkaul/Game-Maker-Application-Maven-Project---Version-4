@@ -49,7 +49,7 @@ public class GameEnginePanel extends JPanel {
             GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
             gamePlayerView.getGameEnginePanel().addGame(app);
             gamePlayerView.getBaseFrame().pack();
-            gamePlayerView.getGameEnginePanel().startGame();
+            //gamePlayerView.getGameEnginePanel().startGame();
         } catch (Exception ex) {
             LOG.error(ex);
         }

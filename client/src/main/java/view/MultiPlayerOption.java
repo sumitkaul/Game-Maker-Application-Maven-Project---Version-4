@@ -99,14 +99,14 @@ public final class MultiPlayerOption {
                 if (Player.getInstance().getUsername() != null) {
                 	LOG.info("In hos button pressed");
                     Constants.isHost = true;
-                    HostGame p = new HostGame(rootComp);
-                    String gameName = p.displayHostedGames();
+//                    HostGame p = new HostGame(rootComp);
+//                    String gameName = p.displayHostedGames();
                     String queueName = JOptionPane.showInputDialog(new JFrame(), "Enter the name of the hosted game");
                     String playerName = Player.getInstance().getUsername();
                     setSendingQueueName(queueName);
                     setReceivingQueueName(queueName);
                     try {
-                        ClientHandler.insertHostedGame(playerName, gameName, queueName, Constants.HOST, Constants.PATH + "/insertHostedGameBaseRecord");
+                        ClientHandler.insertHostedGame(playerName, queueName, queueName, Constants.HOST, Constants.PATH + "/insertHostedGameBaseRecord");
                         Constants.isHosted=true;
                         SessionFactory.getInstanceOf().createConnection();
                         Receiver.getInstanceOf().subscribe(getReceivingQueueName()); 
@@ -257,8 +257,6 @@ public final class MultiPlayerOption {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
-				gamePlayerView.getGameEnginePanel().startGame();
 				Sender sender = new Sender();
 				try {
 					sender.sendStartSignal();
@@ -266,6 +264,8 @@ public final class MultiPlayerOption {
 				} catch (JMSException e1) {
 					LOG.error(e1);
 				}
+				GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
+				gamePlayerView.getGameEnginePanel().startGame();
 				
 			}
         	
