@@ -15,12 +15,13 @@ public class OptionsFrame implements ActionListener {
 
     private static final org.apache.log4j.Logger LOG =
             org.apache.log4j.Logger.getLogger(OptionsFrame.class);
-    private static JFrame optionFrame;
+    private JFrame optionFrame;
+    private static OptionsFrame optionsFrame;
     private JButton makerButton, playerButton;
     private GameEnginePanel te;
  
 
-    public OptionsFrame() {
+    private OptionsFrame() {
         optionFrame = new JFrame();
         makerButton = new JButton("Make Game");
         makerButton.addActionListener(this);
@@ -41,6 +42,9 @@ public class OptionsFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e == null){
+            return;
+        }
         if (e.getSource() == makerButton) {
         	Constants.isGameMaker=true;
                 Constants.isGamePlayer=false;
@@ -62,11 +66,14 @@ public class OptionsFrame implements ActionListener {
 
     }
 
-    public static JFrame getOptionFrame() {
-        return optionFrame;
+    public static OptionsFrame getOptionFrame() {
+        return ((optionsFrame == null)? (optionsFrame = new OptionsFrame()):optionsFrame);
     }
 
-    public void setOptionFrame(JFrame optionFrame) {
-        this.optionFrame = optionFrame;
+    public void setVisible(boolean visibility){
+        optionFrame.setVisible(visibility);
     }
+//    public void setOptionFrame(JFrame optionFrame) {
+//        this.optionFrame = optionFrame;
+//    }
 }

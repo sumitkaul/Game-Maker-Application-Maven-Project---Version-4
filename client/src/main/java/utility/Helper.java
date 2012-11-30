@@ -37,12 +37,14 @@ import action.ActionRotate;
 import action.ActionStartOver;
 import action.GameAction;
 import action.RemoveAction;
+import view.OptionsFrame;
 
 public class Helper {
 	public static Helper sharedHelper;
 	private int currentKeyCode; 
 	private boolean isPlayerMode;
-	private JFrame optionsFrame;
+//	private JFrame optionsFrame;
+        private OptionsFrame optionsFrame;
 	private GamePlayerView gamePlayerView;
 	private int currentMessageNumber;
 	private HashMap<Integer,String> messages;
@@ -230,11 +232,11 @@ public class Helper {
 		this.currentKeyCode = currentKeyCode;
 	}
 
-	public JFrame getOptionsFrame() {
+	public OptionsFrame getOptionsFrame() {
 		return optionsFrame;
 	}
 
-	public void setOptionsFrame(JFrame optionsFrame) {
+	public void setOptionsFrame(OptionsFrame optionsFrame) {
 		this.optionsFrame = optionsFrame;
 	}
 
