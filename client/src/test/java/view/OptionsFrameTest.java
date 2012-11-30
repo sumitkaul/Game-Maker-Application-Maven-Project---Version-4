@@ -27,8 +27,7 @@ public class OptionsFrameTest {
     } 
 
     @Test
-    public void testGetOptionFrame() {
-        System.out.println("getOptionFrame");
+    public void testGetOptionFrame() {       
 //        OptionsFrame expResult = null;
         OptionsFrame result = OptionsFrame.getOptionFrame();
         assertNotNull(result);        
