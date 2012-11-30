@@ -62,7 +62,7 @@ public class Receiver implements MessageListener {
 				protocol.setGameState(gameData);
 				LOG.info("The data is GamePackage type "
 						+ objectMessage.getObject());
-				MultiPlayerOption.getInstanceOf().readyGameFrame();
+				//MultiPlayerOption.getInstanceOf().readyGameFrame();
 			} else if (data instanceof HashMap) {
 				HashMap<GameAction, SpriteModel> actionData = (HashMap<GameAction, SpriteModel>) data;
 				Protocol protocol = new Protocol();
