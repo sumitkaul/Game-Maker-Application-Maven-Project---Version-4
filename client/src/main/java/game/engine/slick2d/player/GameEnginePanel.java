@@ -16,6 +16,7 @@ public class GameEnginePanel extends JPanel {
     private CanvasGameContainer app;
     private GameEngineController game;
 
+
     public GameEnginePanel() {
         setPreferredSize(new Dimension(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT));
         setVisible(true);
@@ -25,8 +26,8 @@ public class GameEnginePanel extends JPanel {
         this.app = app;
         this.app.getContainer().setTargetFrameRate(60);
         this.app.setPreferredSize(new Dimension(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT));
+        this.app.getContainer().setForceExit(true);
         add(this.app);
-        this.app.requestFocusInWindow();
     }
 
     public void removeGame() {
@@ -44,23 +45,24 @@ public class GameEnginePanel extends JPanel {
             removeGame();
             game = new GameEngineController("test", GameEngineController.LOAD_MODE_REMOTE, new String[]{"/game/engine/slick2d/player/testing_game.xml"});
             CanvasGameContainer app = new CanvasGameContainer(game);
-            app.getContainer().setTargetFrameRate(60);
-            app.getContainer().setForceExit(true);
             GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
             gamePlayerView.getGameEnginePanel().addGame(app);
             gamePlayerView.getBaseFrame().pack();
-            //gamePlayerView.getGameEnginePanel().startGame();
+            this.app.start();
+            this.app.requestFocusInWindow();
         } catch (Exception ex) {
+            ex.printStackTrace();
             LOG.error(ex);
         }
     }
 
     public void startGame() {
-        try {
-            app.start();
-        } catch (SlickException ex) {
-            LOG.error(ex);
-        }
+        //try {           
+
+        app.requestFocusInWindow();
+//        } catch (SlickException ex) {
+//            LOG.error(ex);
+//        }
     }
 
     public void exitGame() {
@@ -92,5 +94,4 @@ public class GameEnginePanel extends JPanel {
     public void setGame(GameEngineController game) {
         this.game = game;
     }
-
 }
