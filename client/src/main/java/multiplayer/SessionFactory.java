@@ -52,6 +52,8 @@ public final class SessionFactory {
 	}
 	
 	public void closeSession() throws JMSException{
+		Publish.getInstanceOf().getProducer().close();
+		Subscribe.getInstanceOf().getConsumer().close();
 		session.close();
 		connection.close();
 	}

@@ -12,6 +12,14 @@ import action.GameAction;
 public final class Publish {
 
 	private MessageProducer producer;
+	public MessageProducer getProducer() {
+		return producer;
+	}
+
+	public void setProducer(MessageProducer producer) {
+		this.producer = producer;
+	}
+
 	private ObjectMessage objectMessage;
 	private String topic;
 	private final static Publish instance = new Publish();
