@@ -273,11 +273,14 @@ public class MenuBarPanel implements ActionListener, ItemListener {
             public void actionPerformed(ActionEvent arg0) {
             	if(Player.getInstance().getUsername()!=null){
             		Player.getInstance().setUsername(null);
+            		JFrame frame = new JFrame();
+					JOptionPane.showMessageDialog(frame,
+							"You have logged out successfully.");
             	}
             	else{
             		JFrame frame = new JFrame();
 					JOptionPane.showMessageDialog(frame,
-							"Please log in to log out.");
+							"You are not logged in to log out.");
             	}
 
             }
