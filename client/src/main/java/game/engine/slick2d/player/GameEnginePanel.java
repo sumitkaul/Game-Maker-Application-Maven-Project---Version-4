@@ -60,6 +60,7 @@ public class GameEnginePanel extends JPanel {
         //try {           
 
         app.requestFocusInWindow();
+        game.startGame();
 //        } catch (SlickException ex) {
 //            LOG.error(ex);
 //        }

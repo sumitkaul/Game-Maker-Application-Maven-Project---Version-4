@@ -43,6 +43,8 @@ public class GameEngineController extends BasicGame {
     private HashMap<Integer, KeyPressedEventListener> keyReg;
     private HashMap<Integer, Integer> key2key;
     private AtomicBoolean gamePaused;
+    private AtomicBoolean gameStarted;
+    private Graphics lastGraphics;
 
     public GameEngineController(String title, int loadMode, String[] paras) {
         super(title);
@@ -50,6 +52,7 @@ public class GameEngineController extends BasicGame {
         //buildPhysicsWorld();
         game = loadGameData(loadMode, paras);
         gamePaused = new AtomicBoolean(false);
+        gameStarted = new AtomicBoolean(false);
     }
 
     public GameEngineController(String title, GamePackage game) {
@@ -58,6 +61,7 @@ public class GameEngineController extends BasicGame {
         //buildPhysicsWorld();
         this.game = game;
         gamePaused = new AtomicBoolean(false);
+        gameStarted = new AtomicBoolean(false);
     }
 
     private void buildKeyModel() {
@@ -166,6 +170,10 @@ public class GameEngineController extends BasicGame {
 
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
+        if (!gameStarted.get()) {
+            return;
+        }
+
         if (!gc.hasFocus()) {
             gamePaused.set(true);
         } else {
@@ -186,12 +194,15 @@ public class GameEngineController extends BasicGame {
             }
         }
     }
-    private Graphics lastGraphics;
+
+    public void startGame() {
+        gameStarted.set(true);
+    }
 
     @Override
     public void render(GameContainer gc, Graphics grphcs) throws SlickException {
         //LOG.debug("render");
-        
+
         //accomodate CanvasGameContainer
         lastGraphics = grphcs;
 
