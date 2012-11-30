@@ -44,6 +44,7 @@ import lookandfeel.AnimationHandler;
 import lookandfeel.ThemeHandler;
 import model.Player;
 import model.SpriteModel;
+import multiplayer.SessionFactory;
 import twitter.GetScore;
 import twitter.UpdateStatus;
 import twitter4j.TwitterException;
@@ -340,6 +341,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
                         	
                             ClientHandler.deleteHostedGameBase(playerName, host, path + urldeleteHostedGameBaseRecord);
                             MultiPlayerOption.getInstanceOf().getJoinWaitFrame().setVisible(false);
+                            SessionFactory.getInstanceOf().closeSession();
                             JFrame frame = new JFrame();
                             JOptionPane.showMessageDialog(frame, "Hosted game is exited.");
                             Constants.isHosted=false;

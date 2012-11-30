@@ -12,6 +12,7 @@ import java.awt.event.WindowEvent;
 import org.apache.log4j.Logger;
 
 import model.Player;
+import multiplayer.SessionFactory;
 
 import utility.Constants;
 import utility.Helper;
@@ -55,7 +56,7 @@ public class GamePlayerView {
 						ClientHandler.deleteHostedGameBase(playerName, host,
 								path + urldeleteHostedGameBaseRecord);
 						Constants.isHosted=false;
-						
+						SessionFactory.getInstanceOf().closeSession();					
 						JFrame frame = new JFrame();
 						JOptionPane.showMessageDialog(frame,
 								"Hosted game is exited.");
