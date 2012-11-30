@@ -50,12 +50,6 @@ public class GameEngineController extends BasicGame {
         //buildPhysicsWorld();
         game = loadGameData(loadMode, paras);
         gamePaused = new AtomicBoolean(false);
-        try {
-            initSpriteImageMapping();
-        } catch (Exception ex) {
-            LOG.error(ex);
-        }
-        initActionEvents();
     }
 
     public GameEngineController(String title, GamePackage game) {
@@ -64,12 +58,6 @@ public class GameEngineController extends BasicGame {
         //buildPhysicsWorld();
         this.game = game;
         gamePaused = new AtomicBoolean(false);
-        try {
-            initSpriteImageMapping();
-        } catch (Exception ex) {
-            LOG.error(ex);
-        }
-        initActionEvents();
     }
 
     private void buildKeyModel() {
@@ -167,12 +155,13 @@ public class GameEngineController extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException {
-//    	  try {
-//              initSpriteImageMapping();
-//          } catch (Exception ex) {
-//              LOG.error(ex);
-//          }
-//          initActionEvents();
+        try {
+            initSpriteImageMapping();
+        } catch (Exception ex) {
+            LOG.error(ex);
+        }
+        initActionEvents();
+
     }
 
     @Override

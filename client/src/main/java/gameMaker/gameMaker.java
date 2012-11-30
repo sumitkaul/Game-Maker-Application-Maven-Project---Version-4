@@ -13,7 +13,7 @@ public class gameMaker {
         ThemeHandler.applyTheme(ThemeHandler.THEME_SILVER);
         System.setProperty("org.lwjgl.librarypath", System.getProperty("user.dir") + "/target/natives/");
         System.setProperty("net.java.games.input.librarypath", System.getProperty("org.lwjgl.librarypath"));
-        OptionsFrame optionFrame = new OptionsFrame();
-        Helper.getsharedHelper().setOptionsFrame(optionFrame.getOptionFrame());
+//        OptionsFrame optionFrame = new OptionsFrame();
+        Helper.getsharedHelper().setOptionsFrame(OptionsFrame.getOptionFrame());
     }
 }
