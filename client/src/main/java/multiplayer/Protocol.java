@@ -36,8 +36,9 @@ public class Protocol {
     	{
     		LOG.info("Game engine is not nul =================================");
     	}
-    	//if(!SpriteList.getInstance().getSpriteList().isEmpty()){
-    		LOG.info("Sprite list is not empty here -----------------");
+    	if(SpriteList.getInstance().getSpriteList().isEmpty()){
+    		LOG.info("Sprite list is empty here -----------------");
+        }
         GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), gameEngine.getEventsForGameController(), gameEngine.getKeyEvents(), null, false);
         if (game != null)
     	{
