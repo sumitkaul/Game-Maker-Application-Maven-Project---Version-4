@@ -39,4 +39,10 @@ public class Sender {
 		
 	}
 
+	public void readySignal() throws JMSException {
+		SessionFactory.getInstanceOf().createConnection();
+		Publish.getInstanceOf().sendReadySignal();
+		
+	}
+
 }

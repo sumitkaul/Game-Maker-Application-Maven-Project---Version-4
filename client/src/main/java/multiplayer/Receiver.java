@@ -62,6 +62,7 @@ public class Receiver implements MessageListener {
 				protocol.setGameState(gameData);
 				LOG.info("The data is GamePackage type "
 						+ objectMessage.getObject());
+				MultiPlayerOption.getInstanceOf().readyGameFrame();
 			} else if (data instanceof HashMap) {
 				HashMap<GameAction, SpriteModel> actionData = (HashMap<GameAction, SpriteModel>) data;
 				Protocol protocol = new Protocol();
@@ -74,7 +75,11 @@ public class Receiver implements MessageListener {
 					GamePlayerView gamePlayerView = Helper.getsharedHelper()
 							.getGamePlayerView();
 					gamePlayerView.getGameEnginePanel().startGame();
-				} else {
+				}
+				else if (textMessage.equals("ready__^^")) {
+					MultiPlayerOption.getInstanceOf().setReady(true);
+				}
+				else {
 					String joinee = textMessage.substring(0,
 							textMessage.indexOf("+") - 1);
 					String gameName = textMessage.substring(

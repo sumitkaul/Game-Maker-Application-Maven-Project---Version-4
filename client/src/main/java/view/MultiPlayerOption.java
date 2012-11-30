@@ -31,11 +31,23 @@ public final class MultiPlayerOption {
     private String sendingQueueName;
     private String receivingQueueName;
     private JFrame joinWaitFrame;
-    
+    private boolean isReady=false;
+    private JButton startButton;
+
+	public boolean isReady() {
+		return isReady;
+	}
+
+	public void setReady(boolean isReady) {
+		this.isReady = isReady;
+		this.startButton.setEnabled(true);
+	}
 
 	private final static MultiPlayerOption instance = new MultiPlayerOption();
 
     private MultiPlayerOption() {
+    	this.startButton = new JButton("Start Game");
+        
     }
 
     public static MultiPlayerOption getInstanceOf() {
@@ -246,14 +258,46 @@ public final class MultiPlayerOption {
         acceptUserFrame.requestFocus();
     }
     
+    public void readyGameFrame()
+    {
+    	final JFrame readyGameFrame = new JFrame();
+    	readyGameFrame.setLayout(new MigLayout("center,center"));
+    	readyGameFrame.setSize(200, 200);
+        JLabel label = new JLabel("Press Ready whenever you are ready...");
+        JButton readyButton = new JButton("Ready");
+        readyButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Sender sender = new Sender();
+				try {
+					sender.readySignal();
+					readyGameFrame.dispose();
+				} catch (JMSException e1) {
+					LOG.error(e1);
+				}
+				
+				
+			}
+        	
+        });
+        readyGameFrame.add(label, "wrap,wmin 100, hmin 30");
+        readyGameFrame.add(readyButton, "wmin 50, hmin 30");
+        readyGameFrame.setLocationRelativeTo(rootComp);
+        readyGameFrame.setVisible(true);
+        readyGameFrame.setFocusable(true);
+        readyGameFrame.requestFocus();
+    }
+    
     public void startGameFrame()
     {
     	final JFrame startGameFrame = new JFrame();
     	startGameFrame.setLayout(new MigLayout("center,center"));
     	startGameFrame.setSize(200, 200);
         JLabel label = new JLabel();
-        JButton startButton = new JButton("Start Game");
-        startButton.addActionListener(new ActionListener(){
+        //this.startButton = new JButton("Start Game");
+        this.startButton.setEnabled(false);
+        this.startButton.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -277,4 +321,6 @@ public final class MultiPlayerOption {
         startGameFrame.setFocusable(true);
         startGameFrame.requestFocus();
     }
+    
+    
 }

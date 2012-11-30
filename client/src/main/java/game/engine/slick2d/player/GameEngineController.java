@@ -167,7 +167,12 @@ public class GameEngineController extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException {
-        
+//    	  try {
+//              initSpriteImageMapping();
+//          } catch (Exception ex) {
+//              LOG.error(ex);
+//          }
+//          initActionEvents();
     }
 
     @Override
@@ -305,6 +310,7 @@ public class GameEngineController extends BasicGame {
                 }
             } catch (Exception e) {
                 LOG.error("don't worry, it is only temp key-mapping error, we not done yet: " + e);
+                e.printStackTrace();
             }
         }
 

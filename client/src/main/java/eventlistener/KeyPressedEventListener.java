@@ -41,7 +41,7 @@ public class KeyPressedEventListener implements EventListener, Serializable {
                 Log.info("In key pressed event");
                 if (!Constants.isMultiplayer)
                 	action.doAction(sprite);
-               if (Constants.isMultiplayer && Constants.isHost && sprite.getMode().equals(playerModes.PLAYER1) || (Constants.isMultiplayer && !Constants.isHost && sprite.getMode().equals(playerModes.PLAYER2))) {
+               if ((Constants.isMultiplayer && Constants.isHost && sprite.getMode().equals(playerModes.PLAYER1)) || (Constants.isMultiplayer && !Constants.isHost && sprite.getMode().equals(playerModes.PLAYER2))) {
                // if (!Constants.isMultiplayer || (Constants.isMultiplayer && Constants.isHost ) || (Constants.isMultiplayer && !Constants.isHost && sprite.getMode().equals(playerModes.PLAYER2))) {
             	   action.doAction(sprite);
             	   Log.info("action ======================== "+action);

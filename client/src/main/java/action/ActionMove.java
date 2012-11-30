@@ -14,11 +14,11 @@ public class ActionMove implements GameAction,Serializable {
 	  @Override
     public void doAction(SpriteModel object) {
 
-    	LOG.info("In action move[[[[[[[[[[[[[[[[[[[[[[[");
+    	//LOG.info("In action move[[[[[[[[[[[[[[[[[[[[[[[");
 
         object.setPosX(object.getPosX() + object.getSpeedX());
         object.setPosY(object.getPosY() + object.getSpeedY());
 
-        LOG.info("Object x pos is 999999 "+object.getPosX()+"Onject y pos is 9999999999 "+object.getPosY());
+       // LOG.info("Object x pos is  "+object.getPosX()+"Onject y pos is  "+object.getPosY());
 }
 }

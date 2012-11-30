@@ -96,4 +96,12 @@ public final class Publish {
 		objectMessage = protocol.createStartSignal(data);
 		producer.send(objectMessage);
 	}
+
+	public void sendReadySignal() throws JMSException {
+		Protocol protocol = new Protocol();
+		String data = "ready__^^";
+		objectMessage = protocol.createStartSignal(data);
+		producer.send(objectMessage);
+		
+	}
 }
