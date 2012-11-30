@@ -120,7 +120,7 @@ public class LoginFrame extends JFrame {
                     }
 
                     if (loginok) {
-                        d.getButtonPanel().getUserName().setText("Welcome " + user_name);
+                       // d.getButtonPanel().getUserName().setText("Welcome " + user_name);
                         Player.getInstance().setUsername(user_name);
                         Player.getInstance().setPassword(pass_word);
                         JFrame frame = new JFrame();
@@ -128,7 +128,7 @@ public class LoginFrame extends JFrame {
                                 "login successful");
                         setOnlineChatUsers();
                     } else {
-                        d.getButtonPanel().getUserName().setText("invalid username and password");
+                       // d.getButtonPanel().getUserName().setText("invalid username and password");
                         JFrame frame = new JFrame();
                         JOptionPane.showMessageDialog(frame,
                                 "login invalid");

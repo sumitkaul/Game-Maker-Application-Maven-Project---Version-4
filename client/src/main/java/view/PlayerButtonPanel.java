@@ -61,10 +61,10 @@ public class PlayerButtonPanel implements ActionListener {
 
         newButton = new JButton();//new
         newButton.setSize(30, 30);
-//        ImageIcon newicon = new ImageIcon(this.getClass().getClassLoader().getResource("new.png"));
-//        Image newimage = newicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-//        newicon.setImage(newimage);
-//        newButton.setIcon(newicon);
+        ImageIcon newicon = new ImageIcon(this.getClass().getClassLoader().getResource("new.png"));
+        Image newimage = newicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        newicon.setImage(newimage);
+        newButton.setIcon(newicon);
         newButton.setToolTipText("New Game");
 
         newButton.addActionListener(new ActionListener() {
@@ -77,10 +77,10 @@ public class PlayerButtonPanel implements ActionListener {
 
         loadButton = new JButton();//load
         loadButton.setSize(30, 30);
-//        ImageIcon loadicon = new ImageIcon(this.getClass().getClassLoader().getResource("load.png"));
-//        Image loadimage = loadicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-//        loadicon.setImage(loadimage);
-//        loadButton.setIcon(loadicon);
+        ImageIcon loadicon = new ImageIcon(this.getClass().getClassLoader().getResource("load.png"));
+        Image loadimage = loadicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        loadicon.setImage(loadimage);
+        loadButton.setIcon(loadicon);
 
         loadButton.setToolTipText("Load Game");
 
@@ -130,10 +130,10 @@ public class PlayerButtonPanel implements ActionListener {
 
         share = new JButton();//share
         share.setSize(30, 30);
-//        ImageIcon shareicon = new ImageIcon(this.getClass().getClassLoader().getResource("share.png"));
-//        Image shareimage = shareicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-//        shareicon.setImage(shareimage);
-//        share.setIcon(shareicon);
+        ImageIcon shareicon = new ImageIcon(this.getClass().getClassLoader().getResource("share.png"));
+        Image shareimage = shareicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        shareicon.setImage(shareimage);
+        share.setIcon(shareicon);
         share.setToolTipText("Share Game");
         
         share.addActionListener(new ActionListener() {
@@ -148,10 +148,10 @@ public class PlayerButtonPanel implements ActionListener {
 
         saveButton = new JButton();//save
         saveButton.setSize(30, 30);
-//        ImageIcon saveicon = new ImageIcon(this.getClass().getClassLoader().getResource("save.png"));
-//        Image saveimage = saveicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-//        saveicon.setImage(saveimage);
-//        saveButton.setIcon(saveicon);
+        ImageIcon saveicon = new ImageIcon(this.getClass().getClassLoader().getResource("save.png"));
+        Image saveimage = saveicon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        saveicon.setImage(saveimage);
+        saveButton.setIcon(saveicon);
         saveButton.setToolTipText("Save Game");
         
         saveButton.addActionListener(new ActionListener() {
