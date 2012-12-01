@@ -24,7 +24,7 @@ public class GameEnginePanelTest {
 		gameEnginePanelMock= mock(GameEnginePanel.class);
 		
 	}
-
+   
 	@After
 	public void tearDown() throws Exception {
 		gameEnginePanel=null;
@@ -51,5 +51,11 @@ public class GameEnginePanelTest {
 		assertEquals(expectedGameEngineController,actualGameEngineController);
 		
 	}
-
+	
+	@Test
+	public void testGetApp() {
+		when(gameEnginePanelMock.getApp()).thenReturn(canvasGameContainer);
+		assertEquals(canvasGameContainer,gameEnginePanelMock.getApp());
+	}
+	
 }
