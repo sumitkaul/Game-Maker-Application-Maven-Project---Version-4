@@ -116,8 +116,7 @@ public class Protocol {
     
 
     public void setMultiplayerAction(HashMap<GameAction, String> map) {
-    	String id= null	;
-    	
+    	String id = null;
     	for (GameAction action : map.keySet()) {	
             id = map.get(action);
            
@@ -125,11 +124,9 @@ public class Protocol {
            // Helper.getsharedHelper().getGamePlayerView().getGameEnginePanel().repaint();
 
     	Collection<SpriteModel> collection = SpriteList.getInstance().getSpriteList();
-    	Iterator<SpriteModel> iterator = collection.iterator();
     	SpriteModel actionModel = null;
-    	while (iterator.hasNext())
+    	for (SpriteModel sprite: collection)
     	{
-    		SpriteModel sprite = iterator.next();
     		if (sprite.getId().equals(id)){
     			actionModel = sprite;
     			break;

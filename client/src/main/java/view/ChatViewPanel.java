@@ -83,6 +83,9 @@ public class ChatViewPanel {
 		        JList list = (JList)evt.getSource();
 		        if (evt.getClickCount() == 2) {
 		            int index = list.locationToIndex(evt.getPoint());
+		            if(buddyList.getModel().getElementAt(index).equals(Player.getInstance().getUsername())){
+		            	return;
+		            }
 		            chatSender.sendMessage(":"+buddyList.getModel().getElementAt(index)+":"+Player.getInstance().getUsername());
 		            createChatTab(buddyList.getModel().getElementAt(index)+":"+Player.getInstance().getUsername());		   
 		        } 
