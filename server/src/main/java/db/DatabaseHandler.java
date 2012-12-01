@@ -13,6 +13,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 import org.jboss.logging.Logger;
 
+
 /**
  * <p>The implementation of DatabaseService Interface. The port for accessing
  * the actual Database.</p>
@@ -70,12 +71,12 @@ public class DatabaseHandler {
 
     }
     
-    public static List<User> loginQuery(String username, String password){
+    public static List loginQuery(String username, String password){
     	Session session = DatabaseHandler.getDatabaseHandlerInstance().getHibernateSession();
 		Criteria criteria = session.createCriteria(User.class);
 		criteria.add(Restrictions.eq("username", username));
 		criteria.add(Restrictions.eq("password", password));
-		List<User> r = criteria.list();
+		List r = criteria.list();
 		session.close();
 		return r;
     }
@@ -91,7 +92,7 @@ public class DatabaseHandler {
     }
 
     public static int executeQuery(String sql) {
-        DatabaseHandler db = DatabaseHandler.getDatabaseHandlerInstance();
+        DatabaseHandler db = getDatabaseHandlerInstance();
         Session session = db.getHibernateSession();
         Query query = session.createSQLQuery(sql);
         Transaction transaction = session.beginTransaction();
@@ -100,5 +101,16 @@ public class DatabaseHandler {
         session.close();
 
         return numRecordsUpdated;
+    }
+    
+    public static boolean save(Object dbObject){
+    	DatabaseHandler db = getDatabaseHandlerInstance();
+        Session session = db.getHibernateSession();
+		Transaction t = session.beginTransaction();
+		session.save(dbObject);
+		t.commit();
+
+		session.close();
+		return true;
     }
 }

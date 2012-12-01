@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -45,6 +46,9 @@ public class ChatViewPanel {
 	private JPanel chatPanel;
 	private JPanel commonChatPanel;
 	private JPanel gameChatPannel;
+	private JPanel listPanel;
+	private JButton refresh;
+	
 	
 	
 	private static JList buddyList;
@@ -62,6 +66,7 @@ public class ChatViewPanel {
 		chatViewPanel = new JPanel();
 		commonChat= new JPanel();
 		gameChat = new JPanel();
+		listPanel = new JPanel();
 		
 		commonChatPanel = new JPanel();
 		gameChatPannel = new JPanel();
@@ -76,6 +81,15 @@ public class ChatViewPanel {
 			JOptionPane.showConfirmDialog(null, "Users list could not be loaded!");
 		}*/
 		
+		refresh = new JButton("Refresh");
+		refresh.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
 		buddyList = new JList();
 		buddyList.setListData(activeUsers.toArray());
 		buddyList.addMouseListener(new MouseAdapter() {
@@ -83,16 +97,15 @@ public class ChatViewPanel {
 		        JList list = (JList)evt.getSource();
 		        if (evt.getClickCount() == 2) {
 		            int index = list.locationToIndex(evt.getPoint());
-		            if(buddyList.getModel().getElementAt(index).equals(Player.getInstance().getUsername())){
-		            	return;
-		            }
 		            chatSender.sendMessage(":"+buddyList.getModel().getElementAt(index)+":"+Player.getInstance().getUsername());
 		            createChatTab(buddyList.getModel().getElementAt(index)+":"+Player.getInstance().getUsername());		   
 		        } 
 		    }
 		});
 		buddyScroll = new JScrollPane(buddyList);
-		
+		listPanel.setLayout(new BorderLayout());
+		listPanel.add(refresh,BorderLayout.NORTH);
+		listPanel.add(buddyScroll,BorderLayout.CENTER);
 		gameBuddyList = new JList();
 		gameBuddyList.setListData(gameBudList);
 		gameBuddyScroll = new JScrollPane(gameBuddyList);
@@ -102,7 +115,7 @@ public class ChatViewPanel {
 		new ChatReceiver(commChatPanel);
 		
 		commonChat.setLayout(new GridLayout(1,2));
-		commonChat.add(buddyScroll);
+		commonChat.add(listPanel);
 		commonChat.add(commonChatPanel);
 	
 //		ChatSender oneSender=new ChatSender("GAME");

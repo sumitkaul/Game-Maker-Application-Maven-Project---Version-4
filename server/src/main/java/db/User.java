@@ -1,5 +1,6 @@
 package db;
 
+@SuppressWarnings("serial")
 public class User implements java.io.Serializable {
 
     private String username;
