@@ -113,6 +113,9 @@ public class GameMakerView {
     }
 
     public void showInfoPanel(String message, int posX, int posY) {
+    	if(!Helper.getsharedHelper().isShowPopups()){
+    		return;
+    	}
         infoPanel = new InfoPanel(message);
         infoPanel.setOpaque(false);
         Rectangle bounds = infoPanel.getBounds();

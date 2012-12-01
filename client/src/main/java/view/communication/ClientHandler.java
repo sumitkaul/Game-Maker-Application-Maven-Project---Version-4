@@ -8,6 +8,8 @@ import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+
+import model.Player;
 import model.Resources;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIBuilder;
@@ -302,6 +304,9 @@ public class ClientHandler {
         Gson gson = new Gson();
         Type type = new TypeToken<ArrayList<String>>(){}.getType();
         ArrayList<String> users = gson.fromJson(json, type);
+        if(!users.contains(Player.getInstance().getUsername())){
+			users.add(Player.getInstance().getUsername());
+		}
         return users;
     }
 
