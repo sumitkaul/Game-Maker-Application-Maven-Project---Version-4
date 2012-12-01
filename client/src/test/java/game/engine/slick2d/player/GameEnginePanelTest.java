@@ -58,4 +58,16 @@ public class GameEnginePanelTest {
 		assertEquals(canvasGameContainer,gameEnginePanelMock.getApp());
 	}
 	
+ 
+    
+	@Test
+	public void testSetGame() {
+		gameEnginePanel.setGame(gameEngineController);
+		actualGameEngineController= gameEnginePanel.getGame();
+		expectedGameEngineController= gameEngineController;
+		assertEquals(expectedGameEngineController,actualGameEngineController);
+		
+	}
+	
+	
 }
