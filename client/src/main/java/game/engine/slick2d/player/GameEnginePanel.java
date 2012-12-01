@@ -74,6 +74,7 @@ public class GameEnginePanel extends JPanel {
         gamePlayerView.getGameEnginePanel().addGame(app);
         gamePlayerView.getBaseFrame().pack();
 
+
         canvas.start();
         canvas.requestFocusInWindow();
     }

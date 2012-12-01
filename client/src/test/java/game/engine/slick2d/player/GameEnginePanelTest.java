@@ -38,6 +38,7 @@ public class GameEnginePanelTest {
 		
 	}
 
+
 //	@Test
 //	public void testSetApp() {
 //		gameEnginePanel.setApp(canvasGameContainer);
@@ -133,13 +134,6 @@ public class GameEnginePanelTest {
 //			}
 		
 	}
-		
 	
-
-
-		
-	
-		
-
 	
 
