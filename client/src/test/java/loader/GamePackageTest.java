@@ -84,4 +84,17 @@ public class GamePackageTest {
 	       doCallRealMethod().when(mock).setEventsForGameController(mockpara);
 	}
 
+	
+	@Test
+	public void testIsClockDisplayable() {
+		List<EventListener> mockpara= Mockito.mock(List.class); 
+	       doThrow(new RuntimeException()).when(mock).setEventsForGameController(mockpara);
+	       
+	}
+
+	@Test
+	public void testSetClockDisplayable() {
+		List<EventListener> mockpara= Mockito.mock(List.class); 
+	       doCallRealMethod().when(mock).setEventsForGameController(mockpara);
+	}
 }
