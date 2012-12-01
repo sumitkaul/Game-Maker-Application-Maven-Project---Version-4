@@ -13,8 +13,6 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
 
 import JBox2d.Actions.ActionChangeVisibility;
-import JBox2d.Actions.ActionMoveDownwards;
-import JBox2d.Actions.ActionMoveLeft;
 
 public class TestActionChangeVisibility {
 

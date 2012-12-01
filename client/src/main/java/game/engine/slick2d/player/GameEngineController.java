@@ -331,8 +331,9 @@ public class GameEngineController extends BasicGame {
                     keyReg.get(keycode).checkEvent(map);
                 }
             } catch (Exception e) {
-                LOG.error("don't worry, it is only temp key-mapping error, we not done yet: " + e);
-                e.printStackTrace();
+                LOG.error("Key-mapping error: " + e);
+                LOG.debug("This Swing keycode: " + keycode + " is not valid");
+
             }
         }
 

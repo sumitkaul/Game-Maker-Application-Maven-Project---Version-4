@@ -1,4 +1,5 @@
 package jBox2d.Actions;
+
 import static org.junit.Assert.*;
 
 import java.util.LinkedHashMap;
@@ -11,9 +12,11 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
 
-import JBox2d.Actions.ActionBounce;
+import utility.Score;
 
-public class TestActionBounce {
+import JBox2d.Actions.ActionIncreaseScore;
+
+public class TestActionIncreaseScore {
 
 	public static World world;
 	public static LinkedHashMap<String,Body> bodies;
@@ -32,24 +35,12 @@ public class TestActionBounce {
 		body = world.createBody(bodyDef);
 	}
 
+
 	@Test
 	public void testDoAction()
 	{
-		ActionBounce action = new ActionBounce(false);
+		ActionIncreaseScore action = new ActionIncreaseScore(5);
 		action.doAction(body);
-		assertNotNull(body);
-		assertEquals((int)0.0 ,(int) body.getPosition().x);
-		assertEquals((int)4.0 ,(int)body.getPosition().y);
-
-		//TODO test what force is applied
+		assertEquals( 5 ,Score.getInstance().getScore());
 	}
-
-	@Test
-	public void testRandomBounce()
-	{
-		ActionBounce action = new ActionBounce(false);
-		action.setRandomBounce(true);
-		assertTrue(action.isRandomBounce());
-	}
-
 }

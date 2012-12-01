@@ -1,30 +1,16 @@
 package multiplayer;
 
 import action.GameAction;
+import game.engine.slick2d.player.GameEngineController;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Queue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
-
-import org.newdawn.slick.CanvasGameContainer;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.util.Log;
-
-import game.engine.slick2d.player.GameEngineController;
-import loader.GameDataPackageIO;
 import loader.GamePackage;
 import model.SpriteModel;
-import utility.ClockDisplay;
 import utility.Helper;
 import utility.SpriteList;
-import view.GameMakerView;
 import view.GamePlayerView;
-import view.PlayerButtonPanel;
 
 public class Protocol {
 
@@ -87,6 +73,7 @@ public class Protocol {
         LOG.debug("load done");
 
         gamePlayerView.getGameEnginePanel().newGame(game);
+
     }
 
     public void setMultiplayerAction(HashMap<GameAction, String> map) {

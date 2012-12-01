@@ -123,9 +123,7 @@ public class PlayerButtonPanel implements ActionListener {
         
         share.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
-                BrowserFrame browserFrame = new BrowserFrame();
-                browserFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                 MenuBarPanel.postFacebookScore(); 
             }
         });
 
