@@ -517,6 +517,7 @@ public class ActionEventPanel {
         }
         listModel.remove(selectedItem);
         getSpriteList().setModel(listModel);
+        GameMakerView.getInstance().removeInfoPanel();
     }
 
     public void reset() {
