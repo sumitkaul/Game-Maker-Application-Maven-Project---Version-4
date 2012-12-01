@@ -140,7 +140,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
         item.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                CheckboxMenuItem cbi = (CheckboxMenuItem) e.getSource();
+                JCheckBoxMenuItem cbi = (JCheckBoxMenuItem) e.getSource();
                 ClockDisplay.getInstance().setVisible(cbi.getState());
                 GamePanel gamePanel = Helper.getsharedHelper().getGamePanel();
                 gamePanel.repaint();

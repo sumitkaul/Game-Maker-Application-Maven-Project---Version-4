@@ -1,5 +1,6 @@
 package utility;
 
+import facade.Facade;
 import interfaces.Drawable;
 
 import java.awt.Color;
@@ -146,7 +147,7 @@ public class ClockDisplay implements Drawable {
 	}
 
 	public void setVisible(boolean visible) {
-		this.timeLabel.setVisible(visible);
+			this.timeLabel.setVisible(visible);
 	}
 
 	@Override

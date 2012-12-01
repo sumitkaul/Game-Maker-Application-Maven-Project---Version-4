@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 
 import model.SpriteModel;
 
+import utility.ClockDisplay;
 import utility.Constants;
 import utility.Helper;
 import utility.SpriteList;
@@ -68,6 +69,9 @@ public class GamePanel extends JPanel implements KeyListener{
                     d.draw(g);
                 }
             }
+        	if(ClockDisplay.getInstance().isVisible()){
+        		ClockDisplay.getInstance().draw(g);
+        	}
         }
         else{
 	        for (Drawable d : drawables) {
@@ -75,6 +79,9 @@ public class GamePanel extends JPanel implements KeyListener{
 	                d.draw(g);
 	            }
 	        }
+	        if(ClockDisplay.getInstance().isVisible()){
+        		ClockDisplay.getInstance().draw(g);
+        	}
         }
     }
 
