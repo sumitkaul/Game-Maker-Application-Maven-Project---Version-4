@@ -161,31 +161,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
         postFacebookScore.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "My new Score: " + Score.getInstance().getScore() + " from GameMaker";
-
-                String name = "Game Maker Website";
-                String description = "Go to game maker website";
-                String caption = "Download game maker";
-                URI uri = null;
-                try {
-                    message = URLEncoder.encode(message, "UTF-8");
-                    name = URLEncoder.encode(name, "UTF-8");
-                    description = URLEncoder.encode(description, "UTF-8");
-                    caption = URLEncoder.encode(caption, "UTF-8");
-                } catch (UnsupportedEncodingException ex) {
-                    Logger.getLogger(MenuBarPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    uri = new URI(Constants.FacebookServer + "?action=post&message=" + message + "&name=" + name + "&caption=" + caption + "&description=" + description);
-                } catch (URISyntaxException ex) {
-                    Logger.getLogger(MenuBarPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    Desktop.getDesktop().browse(uri);
-                } catch (IOException ex) {
-                    Logger.getLogger(MenuBarPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
+                postFacebookScore();
             }
         });
 
@@ -436,7 +412,32 @@ public class MenuBarPanel implements ActionListener, ItemListener {
         p.saveGameToRemoteServer(gameData);
 
     }
+    public static void postFacebookScore() {
+        String message = "My new Score: " + Score.getInstance().getScore() + " from GameMaker";
 
+        String name = "Game Maker Website";
+        String description = "Go to game maker website";
+        String caption = "Download game maker";
+        URI uri = null;
+        try {
+            message = URLEncoder.encode(message, "UTF-8");
+            name = URLEncoder.encode(name, "UTF-8");
+            description = URLEncoder.encode(description, "UTF-8");
+            caption = URLEncoder.encode(caption, "UTF-8");
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(MenuBarPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            uri = new URI(Constants.FacebookServer + "?action=post&message=" + message + "&name=" + name + "&caption=" + caption + "&description=" + description);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(MenuBarPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Desktop.getDesktop().browse(uri);
+        } catch (IOException ex) {
+            Logger.getLogger(MenuBarPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public static void loadGame() {
         GameBaseLoadPanel p = new GameBaseLoadPanel(GameMakerView.getInstance().getBaseFrame().getRootPane());
 
