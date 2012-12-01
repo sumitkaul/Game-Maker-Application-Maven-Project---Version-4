@@ -23,30 +23,26 @@ import db.User;
 @Controller
 public class LoginController {
 
-	@RequestMapping(value="/loginUser",method = RequestMethod.GET)
+	@RequestMapping(value = "/loginUser", method = RequestMethod.GET)
 	@ResponseBody
-	public String login(@RequestParam("username") String userName,@RequestParam("password") String passWord){ 
+	public String login(@RequestParam("username") String username,
+			@RequestParam("password") String password) {
 
 		Gson gson = new Gson();
-		Session session = DatabaseHandler.getDatabaseHandlerInstance().getHibernateSession();
-		Criteria criteria = session.createCriteria(User.class);
-		criteria.add(Restrictions.eq("username", userName));
-		criteria.add(Restrictions.eq("password", passWord));
-		List r = criteria.list();
-		session.close();
-		if (r.isEmpty()) {
+		List<User> loginQueryList = DatabaseHandler.loginQuery(username, password);
+
+		if (loginQueryList.isEmpty()) {
 			return gson.toJson(false);
 
 		} else {
 			return gson.toJson(true);
-
 		}
-		//session.close();
 	}
 
 	@RequestMapping(value = "/registerUser", method = RequestMethod.GET)
 	@ResponseBody
-	public String register(@RequestParam("username") String userName,@RequestParam("password") String passWord) {
+	public String register(@RequestParam("username") String userName,
+			@RequestParam("password") String passWord) {
 		Gson gson = new Gson();
 		Session session = DatabaseHandler.getDatabaseHandlerInstance()
 				.getHibernateSession();
