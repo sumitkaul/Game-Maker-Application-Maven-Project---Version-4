@@ -11,7 +11,6 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
 
-import JBox2d.Actions.ActionMoveLeft;
 import JBox2d.Actions.ActionStartOver;
 
 public class TestActionStartOver {

@@ -1,7 +1,5 @@
 package jBox2d.Actions;
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
