@@ -52,9 +52,9 @@ public class ChatUsersSenderTest {
 	public void testChatUsersSender() {
 		//PowerMockito.when(sender,sender.run()).thenReturn();
 		
-		doAnswer(new Answer() {
-		      public Object answer(InvocationOnMock invocation) {
-		          Object[] args = invocation.getArguments();
+		doAnswer(new Answer<String>() {
+		      public String answer(InvocationOnMock invocation) {
+		          String[] args = (String[]) invocation.getArguments();
 		          //Mock mock = invocation.getMock();
 		          return null;
 		      }}).when(senderMock).run();
