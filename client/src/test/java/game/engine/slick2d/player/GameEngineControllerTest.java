@@ -1,23 +1,36 @@
 package game.engine.slick2d.player;
 
 import eventlistener.KeyPressedEventListener;
+import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
 import static org.mockito.Mockito.doAnswer;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertNotSame;
+
+
 import static org.mockito.Mockito.inOrder;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+
 import org.apache.log4j.Logger;
+import org.junit.After;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.junit.Assert.*;
+import org.junit.Before;
 import org.mockito.InOrder;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.mockito.stubbing.Stubber;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
+import utility.SpriteList;
 
 public class GameEngineControllerTest {
 
@@ -30,28 +43,32 @@ public class GameEngineControllerTest {
      * Test of constructor, of class GameEngineController.
      */
     
-     GameEngineController instance = mock(GameEngineController.class);
+     GameEngineController instance ;
      List result;
-    @Test
-    public void testGameEngineController() throws Exception {
-//        LOG.info("GameEngineController");
-            Mockito.when(instance.getKeyEvents()).thenReturn(result);
-           assertEquals(null, instance.getKeyEvents());
-      
+     
+     @Before
+     public void setUp(){
+         instance=Mockito.mock(GameEngineController.class);
+     }
+    @After
+    public void tearDown(){
+        instance=null;
     }
+    
     
    @Test
    public void testgetImageFromBytes() throws Exception{
        byte [] imageData=null;
-       Image image=null;
+       Image image=Mockito.mock(Image.class);
        Mockito.when(instance.getImageFromBytes(imageData, "test")).thenReturn(image);
        assertEquals(image, instance.getImageFromBytes(imageData, "test"));
    }
    @Test
    public void testGetEventsForGameController() throws Exception{
-      List test=null;
+      List <EventListener>tester= new ArrayList<EventListener>();
+       List test=spy(tester);
         Mockito.when(instance.getEventsForGameController()).thenReturn(test);
-           assertEquals(null, instance.getEventsForGameController());
+           assertNotSame(tester, instance.getEventsForGameController());
    }
    @Test
    public void testCheckEvents() throws Exception
@@ -71,12 +88,15 @@ public class GameEngineControllerTest {
    public void testrenderSpriteImageDraw() throws Exception
    {
                  GameEngineController mock= Mockito.mock(GameEngineController.class);
-       doAnswer(new Answer() {
+      doAnswer(new Answer() {
       public Object answer(InvocationOnMock invocation) {
           Object[] args = invocation.getArguments();
           return null;
       }})
   .when(mock).renderSpriteImageDraw();
+      assertNotNull(SpriteList.getInstance().getSpriteList());
+     
+              
    }
    
    @Test 
@@ -89,6 +109,7 @@ public class GameEngineControllerTest {
        InOrder inOrder= inOrder(first,second);
         inOrder.verify(first).initSpriteImageMapping();
         inOrder.verify(second).initSpriteImageMapping();
+        assertNotSame(first,second );
    }
    @Test 
    public void testInit()throws Exception{
@@ -100,6 +121,7 @@ public class GameEngineControllerTest {
           return null;
       }})
   .when(mock).init(result);
+      
    }
    
    
@@ -114,6 +136,7 @@ public class GameEngineControllerTest {
        InOrder inOrder= inOrder(first,second);
         inOrder.verify(first).setPauseReporter(firstPara);
         inOrder.verify(second).setPauseReporter(secondPara);
+        
    }
    
    @Test
@@ -128,6 +151,18 @@ public class GameEngineControllerTest {
   .when(mock).update(result, 0);
    
    }
+   @Test
+   public void testInitActionEvents(){
+       GameContainer result=mock(GameContainer.class);
+        GameEngineController mock= Mockito.mock(GameEngineController.class);
+       doAnswer(new Answer() {
+      public Object answer(InvocationOnMock invocation) {
+          Object[] args = invocation.getArguments();
+          return null;
+      }})
+  .when(mock).initActionEvents();
+   }
+             
            
    
 }
