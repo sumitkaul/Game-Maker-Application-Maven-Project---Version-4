@@ -204,6 +204,7 @@ public class GamePanel extends JPanel implements KeyListener{
 	    		x += dx;
 	    		y += dy;
 	    		GameMakerView.getInstance().updateProperties();
+	    		GameMakerView.getInstance().removeInfoPanel();
 	    		
 	    	}
 	}
