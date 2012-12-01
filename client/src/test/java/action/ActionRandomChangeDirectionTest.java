@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import utility.Constants;
+import utility.Helper;
 import utility.ResizeHelper;
 import utility.SpriteList;
 import view.GameMakerView;
@@ -20,10 +22,12 @@ public class ActionRandomChangeDirectionTest {
 	   private  SpriteModel secondarySpriteModel;
 	   private  CollisionEventListener collisionListener;
 	   private  GameAction action;
+	   private GameMakerView gameMakerView ;
 	   
 	@Before
 	public void setUp() throws Exception {
-		GameMakerView.getInstance().reset();
+		gameMakerView = new GameMakerView(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
+		gameMakerView.reset();
 		ResizeHelper.getInstance().reset();
       	selectedSpriteModel = new SpriteModel(100, 195, 10, -10, 100, 100, "","");
 		secondarySpriteModel= new SpriteModel(100, 100, 10, 10, 100, 100, "","");
@@ -38,7 +42,7 @@ public class ActionRandomChangeDirectionTest {
 
 	@After
 	public void tearDown() throws Exception {
-		GameMakerView.getInstance().reset();
+		gameMakerView.reset();
 	}
 
 	@Test

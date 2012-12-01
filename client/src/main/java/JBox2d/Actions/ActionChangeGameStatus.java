@@ -4,6 +4,10 @@ import java.io.Serializable;
 import javax.swing.JOptionPane;
 
 import org.jbox2d.dynamics.Body;
+
+import facade.Facade;
+
+import utility.Helper;
 import view.GameMakerView;
 
 public class ActionChangeGameStatus implements JBoxGameAction,Serializable {
@@ -34,7 +38,8 @@ public class ActionChangeGameStatus implements JBoxGameAction,Serializable {
 			if(showMessage == true)		    	
 				JOptionPane.showMessageDialog(null, message);
 
-			GameMakerView.getInstance().getFacade().stopGame();
+			Facade facade = Helper.getsharedHelper().getFacade();
+			facade.stopGame();
 			isGameStopCommandIssued = YES;
 
 		}

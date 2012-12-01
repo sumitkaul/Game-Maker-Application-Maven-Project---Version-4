@@ -24,6 +24,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import utility.Constants;
+import utility.Helper;
 import utility.SpriteList;
 import view.GameMakerView;
 import view.GamePanel;
@@ -47,6 +48,8 @@ public class KeyListenerControllerTest  {
     private KeyListenerController  keyListenerControllerTest;
     private static KeyPressedEventListener keyListener;
 	private static GameAction action;
+	private GameMakerView gameMakerView ;
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		
@@ -65,7 +68,8 @@ public class KeyListenerControllerTest  {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		GameMakerView.getInstance().reset();
+		gameMakerView = new GameMakerView(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
+		gameMakerView.reset();
         //setAdapter(new MainClassAdapter(gameMaker.class, new String[0]));
         selectedSpriteModel = new SpriteModel(100, 100, 20, 20, 100, 100, "","");
 		//secondarySpriteModel= new SpriteModel(190, 190, 10, 10, 100, 100, "");
@@ -94,7 +98,7 @@ public class KeyListenerControllerTest  {
 	 */
 	@After
 	public void tearDown() throws Exception {
-		GameMakerView.getInstance().reset();
+		gameMakerView.reset();
 	}
 
 	/**

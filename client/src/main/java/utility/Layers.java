@@ -27,7 +27,8 @@ public class Layers {
 		String layer = "Layer "+layers.size();
 		this.layers.add(layer);
 		
-		GameMakerView.getInstance().getLayerBox().addItem(layer);
+		GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
+		gameMakerView.getLayerBox().addItem(layer);
 		
 		
 		return layer;

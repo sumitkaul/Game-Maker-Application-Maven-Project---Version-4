@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.swing.JButton;
 
+import facade.Facade;
+
 import model.SpriteModel;
 import utility.Constants;
 import utility.Helper;
@@ -25,8 +27,10 @@ public class ImageActionListener implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		JButton btn = (JButton) arg0.getSource();
 		
-		GameMakerView gameMakerView = GameMakerView.getInstance();
+		GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
 		PropertyPanel propertyPanel = gameMakerView.getPropertyPanel();
+		Facade facade = Helper.getsharedHelper().getFacade();
+		GamePanel gamePanel = Helper.getsharedHelper().getGamePanel();
 
         double sizeX;
         double sizeY;
@@ -76,19 +80,18 @@ public class ImageActionListener implements ActionListener {
             SpriteModel spriteModel = new SpriteModel(Constants.SPRITE_X, Constants.SPRITE_Y, speedX, speedY, sizeX, sizeY, btn.getName(), layer, imageId);
             gameMakerView.getActionEventPanel().updateSpriteList(spriteModel);
             gameMakerView.updateProperties();
-            gameMakerView.getFacade().addSpriteModelToView(spriteModel);
-            gameMakerView.getGamePanel().repaint();
+            facade.addSpriteModelToView(spriteModel);
+            gamePanel.repaint();
             
-            GameMakerView.getInstance().removeInfoPanel();
+            gameMakerView.removeInfoPanel();
             
             Helper.getsharedHelper().setCurrentMessageNumber(1);
             
-            GamePanel gamePanel = GameMakerView.getInstance().getGamePanel();
             Rectangle rect = gamePanel.getBounds();
             int x = (int)spriteModel.getPosX()+rect.x;
             int y = (int)spriteModel.getPosY()+rect.y;
             
-            GameMakerView.getInstance().showInfoPanel(Helper.getsharedHelper().getMessage(1),x,y);
+            gameMakerView.showInfoPanel(Helper.getsharedHelper().getMessage(1),x,y);
         }
 
 	}

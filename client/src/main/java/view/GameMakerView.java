@@ -14,7 +14,6 @@ import view.imagePanel.ImageActionListener;
 public class GameMakerView {
 
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(GameMakerView.class);
-    private static GameMakerView sharedDesign = null;
     private JFrame baseFrame;					//The base frame where all other panels are placed
     private JLayeredPane layeredPane;			//Will be used for showing pop-ups
     private JPanel leftPanel;					//The panel with images
@@ -30,14 +29,7 @@ public class GameMakerView {
     private InfoPanel infoPanel;
     private JPanel basePanel;
 
-    public static GameMakerView getInstance() {
-        if (sharedDesign == null) {
-            sharedDesign = new GameMakerView(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
-        }
-        return sharedDesign;
-    }
-
-    protected GameMakerView(int frameWidth, int frameHeight) {
+    public GameMakerView(int frameWidth, int frameHeight) {
 
         baseFrame = Helper.getsharedHelper().createBaseFrame(frameWidth, frameHeight);
         baseFrame.setJMenuBar(new MenuBarPanel().getMenuBar());
@@ -56,6 +48,8 @@ public class GameMakerView {
 
         gamePanel = new GamePanel(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT);
         facade = new Facade(gamePanel);
+        Helper.getsharedHelper().setFacade(facade);
+        Helper.getsharedHelper().setGamePanel(gamePanel);
 
         buttonPanel = new ButtonPanel(this);
         propertyPanel = new PropertyPanel();
@@ -157,10 +151,6 @@ public class GameMakerView {
         return layerBox;
     }
 
-    public GamePanel getGamePanel() {
-        return gamePanel;
-    }
-
     public ActionEventPanel getActionEventPanel() {
         return actionEventPanel;
     }
@@ -207,10 +197,6 @@ public class GameMakerView {
 
     public void setPropertyPanel(PropertyPanel propertyPanel) {
         this.propertyPanel = propertyPanel;
-    }
-
-    public Facade getFacade() {
-        return facade;
     }
 
     public JPanel getRightPanel() {

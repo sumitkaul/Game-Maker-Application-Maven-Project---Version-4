@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.swing.Timer;
 import model.SpriteModel;
 import utility.ClockDisplay;
+import utility.Helper;
 import view.GameMakerView;
 import view.GamePanel;
 import view.SpriteView;
@@ -48,8 +49,9 @@ public class Facade {
 
         SpriteModel spriteModel = new SpriteModel(model.getPosX() + model.getWidth() / 2, model.getPosY() + model.getHeight() / 2, model.getSpeedX(), model.getSpeedY(), model.getWidth(), model.getHeight(),
                 model.getImageUrlString(), model.getLayer(), model.getImageId());
-        GameMakerView.getInstance().getActionEventPanel().updateSpriteList(spriteModel);
-        GameMakerView.getInstance().updateProperties();
+        GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
+        gameMakerView.getActionEventPanel().updateSpriteList(spriteModel);
+        gameMakerView.updateProperties();
         addSpriteModelToView(spriteModel);
         gamePanel.repaint();
     }

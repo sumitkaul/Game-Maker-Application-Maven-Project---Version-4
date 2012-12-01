@@ -7,6 +7,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import facade.Facade;
+
+import utility.Helper;
 import utility.Score;
 
 public class ButtonPanel {
@@ -36,8 +40,10 @@ public class ButtonPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				makerView.getFacade().startGame();
-				makerView.getGamePanel().requestFocusInWindow();
+				Facade facade = Helper.getsharedHelper().getFacade();
+				GamePanel gamePanel = Helper.getsharedHelper().getGamePanel();
+				facade.startGame();
+				gamePanel.requestFocusInWindow();
 			}
 		});
 
@@ -46,8 +52,10 @@ public class ButtonPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				makerView.getFacade().stopGame();
-				if (GameMakerView.getInstance().isShouldDisplayScore()) {
+				Facade facade = Helper.getsharedHelper().getFacade();
+				facade.stopGame();
+				GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
+				if (gameMakerView.isShouldDisplayScore()) {
 					JOptionPane.showMessageDialog(makerView.getBaseFrame(),
 							"Your Score is " + Score.getInstance().getScore());
 				}

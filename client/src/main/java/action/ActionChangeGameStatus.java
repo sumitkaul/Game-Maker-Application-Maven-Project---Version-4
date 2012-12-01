@@ -4,7 +4,10 @@ import java.awt.Rectangle;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.swing.JOptionPane;
+
+import facade.Facade;
 import model.SpriteModel;
+import utility.Helper;
 import utility.SpriteList;
 import view.GameMakerView;
 
@@ -48,22 +51,23 @@ public class ActionChangeGameStatus implements GameAction,Serializable {
 		 * showMessageDialog is not executed again for this for loop.
 		 */
 		if (!isGameStopCommandIssued  ) {
+			Facade facade = Helper.getsharedHelper().getFacade();
 		    if (!xReversed.intersects(obj.getBoundingBox())) {
 		        if(showMessage == true)		    	
 			      JOptionPane.showMessageDialog(null, message);
 		    
-			    GameMakerView.getInstance().getFacade().stopGame();
+		        facade.stopGame();
 			    isGameStopCommandIssued = YES;
 		    }
 		    if (!yReversed.intersects(obj.getBoundingBox())) {
 		    	if(showMessage == true)	
 			        JOptionPane.showMessageDialog(null, message);
-			    GameMakerView.getInstance().getFacade().stopGame();
+		    	facade.stopGame();
 			    isGameStopCommandIssued = YES;
 		    } else if (yReversed.intersects(obj.getBoundingBox()) && xReversed.intersects(obj.getBoundingBox())) {
 		        if(showMessage == true)	
 			        JOptionPane.showMessageDialog(null, message);
-			    GameMakerView.getInstance().getFacade().stopGame();
+		        facade.stopGame();
 			    isGameStopCommandIssued = YES;
 		    }
 		}

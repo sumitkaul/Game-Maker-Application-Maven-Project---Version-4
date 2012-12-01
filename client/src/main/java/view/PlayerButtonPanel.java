@@ -94,7 +94,8 @@ public class PlayerButtonPanel implements ActionListener {
         loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GameProgressLoadPanel p = new GameProgressLoadPanel(GameMakerView.getInstance().getGamePanel());
+            	GamePanel gamePanel = Helper.getsharedHelper().getGamePanel();
+                GameProgressLoadPanel p = new GameProgressLoadPanel(gamePanel);
                 GamePlayerView gamePlayerView = (GamePlayerView) Helper.getsharedHelper().getGamePlayerView();
                 String gamename[] = new String[1];
                 String gameData = p.readGameDataFromRemoteList(gamename);
@@ -143,7 +144,8 @@ public class PlayerButtonPanel implements ActionListener {
                  GamePlayerView gamePlayerView = (GamePlayerView) Helper.getsharedHelper().getGamePlayerView();
                 GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), gamePlayerView.getGameEnginePanel().getGame().getEventsForGameController(), gamePlayerView.getGameEnginePanel().getGame().getKeyEvents(), null, false);
                 String gameData = GameDataPackageIO.convertGamePackageToString(game);
-                GameProgressSavePanel p = new GameProgressSavePanel(GameMakerView.getInstance().getGamePanel());
+                GamePanel gamePanel = Helper.getsharedHelper().getGamePanel();
+                GameProgressSavePanel p = new GameProgressSavePanel(gamePanel);
 
                 p.saveGameToRemoteServer(gameData);
 

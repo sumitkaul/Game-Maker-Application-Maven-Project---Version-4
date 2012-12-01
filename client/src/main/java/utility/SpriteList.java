@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import model.SpriteModel;
 import view.GameMakerView;
+import view.GamePanel;
 
 public class SpriteList implements Serializable {
 
@@ -42,7 +43,8 @@ public class SpriteList implements Serializable {
 
     public void removeSprite(SpriteModel spriteModel) {
         getSpriteList().remove(spriteModel);
-        GameMakerView.getInstance().getGamePanel().unregisterModel(spriteModel);
+        GamePanel gamePanel = Helper.getsharedHelper().getGamePanel();
+        gamePanel.unregisterModel(spriteModel);
 
     }
 

@@ -90,7 +90,8 @@ public class InfoPanel extends JPanel implements ActionListener {
         int x = currentBounds.x + currentBounds.width;
         int y = currentBounds.y + currentBounds.height;
         
-        GameMakerView.getInstance().removeInfoPanel();
+        GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
+        gameMakerView.removeInfoPanel();
         
         JButton button = (JButton) arg0.getSource();
         int currentMessageNumber = Helper.getsharedHelper().getCurrentMessageNumber();
@@ -111,14 +112,14 @@ public class InfoPanel extends JPanel implements ActionListener {
         }
         
         if (currentMessageNumber > 4 && currentMessageNumber < 7) {
-            JPanel rightPanel = GameMakerView.getInstance().getRightPanel();
+            JPanel rightPanel = gameMakerView.getRightPanel();
             Rectangle rightPanelBounds = rightPanel.getBounds();
             
             JPanel subPanel = null;
             if (currentMessageNumber == 5) {
-                subPanel = GameMakerView.getInstance().getPropertyPanel();
+                subPanel = gameMakerView.getPropertyPanel();
             } else if (currentMessageNumber == 6) {
-                subPanel = GameMakerView.getInstance().getActionEventPanel().getPanel();
+                subPanel = gameMakerView.getActionEventPanel().getPanel();
             }
             
             Rectangle subPanelBounds = subPanel.getBounds();
@@ -132,7 +133,7 @@ public class InfoPanel extends JPanel implements ActionListener {
         
         
         if (!button.getText().equalsIgnoreCase("X")) {
-            GameMakerView.getInstance().showInfoPanel(Helper.getsharedHelper().getMessage(currentMessageNumber), x, y);
+            gameMakerView.showInfoPanel(Helper.getsharedHelper().getMessage(currentMessageNumber), x, y);
         }
         Helper.getsharedHelper().setCurrentMessageNumber(currentMessageNumber);
     }

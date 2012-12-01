@@ -15,6 +15,7 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import view.GameMakerView;
+import view.GamePanel;
 import view.GamePlayerView;
 
 import model.SpriteModel;
@@ -23,6 +24,7 @@ import eventlistener.EventListener;
 import eventlistener.KeyPressedEventListener;
 import eventlistener.NewFrameEventListener;
 import eventlistener.OutOfBoundaryEventListener;
+import facade.Facade;
 import action.ActionBackToLastPosition;
 import action.ActionCreateSpriteModel;
 import action.ActionBounce;
@@ -44,12 +46,16 @@ public class Helper {
 	private int currentKeyCode; 
 	private boolean isPlayerMode;
 //	private JFrame optionsFrame;
-        private OptionsFrame optionsFrame;
+    private OptionsFrame optionsFrame;
+    private GameMakerView gameMakerView;    
 	private GamePlayerView gamePlayerView;
 	private int currentMessageNumber;
 	private HashMap<Integer,String> messages;
 	private Rectangle originalPopupRect;
 	private boolean showPopups;
+	
+	private Facade facade;
+	private GamePanel gamePanel;
 	
 	
 	public static Helper getsharedHelper(){
@@ -120,7 +126,7 @@ public class Helper {
 		
 		else if(actionString.equalsIgnoreCase("Increase Score")){
 		    gameAction = new ActionIncreaseScore(model.getScoreModificationValue());
-		    GameMakerView.getInstance().setShouldDisplayScore(true);
+		    gameMakerView.setShouldDisplayScore(true);
 		}
 		
 		return gameAction;
@@ -288,6 +294,30 @@ public class Helper {
 
 	public void setShowPopups(boolean showPopups) {
 		this.showPopups = showPopups;
+	}
+
+	public GameMakerView getGameMakerView() {
+		return gameMakerView;
+	}
+
+	public void setGameMakerView(GameMakerView gameMakerView) {
+		this.gameMakerView = gameMakerView;
+	}
+
+	public Facade getFacade() {
+		return facade;
+	}
+
+	public void setFacade(Facade facade) {
+		this.facade = facade;
+	}
+
+	public GamePanel getGamePanel() {
+		return gamePanel;
+	}
+
+	public void setGamePanel(GamePanel gamePanel) {
+		this.gamePanel = gamePanel;
 	}
 
 }

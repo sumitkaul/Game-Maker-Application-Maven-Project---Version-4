@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import model.Player;
 import org.apache.log4j.Logger;
 import utility.Constants;
+import utility.Helper;
 import view.communication.ClientHandler;
 
 public class LoginFrame extends JFrame {
@@ -101,7 +102,6 @@ public class LoginFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LoginFrame.LoginActionListener.class);
-            GameMakerView d = GameMakerView.getInstance();
             String result = null;
             if (e.getSource() == login) {
                 if (username.getText().equalsIgnoreCase("") || password.getText().equalsIgnoreCase("")) {

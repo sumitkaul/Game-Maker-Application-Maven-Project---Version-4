@@ -19,6 +19,7 @@ import utility.SpriteList;
 import view.GameMakerView;
 
 public class ActionCreateSpriteModelTest {
+
 	
 	@Before
 	public void setUp() throws Exception {

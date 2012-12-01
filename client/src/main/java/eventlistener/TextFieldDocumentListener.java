@@ -6,6 +6,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import model.SpriteModel;
+import utility.Helper;
 import utility.SpriteList;
 import utility.enums.PropertyField;
 import view.GameMakerView;
@@ -33,12 +34,13 @@ public class TextFieldDocumentListener implements DocumentListener{
         JTextField textField = (JTextField) e.getDocument().getProperty("parent");
         
 
-		Facade facade = GameMakerView.getInstance().getFacade();
+		Facade facade = Helper.getsharedHelper().getFacade();
+		GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
         
         String textString = textField.getText();
     
-        DefaultListModel spriteListIndividualModel = GameMakerView.getInstance().getSpriteListIndividualModel();
-        DefaultListModel spriteListGroupModel = GameMakerView.getInstance().getSpriteListGroupModel();
+        DefaultListModel spriteListIndividualModel = gameMakerView.getSpriteListIndividualModel();
+        DefaultListModel spriteListGroupModel = gameMakerView.getSpriteListGroupModel();
         
         if(owner.equalsIgnoreCase(PropertyField.SPRITE_NAME.toString())){
 			String previousName = SpriteList.getInstance().getSelectedSpriteModel().getId();

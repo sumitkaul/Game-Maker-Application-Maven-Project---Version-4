@@ -18,6 +18,7 @@ import facade.Facade;
 
 import model.SpriteModel;
 
+import utility.Helper;
 import utility.SpriteList;
 
 public class PopupMenus {
@@ -51,15 +52,17 @@ public class PopupMenus {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
+					GamePanel gamePanel = Helper.getsharedHelper().getGamePanel();
 					java.util.List<SpriteModel> smList = SpriteList.getInstance().getSelectedSpriteModels();
 					for(SpriteModel sm: smList)
 					{
 						if(sm.getId().equals("background")) continue;
 						SpriteList.getInstance().removeSprite(sm);
-						GameMakerView.getInstance().getActionEventPanel().removeSpriteModelFromList(sm);
+						gameMakerView.getActionEventPanel().removeSpriteModelFromList(sm);
 					}
-					GameMakerView.getInstance().getGamePanel().repaint();
-					GameMakerView.getInstance().updateProperties();
+					gamePanel.repaint();
+					gameMakerView.updateProperties();
 				}
 			});
 	
@@ -69,7 +72,7 @@ public class PopupMenus {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					java.util.List<SpriteModel> smList = SpriteList.getInstance().getSelectedSpriteModels();
-					Facade facade = GameMakerView.getInstance().getFacade();
+					Facade facade = Helper.getsharedHelper().getFacade();
 					facade.createDuplicateSpriteModel(smList.get(smList.size()-1));
 				}
 			});
@@ -77,7 +80,7 @@ public class PopupMenus {
 	}
 	private void createGameMenu()
 	{
-		Facade facade = GameMakerView.getInstance().getFacade();
+		Facade facade = Helper.getsharedHelper().getFacade();
 		
 		if(facade.getTimer().isRunning())
 		{
@@ -87,7 +90,8 @@ public class PopupMenus {
 
 				@Override
 			public void actionPerformed(ActionEvent e) {
-					GameMakerView.getInstance().getFacade().stopGame();					
+					Facade facade = Helper.getsharedHelper().getFacade();
+					facade.stopGame();					
 				}
 			});
 		}else	{
@@ -98,7 +102,8 @@ public class PopupMenus {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						GameMakerView.getInstance().getFacade().startGame();					
+						Facade facade = Helper.getsharedHelper().getFacade();
+						facade.startGame();					
 					}
 				});
 		}
