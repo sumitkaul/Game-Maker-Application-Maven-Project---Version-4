@@ -5,6 +5,9 @@ import javax.swing.DefaultListModel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
+import org.apache.log4j.Logger;
+
 import model.SpriteModel;
 import utility.Helper;
 import utility.SpriteList;
@@ -12,6 +15,7 @@ import utility.enums.PropertyField;
 import view.GameMakerView;
 
 public class TextFieldDocumentListener implements DocumentListener{
+	private static final Logger LOG = Logger.getLogger(TextFieldDocumentListener.class);
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
@@ -42,6 +46,7 @@ public class TextFieldDocumentListener implements DocumentListener{
         try {
         	doubleValue = Double.parseDouble(textString);
 		} catch (Exception e2) {
+			LOG.error(e2);
 			return;
 		}
         
