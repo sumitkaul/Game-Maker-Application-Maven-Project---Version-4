@@ -78,9 +78,24 @@ public class GameEnginePanelTest {
 		doAnswer(new Answer() {
 	      public Object answer(InvocationOnMock invocation) {
 	          Object[] args = invocation.getArguments();
-	          //Mock mock = invocation.getMock();
+	         
 	          return null;
 	      }})
 	  .when(gameEnginePanelMock).restartGame();
 		}
+	
+	@Test
+	public void testExitGame() {
+		
+		doAnswer(new Answer() {
+		      public Object answer(InvocationOnMock invocation) {
+		          Object[] args = invocation.getArguments();
+		          
+		          return null;
+		      }})
+		  .when(gameEnginePanelMock).restartGame();
+			}
+		
 }
+	
+
