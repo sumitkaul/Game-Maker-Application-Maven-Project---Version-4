@@ -95,7 +95,51 @@ public class GameEnginePanelTest {
 		      }})
 		  .when(gameEnginePanelMock).restartGame();
 			}
+	
+	@Test
+	public void testStartGame() {
 		
-}
+		doAnswer(new Answer() {
+		      public Object answer(InvocationOnMock invocation) {
+		          Object[] args = invocation.getArguments();
+		          
+		          return null;
+		      }})
+		  .when(gameEnginePanelMock).restartGame();
+			}
+	
+	@Test
+	public void testRemoveGame() {
+		doAnswer(new Answer() {
+		      public Object answer(InvocationOnMock invocation) {
+		          Object[] args = invocation.getArguments();
+		          
+		          return null;
+		      }})
+		  .when(gameEnginePanelMock).restartGame();
+			}
+		
+	
+
+	@Test
+	public void testNewGame() {
+		doAnswer(new Answer() {
+		      public Object answer(InvocationOnMock invocation) {
+		          Object[] args = invocation.getArguments();
+		          
+		          return null;
+		      }})
+		  .when(gameEnginePanelMock).restartGame();
+			}
+		
+	}
+		
+	
+
+
+		
+	
+		
+
 	
 

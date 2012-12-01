@@ -132,7 +132,7 @@ public class PropertyPanel extends JPanel{
 		for(Component component : components){
 			if(component instanceof JTextField){
 				JTextField textField = (JTextField) component;
-				textField.setText("");
+				textField.setText(null);
 			}
 		}
 		

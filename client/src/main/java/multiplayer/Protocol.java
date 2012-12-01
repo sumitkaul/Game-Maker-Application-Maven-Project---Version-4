@@ -16,6 +16,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.util.Log;
 
 import game.engine.slick2d.player.GameEngineController;
+import game.engine.slick2d.player.TestingReporter;
 import loader.GamePackage;
 import model.SpriteModel;
 import utility.ClockDisplay;
@@ -95,6 +96,7 @@ public class Protocol {
         gamePlayerView.getGameEnginePanel().removeGame();
         
         GameEngineController gameEngine = new GameEngineController(Subscribe.getInstanceOf().getName(), game);
+        gameEngine.setPauseReporter(new TestingReporter());
         //gameEngine.setEventsForGameController(game.getEventsForGameController());
         //gameEngine.setKeyEvents(game.getEventsForKeyController());
         try {
