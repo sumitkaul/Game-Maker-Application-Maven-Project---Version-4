@@ -71,8 +71,8 @@ public class LoadControllerTest {
 	@Test
 	public void testListMultiPlayerGameBases() {
 		List<String> gameNames = new ArrayList<String>();
-		gameNames.add("multiplayer game 1");
-		gameNames.add("multiplayer game 2");
+		gameNames.add("test multiplayer game 1");
+		gameNames.add("test multiplayer game 2");
 		Gson gson = new Gson();
 		String json = gson.toJson(gameNames);
 		PowerMockito.mockStatic(DatabaseHandler.class);
@@ -81,6 +81,26 @@ public class LoadControllerTest {
 					gameNames);
 			String jsonResult = loadController.listMultiPlayerGameBases();
 			if (json.equals(jsonResult))
+				Assert.assertTrue(true);
+			else
+				Assert.assertTrue(false);
+		} catch (Exception e) {
+			Logger.getLogger(LoadControllerTest.class).debug(e.getMessage());
+		}
+	}
+
+	@Test
+	public void testLoadGamePlay() {
+		String game1_data = "<data> this is the test game1 data </data>";
+		String game2_data = "<data> this is the test game2 data </data>";
+		List<String> gameData = new ArrayList<String>();
+		gameData.add(game1_data);
+		gameData.add(game2_data);
+		PowerMockito.mockStatic(DatabaseHandler.class);
+		try {
+			PowerMockito.when(DatabaseHandler.class, DatabaseHandler.listQuery((String) Matchers.any())).thenReturn(
+					gameData);
+			if (gameData.get(0).equals(loadController.loadGamePlay("test_game_id")))
 				Assert.assertTrue(true);
 			else
 				Assert.assertTrue(false);
