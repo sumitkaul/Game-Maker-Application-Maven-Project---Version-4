@@ -9,7 +9,6 @@ import facade.Facade;
 import model.SpriteModel;
 import utility.Helper;
 import utility.SpriteList;
-import view.GameMakerView;
 
 @SuppressWarnings("serial")
 public class ActionChangeGameStatus implements GameAction,Serializable {

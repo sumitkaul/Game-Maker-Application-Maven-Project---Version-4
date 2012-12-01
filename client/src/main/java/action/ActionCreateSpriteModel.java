@@ -9,7 +9,6 @@ import java.util.List;
 import model.SpriteModel;
 import utility.Helper;
 import utility.SpriteList;
-import view.GameMakerView;
 
 @SuppressWarnings("serial")
 public class ActionCreateSpriteModel implements GameAction, Serializable {

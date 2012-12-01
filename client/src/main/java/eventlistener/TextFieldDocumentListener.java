@@ -38,7 +38,13 @@ public class TextFieldDocumentListener implements DocumentListener{
 		GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
         
         String textString = textField.getText();
-    
+        Double doubleValue = 0.0;
+        try {
+        	doubleValue = Double.parseDouble(textString);
+		} catch (Exception e2) {
+			return;
+		}
+        
         DefaultListModel spriteListIndividualModel = gameMakerView.getSpriteListIndividualModel();
         DefaultListModel spriteListGroupModel = gameMakerView.getSpriteListGroupModel();
         
@@ -80,23 +86,23 @@ public class TextFieldDocumentListener implements DocumentListener{
         }
         else if(owner.equalsIgnoreCase(PropertyField.VELOCITY_X.toString())){
     		if(textString!= null && !textString.equalsIgnoreCase(""))
-				SpriteList.getInstance().getSelectedSpriteModel().setSpeedX(Double.parseDouble(textString));	
+				SpriteList.getInstance().getSelectedSpriteModel().setSpeedX(doubleValue);	
 		
         }
         else if(owner.equalsIgnoreCase(PropertyField.VELOCITY_Y.toString())){
 			if(textString != null && !textString.equalsIgnoreCase(""))
-				SpriteList.getInstance().getSelectedSpriteModel().setSpeedY(Double.parseDouble(textString));
+				SpriteList.getInstance().getSelectedSpriteModel().setSpeedY(doubleValue);
 		
         }
         else if(owner.equalsIgnoreCase(PropertyField.WIDTH.toString())){
 			if(textString != null && !textString.equalsIgnoreCase("")){
-				SpriteList.getInstance().getSelectedSpriteModel().setWidth(Double.valueOf(textField.getText()));
+				SpriteList.getInstance().getSelectedSpriteModel().setWidth(doubleValue);
 				facade.getGamePanel().repaint();
 			}
         }
         else if(owner.equalsIgnoreCase(PropertyField.HEIGHT.toString())){
 			if(textString != null && !textString.equalsIgnoreCase("")){
-				SpriteList.getInstance().getSelectedSpriteModel().setHeight(Double.valueOf(textString));
+				SpriteList.getInstance().getSelectedSpriteModel().setHeight(doubleValue);
 				facade.getGamePanel().repaint();
 			}
         }
