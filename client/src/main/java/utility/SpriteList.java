@@ -17,6 +17,12 @@ public class SpriteList implements Serializable {
     private List<SpriteModel> selectedSpriteModels;
     private List<SpriteModel> toBeRemovedSpriteModels;
 
+    public void clear() {
+        spriteList.clear();
+        selectedSpriteModels.clear();
+        toBeRemovedSpriteModels.clear();
+    }
+
     public static SpriteList getInstance() {
         if (sharedSpriteList == null) {
             sharedSpriteList = new SpriteList();
