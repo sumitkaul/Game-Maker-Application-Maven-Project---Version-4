@@ -39,99 +39,59 @@ public class GameEnginePanelTest {
 	}
 
 
-//	@Test
-//	public void testSetApp() {
-//		gameEnginePanel.setApp(canvasGameContainer);
-//		actualApp= gameEnginePanel.getApp();
-//		expectedApp= canvasGameContainer;
-//		assertEquals(expectedApp,actualApp);
-//	}
-//
-//	@Test
-//	public void testGetGame() {
-//		gameEnginePanel.setGame(gameEngineController);
-//		actualGameEngineController= gameEnginePanel.getGame();
-//		expectedGameEngineController= gameEngineController;
-//		assertEquals(expectedGameEngineController,actualGameEngineController);
-//		
-//	}
-//	
-//	@Test
-//	public void testGetApp() {
-//		when(gameEnginePanelMock.getApp()).thenReturn(canvasGameContainer);
-//		assertEquals(canvasGameContainer,gameEnginePanelMock.getApp());
-//	}
-//	
-//    
-//	@Test
-//	public void testSetGame() {
-//		gameEnginePanel.setGame(gameEngineController);
-//		actualGameEngineController= gameEnginePanel.getGame();
-//		expectedGameEngineController= gameEngineController;
-//		assertEquals(expectedGameEngineController,actualGameEngineController);
-//		
-//	}
-//
-//	@Test
-//	public void testRestartGame() {
-//		
-//		
-//		doAnswer(new Answer() {
-//	      public Object answer(InvocationOnMock invocation) {
-//	          Object[] args = invocation.getArguments();
-//	         
-//	          return null;
-//	      }})
-//	  .when(gameEnginePanelMock).restartGame();
-//		}
-//	
-//	@Test
-//	public void testExitGame() {
-//		
-//		doAnswer(new Answer() {
-//		      public Object answer(InvocationOnMock invocation) {
-//		          Object[] args = invocation.getArguments();
-//		          
-//		          return null;
-//		      }})
-//		  .when(gameEnginePanelMock).restartGame();
-//			}
-//	
-//	@Test
-//	public void testStartGame() {
-//		
-//		doAnswer(new Answer() {
-//		      public Object answer(InvocationOnMock invocation) {
-//		          Object[] args = invocation.getArguments();
-//		          
-//		          return null;
-//		      }})
-//		  .when(gameEnginePanelMock).restartGame();
-//			}
-//	
-//	@Test
-//	public void testRemoveGame() {
-//		doAnswer(new Answer() {
-//		      public Object answer(InvocationOnMock invocation) {
-//		          Object[] args = invocation.getArguments();
-//		          
-//		          return null;
-//		      }})
-//		  .when(gameEnginePanelMock).restartGame();
-//			}
-//		
-//	
-//
-//	@Test
-//	public void testNewGame() {
-//		doAnswer(new Answer() {
-//		      public Object answer(InvocationOnMock invocation) {
-//		          Object[] args = invocation.getArguments();
-//		          
-//		          return null;
-//		      }})
-//		  .when(gameEnginePanelMock).restartGame();
-//			}
+	
+
+	@Test
+	public void testGetGame() {
+		gameEnginePanel.setGame(gameEngineController);
+		actualGameEngineController= gameEnginePanel.getGame();
+		expectedGameEngineController= gameEngineController;
+		assertEquals(expectedGameEngineController,actualGameEngineController);
+		
+	}
+	
+
+	
+    
+	@Test
+	public void testSetGame() {
+		gameEnginePanel.setGame(gameEngineController);
+		actualGameEngineController= gameEnginePanel.getGame();
+		expectedGameEngineController= gameEngineController;
+		assertEquals(expectedGameEngineController,actualGameEngineController);
+		
+	}
+    
+	
+		
+	
+	
+	
+	@Test
+	public void testStartGame() {
+		
+		doAnswer(new Answer() {
+		      public Object answer(InvocationOnMock invocation) {
+		          Object[] args = invocation.getArguments();
+		          
+	          return null;
+		      }})
+	  .when(gameEnginePanelMock).startGame();
+		}
+	
+		
+	
+
+    @Test
+	public void testNewGame() {
+		doAnswer(new Answer() {
+		      public Object answer(InvocationOnMock invocation) {
+		          Object[] args = invocation.getArguments();
+		          
+		          return null;
+		      }})
+		  .when(gameEnginePanelMock).newGame();
+			}
 		
 	}
 	
