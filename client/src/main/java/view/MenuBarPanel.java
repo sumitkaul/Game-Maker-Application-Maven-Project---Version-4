@@ -18,6 +18,8 @@ import java.util.Random;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
@@ -145,10 +147,10 @@ public class MenuBarPanel implements ActionListener, ItemListener {
             }
         });
         menu.add(item);
-
+        
         JMenu user = new JMenu("User");
         menuBar.add(user);
-
+        
         JMenuItem login = new JMenuItem("Login");
         JMenuItem logout = new JMenuItem("Logout");
         JMenuItem register = new JMenuItem("Register");
@@ -159,31 +161,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
         postFacebookScore.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = "My new Score: " + Score.getInstance().getScore() + " from GameMaker";
-
-                String name = "Game Maker Website";
-                String description = "Go to game maker website";
-                String caption = "Download game maker";
-                URI uri = null;
-                try {
-                    message = URLEncoder.encode(message, "UTF-8");
-                    name = URLEncoder.encode(name, "UTF-8");
-                    description = URLEncoder.encode(description, "UTF-8");
-                    caption = URLEncoder.encode(caption, "UTF-8");
-                } catch (UnsupportedEncodingException ex) {
-                    Logger.getLogger(MenuBarPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    uri = new URI(Constants.FacebookServer + "?action=post&message=" + message + "&name=" + name + "&caption=" + caption + "&description=" + description);
-                } catch (URISyntaxException ex) {
-                    Logger.getLogger(MenuBarPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    Desktop.getDesktop().browse(uri);
-                } catch (IOException ex) {
-                    Logger.getLogger(MenuBarPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
+                postFacebookScore();
             }
         });
 
@@ -387,12 +365,32 @@ public class MenuBarPanel implements ActionListener, ItemListener {
         if (Constants.isGameMaker) {
             modes[1].addItemListener(this);
         }
+        
         modeGroup.add(modes[0]);
         modeGroup.add(modes[1]);
         menuMode.add(modes[0]);
         menuMode.add(modes[1]);
         menuBar.add(menuMode);
 
+        
+        JMenu helpMode = new JMenu("Help");
+        JCheckBoxMenuItem specialCheck2 = new JCheckBoxMenuItem("Show Pop-us", true);
+        helpMode.add(specialCheck2);
+        specialCheck2.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				AbstractButton button = (AbstractButton) e.getItem();
+			      if (button.isSelected()){
+			    	  Helper.getsharedHelper().setShowPopups(true);
+			      }
+			      else{
+			    	  Helper.getsharedHelper().setShowPopups(false);  
+			      }
+			}
+		});
+        menuBar.add(helpMode);
+        
     }
 
     /**
@@ -414,7 +412,32 @@ public class MenuBarPanel implements ActionListener, ItemListener {
         p.saveGameToRemoteServer(gameData);
 
     }
+    public static void postFacebookScore() {
+        String message = "My new Score: " + Score.getInstance().getScore() + " from GameMaker";
 
+        String name = "Game Maker Website";
+        String description = "Go to game maker website";
+        String caption = "Download game maker";
+        URI uri = null;
+        try {
+            message = URLEncoder.encode(message, "UTF-8");
+            name = URLEncoder.encode(name, "UTF-8");
+            description = URLEncoder.encode(description, "UTF-8");
+            caption = URLEncoder.encode(caption, "UTF-8");
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(MenuBarPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            uri = new URI(Constants.FacebookServer + "?action=post&message=" + message + "&name=" + name + "&caption=" + caption + "&description=" + description);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(MenuBarPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Desktop.getDesktop().browse(uri);
+        } catch (IOException ex) {
+            Logger.getLogger(MenuBarPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public static void loadGame() {
         GameBaseLoadPanel p = new GameBaseLoadPanel(GameMakerView.getInstance().getBaseFrame().getRootPane());
 
