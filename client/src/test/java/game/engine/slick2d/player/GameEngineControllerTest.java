@@ -78,5 +78,57 @@ public class GameEngineControllerTest {
       }})
   .when(mock).renderSpriteImageDraw();
    }
+   
+   @Test 
+   public void testinitSpriteImageMapping() throws Exception{
+        GameEngineController first= mock(GameEngineController.class);
+       GameEngineController second= mock(GameEngineController.class);
+      
+       first.initSpriteImageMapping();
+       second.initSpriteImageMapping();
+       InOrder inOrder= inOrder(first,second);
+        inOrder.verify(first).initSpriteImageMapping();
+        inOrder.verify(second).initSpriteImageMapping();
+   }
+   @Test 
+   public void testInit()throws Exception{
+        GameContainer result=mock(GameContainer.class);
+        GameEngineController mock= Mockito.mock(GameEngineController.class);
+       doAnswer(new Answer() {
+      public Object answer(InvocationOnMock invocation) {
+          Object[] args = invocation.getArguments();
+          return null;
+      }})
+  .when(mock).init(result);
+   }
+   
+   
+   @Test
+   public void testSetPauseReporter() throws Exception{
+        GameEngineController first= mock(GameEngineController.class);
+       GameEngineController second= mock(GameEngineController.class);
+       GamePauseReporter firstPara=mock(GamePauseReporter.class);
+       GamePauseReporter secondPara=mock(GamePauseReporter.class);
+       first.setPauseReporter(firstPara);
+       second.setPauseReporter(secondPara);
+       InOrder inOrder= inOrder(first,second);
+        inOrder.verify(first).setPauseReporter(firstPara);
+        inOrder.verify(second).setPauseReporter(secondPara);
+   }
+   
+   @Test
+   public void testUpdate() throws Exception{
+      GameContainer result=mock(GameContainer.class);
+        GameEngineController mock= Mockito.mock(GameEngineController.class);
+       doAnswer(new Answer() {
+      public Object answer(InvocationOnMock invocation) {
+          Object[] args = invocation.getArguments();
+          return null;
+      }})
+  .when(mock).update(result, 0);
+   
+   }
+           
+   
 }
 
