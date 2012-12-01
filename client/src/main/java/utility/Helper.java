@@ -59,12 +59,12 @@ public class Helper {
 
 	public Helper() {
 		messages = new HashMap<Integer, String>();
-		messages.put(new Integer(1), "You just added a sprite here.");
-		messages.put(new Integer(2), "You can drag it around.");
-		messages.put(new Integer(3), "Scroll the object resize.");
-		messages.put(new Integer(4), "Right click on the object to get more options.");
-		messages.put(new Integer(5), "Change the properties of the selected object here.");
-		messages.put(new Integer(6), "Add event and actions to the object here.");
+		messages.put(new Integer(1), "<html><center>You just added a sprite here.</center></html>");
+		messages.put(new Integer(2), "<html><center>You can drag it around.</center></html>");
+		messages.put(new Integer(3), "<html><center>Scroll the object to resize.</center></html>");
+		messages.put(new Integer(4), "<html><center>Right click on the object <br> to get more <br> options.</center></html>");
+		messages.put(new Integer(5), "<html><center>Change the properties <br> of the selected <br>object here.</center></html>");
+		messages.put(new Integer(6), "<html><center>Add event and actions <br> to the object here.</center></html>");
 	}
 	
 	public String getMessage(int messageNumber){
