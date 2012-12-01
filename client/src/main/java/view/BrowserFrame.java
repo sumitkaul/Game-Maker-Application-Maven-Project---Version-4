@@ -13,6 +13,7 @@ import javax.swing.event.HyperlinkListener;
 
 public class BrowserFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
+	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BrowserFrame.class);
 	
 	private JTextField addressBar;
 	private JEditorPane display;
@@ -51,7 +52,7 @@ public class BrowserFrame extends JFrame {
 			display.setPage(address);
 			addressBar.setText(address);
 		} catch (Exception e) {
-
+			LOG.error(e);
 		}
 
 	}
