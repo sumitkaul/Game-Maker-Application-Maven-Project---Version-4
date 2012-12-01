@@ -29,7 +29,8 @@ public class ActionCreateSpriteModel implements GameAction, Serializable {
         SpriteModel newSpriteModel = new SpriteModel((spriteModel.getPosX() + (spriteModel.getWidth() / 2)), (spriteModel.getPosY() + 5), x, y, 7, 12, spriteModel.getImageUrlString(), spriteModel.getLayer(), spriteModel.getImageId());
 
         SpriteList.getInstance().addSprite(newSpriteModel);
-        facade.addSpriteModelToView(newSpriteModel);
+        
+       	facade.addSpriteModelToView(newSpriteModel);
         newSpriteModel.setGroupId("Bomb");
 
 

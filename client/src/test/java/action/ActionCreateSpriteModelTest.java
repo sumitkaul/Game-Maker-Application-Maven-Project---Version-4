@@ -14,6 +14,7 @@ import eventlistener.EventListener;
 import eventlistener.NewFrameEventListener;
 import java.util.Collection;
 
+import utility.Constants;
 import utility.ResizeHelper;
 import utility.SpriteList;
 import view.GameMakerView;
@@ -23,6 +24,7 @@ public class ActionCreateSpriteModelTest {
 	
 	@Before
 	public void setUp() throws Exception {
+		GameMakerView gameMakerView = new GameMakerView(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
 		SpriteList.getInstance().getSpriteList().clear();
 	}
 
