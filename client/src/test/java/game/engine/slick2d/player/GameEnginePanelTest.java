@@ -6,10 +6,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.newdawn.slick.CanvasGameContainer;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doAnswer;
 
 public class GameEnginePanelTest {
 
@@ -58,4 +61,26 @@ public class GameEnginePanelTest {
 		assertEquals(canvasGameContainer,gameEnginePanelMock.getApp());
 	}
 	
+    
+	@Test
+	public void testSetGame() {
+		gameEnginePanel.setGame(gameEngineController);
+		actualGameEngineController= gameEnginePanel.getGame();
+		expectedGameEngineController= gameEngineController;
+		assertEquals(expectedGameEngineController,actualGameEngineController);
+		
+	}
+
+	@Test
+	public void testRestartGame() {
+		
+		
+		doAnswer(new Answer() {
+	      public Object answer(InvocationOnMock invocation) {
+	          Object[] args = invocation.getArguments();
+	          //Mock mock = invocation.getMock();
+	          return null;
+	      }})
+	  .when(gameEnginePanelMock).restartGame();
+		}
 }
