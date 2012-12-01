@@ -174,13 +174,7 @@ public class GamePanel extends JPanel implements KeyListener{
 	    		}
 	    			
 	    	}
-	    	if(clickCount == 2){
-	    		if(foundObject){
-	    			facade.createDuplicateSpriteModel(selectedSpriteModel);
-	    		}
-	    			
-	    	}
-
+	
 	    	requestFocus();
 	    }
 	    
