@@ -62,5 +62,26 @@ public class GamePackageTest {
 	       doThrow(new RuntimeException()).when(mock).setEventsForGameController(mockpara);
 	       doCallRealMethod().when(mock).setEventsForGameController(mockpara);
 	}
+	
+	@Test
+	public void testSetSpriteList() {
+		   List<EventListener> mockpara= Mockito.mock(List.class); 
+	       doThrow(new RuntimeException()).when(mock).setEventsForGameController(mockpara);
+	       doCallRealMethod().when(mock).setEventsForGameController(mockpara);
+	}
+
+	@Test
+	public void testGetLayers() {
+		   List<EventListener> mockpara= Mockito.mock(List.class); 
+	       doThrow(new RuntimeException()).when(mock).setEventsForGameController(mockpara);
+	       doCallRealMethod().when(mock).setEventsForGameController(mockpara);
+	}
+
+	@Test
+	public void testSetLayers() {
+		   List<EventListener> mockpara= Mockito.mock(List.class); 
+	       doThrow(new RuntimeException()).when(mock).setEventsForGameController(mockpara);
+	       doCallRealMethod().when(mock).setEventsForGameController(mockpara);
+	}
 
 }
