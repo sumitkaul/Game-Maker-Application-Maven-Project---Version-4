@@ -234,10 +234,14 @@ public class GamePanel extends JPanel implements KeyListener{
 	    			float amount = e.getWheelRotation() * 5f;
 					tempwidth = topSpriteModel.getWidth();
 					tempwidth += amount;
+					if(tempwidth <= 5)
+						tempwidth = 5;
 					topSpriteModel.setWidth(tempwidth);
 					
 					tempheight = topSpriteModel.getHeight();
 					tempheight += amount;
+					if(tempheight <= 5)
+						tempheight = 5;
 					topSpriteModel.setHeight(tempheight);
 					
 					repaint();
