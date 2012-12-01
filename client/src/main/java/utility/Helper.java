@@ -49,6 +49,7 @@ public class Helper {
 	private int currentMessageNumber;
 	private HashMap<Integer,String> messages;
 	private Rectangle originalPopupRect;
+	private boolean showPopups;
 	
 	
 	public static Helper getsharedHelper(){
@@ -58,6 +59,7 @@ public class Helper {
 	}
 
 	public Helper() {
+		setShowPopups(true);
 		messages = new HashMap<Integer, String>();
 		messages.put(new Integer(1), "<html><center>You just added a sprite here.</center></html>");
 		messages.put(new Integer(2), "<html><center>You can drag it around.</center></html>");
@@ -278,6 +280,14 @@ public class Helper {
 
 	public void setOriginalPopupRect(Rectangle originalPopupRect) {
 		this.originalPopupRect = originalPopupRect;
+	}
+
+	public boolean isShowPopups() {
+		return showPopups;
+	}
+
+	public void setShowPopups(boolean showPopups) {
+		this.showPopups = showPopups;
 	}
 
 }

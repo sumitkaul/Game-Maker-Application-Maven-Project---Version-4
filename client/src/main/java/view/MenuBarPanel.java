@@ -18,6 +18,8 @@ import java.util.Random;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
@@ -145,10 +147,10 @@ public class MenuBarPanel implements ActionListener, ItemListener {
             }
         });
         menu.add(item);
-
+        
         JMenu user = new JMenu("User");
         menuBar.add(user);
-
+        
         JMenuItem login = new JMenuItem("Login");
         JMenuItem logout = new JMenuItem("Logout");
         JMenuItem register = new JMenuItem("Register");
@@ -387,12 +389,32 @@ public class MenuBarPanel implements ActionListener, ItemListener {
         if (Constants.isGameMaker) {
             modes[1].addItemListener(this);
         }
+        
         modeGroup.add(modes[0]);
         modeGroup.add(modes[1]);
         menuMode.add(modes[0]);
         menuMode.add(modes[1]);
         menuBar.add(menuMode);
 
+        
+        JMenu helpMode = new JMenu("Help");
+        JCheckBoxMenuItem specialCheck2 = new JCheckBoxMenuItem("Show Pop-us", true);
+        helpMode.add(specialCheck2);
+        specialCheck2.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				AbstractButton button = (AbstractButton) e.getItem();
+			      if (button.isSelected()){
+			    	  Helper.getsharedHelper().setShowPopups(true);
+			      }
+			      else{
+			    	  Helper.getsharedHelper().setShowPopups(false);  
+			      }
+			}
+		});
+        menuBar.add(helpMode);
+        
     }
 
     /**
