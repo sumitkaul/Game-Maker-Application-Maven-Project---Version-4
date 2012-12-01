@@ -51,12 +51,12 @@ public class TestEngineTest {
      */
     @Test
     public void testGetApp() {
-       AppGameContainer expectApp=mock.getApp();
-       TestEngine mocked =Mockito.mock(TestEngine.class);
-       AppGameContainer mockApp= mocked.getApp();
-       mock.setApp(mockApp);
-       AppGameContainer finalApp=mock.getApp();
+      AppGameContainer expectApp=mock.getApp();
+        TestEngine engine= Mockito.mock(TestEngine.class);
+       engine.setApp(expectApp);
+       AppGameContainer finalApp=engine.getApp();
        assertEquals(finalApp,expectApp);
+       
         
     }
 
@@ -66,11 +66,11 @@ public class TestEngineTest {
   //  @Test
     public void testSetApp() {
         AppGameContainer expectApp=mock.getApp();
-       TestEngine mocked =Mockito.mock(TestEngine.class);
-       AppGameContainer mockApp= mocked.getApp();
-       mock.setApp(mockApp);
-       AppGameContainer finalApp=mock.getApp();
+        TestEngine engine= Mockito.mock(TestEngine.class);
+       engine.setApp(expectApp);
+       AppGameContainer finalApp=engine.getApp();
        assertEquals(finalApp,expectApp);
+       
        
     }
 }
