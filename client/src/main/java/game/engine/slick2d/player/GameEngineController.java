@@ -308,16 +308,17 @@ public class GameEngineController extends BasicGame {
         }
 
         for (Integer keycode : keyReg.keySet()) {
-            //try {
+            try {
                 if (gc.getInput().isKeyDown(key2key.get(keycode.intValue()))) {
                     LOG.debug(keycode + " is Pressed");
                     HashMap<String, Object> map = new HashMap<String, Object>(5);
                     map.put("keypressed", new Integer(keycode));
                     keyReg.get(keycode).checkEvent(map);
-//                }
-//            } catch (Exception e) {
-//                LOG.error("don't worry, it is only temp key-mapping error, we not done yet: " + e);
-//                e.printStackTrace();
+                }
+            } catch (Exception e) {
+                LOG.error("Key-mapping error: " + e);
+                LOG.debug("This Swing keycode: " + keycode + " is not valid");
+
             }
         }
 
