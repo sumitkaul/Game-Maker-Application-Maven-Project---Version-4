@@ -62,8 +62,6 @@ public class PlayerButtonPanel implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
                 gamePlayerView.getGameEnginePanel().startGame();
-//				gamePlayerView.getFacade().startGame();
-//				gamePlayerView.getGamePanel().requestFocusInWindow();
             }
         });
 
@@ -106,32 +104,11 @@ public class PlayerButtonPanel implements ActionListener {
                 }
 
                 GamePackage game = GameDataPackageIO.loadGamePackageFromFile(gameData);
-
+                
+                gamePlayerView.getGameEnginePanel().newGame(game);
+                
                 LOG.debug("load done");
 
-                Collection<SpriteModel> allSpriteModels = game.getSpriteList();
-                List<String> layers = game.getLayers();
-                ClockDisplay.getInstance().setVisible(game.isClockDisplayable());
-                // SpriteList.getInstance().setSpriteList(allSpriteModels);
-                SpriteModel m = (SpriteModel) ((Queue) allSpriteModels).peek();
-                SpriteList.getInstance().setSelectedSpriteModel(m);
-                gamePlayerView.getGameEnginePanel().removeGame();
-                
-                GameEngineController gameEngine = new GameEngineController(gamename[0], game);
-                gameEngine.setEventsForGameController(game.getEventsForGameController());
-                gameEngine.setKeyEvents(game.getEventsForKeyController());
-                try {
-                    CanvasGameContainer app = new CanvasGameContainer(gameEngine);
-                    gamePlayerView.getGameEnginePanel().addGame(app);
-                    //gamePlayerView.getGameEnginePanel().startGame();
-                } catch (SlickException ex) {
-                    Logger.getLogger(PlayerButtonPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                for (SpriteModel model : allSpriteModels) {
-                    SpriteList.getInstance().addSprite(model);
-                    SpriteList.getInstance().setSelectedSpriteModel(model);
-                }
             }
         });
 
