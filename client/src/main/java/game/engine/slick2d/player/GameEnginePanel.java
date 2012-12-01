@@ -24,7 +24,7 @@ public class GameEnginePanel extends JPanel {
 
     private void addGame(CanvasGameContainer app) {
         canvas = app;
-        canvas.getContainer().setTargetFrameRate(60);
+        canvas.getContainer().setTargetFrameRate(120);
         canvas.setPreferredSize(new Dimension(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT));
         canvas.getContainer().setForceExit(true);
         add(canvas);

@@ -18,6 +18,7 @@ public class SpriteList implements Serializable {
     private List<SpriteModel> toBeRemovedSpriteModels;
 
     public void clear() {
+        spriteList.clear();
         selectedSpriteModels.clear();
         toBeRemovedSpriteModels.clear();
     }
