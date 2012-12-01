@@ -24,18 +24,17 @@ public class PhysicsComponent {
 
     private static World world;
     public static LinkedHashMap<String, Body> bodies;
-    private JboxCollisionController jboxCollisionListener;
+    //private JboxCollisionController jboxCollisionListener;
     private ActionMoveLeft left;
     private static PhysicsComponent instance = null;
     private JBoxObjectList jboxObjectList;
     private CreateWall createWall;
-    private GameController gameController;
+   // private GameController gameController;
     public PhysicsComponent() throws IOException {
 
         this.world = new World(new Vec2(0, 0.3f), false);
         this.bodies = new LinkedHashMap<String, Body>();
         this.jboxObjectList = new JBoxObjectList();
-        this.jboxCollisionListener = new JboxCollisionController(gameController);
         //Subject to Change
         this.createWall = new CreateWall();
     }
