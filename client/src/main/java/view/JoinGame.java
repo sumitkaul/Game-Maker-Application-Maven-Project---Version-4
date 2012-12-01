@@ -34,7 +34,10 @@ public class JoinGame {
             JOptionPane.showMessageDialog(rootComp, ex.toString());
             return null;
         }
-        LOG.info("The gamenames are " + gameNames);
+
+        for (int i=0;i<gameNames.length;i++)
+        	LOG.info("The gamenames are " + gameNames[i]);
+        
         String chosen = (String) JOptionPane.showInputDialog(
                 rootComp,
                 "List of join games :",
