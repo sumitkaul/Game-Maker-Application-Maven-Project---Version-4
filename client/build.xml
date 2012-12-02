@@ -231,6 +231,7 @@
 			</fileset>
 		</signjar>
 		<copy file="target/team-all-jar-with-dependencies.jar" toDir="${webstart.location}" />
+  		<copy file="repository/local/jars/natives/1/natives-1.jar" toDir="${webstart.location}" />
 		<copy file="${webstart.home}/project.jnlp" toDir="${webstart.location}" />
 	</target>
 	
