@@ -24,10 +24,7 @@ import static org.mockito.Mockito.never;
 
 
 
-/**
- *
- * @author Pranav
- */
+
 public class AuthReceiverTest {
     private AuthReceiver actual;
     private AuthReceiver mock;
@@ -56,7 +53,7 @@ public class AuthReceiverTest {
     public void tearDown() throws Exception{
         actual=null;    
         mock =null;
-        t.stop();
+       // t.stop();
     }
 
     /**
@@ -67,6 +64,6 @@ public class AuthReceiverTest {
         t.start();
        
      verify(mock,times(1)).run();
-    // t.stop();
+     t.stop();
     }
 }
