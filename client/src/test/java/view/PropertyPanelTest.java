@@ -34,8 +34,7 @@ public class PropertyPanelTest {
     }    
 
     @Test
-    public void testGetValueForProperty() {
-        
+    public void testGetValueForProperty() {        
         String property = "";
         PropertyPanel instance = new PropertyPanel();        
         String result = instance.getValueForProperty(property);
