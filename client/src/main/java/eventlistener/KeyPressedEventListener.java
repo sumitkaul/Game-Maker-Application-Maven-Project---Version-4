@@ -4,11 +4,15 @@ import action.GameAction;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.newdawn.slick.util.Log;
 
 import model.SpriteModel;
 import multiplayer.Sender;
+import multiplayer.SenderThread;
 import utility.Constants;
 import utility.SpriteList;
 import utility.enums.playerModes;
@@ -49,11 +53,21 @@ public class KeyPressedEventListener implements EventListener, Serializable {
             	   Log.info("action ======================== "+action);
                    Log.info("model =========================="+sprite.getEventListenerList().get(0));
                     Log.debug("Before sending :action = "+ action.toString()+"sprite is" + sprite.getId());
-                    // This next line seems to do nothing
-                   Sender sender = new Sender();
-                   sender.sendAsClient(action, sprite.getId());
-                   Log.info("In key pressed event listener");
-                   //Log.debug("action = "+ action.toString()+"sprite is" + sprite.getId());
+                    final String id = sprite.getId();
+                    ThreadPoolExecutor pool;
+                    pool = new ThreadPoolExecutor(10, 100, 30, TimeUnit.SECONDS, new PriorityBlockingQueue<Runnable>());
+
+                    pool.execute(new Runnable(){
+
+						@Override
+						public void run() {
+							   Sender sender = new Sender();
+			                   sender.sendAsClient(action, id);
+			                   Log.info("In key pressed event listener");
+							
+						}
+                    	
+                    });
                 }
             }
         }
