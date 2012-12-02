@@ -43,13 +43,17 @@ public class TextFieldDocumentListener implements DocumentListener{
         
         String textString = textField.getText();
         Double doubleValue = 0.0;
-        try {
-        	doubleValue = Double.parseDouble(textString);
-		} catch (Exception e2) {
-			LOG.error(e2);
-			return;
-		}
         
+        if((!owner.equalsIgnoreCase(PropertyField.SPRITE_NAME.toString())) &&
+        		(!owner.equalsIgnoreCase(PropertyField.GROUP_NAME.toString()))){
+        	 try {
+             	doubleValue = Double.parseDouble(textString);
+     		} catch (Exception e2) {
+     			LOG.error(e2);
+     			return;
+     		}
+        }
+       
         DefaultListModel spriteListIndividualModel = gameMakerView.getSpriteListIndividualModel();
         DefaultListModel spriteListGroupModel = gameMakerView.getSpriteListGroupModel();
         
