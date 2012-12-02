@@ -123,7 +123,7 @@ public final class MultiPlayerOption {
                         SessionFactory.getInstanceOf().createConnection();
                         Receiver.getInstanceOf().subscribe(getReceivingQueueName()); 
                     } catch (Exception ex) {
-                      ex.printStackTrace();
+                    	LOG.error(ex);
     
                     }
                     
