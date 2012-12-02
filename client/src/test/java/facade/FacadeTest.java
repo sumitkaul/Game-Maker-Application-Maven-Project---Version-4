@@ -1,8 +1,5 @@
 package facade;
 
-import controller.GameController;
-import controller.KeyListenerController;
-import javax.swing.Timer;
 import static org.junit.Assert.assertTrue;
 import model.SpriteModel;
 
@@ -17,11 +14,8 @@ import view.GamePanel;
 
 public class FacadeTest   {
 	private  Facade facade;
-	private GamePanel gamePanel,gamePanel2,finalGamePanel;
-        private KeyListenerController keyListenerController,keyListenerController2,finalkeyListenerController;
-        private GameController gameController,gameController2,finalGameController;
-        private Timer timer,timer2,finalTimer;
-        
+	private GamePanel gamePanel;
+	
 	@Before
 	public void setUp() throws Exception {
 		//setAdapter(new MainClassAdapter(gameMaker.class, new String[0]));        
@@ -79,38 +73,5 @@ public class FacadeTest   {
 		
 				
 	}	
-	
-        @Test
-        public void testSetTimer() {
-            facade.setTimer(timer2);
-            finalTimer=facade.getTimer();
-            if(finalTimer == timer2)
-                assertTrue(true);
-        }
 
-	@Test
-        public void testSetGamePanel() {
-            facade.setGamePanel(gamePanel2);
-            finalGamePanel=facade.getGamePanel();
-            if(finalGamePanel == gamePanel2)
-                assertTrue(true);
-        }
-        
-        
-        @Test
-        public void testSetKeyListenerController() {
-            facade.setKeyListenerController(keyListenerController2);
-            finalkeyListenerController=facade.getKeyListenerController();
-            if(finalkeyListenerController == keyListenerController2)
-                assertTrue(true);  
-        }
-        
-        @Test
-        public void testSetGameController() {
-            facade.setGameController(gameController2);
-            finalGameController=facade.getGameController();
-            if(finalGameController == gameController2)
-                assertTrue(true);  
-        }
-        
 }

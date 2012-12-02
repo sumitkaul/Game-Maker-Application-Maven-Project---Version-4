@@ -66,6 +66,7 @@ public class ChatSenderTest {
        
        verifyZeroInteractions(mock);
        verifyNoMoreInteractions(mock);
+       
         }
 
     /**
