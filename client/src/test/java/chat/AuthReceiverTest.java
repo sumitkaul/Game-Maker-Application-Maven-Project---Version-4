@@ -59,10 +59,6 @@ public class AuthReceiverTest {
      */
     @Test
     public void testRun() {
-     
-     Thread t= new Thread(mock);
-     t.start();
-    
-     verify(mock,times(1)).run();
+     verify(mock,never()).run();
     }
 }
