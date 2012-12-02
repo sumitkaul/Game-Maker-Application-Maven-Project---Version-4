@@ -15,15 +15,13 @@ import db.User;
 
 @Controller
 public class LoginController {
-
+	
 	@RequestMapping(value = "/loginUser", method = RequestMethod.GET)
 	@ResponseBody
 	public String login(@RequestParam("username") String username,
 			@RequestParam("password") String password) {
-
 		Gson gson = new Gson();
 		List<?> loginQueryList = DatabaseHandler.loginQuery(username, password);
-
 		if (loginQueryList.isEmpty()) {
 			return gson.toJson(false);
 

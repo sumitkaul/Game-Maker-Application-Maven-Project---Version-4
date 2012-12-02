@@ -3,8 +3,9 @@ package controllers;
 import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
-import org.jboss.logging.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

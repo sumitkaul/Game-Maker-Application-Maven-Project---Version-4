@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.List;
 
-import org.jboss.logging.Logger;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
