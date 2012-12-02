@@ -31,15 +31,20 @@ public class GameEnginePanelTest {
 	@After
 	public void tearDown() throws Exception {
 		gameEnginePanel=null;
+		gameEnginePanelMock=null;
+		canvasGameContainer=null;
+		expectedApp=null;
+		actualApp=null;
+		gameEngineController=null;
+		expectedGameEngineController=null;
+		actualGameEngineController=null;
+		
 	}
 
 	@Test
 	public void testGameEnginePanel() {
 		
 	}
-
-
-	
 
 	@Test
 	public void testGetGame() {
@@ -76,7 +81,7 @@ public class GameEnginePanelTest {
 		          
 	          return null;
 		      }})
-	  .when(gameEnginePanelMock).startGame();
+	   .when(gameEnginePanelMock).startGame();
               
 		}
 	

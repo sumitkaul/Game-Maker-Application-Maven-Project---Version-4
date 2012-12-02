@@ -20,7 +20,7 @@ public class Sender {
 		
 	}
 	
-	public void sendAsClient(GameAction action, String spriteID)
+	public synchronized void sendAsClient(GameAction action, String spriteID)
 	{
 		SessionFactory.getInstanceOf().createConnection();
 		Publish.getInstanceOf().sendGameAction(action, spriteID);
