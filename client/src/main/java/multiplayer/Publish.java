@@ -53,7 +53,7 @@ public final class Publish {
 			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
 		} catch (JMSException e1) {
-
+			LOG.error(e1);
 		}
 
 	}

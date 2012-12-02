@@ -217,6 +217,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
                     Long currentTime = System.currentTimeMillis();
                     Integer randomNumber = random.nextInt();
                     String queueName = currentTime.toString() + randomNumber.toString();
+                    new AuthReceiver(queueName);
                     URI uri = new URI(Constants.FacebookServer + "?q=" + queueName);
                     Desktop.getDesktop().browse(uri);
                 } catch (IOException e) {
