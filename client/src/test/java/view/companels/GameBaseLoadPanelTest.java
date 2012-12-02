@@ -32,13 +32,14 @@ public class GameBaseLoadPanelTest {
     
     @After
     public void tearDown() {
+        mockJComponent = null;
     }
 
     @Test
     public void testReadGameDataFromRemoteList() {       
         
         if(mockJComponent == null){            
-            fail("Unable to create mock JComponent");
+            fail("Unable to create mock " + mockJComponent.getClass().toString());
         }
         
         GameBaseLoadPanel instance = null;
