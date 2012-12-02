@@ -40,9 +40,11 @@ public class ClockDisplay implements Drawable {
 	}
 
 	public void reset() {
+		//if(this.isEnabled == true || this.isEnabled == false){
 		hour = 0;
 		minute = 0;
 		second = 0;
+		//}
 	}
 
 	private void updateClock() {

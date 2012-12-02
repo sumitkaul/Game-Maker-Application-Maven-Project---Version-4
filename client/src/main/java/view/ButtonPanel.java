@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 
 import facade.Facade;
 
+import utility.ClockDisplay;
 import utility.Helper;
 import utility.Score;
 
@@ -22,16 +24,21 @@ public class ButtonPanel {
 	private JLabel userName;
 
 	public ButtonPanel(GameMakerView gameMakerView) {
+		
 		this.makerView = gameMakerView;
 		buttonPanel = new JPanel();
 
 		JButton newGame = new JButton("Clear");
 		newGame.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				ClockDisplay.getInstance().setEnabled(true);
 				LOG.trace("resetting the view");
+				//Graphics g = null;
 				makerView.reset();
+				//ClockDisplay.getInstance().draw(g);
+				
 			}
 		});
 
@@ -43,6 +50,7 @@ public class ButtonPanel {
 				Facade facade = Helper.getsharedHelper().getFacade();
 				GamePanel gamePanel = Helper.getsharedHelper().getGamePanel();
 				facade.startGame();
+				ClockDisplay.getInstance().setEnabled(true);
 				gamePanel.requestFocusInWindow();
 			}
 		});
@@ -54,6 +62,7 @@ public class ButtonPanel {
 			public void actionPerformed(ActionEvent e) {
 				Facade facade = Helper.getsharedHelper().getFacade();
 				facade.stopGame();
+				ClockDisplay.getInstance().setEnabled(false);
 				GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
 				if (gameMakerView.isShouldDisplayScore()) {
 					JOptionPane.showMessageDialog(makerView.getBaseFrame(),

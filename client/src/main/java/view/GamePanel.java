@@ -306,5 +306,6 @@ public class GamePanel extends JPanel implements KeyListener{
 		}
 		removeAllDrawables();
 		repaint();
+		//ClockDisplay.getInstance().setEnabled(false);
 	}
 }
