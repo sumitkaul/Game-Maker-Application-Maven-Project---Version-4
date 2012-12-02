@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
-import JBox2d.Actions.ActionMoveLeft;
 import JBox2d.Events.JboxCollisionController;
 import controller.GameController;
 import model.SpriteModel;
@@ -25,7 +24,7 @@ public class PhysicsComponent {
     private static World world;
     public static LinkedHashMap<String, Body> bodies;
     //private JboxCollisionController jboxCollisionListener;
-    private ActionMoveLeft left;
+
     private static PhysicsComponent instance = null;
     private JBoxObjectList jboxObjectList;
     private CreateWall createWall;
