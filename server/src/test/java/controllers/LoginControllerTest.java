@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -33,7 +32,7 @@ public class LoginControllerTest {
 			ArrayList<User> retValue = new ArrayList<User>();
 			retValue.add(new User("asdf", "asdf", "1"));
 			PowerMockito.when(DatabaseHandler.class,
-					DatabaseHandler.loginQuery("asdf", "asdf")).thenReturn(
+					"loginQuery", "asdf", "asdf").thenReturn(
 					retValue);
 			String ret = loginController.login("asdf", "asdf");
 			assert (ret == "true");
@@ -55,7 +54,7 @@ public class LoginControllerTest {
 		PowerMockito.mockStatic(DatabaseHandler.class);
 		try {
 			PowerMockito.when(DatabaseHandler.class, 
-					DatabaseHandler.save(new Object())).thenReturn(true);
+					"save", new Object()).thenReturn(true);
 			String ret = loginController.register("zzsfp", "zzqfp");
 			assert(ret=="true");
 		} catch(Exception e) {
