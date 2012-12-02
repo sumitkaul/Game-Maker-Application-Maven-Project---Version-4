@@ -11,9 +11,13 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+
+import utility.Constants;
+import view.communication.ClientHandler;
 
 import model.Player;
 
@@ -59,18 +63,18 @@ public class ChatViewPanel {
 		tab = new JTabbedPane();
 		commonChat = new JPanel();
 		gameChat = new JPanel();
-		/*try{
-			activeUsers = ClientHandler.getActiveUsers( Constants.HOST, Constants.PATH + "/getActiveUsers");
-		}catch(Exception ex){
-			JOptionPane.showConfirmDialog(null, "Users list could not be loaded!");
-		}*/
+		
 		
 		refresh = new JButton("Refresh");
 		refresh.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				try{
+				setOnlineUsersList(ClientHandler.getActiveUsers( Constants.HOST, Constants.PATH + "/getActiveUsers"));
+			}catch(Exception ex){
+				JOptionPane.showConfirmDialog(null, "Users list could not be loaded!");
+			}
 			}
 		});
 		
