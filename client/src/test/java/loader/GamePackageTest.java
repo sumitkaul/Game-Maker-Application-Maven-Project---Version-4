@@ -63,7 +63,7 @@ public class GamePackageTest {
             List<EventListener> initialEventsForKeyController = gmPackage.getEventsForKeyController();
             assertEquals(initialEventsForKeyController, eventsForKeyController);
             gmPackage.setEventsForKeyController(eventsForKeyController2);
-            List<EventListener> finalEventsForKeyController = gmPackage.getEventsForKeyController();
+           // List<EventListener> finalEventsForKeyController = gmPackage.getEventsForKeyController();
             assertEquals(initialEventsForKeyController,eventsForKeyController2);
         }
 

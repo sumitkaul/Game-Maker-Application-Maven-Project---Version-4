@@ -1,13 +1,9 @@
 package view;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
-import loader.GameDataPackageIO;
 import model.GameProgressSaveInfo;
-import multiplayer.Receiver;
 import utility.Constants;
 import view.communication.ClientHandler;
 

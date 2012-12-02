@@ -14,7 +14,6 @@ import javax.swing.JTextField;
 import model.Player;
 import org.apache.log4j.Logger;
 import utility.Constants;
-import utility.Helper;
 import view.communication.ClientHandler;
 
 public class LoginFrame extends JFrame {

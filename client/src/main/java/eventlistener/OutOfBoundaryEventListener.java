@@ -7,7 +7,6 @@ import java.util.HashMap;
 import model.SpriteModel;
 import utility.Helper;
 import utility.SpriteList;
-import view.GameMakerView;
 import view.GamePanel;
 
 public class OutOfBoundaryEventListener implements EventListener, Serializable {

@@ -13,7 +13,7 @@ import view.GamePlayerView;
 import view.MultiPlayerOption;
 
 import loader.GamePackage;
-import model.SpriteModel;
+
 import action.GameAction;
 
 public class Receiver implements MessageListener {

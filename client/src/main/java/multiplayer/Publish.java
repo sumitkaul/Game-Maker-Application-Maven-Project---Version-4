@@ -6,7 +6,7 @@ import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 
-import model.SpriteModel;
+
 import action.GameAction;
 
 public final class Publish {

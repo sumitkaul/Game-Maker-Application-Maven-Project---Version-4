@@ -2,9 +2,6 @@ package view;
 
 import java.awt.CheckboxMenuItem;
 import java.awt.Desktop;
-import java.awt.Menu;
-import java.awt.MenuBar;
-import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -12,7 +9,6 @@ import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.Time;
 import java.util.List;
 import java.util.Random;
 

@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.Graphics;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
