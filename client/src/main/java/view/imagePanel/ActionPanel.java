@@ -10,10 +10,6 @@ import java.awt.font.*;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
 
-import lookandfeel.AnimationHandler;
-
-import view.GameMakerView;
-
 
 class ActionPanel extends JPanel
 {

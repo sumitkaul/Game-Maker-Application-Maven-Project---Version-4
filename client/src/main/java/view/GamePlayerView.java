@@ -4,7 +4,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import chat.StatusReceiver;
-import chat.StatusSender;
 import game.engine.slick2d.player.GameEnginePanel;
 import java.awt.event.WindowEvent;
 
@@ -68,7 +67,6 @@ public class GamePlayerView {
 			}
 		});
 
-		new StatusSender();
 		new StatusReceiver();
 	}
 

@@ -5,8 +5,9 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import model.SpriteModel;
+import utility.Helper;
 import utility.SpriteList;
-import view.GameMakerView;
+import view.GamePanel;
 
 public class OutOfBoundaryEventListener implements EventListener, Serializable {
 
@@ -17,6 +18,7 @@ public class OutOfBoundaryEventListener implements EventListener, Serializable {
 
     @Override
     public void checkEvent(HashMap<String, Object> map) {
+    	GamePanel gamePanel = Helper.getsharedHelper().getGamePanel();
         Collection<SpriteModel> allSpriteModel = SpriteList.getInstance()
                 .getSpriteList();
         for (SpriteModel model : allSpriteModel) {
@@ -29,7 +31,7 @@ public class OutOfBoundaryEventListener implements EventListener, Serializable {
                 double posY = model.getPosY();
                 double speedY = model.getSpeedY();
                 if (speedX > 0) {
-                    if ((posX - model.getWidth()) > GameMakerView.getInstance().getGamePanel().getWidth()) {
+                    if ((posX - model.getWidth()) > gamePanel.getWidth()) {
                         action.doAction(model);
                     }
                 } else {
@@ -38,7 +40,7 @@ public class OutOfBoundaryEventListener implements EventListener, Serializable {
                     }
                 }
                 if (speedY > 0) {
-                    if ((posY - model.getHeight()) > GameMakerView.getInstance().getGamePanel().getHeight()) {
+                    if ((posY - model.getHeight()) > gamePanel.getHeight()) {
                         action.doAction(model);
                     }
                 } else {

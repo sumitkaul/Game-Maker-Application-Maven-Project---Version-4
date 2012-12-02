@@ -1,5 +1,6 @@
 package db;
 
+@SuppressWarnings("serial")
 public class Resources implements java.io.Serializable {
 
     private int resourceNumber;

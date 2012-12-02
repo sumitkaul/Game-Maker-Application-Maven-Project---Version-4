@@ -1,20 +1,22 @@
 package db;
 
 import java.util.List;
+
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 import org.jboss.logging.Logger;
 
+
 /**
  * <p>The implementation of DatabaseService Interface. The port for accessing
  * the actual Database.</p>
- *
- * @author $Author: hss $
  */
 public class DatabaseHandler {
 
@@ -66,6 +68,16 @@ public class DatabaseHandler {
         return session;
 
     }
+    
+    public static List loginQuery(String username, String password){
+    	Session session = DatabaseHandler.getDatabaseHandlerInstance().getHibernateSession();
+		Criteria criteria = session.createCriteria(User.class);
+		criteria.add(Restrictions.eq("username", username));
+		criteria.add(Restrictions.eq("password", password));
+		List r = criteria.list();
+		session.close();
+		return r;
+    }
 
     public static List listQuery(String sql) {
         DatabaseHandler db = DatabaseHandler.getDatabaseHandlerInstance();
@@ -78,7 +90,7 @@ public class DatabaseHandler {
     }
 
     public static int executeQuery(String sql) {
-        DatabaseHandler db = DatabaseHandler.getDatabaseHandlerInstance();
+        DatabaseHandler db = getDatabaseHandlerInstance();
         Session session = db.getHibernateSession();
         Query query = session.createSQLQuery(sql);
         Transaction transaction = session.beginTransaction();
@@ -87,5 +99,16 @@ public class DatabaseHandler {
         session.close();
 
         return numRecordsUpdated;
+    }
+    
+    public static boolean save(Object dbObject){
+    	DatabaseHandler db = getDatabaseHandlerInstance();
+        Session session = db.getHibernateSession();
+		Transaction t = session.beginTransaction();
+		session.save(dbObject);
+		t.commit();
+
+		session.close();
+		return true;
     }
 }

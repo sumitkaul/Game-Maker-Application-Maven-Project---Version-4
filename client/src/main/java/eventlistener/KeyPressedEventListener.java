@@ -27,7 +27,7 @@ public class KeyPressedEventListener implements EventListener, Serializable {
     public void checkEvent(HashMap<String, Object> map) {
 
         Integer keyPressed = (Integer) map.get("keypressed");
-        if (keyRegistered != keyPressed.intValue()) {
+        if (keyRegistered != keyPressed.intValue() || keyRegistered == 0) {
             return;
         }
 

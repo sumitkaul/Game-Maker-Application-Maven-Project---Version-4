@@ -8,12 +8,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import utility.Constants;
+import utility.Helper;
 import utility.ResizeHelper;
 import utility.SpriteList;
 import view.GameMakerView;
 
 import eventlistener.CollisionEventListener;
 import facade.Facade;
+import gameMaker.gameMaker;
 
 import model.SpriteModel;
 
@@ -23,11 +26,14 @@ public class ActionChangeGameStatusTest {
 	   private  SpriteModel secondarySpriteModel;
 	   private  CollisionEventListener collisionListener;
 	   private  ActionChangeGameStatus action;
+	   private GameMakerView gameMakerView;
+	   private Facade facade;
 
 	@Before
 	public void setUp() throws Exception {
-		
-		GameMakerView.getInstance().reset();
+		gameMakerView = new GameMakerView(Constants.FRAME_WIDTH,Constants.FRAME_HEIGHT);
+		facade = Helper.getsharedHelper().getFacade();
+		gameMakerView.reset();
 		ResizeHelper.getInstance().reset();
       	selectedSpriteModel = new SpriteModel(190, 190, 10, 10, 100, 100, "","");
 		secondarySpriteModel= new SpriteModel(100, 100, 10, 10, 100, 200, "","");
@@ -43,19 +49,18 @@ public class ActionChangeGameStatusTest {
 	
 	@Test
 	public void testDoAction() {
-			Facade f = GameMakerView.getInstance().getFacade();
-		f.startGame();
+		facade.startGame();
 		action.setShowMessage(false);
 		action.doAction(selectedSpriteModel);		
-       	assertTrue(!f.getTimer().isRunning());	
+       	assertTrue(!facade.getTimer().isRunning());	
        	
 	}
 	
 	
 	@After
 	public void tearDown() throws Exception {
-		GameMakerView.getInstance().getFacade().stopGame();
-		GameMakerView.getInstance().reset();
+		facade.stopGame();
+		gameMakerView.reset();
 		
 	}
 

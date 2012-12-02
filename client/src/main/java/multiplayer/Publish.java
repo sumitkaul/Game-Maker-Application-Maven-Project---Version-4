@@ -6,7 +6,7 @@ import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 
-import model.SpriteModel;
+
 import action.GameAction;
 
 public final class Publish {
@@ -53,7 +53,7 @@ public final class Publish {
 			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
 		} catch (JMSException e1) {
-
+			LOG.error(e1);
 		}
 
 	}

@@ -50,7 +50,6 @@ public class GameEngineController extends BasicGame {
     public GameEngineController(String title, int loadMode, String[] paras) {
         super(title);
         buildKeyModel();
-        //buildPhysicsWorld();
         game = loadGameData(loadMode, paras);
         gamePaused = new AtomicBoolean(false);
         gameStarted = new AtomicBoolean(false);
@@ -137,7 +136,7 @@ public class GameEngineController extends BasicGame {
 
     public void initSpriteImageMapping() throws Exception {
         allSpriteModels = game.getSpriteList();
-        imagesOfSprites = new HashMap<String, Image>();
+        imagesOfSprites = new HashMap<String, Image>(20);
 
         for (SpriteModel sprite : allSpriteModels) {
 
@@ -167,6 +166,22 @@ public class GameEngineController extends BasicGame {
         }
         initActionEvents();
 
+    }
+
+    public void reset(GamePackage game) {
+        this.game = game;
+        SpriteList.getInstance().clear();
+
+        try {
+            initSpriteImageMapping();
+        } catch (Exception ex) {
+            LOG.error(ex);
+        }
+        initActionEvents();
+    }
+
+    public GamePackage getGame() {
+        return game;
     }
 
     public void setPauseReporter(GamePauseReporter pauseReporter) {
@@ -316,8 +331,9 @@ public class GameEngineController extends BasicGame {
                     keyReg.get(keycode).checkEvent(map);
                 }
             } catch (Exception e) {
-                LOG.error("don't worry, it is only temp key-mapping error, we not done yet: " + e);
-                e.printStackTrace();
+                LOG.error("Key-mapping error: " + e);
+                LOG.debug("This Swing keycode: " + keycode + " is not valid");
+
             }
         }
 

@@ -12,6 +12,7 @@ import action.ActionChangeSpeed;
 import action.ActionMove;
 import action.GameAction;
 
+import utility.Constants;
 import utility.SpriteList;
 import view.GameMakerView;
 import java.lang.Math;
@@ -20,6 +21,7 @@ public class OutOfBoundaryEventListenerTest {
     
 	@Before
 	public void setUp() throws Exception {
+		GameMakerView gameMakerView = new GameMakerView(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
 		SpriteList.getInstance().getSpriteList().clear();    		
 	}
 

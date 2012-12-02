@@ -2,6 +2,7 @@ package game.engine.slick2d.player;
 
 import java.awt.Dimension;
 import javax.swing.JPanel;
+import loader.GamePackage;
 import org.newdawn.slick.CanvasGameContainer;
 import org.newdawn.slick.SlickException;
 import utility.Constants;
@@ -13,85 +14,81 @@ public class GameEnginePanel extends JPanel {
 
     private static final org.apache.log4j.Logger LOG =
             org.apache.log4j.Logger.getLogger(GameEnginePanel.class);
-    private CanvasGameContainer app;
-    private GameEngineController game;
-
+    private CanvasGameContainer canvas;
+    private GameEngineController gameController;
 
     public GameEnginePanel() {
         setPreferredSize(new Dimension(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT));
         setVisible(true);
     }
 
-    public void addGame(CanvasGameContainer app) {
-        this.app = app;
-        this.app.getContainer().setTargetFrameRate(60);
-        this.app.setPreferredSize(new Dimension(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT));
-        this.app.getContainer().setForceExit(true);
-        add(this.app);
+    private void addGame(CanvasGameContainer app) {
+        canvas = app;
+        canvas.getContainer().setTargetFrameRate(120);
+        canvas.setPreferredSize(new Dimension(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT));
+        canvas.getContainer().setForceExit(true);
+        add(canvas);
     }
 
-    public void removeGame() {
-        if (app != null) {
-            app.getContainer().exit();
-            app.dispose();
-            remove(app);
-            removeAll();
-            game = null;
+    public void newGame(GamePackage p) {
+        try {
+            if (gameController != null) {
+                gameController.reset(p);
+                canvas.requestFocusInWindow();
+
+                return;
+            }
+
+            initStart();
+        } catch (Exception ex) {
+            LOG.error(ex);
         }
     }
 
     public void newGame() {
         try {
-            removeGame();
-            game = new GameEngineController("test", GameEngineController.LOAD_MODE_REMOTE, new String[]{"/game/engine/slick2d/player/testing_game.xml"});
-            
-            //test
-            game.setPauseReporter(new TestingReporter());
-            
-            CanvasGameContainer app = new CanvasGameContainer(game);
-            GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
-            gamePlayerView.getGameEnginePanel().addGame(app);
-            gamePlayerView.getBaseFrame().pack();
-            this.app.start();
-            this.app.requestFocusInWindow();
+            if (gameController != null) {
+                GameEngineController temp = new GameEngineController("test", GameEngineController.LOAD_MODE_REMOTE, new String[]{"/game/engine/slick2d/player/testing_game.xml"});
+                GamePackage p = temp.getGame();
+                gameController.reset(p);
+
+                canvas.requestFocusInWindow();
+                return;
+            }
+
+            initStart();
+
         } catch (Exception ex) {
-            ex.printStackTrace();
             LOG.error(ex);
         }
+    }
+
+    private void initStart() throws SlickException {
+        gameController = new GameEngineController("test", GameEngineController.LOAD_MODE_REMOTE, new String[]{"/game/engine/slick2d/player/testing_game.xml"});
+
+        //test
+        gameController.setPauseReporter(new TestingReporter());
+
+        CanvasGameContainer app = new CanvasGameContainer(gameController);
+        GamePlayerView gamePlayerView = Helper.getsharedHelper().getGamePlayerView();
+        gamePlayerView.getGameEnginePanel().addGame(app);
+        gamePlayerView.getBaseFrame().pack();
+
+
+        canvas.start();
+        canvas.requestFocusInWindow();
     }
 
     public void startGame() {
-        app.requestFocusInWindow();
-        game.startGame();
-    }
-
-    public void exitGame() {
-        app.getContainer().exit();
-        app.requestFocusInWindow();
-    }
-
-    public void restartGame() {
-        try {
-            app.getContainer().reinit();
-            app.requestFocusInWindow();
-        } catch (SlickException ex) {
-            LOG.error(ex);
-        }
-    }
-
-    public CanvasGameContainer getApp() {
-        return app;
-    }
-
-    public void setApp(CanvasGameContainer app) {
-        this.app = app;
+        canvas.requestFocusInWindow();
+        gameController.startGame();
     }
 
     public GameEngineController getGame() {
-        return game;
+        return gameController;
     }
 
     public void setGame(GameEngineController game) {
-        this.game = game;
+        this.gameController = game;
     }
 }

@@ -4,7 +4,7 @@ import java.awt.Toolkit;
 
 import javax.jms.JMSException;
 
-import model.SpriteModel;
+
 import action.GameAction;
 
 public class Sender {
@@ -33,8 +33,9 @@ public class Sender {
 		Publish.getInstanceOf().sendAcknowledgement(playerName);
 	}
 
-	public void sendStartSignal() throws JMSException {
+	public void sendStartSignal(String topic) throws JMSException {
 		SessionFactory.getInstanceOf().createConnection();
+		Publish.getInstanceOf().setTopic(topic);
 		Publish.getInstanceOf().sendStartSignal();
 		
 	}

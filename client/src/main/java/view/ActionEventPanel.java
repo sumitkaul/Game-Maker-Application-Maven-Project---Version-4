@@ -46,6 +46,7 @@ import eventlistener.OutOfBoundaryEventListener;
 import facade.Facade;
 import java.util.Collection;
 
+
 public class ActionEventPanel {
 
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ActionEventPanel.class);
@@ -78,7 +79,7 @@ public class ActionEventPanel {
     public ActionEventPanel(GameMakerView designArg) {
 
         this.design = designArg;
-        this.facade = this.design.getFacade();
+        this.facade = Helper.getsharedHelper().getFacade();
 
         collisionSpriteModel = new DefaultComboBoxModel();
         collisionSpriteModel.addElement("SpriteList");
@@ -270,7 +271,8 @@ public class ActionEventPanel {
 
                 } else {
                     LOG.info("In multiplayer key control assignment");
-                    String mode = (String) GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getComboBox().getSelectedItem();
+                    GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
+                    String mode = (String) gameMakerView.getActionEventPanel().getInputKeyPanel().getComboBox().getSelectedItem();
                     if (mode.equals("Player 1")) {
                         LOG.info("setting the control to player 1");
                         selectedSpriteModel.setMode(playerModes.PLAYER1);
@@ -517,7 +519,8 @@ public class ActionEventPanel {
         }
         listModel.remove(selectedItem);
         getSpriteList().setModel(listModel);
-        GameMakerView.getInstance().removeInfoPanel();
+        GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
+        gameMakerView.removeInfoPanel();
     }
 
     public void reset() {

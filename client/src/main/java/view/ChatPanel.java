@@ -1,6 +1,7 @@
 package view;
 
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -8,8 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
-
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
@@ -33,7 +32,6 @@ import chat.Sender;
 public class ChatPanel {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ChatPanel.class);
 
-	ChatViewPanel chatViewPanel;
 	private JButton send;
 	private JButton choose;
 	private JButton chooseText;
@@ -54,6 +52,7 @@ public class ChatPanel {
 		chatPanel = new JPanel();
 		sendPanel = new JPanel();
 		colorPanel = new JPanel();
+		
 		userColor=Color.BLUE;
 		textColor=Color.BLACK;	
 		textPane = new JTextPane();
@@ -67,7 +66,7 @@ public class ChatPanel {
 		JScrollPane textScrollPane = new JScrollPane(textPane);
 
 		final JLabel textLabel = new JLabel("Enter Your Text Here:");
-
+		
 		textSend = new JTextField();
 		textSend.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -147,24 +146,29 @@ public class ChatPanel {
 			      //= JColorChooser.showDialog(this,"Choose Background Color",userColor);
 			}
 		});
-//		textScrollPane.setSize(150,100);
-//		textSend.setSize(150, 50);
+
 		
-//		send.setSize(50, 50);
-		sendPanel.setSize(150,50);
-		sendPanel.setLayout(new GridLayout(1,2));
+		sendPanel.setLayout(new GridLayout(2,2));
 		sendPanel.add(textSend);
 		sendPanel.add(send);
+		sendPanel.add(choose);
+		sendPanel.add(chooseText);
 		
-		colorPanel.setLayout(new GridLayout(1,2));
-		colorPanel.add(choose);
-		colorPanel.add(chooseText);
+//		colorPanel.setLayout(new GridLayout(1,2));
+//		colorPanel.add(choose);
+//		colorPanel.add(chooseText);
 		
-		chatPanel.setLayout(new BoxLayout(chatPanel,BoxLayout.Y_AXIS));
-		chatPanel.add(textScrollPane);
-		chatPanel.add(textLabel);
-		chatPanel.add(sendPanel);
-		chatPanel.add(colorPanel);
+		chatPanel.setLayout(new BorderLayout());
+		chatPanel.add(textScrollPane,BorderLayout.CENTER);
+		chatPanel.add(sendPanel,BorderLayout.SOUTH);
+		
+	
+		
+//		chatPanel.setLayout(new BoxLayout(chatPanel,BoxLayout.Y_AXIS));
+//		chatPanel.add(textScrollPane);
+//		//chatPanel.add(textLabel);
+//		chatPanel.add(sendPanel);
+//		chatPanel.add(colorPanel);
 
 	
 	}

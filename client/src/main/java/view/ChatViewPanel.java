@@ -1,34 +1,26 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
-import org.newdawn.slick.state.transition.HorizontalSplitTransition;
-import org.newdawn.slick.util.Log;
-
-import model.Player;
 
 import utility.Constants;
 import view.communication.ClientHandler;
+
+import model.Player;
 
 import chat.ChatReceiver;
 import chat.ChatSender;
@@ -36,8 +28,7 @@ import chat.OneToOneReceiver;
 import chat.OneToOneSender;
 	
 public class ChatViewPanel {
-	
-	//PlayerButtonPanel playerButtonPanel;
+
 	private static JPanel chatViewPanel;
 	private static JTabbedPane tab;
 	private static JPanel commonChat;
@@ -45,6 +36,9 @@ public class ChatViewPanel {
 	private JPanel chatPanel;
 	private JPanel commonChatPanel;
 	private JPanel gameChatPannel;
+	private JPanel listPanel;
+	private JButton refresh;
+	
 	
 	
 	private static JList buddyList;
@@ -57,11 +51,11 @@ public class ChatViewPanel {
 	private static List<String> activeUsers = new ArrayList<String>();
 	private ChatSender chatSender;
 	
-	public ChatViewPanel(PlayerButtonPanel playerButtonPanelArg){
-		//this.playerButtonPanel = playerButtonPanelArg;
+	public ChatViewPanel(){
 		chatViewPanel = new JPanel();
 		commonChat= new JPanel();
 		gameChat = new JPanel();
+		listPanel = new JPanel();
 		
 		commonChatPanel = new JPanel();
 		gameChatPannel = new JPanel();
@@ -70,11 +64,20 @@ public class ChatViewPanel {
 		tab = new JTabbedPane();
 		commonChat = new JPanel();
 		gameChat = new JPanel();
-		/*try{
-			activeUsers = ClientHandler.getActiveUsers( Constants.HOST, Constants.PATH + "/getActiveUsers");
-		}catch(Exception ex){
-			JOptionPane.showConfirmDialog(null, "Users list could not be loaded!");
-		}*/
+		
+		
+		refresh = new JButton("Refresh");
+		refresh.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try{
+				setOnlineUsersList(ClientHandler.getActiveUsers( Constants.HOST, Constants.PATH + "/getActiveUsers"));
+			}catch(Exception ex){
+				JOptionPane.showConfirmDialog(null, "Users list could not be loaded!");
+			}
+			}
+		});
 		
 		buddyList = new JList();
 		buddyList.setListData(activeUsers.toArray());
@@ -83,16 +86,15 @@ public class ChatViewPanel {
 		        JList list = (JList)evt.getSource();
 		        if (evt.getClickCount() == 2) {
 		            int index = list.locationToIndex(evt.getPoint());
-		            if(buddyList.getModel().getElementAt(index).equals(Player.getInstance().getUsername())){
-		            	return;
-		            }
 		            chatSender.sendMessage(":"+buddyList.getModel().getElementAt(index)+":"+Player.getInstance().getUsername());
 		            createChatTab(buddyList.getModel().getElementAt(index)+":"+Player.getInstance().getUsername());		   
 		        } 
 		    }
 		});
 		buddyScroll = new JScrollPane(buddyList);
-		
+		listPanel.setLayout(new BorderLayout());
+		listPanel.add(refresh,BorderLayout.NORTH);
+		listPanel.add(buddyScroll,BorderLayout.CENTER);
 		gameBuddyList = new JList();
 		gameBuddyList.setListData(gameBudList);
 		gameBuddyScroll = new JScrollPane(gameBuddyList);
@@ -102,7 +104,7 @@ public class ChatViewPanel {
 		new ChatReceiver(commChatPanel);
 		
 		commonChat.setLayout(new GridLayout(1,2));
-		commonChat.add(buddyScroll);
+		commonChat.add(listPanel);
 		commonChat.add(commonChatPanel);
 	
 //		ChatSender oneSender=new ChatSender("GAME");
@@ -133,6 +135,7 @@ public class ChatViewPanel {
 	}
 	
 	public static void setOnlineUsersList(List<String> users){
+		Collections.sort(users);
 		activeUsers = users;
 		buddyList.setListData(activeUsers.toArray());
 		chatViewPanel.revalidate();

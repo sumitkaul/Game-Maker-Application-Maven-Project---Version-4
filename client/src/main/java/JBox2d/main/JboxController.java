@@ -12,7 +12,6 @@ import java.util.logging.Level;
 import javax.swing.JFrame;
 import loader.GameDataPackageIO;
 import loader.GamePackage;
-import model.Resources;
 import model.SpriteModel;
 import org.apache.log4j.Logger;
 import org.jbox2d.common.Vec2;
@@ -23,7 +22,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.util.Log;
 import utility.SpriteList;
-import view.communication.ClientHandler;
 import view.companels.GameBaseLoadPanel;
 
 public class JboxController  extends BasicGame {

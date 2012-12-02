@@ -2,8 +2,6 @@ package JBox2d.Actions;
 
 import game.engine.slick2d.player.SoundRepo;
 import java.io.Serializable;
-import model.SpriteModel;
-
 import org.jbox2d.dynamics.Body;
 import org.newdawn.slick.Sound;
 

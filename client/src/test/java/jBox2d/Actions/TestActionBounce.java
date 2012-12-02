@@ -12,7 +12,6 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
 
 import JBox2d.Actions.ActionBounce;
-import JBox2d.Actions.ActionMoveLeft;
 
 public class TestActionBounce {
 

@@ -48,8 +48,11 @@ public class OptionsFrame implements ActionListener {
         if (e.getSource() == makerButton) {
         	Constants.isGameMaker=true;
                 Constants.isGamePlayer=false;
-            GameMakerView.getInstance();
-            GameMakerView.getInstance().getBaseFrame().setVisible(true);
+            //GameMakerView.getInstance();
+            //GameMakerView.getInstance().getBaseFrame().setVisible(true);
+             GameMakerView gameMakerView = new GameMakerView(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
+             Helper.getsharedHelper().setGameMakerView(gameMakerView);
+             gameMakerView.getBaseFrame().setVisible(true);
 
             optionFrame.setVisible(false);
             Helper.getsharedHelper().setPlayerMode(false);

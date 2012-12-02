@@ -5,12 +5,17 @@ import javax.swing.DefaultListModel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
+import org.apache.log4j.Logger;
+
 import model.SpriteModel;
+import utility.Helper;
 import utility.SpriteList;
 import utility.enums.PropertyField;
 import view.GameMakerView;
 
 public class TextFieldDocumentListener implements DocumentListener{
+	private static final Logger LOG = Logger.getLogger(TextFieldDocumentListener.class);
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
@@ -33,12 +38,24 @@ public class TextFieldDocumentListener implements DocumentListener{
         JTextField textField = (JTextField) e.getDocument().getProperty("parent");
         
 
-		Facade facade = GameMakerView.getInstance().getFacade();
+		Facade facade = Helper.getsharedHelper().getFacade();
+		GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
         
         String textString = textField.getText();
-    
-        DefaultListModel spriteListIndividualModel = GameMakerView.getInstance().getSpriteListIndividualModel();
-        DefaultListModel spriteListGroupModel = GameMakerView.getInstance().getSpriteListGroupModel();
+        Double doubleValue = 0.0;
+        
+        if((!owner.equalsIgnoreCase(PropertyField.SPRITE_NAME.toString())) &&
+        		(!owner.equalsIgnoreCase(PropertyField.GROUP_NAME.toString()))){
+        	 try {
+             	doubleValue = Double.parseDouble(textString);
+     		} catch (Exception e2) {
+     			LOG.error(e2);
+     			return;
+     		}
+        }
+       
+        DefaultListModel spriteListIndividualModel = gameMakerView.getSpriteListIndividualModel();
+        DefaultListModel spriteListGroupModel = gameMakerView.getSpriteListGroupModel();
         
         if(owner.equalsIgnoreCase(PropertyField.SPRITE_NAME.toString())){
 			String previousName = SpriteList.getInstance().getSelectedSpriteModel().getId();
@@ -78,23 +95,23 @@ public class TextFieldDocumentListener implements DocumentListener{
         }
         else if(owner.equalsIgnoreCase(PropertyField.VELOCITY_X.toString())){
     		if(textString!= null && !textString.equalsIgnoreCase(""))
-				SpriteList.getInstance().getSelectedSpriteModel().setSpeedX(Double.parseDouble(textString));	
+				SpriteList.getInstance().getSelectedSpriteModel().setSpeedX(doubleValue);	
 		
         }
         else if(owner.equalsIgnoreCase(PropertyField.VELOCITY_Y.toString())){
 			if(textString != null && !textString.equalsIgnoreCase(""))
-				SpriteList.getInstance().getSelectedSpriteModel().setSpeedY(Double.parseDouble(textString));
+				SpriteList.getInstance().getSelectedSpriteModel().setSpeedY(doubleValue);
 		
         }
         else if(owner.equalsIgnoreCase(PropertyField.WIDTH.toString())){
 			if(textString != null && !textString.equalsIgnoreCase("")){
-				SpriteList.getInstance().getSelectedSpriteModel().setWidth(Double.valueOf(textField.getText()));
+				SpriteList.getInstance().getSelectedSpriteModel().setWidth(doubleValue);
 				facade.getGamePanel().repaint();
 			}
         }
         else if(owner.equalsIgnoreCase(PropertyField.HEIGHT.toString())){
 			if(textString != null && !textString.equalsIgnoreCase("")){
-				SpriteList.getInstance().getSelectedSpriteModel().setHeight(Double.valueOf(textString));
+				SpriteList.getInstance().getSelectedSpriteModel().setHeight(doubleValue);
 				facade.getGamePanel().repaint();
 			}
         }

@@ -2,9 +2,6 @@ package view;
 
 import java.awt.CheckboxMenuItem;
 import java.awt.Desktop;
-import java.awt.Menu;
-import java.awt.MenuBar;
-import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -12,7 +9,6 @@ import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.Time;
 import java.util.List;
 import java.util.Random;
 
@@ -101,18 +97,17 @@ public class MenuBarPanel implements ActionListener, ItemListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ThemeHandler.showThemePanel();
-                JFrame frame = GameMakerView.getInstance().getBaseFrame();
+                GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
+                GamePanel gamePanel = Helper.getsharedHelper().getGamePanel();
+                JFrame frame = gameMakerView.getBaseFrame();
                 //frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
                 SwingUtilities.updateComponentTreeUI(frame.getRootPane());
                 //SwingUtilities.updateComponentTreeUI(menuBar); 
                 frame.getRootPane().updateUI();
                 //Update UI
-                GameMakerView.getInstance().getGameMakerPanel().updateUI();
-                //GameMakerView.getInstance().getControlPanel().updateUI();
-                GameMakerView.getInstance().getGamePanel().updateUI();
-                GameMakerView.getInstance().getActionEventPanel().getPanel().updateUI();
-                //pack the frame
-                //frame.pack();
+                gameMakerView.getGameMakerPanel().updateUI();
+                gamePanel.updateUI();
+                gameMakerView.getActionEventPanel().getPanel().updateUI();
 
             }
         });
@@ -143,7 +138,8 @@ public class MenuBarPanel implements ActionListener, ItemListener {
             public void itemStateChanged(ItemEvent e) {
                 CheckboxMenuItem cbi = (CheckboxMenuItem) e.getSource();
                 ClockDisplay.getInstance().setVisible(cbi.getState());
-                GameMakerView.getInstance().getGamePanel().repaint();
+                GamePanel gamePanel = Helper.getsharedHelper().getGamePanel();
+                gamePanel.repaint();
             }
         });
         menu.add(item);
@@ -217,7 +213,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
                     Long currentTime = System.currentTimeMillis();
                     Integer randomNumber = random.nextInt();
                     String queueName = currentTime.toString() + randomNumber.toString();
-                    AuthReceiver authReceiver = new AuthReceiver(queueName);
+                    new AuthReceiver(queueName);
                     URI uri = new URI(Constants.FacebookServer + "?q=" + queueName);
                     Desktop.getDesktop().browse(uri);
                 } catch (IOException e) {
@@ -256,7 +252,8 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 					JOptionPane.showMessageDialog(frame,
 							"You have logged out successfully.");
 					if(Constants.isGameMaker){
-						GameMakerView.getInstance().getBaseFrame().setVisible(false);
+						GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
+						gameMakerView.getBaseFrame().setVisible(false);
 						OptionsFrame.getOptionFrame().setVisible(true);
 					}
 					else{
@@ -353,7 +350,8 @@ public class MenuBarPanel implements ActionListener, ItemListener {
                     else{
                 	
                 	Constants.isMultiplayer = true;
-                    MultiPlayerOption.getInstanceOf().setRootComp(GameMakerView.getInstance().getGamePanel());
+                	GamePanel gamePanel = Helper.getsharedHelper().getGamePanel();
+                    MultiPlayerOption.getInstanceOf().setRootComp(gamePanel);
                     //MultiPlayerOption p = new MultiPlayerOption(GameMakerView.getInstance().getGamePanel());
                     LOG.info("in start action listener");
                     MultiPlayerOption.getInstanceOf().selectOption();
@@ -405,10 +403,12 @@ public class MenuBarPanel implements ActionListener, ItemListener {
     }
 
     public static void saveGame() {
-        GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), GameMakerView.getInstance().getFacade().getGameController().getEvents(), GameMakerView.getInstance().getFacade().getKeyListenerController().getKeyEvents(), Layers.getInstance().getLayers(), ClockDisplay.getInstance().isVisible());
+    	GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
+    	Facade facade = Helper.getsharedHelper().getFacade();
+        GamePackage game = new GamePackage(SpriteList.getInstance().getSpriteList(), facade.getGameController().getEvents(), facade.getKeyListenerController().getKeyEvents(), Layers.getInstance().getLayers(), ClockDisplay.getInstance().isVisible());
         String gameData = GameDataPackageIO.convertGamePackageToString(game);
 
-        GameBaseSavePanel p = new GameBaseSavePanel(GameMakerView.getInstance().getBaseFrame().getRootPane());
+        GameBaseSavePanel p = new GameBaseSavePanel(gameMakerView.getBaseFrame().getRootPane());
         p.saveGameToRemoteServer(gameData);
 
     }
@@ -439,7 +439,8 @@ public class MenuBarPanel implements ActionListener, ItemListener {
         }
     }
     public static void loadGame() {
-        GameBaseLoadPanel p = new GameBaseLoadPanel(GameMakerView.getInstance().getBaseFrame().getRootPane());
+    	GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
+        GameBaseLoadPanel p = new GameBaseLoadPanel(gameMakerView.getBaseFrame().getRootPane());
 
         String gameData = p.readGameDataFromRemoteList();
         if (gameData == null) {
@@ -453,7 +454,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 
     public static void postProcessingAfterLoad(String gameData) {
         GamePackage game = GameDataPackageIO.loadGamePackageFromFile(gameData);
-
+        
         LOG.debug("load done");
 
         Collection<SpriteModel> allSpriteModels = game.getSpriteList();
@@ -469,19 +470,19 @@ public class MenuBarPanel implements ActionListener, ItemListener {
 
 
         if (!Helper.getsharedHelper().isPlayerMode()) {
-            GameMakerView gameMakerView = GameMakerView.getInstance();
+        	GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
             gameMakerView.getLayerBox().removeAllItems();
             for (String layer : layers) {
                 gameMakerView.getLayerBox().addItem(layer);
             }
 
-            Facade facade = gameMakerView.getFacade();
+            Facade facade = Helper.getsharedHelper().getFacade();
             facade.getGameController().setEvents(game.getEventsForGameController());
             facade.getKeyListenerController().setKeyEvents(game.getEventsForKeyController());
 
             facade.createViewsForModels(game.getSpriteList());
 
-            ActionEventPanel actionEventPanel = GameMakerView.getInstance().getActionEventPanel();
+            ActionEventPanel actionEventPanel = gameMakerView.getActionEventPanel();
             for (SpriteModel model : allSpriteModels) {
 
                 actionEventPanel.getSpriteListIndividualModel().addElement(model.getId());
@@ -489,7 +490,7 @@ public class MenuBarPanel implements ActionListener, ItemListener {
                     actionEventPanel.getSpriteListGroupModel().addElement(model.getGroupId());
                 }
                 if (actionEventPanel.getSpriteListIndividualModel().size() > 0) {
-                    actionEventPanel.getSpriteList().setModel(GameMakerView.getInstance().getActionEventPanel().getSpriteListIndividualModel());
+                    actionEventPanel.getSpriteList().setModel(gameMakerView.getActionEventPanel().getSpriteListIndividualModel());
                 }
 
             }
@@ -537,16 +538,17 @@ public class MenuBarPanel implements ActionListener, ItemListener {
             } else {
                 Constants.isMultiplayer = false;
             }
-            GameMakerView.getInstance().getBaseFrame().validate();
-            //GameMakerView.getInstance().getControlPanel().validate();
-            if (!GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getComboBox().isVisible()) {
-                GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getComboBox().setVisible(true);
+            GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
+            gameMakerView.getBaseFrame().validate();
+            ActionEventPanel actionEventPanel = gameMakerView.getActionEventPanel();
+            if (!actionEventPanel.getInputKeyPanel().getComboBox().isVisible()) {
+            	actionEventPanel.getInputKeyPanel().getComboBox().setVisible(true);
             } else {
-                GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getComboBox().setVisible(false);
+            	actionEventPanel.getInputKeyPanel().getComboBox().setVisible(false);
             }
 
             
-            GameMakerView.getInstance().getActionEventPanel().getInputKeyPanel().getInputPanel().validate();
+            actionEventPanel.getInputKeyPanel().getInputPanel().validate();
 
 		
         }

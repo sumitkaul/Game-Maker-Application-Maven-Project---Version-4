@@ -19,15 +19,11 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-
-//import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
-
 import model.SpriteModel;
 
 import utility.Constants;
 import utility.Helper;
 import utility.SpriteList;
-import view.imagePanel.ImagePanel;
 
 
 public class GamePanel extends JPanel implements KeyListener{
@@ -133,6 +129,8 @@ public class GamePanel extends JPanel implements KeyListener{
 	    	Collection<SpriteModel> spriteModels = SpriteList.getInstance().getSpriteList();
 	    	List<SpriteModel> selectedSpriteModels = new ArrayList<SpriteModel>();
 	    	SpriteModel selectedSpriteModel = null;
+	    	
+	    	GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
 
 	    	for(SpriteModel model:spriteModels){
 	    		if (model.getBoundingBox().contains(x, y)){
@@ -142,30 +140,30 @@ public class GamePanel extends JPanel implements KeyListener{
 	    		}
 	    		else{
 	    			if(!foundObject)
-	    				GameMakerView.getInstance().clearAll();
+	    				gameMakerView.clearAll();
 	    		}
-	    		GameMakerView.getInstance().updateProperties();
+	    		gameMakerView.updateProperties();
 	    	}
 	    	
 
 	    	SpriteList.getInstance().setSelectedSpriteModel(selectedSpriteModel);
 	    	SpriteList.getInstance().setSelectedSpriteModels(selectedSpriteModels);
 
-	    	Facade facade = GameMakerView.getInstance().getFacade();
+	    	Facade facade = Helper.getsharedHelper().getFacade();
 	    	int clickCount = event.getClickCount();
 	    	if(event.getButton() == MouseEvent.BUTTON3)
 	    	{
-	 
+	    		GamePanel gamePanel = Helper.getsharedHelper().getGamePanel();
 	    		LOG.debug("Click Caught");
 	    		if(selectedSpriteModels.size() == 0 || 
 	    				(selectedSpriteModels.size()==1 && selectedSpriteModels.get(0).getId().equals("background")))
 	    		{
-	    			new PopupMenus(GameMakerView.getInstance().getGamePanel(), event.getX(),event.getY(),PopupMenus.Type.Game);    			
+	    			new PopupMenus(gamePanel, event.getX(),event.getY(),PopupMenus.Type.Game);    			
 	    		    
 	    		}	    		
 	    		else
 	    		{
-	    			new PopupMenus(GameMakerView.getInstance().getGamePanel(), event.getX(),event.getY(),PopupMenus.Type.Sprite);
+	    			new PopupMenus(gamePanel, event.getX(),event.getY(),PopupMenus.Type.Sprite);
 	    		}
 	    	}  
 	    	else if(clickCount == 2){
@@ -203,8 +201,9 @@ public class GamePanel extends JPanel implements KeyListener{
 				
 	    		x += dx;
 	    		y += dy;
-	    		GameMakerView.getInstance().updateProperties();
-	    		GameMakerView.getInstance().removeInfoPanel();
+	    		GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
+	    		gameMakerView.updateProperties();
+	    		gameMakerView.removeInfoPanel();
 	    		
 	    	}
 	}
@@ -231,15 +230,20 @@ public class GamePanel extends JPanel implements KeyListener{
 	    			float amount = e.getWheelRotation() * 5f;
 					tempwidth = topSpriteModel.getWidth();
 					tempwidth += amount;
+					if(tempwidth <= 5)
+						tempwidth = 5;
 					topSpriteModel.setWidth(tempwidth);
 					
 					tempheight = topSpriteModel.getHeight();
 					tempheight += amount;
+					if(tempheight <= 5)
+						tempheight = 5;
 					topSpriteModel.setHeight(tempheight);
 					
 					repaint();
 				
-					GameMakerView.getInstance().updateProperties();
+					GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
+					gameMakerView.updateProperties();
 	    		}
 	        }
 	    }
@@ -257,10 +261,12 @@ public class GamePanel extends JPanel implements KeyListener{
 	
 	@Override
 	public void keyTyped(KeyEvent arg0) {
+		GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
+		GamePanel gamePanel = Helper.getsharedHelper().getGamePanel();
 		if(arg0.getKeyChar() == KeyEvent.VK_DELETE){
-			GameMakerView.getInstance().getActionEventPanel().removeSpriteModelFromList(SpriteList.getInstance().getSelectedSpriteModel());
-		SpriteList.getInstance().removeSprite(SpriteList.getInstance().getSelectedSpriteModel());
-			GameMakerView.getInstance().getGamePanel().repaint();
+			gameMakerView.getActionEventPanel().removeSpriteModelFromList(SpriteList.getInstance().getSelectedSpriteModel());
+			SpriteList.getInstance().removeSprite(SpriteList.getInstance().getSelectedSpriteModel());
+			gamePanel.repaint();
 
 		}
 		
@@ -289,5 +295,6 @@ public class GamePanel extends JPanel implements KeyListener{
 		}
 		removeAllDrawables();
 		repaint();
+		//ClockDisplay.getInstance().setEnabled(false);
 	}
 }

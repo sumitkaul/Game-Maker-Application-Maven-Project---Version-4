@@ -38,13 +38,8 @@ public class GameEnginePanelTest {
 		
 	}
 
-	@Test
-	public void testSetApp() {
-		gameEnginePanel.setApp(canvasGameContainer);
-		actualApp= gameEnginePanel.getApp();
-		expectedApp= canvasGameContainer;
-		assertEquals(expectedApp,actualApp);
-	}
+
+	
 
 	@Test
 	public void testGetGame() {
@@ -55,11 +50,7 @@ public class GameEnginePanelTest {
 		
 	}
 	
-	@Test
-	public void testGetApp() {
-		when(gameEnginePanelMock.getApp()).thenReturn(canvasGameContainer);
-		assertEquals(canvasGameContainer,gameEnginePanelMock.getApp());
-	}
+
 	
     
 	@Test
@@ -70,17 +61,40 @@ public class GameEnginePanelTest {
 		assertEquals(expectedGameEngineController,actualGameEngineController);
 		
 	}
-
-	@Test
-	public void testRestartGame() {
+    
+	
 		
+	
+	
+	
+	@Test
+	public void testStartGame() {
 		
 		doAnswer(new Answer() {
-	      public Object answer(InvocationOnMock invocation) {
-	          Object[] args = invocation.getArguments();
-	          //Mock mock = invocation.getMock();
+		      public Object answer(InvocationOnMock invocation) {
+		          Object[] args = invocation.getArguments();
+		          
 	          return null;
-	      }})
-	  .when(gameEnginePanelMock).restartGame();
+		      }})
+	  .when(gameEnginePanelMock).startGame();
+              
 		}
-}
+	
+		
+	
+
+    @Test
+	public void testNewGame() {
+		doAnswer(new Answer() {
+		      public Object answer(InvocationOnMock invocation) {
+		          Object[] args = invocation.getArguments();
+		          
+		          return null;
+		      }})
+		  .when(gameEnginePanelMock).newGame();
+			}
+		
+	}
+	
+	
+

@@ -18,6 +18,7 @@ import org.junit.Test;
 
 import utility.Constants;
 import utility.SpriteList;
+import view.GameMakerView;
 import view.GamePanel;
 import action.ActionChangeSpeed;
 import action.GameAction;
@@ -50,7 +51,7 @@ public class GameControllerTest{
 	@Before
 	public void setUp() throws Exception {
 	   // GameMakerView.getInstance().reset();
-		
+		GameMakerView gameMakerView = new GameMakerView(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
 		SpriteList.getInstance().getSpriteList().clear();
 //      setAdapter(new MainClassAdapter(gameMaker.class, new String[0]));        
         gamePanel=new GamePanel(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT);

@@ -4,10 +4,6 @@
  */
 package JBox2d.Actions;
 
-/**
- *
- * @author ralekar
- */
 public class ActionApplyForce {
     
     

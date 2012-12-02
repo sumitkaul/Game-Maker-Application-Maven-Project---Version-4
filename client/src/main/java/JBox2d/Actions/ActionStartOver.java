@@ -3,7 +3,6 @@ package JBox2d.Actions;
 import java.io.Serializable;
 
 import org.jbox2d.dynamics.Body;
-import org.jbox2d.common.Vec2;
 
 
 @SuppressWarnings("serial")

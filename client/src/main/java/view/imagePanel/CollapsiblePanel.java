@@ -2,13 +2,7 @@ package view.imagePanel;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.font.*;
-import java.awt.image.BufferedImage;
 import javax.swing.*;
-
-import lookandfeel.AnimationHandler;
-
-import view.GameMakerView;
 
 public class CollapsiblePanel extends MouseAdapter {
     private ActionPanel[] aps;

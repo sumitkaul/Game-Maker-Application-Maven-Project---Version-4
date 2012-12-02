@@ -11,13 +11,13 @@ public class UndeployListener implements ServletContextListener {
     
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        log.info("----- Deploying Team3 A9 Web Application -----");
+        log.info("----- Deploying Team-All A10 Web Application -----");
         DatabaseHandler.getDatabaseHandlerInstance();
     }
     
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        log.info("-----  Undeloying Team3 A9 Web Application -----");
+        log.info("-----  Undeloying Team-All A10 Web Application -----");
         DatabaseHandler.getDatabaseHandlerInstance().cleanUp();
     }
 }

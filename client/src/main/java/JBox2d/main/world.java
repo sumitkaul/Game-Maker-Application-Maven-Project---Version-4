@@ -4,10 +4,6 @@
  */
 package JBox2d.main;
 
-/**
- *
- * @author ralekar
- */
 class world {
     
 }

@@ -2,13 +2,12 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
 import model.Player;
 import utility.Constants;
+import utility.Helper;
 import view.communication.ClientHandler;
 
 public class RegisterFrame extends LoginFrame {
@@ -46,14 +45,14 @@ public class RegisterFrame extends LoginFrame {
                     }
 
 
-                    GameMakerView d = GameMakerView.getInstance();
+                    GameMakerView gameMakerView = Helper.getsharedHelper().getGameMakerView();
                     if (registerok) {
                         Player.getInstance().setUsername(user_name);
                         Player.getInstance().setPassword(pass_word);
 
-                        d.getButtonPanel().getUserName().setText("Welcome " + user_name);
+                        gameMakerView.getButtonPanel().getUserName().setText("Welcome " + user_name);
                     } else {
-                        JOptionPane.showMessageDialog(d.getBaseFrame(), "Registration Failed");
+                        JOptionPane.showMessageDialog(gameMakerView.getBaseFrame(), "Registration Failed");
                         Player.setInstanceNull();
                     }
                 }

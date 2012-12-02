@@ -123,7 +123,7 @@ public final class MultiPlayerOption {
                         SessionFactory.getInstanceOf().createConnection();
                         Receiver.getInstanceOf().subscribe(getReceivingQueueName()); 
                     } catch (Exception ex) {
-                      ex.printStackTrace();
+                    	LOG.error(ex);
     
                     }
                     
@@ -156,7 +156,8 @@ public final class MultiPlayerOption {
                 if (Player.getInstance().getUsername() != null) {
                     Constants.isHost = false;
 
-                    JoinGame p = new JoinGame(GameMakerView.getInstance().getGamePanel());
+                    GamePanel gamePanel = Helper.getsharedHelper().getGamePanel();
+                    JoinGame p = new JoinGame(gamePanel);
                     String queueName = p.displayJoinGames();
                     //Should be supported with a GUI displaying a list of games available to 
                     //Below line gets replaced with the GUI as mentioned above                 
@@ -232,8 +233,8 @@ public final class MultiPlayerOption {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
-				Sender sender = new Sender();
-                sender.sendAsHost(getSendingQueueName());
+//				Sender sender = new Sender();
+//                sender.sendAsHost(getSendingQueueName());
                 acceptUserFrame.dispose();
                 startGameFrame();
                 
@@ -304,7 +305,7 @@ public final class MultiPlayerOption {
 			public void actionPerformed(ActionEvent e) {
 				Sender sender = new Sender();
 				try {
-					sender.sendStartSignal();
+					sender.sendStartSignal(getSendingQueueName());
 					startGameFrame.dispose();
 				} catch (JMSException e1) {
 					LOG.error(e1);
