@@ -1,12 +1,9 @@
 package multiplayer;
-
 import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
-
-
 import action.GameAction;
 
 public final class Publish {
