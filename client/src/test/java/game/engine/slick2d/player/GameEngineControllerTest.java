@@ -1,8 +1,13 @@
 package game.engine.slick2d.player;
 
+import action.ActionBounce;
+import action.GameAction;
+import controller.GameController;
+import eventlistener.EventListener;
 import eventlistener.KeyPressedEventListener;
+import eventlistener.OutOfBoundaryEventListener;
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
 import static org.mockito.Mockito.doAnswer;
@@ -11,6 +16,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertNotSame;
+import org.lwjgl.*;
 
 
 import static org.mockito.Mockito.inOrder;
@@ -28,8 +34,10 @@ import org.mockito.InOrder;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.mockito.stubbing.Stubber;
+import org.newdawn.slick.BigImage;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import utility.SpriteList;
 
 public class GameEngineControllerTest {
@@ -44,24 +52,30 @@ public class GameEngineControllerTest {
      */
     
      GameEngineController instance ;
+     GameEngineController gec;
+     
      List result;
      
      @Before
      public void setUp(){
          instance=Mockito.mock(GameEngineController.class);
+               gec = new GameEngineController("test", null);
+
      }
     @After
     public void tearDown(){
         instance=null;
+                gec=null;
     }
     
-    
-   @Test
-   public void testgetImageFromBytes() throws Exception{
-       byte [] imageData=null;
-       Image image=Mockito.mock(Image.class);
-       Mockito.when(instance.getImageFromBytes(imageData, "test")).thenReturn(image);
-       assertEquals(image, instance.getImageFromBytes(imageData, "test"));
+  // @Test
+   public void testgetImageFromBytes() throws SlickException{
+        byte[] imageData=new byte[10];
+         Image  image = Mockito.mock(Image.class);
+         image.setName("test");
+         image.setColor(12, 25, 35, 345, 35);
+         Mockito.when(gec.getImageFromBytes(imageData, "test")).thenReturn(image);
+       assertEquals(image, gec.getImageFromBytes(imageData, "test"));
    }
    @Test
    public void testGetEventsForGameController() throws Exception{
@@ -69,6 +83,16 @@ public class GameEngineControllerTest {
        List test=spy(tester);
         Mockito.when(instance.getEventsForGameController()).thenReturn(test);
            assertNotSame(tester, instance.getEventsForGameController());
+           test=null;
+           List testing = Mockito.mock(List.class);
+          EventListener e1= Mockito.mock(EventListener.class);
+          EventListener e2= Mockito.mock(EventListener.class);
+          EventListener e3= Mockito.mock(EventListener.class);
+          testing.add(e1);
+          testing.add(e2);
+          testing.add(e3);
+          instance.setEventsForGameController(testing);
+          assertNotNull( instance.getEventsForGameController());
    }
    @Test
    public void testCheckEvents() throws Exception
@@ -163,6 +187,41 @@ public class GameEngineControllerTest {
   .when(mock).initActionEvents();
    }
              
+   @Test
+   public void testSetEventsForGameController()throws Exception{
+     List<EventListener> testing = new ArrayList<EventListener>();
+         EventListener e1= new OutOfBoundaryEventListener();
+          
+          testing.add(e1);
+         
+         gec.setEventsForGameController(testing);
+         // assertNotNull( instance.getKeyEvents());
+          assertEquals(testing,gec.getEventsForGameController());
+   }
+   @Test
+   public void testSetKeyEvents()throws Exception{
+        List<EventListener> testing = new ArrayList<EventListener>();
+         EventListener e1= new OutOfBoundaryEventListener();
+          
+          testing.add(e1);
+         
+          gec.setKeyEvents(testing);
+         // assertNotNull( instance.getKeyEvents());
+          assertEquals(testing,gec.getKeyEvents());
+       
+   }
+   @Test
+   public void testGetKeyEvents()throws Exception{
+        List<EventListener> testing = new ArrayList<EventListener>();
+         EventListener e1= new OutOfBoundaryEventListener();
+          
+          testing.add(e1);
+         
+          gec.setKeyEvents(testing);
+         // assertNotNull( instance.getKeyEvents());
+          assertEquals(testing,gec.getKeyEvents());
+       
+   }
            
    
 }
