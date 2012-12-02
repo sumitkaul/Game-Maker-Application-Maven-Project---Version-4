@@ -119,7 +119,7 @@ public class ScoreDialog extends javax.swing.JDialog {
         doClose(RET_CANCEL);
     }                            
     
-    private void doClose(int retStatus) {
+    void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
         dispose();
