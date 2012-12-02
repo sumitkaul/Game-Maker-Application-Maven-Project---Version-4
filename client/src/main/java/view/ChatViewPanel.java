@@ -8,14 +8,18 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
-import model.Player;
+import utility.Constants;
+import view.communication.ClientHandler;
 
+import model.Player;
 
 import chat.ChatReceiver;
 import chat.ChatSender;
@@ -23,8 +27,7 @@ import chat.OneToOneReceiver;
 import chat.OneToOneSender;
 	
 public class ChatViewPanel {
-	
-	//PlayerButtonPanel playerButtonPanel;
+
 	private static JPanel chatViewPanel;
 	private static JTabbedPane tab;
 	private static JPanel commonChat;
@@ -47,8 +50,7 @@ public class ChatViewPanel {
 	private static List<String> activeUsers = new ArrayList<String>();
 	private ChatSender chatSender;
 	
-	public ChatViewPanel(PlayerButtonPanel playerButtonPanelArg){
-		//this.playerButtonPanel = playerButtonPanelArg;
+	public ChatViewPanel(){
 		chatViewPanel = new JPanel();
 		commonChat= new JPanel();
 		gameChat = new JPanel();
@@ -61,18 +63,18 @@ public class ChatViewPanel {
 		tab = new JTabbedPane();
 		commonChat = new JPanel();
 		gameChat = new JPanel();
-		/*try{
-			activeUsers = ClientHandler.getActiveUsers( Constants.HOST, Constants.PATH + "/getActiveUsers");
-		}catch(Exception ex){
-			JOptionPane.showConfirmDialog(null, "Users list could not be loaded!");
-		}*/
+		
 		
 		refresh = new JButton("Refresh");
 		refresh.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				try{
+				setOnlineUsersList(ClientHandler.getActiveUsers( Constants.HOST, Constants.PATH + "/getActiveUsers"));
+			}catch(Exception ex){
+				JOptionPane.showConfirmDialog(null, "Users list could not be loaded!");
+			}
 			}
 		});
 		

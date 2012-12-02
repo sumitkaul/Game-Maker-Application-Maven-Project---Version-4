@@ -136,7 +136,7 @@ public class PlayerButtonPanel implements ActionListener {
             }
         });
 
-        chatViewPanel = new ChatViewPanel(this).getChatViewPanel();
+        chatViewPanel = new ChatViewPanel().getChatViewPanel();
 
         playerButtonPanel = new JPanel(new MigLayout("center,center"));
         buttonPanel = new JPanel();

@@ -32,7 +32,6 @@ import chat.Sender;
 public class ChatPanel {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ChatPanel.class);
 
-	ChatViewPanel chatViewPanel;
 	private JButton send;
 	private JButton choose;
 	private JButton chooseText;
