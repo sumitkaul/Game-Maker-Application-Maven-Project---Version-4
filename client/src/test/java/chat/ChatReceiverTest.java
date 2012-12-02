@@ -47,9 +47,9 @@ public class ChatReceiverTest {
     public void testRun() {
         //System.out.println("run");
        
-       Thread t= new Thread(mock);
-     t.start();
-    
+      // Thread t= new Thread(mock);
+    // t.start();
+     doCallRealMethod().when(mock).run();
      //verify(mock,times(1)).run();
        
     }
