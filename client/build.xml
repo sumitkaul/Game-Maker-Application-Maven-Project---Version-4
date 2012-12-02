@@ -228,6 +228,7 @@
 		<signjar keystore="${key.store}" alias="${key.alias}" storepass="${key.pass}">
 			<fileset dir=".">
 				<include name="target/team-all-jar-with-dependencies.jar" />
+				<include name="repository/local/jars/natives/1/natives-1.jar" />
 			</fileset>
 		</signjar>
 		<copy file="target/team-all-jar-with-dependencies.jar" toDir="${webstart.location}" />
