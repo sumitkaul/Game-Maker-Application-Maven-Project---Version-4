@@ -4,15 +4,18 @@
  */
 package chat;
 
+import view.ChatPanel;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.mockito.Mockito;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.inOrder;
+
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.mock;
@@ -22,14 +25,11 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.never;
 
-
-
-
-public class AuthReceiverTest {
-    private AuthReceiver actual;
-    private AuthReceiver mock;
-    private Thread t;
-    public AuthReceiverTest() {
+public class OneToOneReceiverTest {
+    private OneToOneReceiver mock;
+    private  OneToOneReceiver actual;
+    private ChatPanel mockPanel;
+    public OneToOneReceiverTest() {
     }
 
     @BeforeClass
@@ -42,27 +42,21 @@ public class AuthReceiverTest {
     
     @Before
     public void setUp() {
-        actual = new AuthReceiver("test");
-        mock= mock(AuthReceiver.class);
-        t =new Thread(mock);
-                
+        mock = mock(OneToOneReceiver.class);
+        mockPanel=mock(ChatPanel.class);
+        actual= new  OneToOneReceiver("test", mockPanel);
     }
     
     @After
-    public void tearDown() throws Exception{
-        actual=null;    
-        mock =null;
-       // t.stop();
+    public void tearDown() {
     }
 
     /**
-     * Test of run method, of class AuthReceiver.
+     * Test of run method, of class OneToOneReceiver.
      */
     @Test
-    public void testRun() throws Exception {
-       // t.start();
-       doCallRealMethod().when(mock).run();
-     verify(mock,times(0)).run();
-     //t.stop();
+    public void testRun() {
+        
+        verify(mock,never()).run();
     }
 }

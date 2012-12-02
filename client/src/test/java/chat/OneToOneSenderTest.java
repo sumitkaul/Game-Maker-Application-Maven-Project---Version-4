@@ -10,9 +10,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.mockito.Mockito;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.inOrder;
+
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.mock;
@@ -23,13 +25,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.never;
 
 
-
-
-public class AuthReceiverTest {
-    private AuthReceiver actual;
-    private AuthReceiver mock;
-    private Thread t;
-    public AuthReceiverTest() {
+public class OneToOneSenderTest {
+    private OneToOneSender mock;
+    private  OneToOneSender actual;
+    
+    
+    public OneToOneSenderTest() {
     }
 
     @BeforeClass
@@ -42,27 +43,22 @@ public class AuthReceiverTest {
     
     @Before
     public void setUp() {
-        actual = new AuthReceiver("test");
-        mock= mock(AuthReceiver.class);
-        t =new Thread(mock);
-                
+        actual=new  OneToOneSender("test");
+        mock = mock(OneToOneSender.class);
+        
     }
     
     @After
-    public void tearDown() throws Exception{
-        actual=null;    
-        mock =null;
-       // t.stop();
+    public void tearDown() {
+        actual=null;
     }
 
-    /**
-     * Test of run method, of class AuthReceiver.
-     */
+   
     @Test
-    public void testRun() throws Exception {
-       // t.start();
-       doCallRealMethod().when(mock).run();
-     verify(mock,times(0)).run();
-     //t.stop();
+    public void testRun() {
+      Thread t = new Thread(mock);
+      t.start();
+      verify(mock,times(1)).run();
+      t.stop();
     }
 }
