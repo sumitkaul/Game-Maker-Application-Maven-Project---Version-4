@@ -17,8 +17,6 @@ import org.jboss.logging.Logger;
 /**
  * <p>The implementation of DatabaseService Interface. The port for accessing
  * the actual Database.</p>
- *
- * @author $Author: hss $
  */
 public class DatabaseHandler {
 
