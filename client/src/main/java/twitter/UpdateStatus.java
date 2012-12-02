@@ -16,12 +16,6 @@ package twitter;
 
 
 
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
-import twitter4j.auth.AccessToken;
-import twitter4j.auth.RequestToken;
-
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
@@ -29,6 +23,12 @@ import java.net.URISyntaxException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
 
 public  class UpdateStatus {
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(UpdateStatus.class);
@@ -61,7 +61,8 @@ public  class UpdateStatus {
                     // prompt the user to enter their name
                     String pin = JOptionPane.showInputDialog(frame, "Enter the PIN");
 
-                    
+					if (pin == null)
+						return false;
                     
                     try {
                         if (pin.length() > 0) {
