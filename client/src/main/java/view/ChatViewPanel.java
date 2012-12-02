@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -134,6 +135,7 @@ public class ChatViewPanel {
 	}
 	
 	public static void setOnlineUsersList(List<String> users){
+		Collections.sort(users);
 		activeUsers = users;
 		buddyList.setListData(activeUsers.toArray());
 		chatViewPanel.revalidate();
