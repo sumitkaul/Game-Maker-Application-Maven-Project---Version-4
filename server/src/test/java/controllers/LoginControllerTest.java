@@ -39,13 +39,14 @@ public class LoginControllerTest {
 
 			ArrayList<User> secondRetValue = new ArrayList<User>();
 			PowerMockito.when(DatabaseHandler.class,
-					DatabaseHandler.loginQuery("salkdf", "sdfsdfsdf"))
+					"loginQuery", "salkdf", "sdfsdfsdf")
 					.thenReturn(secondRetValue);
 			ret = loginController.login("salkdf", "sdfsdfsdf");
 			assert (ret == "false");
 			
 		} catch (Exception e) {
 			LOG.error(e);
+			assert(false);
 		}
 	}
 	
@@ -59,6 +60,7 @@ public class LoginControllerTest {
 			assert(ret=="true");
 		} catch(Exception e) {
 			LOG.error(e);
+			assert(false);
 		}
 	}
 
