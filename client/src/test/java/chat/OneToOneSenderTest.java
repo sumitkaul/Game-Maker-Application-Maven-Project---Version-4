@@ -55,10 +55,13 @@ public class OneToOneSenderTest {
 
    
     @Test
-    public void testRun() {
-      Thread t = new Thread(mock);
-      t.start();
-      verify(mock,never()).run();
-      t.stop();
+    public void testRun() throws Exception{
+             doCallRealMethod().when(mock).run();
+//       reset(mock);
+       verify(mock,never()).run();
+       
+       verifyZeroInteractions(mock);
+       verifyNoMoreInteractions(mock);
+
     }
 }
