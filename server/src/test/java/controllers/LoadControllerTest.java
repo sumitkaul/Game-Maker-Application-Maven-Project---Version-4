@@ -1,9 +1,9 @@
 package controllers;
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import junit.framework.Assert;
 
 import org.jboss.logging.Logger;
 import org.junit.Before;
@@ -37,12 +37,14 @@ public class LoadControllerTest {
 		PowerMockito.mockStatic(DatabaseHandler.class);
 		try {
 
-			PowerMockito.when(DatabaseHandler.class, DatabaseHandler.listQuery((String) Matchers.any())).thenReturn(
-					gameDataList);
+			PowerMockito.when(DatabaseHandler.class,
+					"listQuery", ((String) Matchers.any()))
+					.thenReturn(gameDataList);
 			String result = loadController.listAllGameBases();
 			String substring = result.substring(2, result.length() - 2);
-			Assert.assertTrue(substring.equals(dataItem1));
+			assertTrue(substring.equals(dataItem1));
 		} catch (Exception e) {
+			fail(e.toString());
 			Logger.getLogger(LoadControllerTest.class).debug(e.getMessage());
 		}
 	}
@@ -56,14 +58,16 @@ public class LoadControllerTest {
 		String json = gson.toJson(gameNames);
 		PowerMockito.mockStatic(DatabaseHandler.class);
 		try {
-			PowerMockito.when(DatabaseHandler.class, DatabaseHandler.listQuery((String) Matchers.any())).thenReturn(
-					gameNames);
+			PowerMockito.when(DatabaseHandler.class,
+					"listQuery", ((String) Matchers.any()))
+					.thenReturn(gameNames);
 			String jsonResult = loadController.listAllGameBases();
 			if (json.equals(jsonResult))
-				Assert.assertTrue(true);
+				assertTrue(true);
 			else
-				Assert.assertTrue(false);
+				assertTrue(false);
 		} catch (Exception e) {
+			fail(e.toString());
 			Logger.getLogger(LoadControllerTest.class).debug(e.getMessage());
 		}
 	}
@@ -77,14 +81,16 @@ public class LoadControllerTest {
 		String json = gson.toJson(gameNames);
 		PowerMockito.mockStatic(DatabaseHandler.class);
 		try {
-			PowerMockito.when(DatabaseHandler.class, DatabaseHandler.listQuery((String) Matchers.any())).thenReturn(
-					gameNames);
+			PowerMockito.when(DatabaseHandler.class,
+					"listQuery", ((String) Matchers.any()))
+					.thenReturn(gameNames);
 			String jsonResult = loadController.listMultiPlayerGameBases();
 			if (json.equals(jsonResult))
-				Assert.assertTrue(true);
+				assertTrue(true);
 			else
-				Assert.assertTrue(false);
+				assertTrue(false);
 		} catch (Exception e) {
+			fail(e.toString());
 			Logger.getLogger(LoadControllerTest.class).debug(e.getMessage());
 		}
 	}
@@ -98,13 +104,16 @@ public class LoadControllerTest {
 		gameData.add(game2_data);
 		PowerMockito.mockStatic(DatabaseHandler.class);
 		try {
-			PowerMockito.when(DatabaseHandler.class, DatabaseHandler.listQuery((String) Matchers.any())).thenReturn(
-					gameData);
-			if (gameData.get(0).equals(loadController.loadGamePlay("test_game_id")))
-				Assert.assertTrue(true);
+			PowerMockito.when(DatabaseHandler.class,
+					"listQuery", ((String) Matchers.any()))
+					.thenReturn(gameData);
+			if (gameData.get(0).equals(
+					loadController.loadGamePlay("test_game_id")))
+				assertTrue(true);
 			else
-				Assert.assertTrue(false);
+				assertTrue(false);
 		} catch (Exception e) {
+			fail(e.toString());
 			Logger.getLogger(LoadControllerTest.class).debug(e.getMessage());
 		}
 	}
