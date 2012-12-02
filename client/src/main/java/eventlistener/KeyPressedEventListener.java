@@ -12,7 +12,6 @@ import org.newdawn.slick.util.Log;
 
 import model.SpriteModel;
 import multiplayer.Sender;
-import multiplayer.SenderThread;
 import utility.Constants;
 import utility.SpriteList;
 import utility.enums.playerModes;
