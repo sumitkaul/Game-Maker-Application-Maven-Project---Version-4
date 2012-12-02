@@ -21,11 +21,6 @@ public class GameBaseSavePanel {
     }
 
     public void saveGameToRemoteServer(String gameData) {
-        
-        if(gameData == null){
-            return;
-        }
-        
         JTextField gameNameField = new JTextField();
         if (Player.getInstance().getUsername() != null) {
             Object[] message = new Object[]{"Game Base Name:", gameNameField};
@@ -58,9 +53,6 @@ public class GameBaseSavePanel {
     }
 
     public boolean saveGameToRemoteServerWithoutUI(String gameData, String gameName, String authorName, Boolean isMultiPlayer) throws Exception {
-        if(gameName == null || gameName.equals("")){
-            return false;
-        }
         return ClientHandler.saveGameBase(gameName, authorName, gameData, isMultiPlayer, host, path + urlSaveGameBase);
     }
 }
