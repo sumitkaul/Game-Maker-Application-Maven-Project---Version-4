@@ -265,7 +265,7 @@ public class GamePanel extends JPanel implements KeyListener{
 		GamePanel gamePanel = Helper.getsharedHelper().getGamePanel();
 		if(arg0.getKeyChar() == KeyEvent.VK_DELETE){
 			gameMakerView.getActionEventPanel().removeSpriteModelFromList(SpriteList.getInstance().getSelectedSpriteModel());
-		SpriteList.getInstance().removeSprite(SpriteList.getInstance().getSelectedSpriteModel());
+			SpriteList.getInstance().removeSprite(SpriteList.getInstance().getSelectedSpriteModel());
 			gamePanel.repaint();
 
 		}

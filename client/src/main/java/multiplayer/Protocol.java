@@ -43,9 +43,23 @@ public class Protocol {
     }
 
     public ObjectMessage createData(GameAction action, String spriteID) {
-        HashMap<GameAction, String> map = new HashMap<GameAction, String>();
-        map.put(action, spriteID);
-
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("action", action);
+        map.put("id", spriteID);
+        //map.put(action, spriteID);
+        double speedX;
+        double speedY;
+        for (SpriteModel sprite: SpriteList.getInstance().getSpriteList())
+        {
+        if (sprite.getId().equals(spriteID))
+        {
+        	 speedX = sprite.getSpeedX();
+        	 speedY = sprite.getSpeedY();
+        	 map.put("speedx", speedX);
+             map.put("speedy", speedY);
+        }
+        }
+        
         try {
 
 
@@ -76,11 +90,32 @@ public class Protocol {
 
     }
 
-    public void setMultiplayerAction(HashMap<GameAction, String> map) {
+    public void setMultiplayerAction(HashMap<String, Object> map) {
         String id = null;
-        for (GameAction action : map.keySet()) {
-            id = map.get(action);
-
+        GameAction action = null;
+        double speedX=0.0;
+        double speedY=0.0;
+        for (String key : map.keySet()) {
+            if (key.equals("action"))
+            {
+            	action = (GameAction)map.get(key);
+            	
+            }
+            else if (key.equals("speedx"))
+            {
+            	speedX = (Double) map.get(key);
+            	
+            }
+            else if (key.equals("speedy"))
+            {
+            	speedY = (Double) map.get(key);
+            	
+            }
+            else if (key.equals("id"))
+            {
+            	id = (String) map.get(key);
+            	
+            }
         }
         // Helper.getsharedHelper().getGamePlayerView().getGameEnginePanel().repaint();
 
@@ -92,17 +127,10 @@ public class Protocol {
                 break;
             }
         }
-        for (GameAction action : map.keySet()) {
-            action.doAction(actionModel);
-            LOG.info("Action is ============" + action.toString());
-            LOG.info("The model id is ==============" + actionModel.getId());
-
-        }
-
+        actionModel.setSpeedX(speedX);
+        actionModel.setSpeedY(speedY);
+        action.doAction(actionModel);
         LOG.info("Setting multiplayer action");
-
-
-
     }
 
     public ObjectMessage createStartSignal(String data) {

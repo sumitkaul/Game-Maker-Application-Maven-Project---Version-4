@@ -64,7 +64,7 @@ public class Receiver implements MessageListener {
 						+ objectMessage.getObject());
 				//MultiPlayerOption.getInstanceOf().readyGameFrame();
 			} else if (data instanceof HashMap) {
-				HashMap<GameAction, String> actionData = (HashMap<GameAction, String>) data;
+				HashMap<String, Object> actionData = (HashMap<String, Object>) data;
 				Protocol protocol = new Protocol();
 				protocol.setMultiplayerAction(actionData);
 				LOG.info("The data is HashMap type" + objectMessage.getObject());

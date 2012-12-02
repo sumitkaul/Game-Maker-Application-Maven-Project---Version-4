@@ -36,7 +36,7 @@ public final class SessionFactory {
 	
 
 	public void createConnection(){
-		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://129.79.247.5:61616");
+		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://129.79.247.5:61616?jms.useAsyncSend=true");
 
         // Create a Connection
         connection=null;
