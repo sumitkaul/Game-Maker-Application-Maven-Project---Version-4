@@ -1,6 +1,6 @@
 package controllers;
 
-import junit.framework.Assert;
+import static org.junit.Assert.*;
 
 import org.jboss.logging.Logger;
 import org.junit.Before;
@@ -34,17 +34,20 @@ public class InsertDeleteRecordsControllerTest {
 
 		try {
 			int returnedValue = 1;
-			PowerMockito.when(DatabaseHandler.class, DatabaseHandler.executeQuery((String) Matchers.any())).thenReturn(
-					returnedValue);
+			PowerMockito.when(DatabaseHandler.class,
+					"executeQuery", ((String) Matchers.any()))
+					.thenReturn(returnedValue);
 			String value = gson.toJson(false);
 			String sqlQuery = "delete from HostedGameBases where hostname=\"m\"";
 			String actualVal = controller.deleteHostedGameBaseRecord(sqlQuery);
 			if (value.equals(actualVal))
-				Assert.assertTrue(true);
+				assertTrue(true);
 			else
-				Assert.assertTrue(false);
+				assertTrue(false);
 		} catch (Exception e) {
-			Logger.getLogger(InsertDeleteRecordsControllerTest.class).debug(e.getMessage());
+			Logger.getLogger(InsertDeleteRecordsControllerTest.class).debug(
+					e.getMessage());
+			fail(e.toString());
 		}
 	}
 }
