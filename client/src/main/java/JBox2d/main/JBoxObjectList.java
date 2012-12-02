@@ -4,17 +4,13 @@
  */
 package JBox2d.main;
 
-import java.util.ArrayList;
+
 import java.util.LinkedHashMap;
-import java.util.List;
+
 import java.util.Map;
-import model.SpriteModel;
+
 import org.jbox2d.dynamics.Body;
 
-/**
- *
- * @author ralekar
- */
 public class JBoxObjectList {
 
     public static Map<String,Body>mapJBoxSpriteModel;

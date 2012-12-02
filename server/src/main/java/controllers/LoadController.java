@@ -1,20 +1,10 @@
 package controllers;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.hibernate.Session;
 import org.jboss.logging.Logger;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

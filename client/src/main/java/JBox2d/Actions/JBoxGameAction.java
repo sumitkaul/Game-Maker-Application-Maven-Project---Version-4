@@ -6,10 +6,6 @@ package JBox2d.Actions;
 
 import org.jbox2d.dynamics.Body;
 
-/**
- *
- * @author ralekar
- */
 public interface JBoxGameAction {
     
     public void doAction(Body body);

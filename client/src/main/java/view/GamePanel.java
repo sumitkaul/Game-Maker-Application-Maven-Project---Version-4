@@ -19,15 +19,11 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-
-//import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
-
 import model.SpriteModel;
 
 import utility.Constants;
 import utility.Helper;
 import utility.SpriteList;
-import view.imagePanel.ImagePanel;
 
 
 public class GamePanel extends JPanel implements KeyListener{
@@ -299,5 +295,6 @@ public class GamePanel extends JPanel implements KeyListener{
 		}
 		removeAllDrawables();
 		repaint();
+		//ClockDisplay.getInstance().setEnabled(false);
 	}
 }

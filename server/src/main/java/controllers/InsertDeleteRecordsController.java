@@ -1,14 +1,8 @@
 package controllers;
 
-import java.math.BigInteger;
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.jboss.logging.Logger;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,8 +13,6 @@ import com.google.gson.Gson;
 
 import db.DatabaseHandler;
 import db.HostedGameBaseRecord;
-import db.Resources;
-import db.User;
 
 @Controller
 public class InsertDeleteRecordsController {

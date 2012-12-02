@@ -44,7 +44,7 @@ public class OneToOneReceiver implements Runnable {
 			this.chatPanel=chatPanel;
 			receiverThread.start();
 		} catch (Exception ex) {
-
+			LOG.error(ex);
 		}
 
 	}

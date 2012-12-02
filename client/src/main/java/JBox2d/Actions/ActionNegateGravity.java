@@ -7,10 +7,6 @@ package JBox2d.Actions;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 
-/**
- *
- * @author ralekar
- */
 public class ActionNegateGravity implements JBoxGameAction{
     
     public ActionNegateGravity()

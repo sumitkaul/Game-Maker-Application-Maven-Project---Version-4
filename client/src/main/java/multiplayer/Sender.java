@@ -4,7 +4,7 @@ import java.awt.Toolkit;
 
 import javax.jms.JMSException;
 
-import model.SpriteModel;
+
 import action.GameAction;
 
 public class Sender {

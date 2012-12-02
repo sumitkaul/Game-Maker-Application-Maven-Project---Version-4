@@ -2,10 +2,10 @@ package action;
 
 import java.io.Serializable;
 
-import view.PlayerButtonPanel;
+
 
 import model.SpriteModel;
-import multiplayer.Protocol;
+
 
 @SuppressWarnings("serial")
 public class ActionMove implements GameAction,Serializable {

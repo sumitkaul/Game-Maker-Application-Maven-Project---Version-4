@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import model.SpriteModel;
-import view.GameMakerView;
+
 import view.GamePanel;
 
 public class SpriteList implements Serializable {

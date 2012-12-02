@@ -1,31 +1,15 @@
 package view;
 
-import game.engine.slick2d.player.GameEngineController;
-
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collection;
-import java.util.List;
-import java.util.Queue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import loader.GameDataPackageIO;
 import loader.GamePackage;
-import model.SpriteModel;
 import net.miginfocom.swing.MigLayout;
-
-import org.newdawn.slick.CanvasGameContainer;
-import org.newdawn.slick.SlickException;
-
-import utility.ClockDisplay;
 import utility.Helper;
 import utility.SpriteList;
 import view.companels.GameProgressLoadPanel;

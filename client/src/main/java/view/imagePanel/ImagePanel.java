@@ -2,8 +2,6 @@ package view.imagePanel;
 
 import imagewizard.MyFilter;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;

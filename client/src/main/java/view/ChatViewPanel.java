@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import model.Player;
+
 import chat.ChatReceiver;
 import chat.ChatSender;
 import chat.OneToOneReceiver;

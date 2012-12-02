@@ -1,13 +1,9 @@
 package view;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
-import loader.GameDataPackageIO;
 import model.GameProgressSaveInfo;
-import multiplayer.Receiver;
 import utility.Constants;
 import view.communication.ClientHandler;
 
@@ -34,7 +30,10 @@ public class JoinGame {
             JOptionPane.showMessageDialog(rootComp, ex.toString());
             return null;
         }
-        LOG.info("The gamenames are " + gameNames);
+
+        for (int i=0;i<gameNames.length;i++)
+        	LOG.info("The gamenames are " + gameNames[i]);
+        
         String chosen = (String) JOptionPane.showInputDialog(
                 rootComp,
                 "List of join games :",

@@ -14,10 +14,7 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
-/**
- *
- * @author ralekar
- */
+
 public class JBoxSpriteModel {
     private SpriteModel spriteModel;
     private Body body;
