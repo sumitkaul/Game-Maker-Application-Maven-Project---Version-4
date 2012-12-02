@@ -8,10 +8,6 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.lwjgl.input.Mouse;
 
-/**
- *
- * @author ralekar
- */
 public class ActionProjectileMotion implements JBoxGameAction {
 
     

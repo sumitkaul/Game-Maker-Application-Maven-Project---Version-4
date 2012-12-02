@@ -6,7 +6,7 @@ import java.io.Serializable;
 import org.jbox2d.dynamics.Body;
 
 import utility.Score;
-import model.SpriteModel;
+
 
 
 @SuppressWarnings("serial")

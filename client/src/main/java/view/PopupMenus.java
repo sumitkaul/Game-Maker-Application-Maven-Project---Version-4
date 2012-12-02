@@ -3,19 +3,12 @@ package view;
 
 import java.awt.Component;
 
-import java.awt.Container;
-import java.awt.List;
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.PopupFactory;
-
 import facade.Facade;
-
 import model.SpriteModel;
 
 import utility.Helper;

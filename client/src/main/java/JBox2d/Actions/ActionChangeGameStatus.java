@@ -8,7 +8,7 @@ import org.jbox2d.dynamics.Body;
 import facade.Facade;
 
 import utility.Helper;
-import view.GameMakerView;
+
 
 public class ActionChangeGameStatus implements JBoxGameAction,Serializable {
 

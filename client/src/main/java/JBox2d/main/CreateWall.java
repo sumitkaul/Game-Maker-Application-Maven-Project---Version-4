@@ -1,10 +1,10 @@
 
 package JBox2d.main;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
+
 import model.SpriteModel;
 import utility.Constants;
 public class CreateWall {
