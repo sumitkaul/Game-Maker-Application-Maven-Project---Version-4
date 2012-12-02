@@ -24,13 +24,11 @@ import static org.mockito.Mockito.never;
 
 
 
-/**
- *
- * @author Pranav
- */
+
 public class AuthReceiverTest {
     private AuthReceiver actual;
     private AuthReceiver mock;
+    private Thread t;
     public AuthReceiverTest() {
     }
 
@@ -46,19 +44,26 @@ public class AuthReceiverTest {
     public void setUp() {
         actual = new AuthReceiver("test");
         mock= mock(AuthReceiver.class);
+        t=new Thread(mock);
+                
+                
     }
     
     @After
-    public void tearDown() {
+    public void tearDown() throws Exception{
         actual=null;    
         mock =null;
+       // t.stop();
     }
 
     /**
      * Test of run method, of class AuthReceiver.
      */
     @Test
-    public void testRun() {
-     verify(mock,never()).run();
+    public void testRun() throws Exception {
+        t.start();
+       
+     verify(mock,times(1)).run();
+     t.stop();
     }
 }
