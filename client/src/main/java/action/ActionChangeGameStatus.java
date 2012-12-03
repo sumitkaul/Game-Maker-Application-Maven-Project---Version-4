@@ -55,18 +55,21 @@ public class ActionChangeGameStatus implements GameAction,Serializable {
 		        if(showMessage == true)		    	
 			      JOptionPane.showMessageDialog(null, message);
 		    
-		        facade.stopGame();
+		    //    facade.stopGame();
+		        Helper.getsharedHelper().getGamePlayerView().getGameEnginePanel().requestFocus(false);
 			    isGameStopCommandIssued = YES;
 		    }
 		    if (!yReversed.intersects(obj.getBoundingBox())) {
 		    	if(showMessage == true)	
 			        JOptionPane.showMessageDialog(null, message);
-		    	facade.stopGame();
+		    	//facade.stopGame();
+		    	Helper.getsharedHelper().getGamePlayerView().getGameEnginePanel().requestFocus(false);
 			    isGameStopCommandIssued = YES;
 		    } else if (yReversed.intersects(obj.getBoundingBox()) && xReversed.intersects(obj.getBoundingBox())) {
 		        if(showMessage == true)	
 			        JOptionPane.showMessageDialog(null, message);
-		        facade.stopGame();
+		        //facade.stopGame();
+		        Helper.getsharedHelper().getGamePlayerView().getGameEnginePanel().requestFocus(false);
 			    isGameStopCommandIssued = YES;
 		    }
 		}
