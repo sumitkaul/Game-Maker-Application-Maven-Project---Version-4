@@ -1,5 +1,6 @@
 package controllers;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
@@ -37,15 +38,16 @@ public class ImageTagControllerTest {
 			List returnedValue = new ArrayList();
 			returnedValue.add(5);
 			PowerMockito.when(DatabaseHandler.class,
-					DatabaseHandler.listQuery((String) Matchers.any()))
+					"listQuery", ((String) Matchers.any()))
 					.thenReturn(returnedValue);
 			Integer count = Integer.parseInt(itc.countTag(null));
 
-			assert (count == 5);
+			assertTrue(count == 5);
 			Integer countBall = Integer.parseInt(itc.countTag("ball"));
-			assert (countBall == 5);
+			assertTrue(countBall == 5);
 		} catch (Exception e) {
 			LOG.error(e.getMessage());
+			fail(e.toString());
 		}
 
 	}
@@ -64,14 +66,15 @@ public class ImageTagControllerTest {
 			returnedValue.add("alien");
 			returnedValue.add("pacman");
 			PowerMockito.when(DatabaseHandler.class,
-					DatabaseHandler.listQuery((String) Matchers.any()))
+					"listQuery", ((String) Matchers.any()))
 					.thenReturn(returnedValue);
 
 			String tagNames = itc.getAllTagNames();
 			assertNotNull(tagNames);
-			assert (tagNames.contains("alien") && tagNames.contains("pacman"));
+			assertTrue(tagNames.contains("alien") && tagNames.contains("pacman"));
 		} catch (Exception e) {
 			LOG.error(e.getMessage());
+			fail(e.toString());
 		}
 
 	}

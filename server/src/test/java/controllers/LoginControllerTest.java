@@ -1,11 +1,15 @@
 package controllers;
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
+
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -35,18 +39,18 @@ public class LoginControllerTest {
 					"loginQuery", "asdf", "asdf").thenReturn(
 					retValue);
 			String ret = loginController.login("asdf", "asdf");
-			assert (ret == "true");
+			assertTrue(ret.equals("true"));
 
 			ArrayList<User> secondRetValue = new ArrayList<User>();
 			PowerMockito.when(DatabaseHandler.class,
 					"loginQuery", "salkdf", "sdfsdfsdf")
 					.thenReturn(secondRetValue);
 			ret = loginController.login("salkdf", "sdfsdfsdf");
-			assert (ret == "false");
+			assertTrue(ret.equals("false"));
 			
 		} catch (Exception e) {
 			LOG.error(e);
-			assert(false);
+			fail(e.toString());
 		}
 	}
 	
@@ -55,13 +59,13 @@ public class LoginControllerTest {
 		PowerMockito.mockStatic(DatabaseHandler.class);
 		try {
 			PowerMockito.when(DatabaseHandler.class, 
-					"save", new Object()).thenReturn(true);
+					"save", ((Object) Matchers.any())).thenReturn(true);
 			String ret = loginController.register("zzsfp", "zzqfp");
-			assert(ret=="true");
+			System.out.println(ret);
+			assertTrue(ret.equals("true"));
 		} catch(Exception e) {
 			LOG.error(e);
-			assert(false);
+			fail(e.toString());
 		}
 	}
-
 }
